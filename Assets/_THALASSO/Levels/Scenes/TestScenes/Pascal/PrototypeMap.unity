@@ -2453,7 +2453,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetTransform: {fileID: 98702592}
   playerCam: {fileID: 1486444236}
-  animDurationInSec: 1
+  animDurationInSec: 0.5
+  buttonUICanvas: {fileID: 0}
 --- !u!114 &1755487937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2668,7 +2669,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _version: 2
-  _crossSceneReferences: []
+  _crossSceneReferences:
+  - _sourceObject: {fileID: 1755487936}
+    _sourceField: buttonUICanvas
+    DEPRECATED_fromObject:
+      scene:
+        editorAssetGUID: 
+        name: 
+        _path: 
+      fullPath: 
+      componentName: 
+      componentIndex: 0
+      editorLocalId: 0
+      editorPrefabRelativePath: 
+      version: 0
+    _toObject:
+      scene:
+        editorAssetGUID: 7b96a24fb5b467b49ba29123be5c8750
+        name: PrototypePuzzelUI
+        _path: Assets/_THALASSO/Levels/Scenes/TestScenes/Pascal/PrototypePuzzelUI.unity
+      fullPath: /PuzzleButtonUI
+      componentName: 
+      componentIndex: 0
+      editorLocalId: 818927581
+      editorPrefabRelativePath: 
+      version: 1
+    _data:
+      data: []
   _realSceneRootsForPostBuild: []
   _mergedScenes: []
 --- !u!114 &2074060933

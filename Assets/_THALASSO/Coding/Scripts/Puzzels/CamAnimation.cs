@@ -6,6 +6,7 @@ public class CamAnimation : MonoBehaviour
     [SerializeField] private Transform targetTransform;
     [SerializeField] private GameObject playerCam;
     [SerializeField, Range(0.1f, 2f)] private float animDurationInSec = 0.5f;
+    [SerializeField] private GameObject buttonUICanvas;
 
     private Vector3 originalPosition;
     private Quaternion originalRotation;
@@ -18,7 +19,7 @@ public class CamAnimation : MonoBehaviour
             originalPosition = playerCam.transform.position;
             originalRotation = playerCam.transform.rotation;
 
-            StartCoroutine(MoveToTransform(playerCam, targetTransform, animDurationInSec));
+            StartCoroutine(MoveToTransform(playerCam, targetTransform, animDurationInSec, null, () => buttonUICanvas.SetActive(true)));
         }
     }
 
@@ -30,15 +31,19 @@ public class CamAnimation : MonoBehaviour
             originalTransform.position = originalPosition;
             originalTransform.rotation = originalRotation;
 
-            StartCoroutine(MoveToTransform(playerCam, originalTransform, animDurationInSec));
+            StartCoroutine(MoveToTransform(playerCam, originalTransform, animDurationInSec, () => buttonUICanvas.SetActive(false), null));
 
             Destroy(originalTransform.gameObject);
         }
     }
 
-    private IEnumerator MoveToTransform(GameObject _movingObject, Transform _target, float _duration)
+    private IEnumerator MoveToTransform(GameObject _movingObject, Transform _target, float _duration, System.Action onStart, System.Action onComplete)
     {
-        Debug.Log(_duration);
+        if (onStart != null)
+        {
+            onStart.Invoke();
+        }
+
         isMoving = true;
         Vector3 startPosition = _movingObject.transform.position;
         Quaternion startRotation = _movingObject.transform.rotation;
@@ -62,5 +67,10 @@ public class CamAnimation : MonoBehaviour
         _movingObject.transform.position = targetPosition;
         _movingObject.transform.rotation = targetRotation;
         isMoving = false;
+
+        if (onComplete != null)
+        {
+            onComplete.Invoke();
+        }
     }
 }
