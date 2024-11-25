@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -5,6 +6,10 @@ public class PuzzleTileRotator : MonoBehaviour
 {
     public float rotationDuration = 1f;
     private bool isRotating = false;
+
+    private int curRotation = 0;
+
+    public static event Action<GameObject,int> tileWasUpdated;
 
     public void OnRotateClick()
     {
@@ -14,7 +19,7 @@ public class PuzzleTileRotator : MonoBehaviour
         }
     }
 
-    private IEnumerator RotateOverTime(float _angle, float _duration)
+    private IEnumerator RotateOverTime(int _angle, float _duration)
     {
         isRotating = true;
         float elapsed = 0f;
@@ -30,5 +35,11 @@ public class PuzzleTileRotator : MonoBehaviour
 
         transform.Rotate(new Vector3(_angle - (rotationStep * elapsed), 0, 0), Space.World);
         isRotating = false;
+
+        curRotation += _angle;
+        if (curRotation > 360)
+            curRotation -= 360;
+
+        tileWasUpdated.Invoke(this.gameObject,curRotation);
     }
 }
