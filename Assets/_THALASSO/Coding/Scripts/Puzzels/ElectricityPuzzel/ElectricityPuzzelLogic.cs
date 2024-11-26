@@ -66,98 +66,144 @@ public class ElectricityPuzzelLogic : MonoBehaviour
         }
     }
 
-    private List<GameObject> activeTiles = new List<GameObject>();
+    private List<Vector2Int> activeTiles = new List<Vector2Int>();
 
-    public void OnFieldGotUpdate(GameObject _updatedTile, int _curRotation)
+    public void OnFieldGotUpdate(GameObject _updatedTile)
     {
+        int updatedTileCurRotation = _updatedTile.GetComponent<PuzzleTileRotator>().curRotation;
+
         GameObject startTile = tileField[0, 0];
         GameObject endTile = tileField[4, 2];
+
         if (_updatedTile == startTile)
         {
-            int rotSteps = GetRotationSteps(_curRotation);
+            int rotSteps = GetRotationSteps(updatedTileCurRotation);
             directions[] typeDirections = GetConnectionsForTileType(_updatedTile);
             directions[] relativeDirections = ConvertDefaultConnectionIntoRotationRelative(typeDirections, rotSteps);
 
             if (relativeDirections.Contains(directions.U))
             {
-                _updatedTile.transform.localPosition = new Vector3(0.03f, _updatedTile.transform.localPosition.y, _updatedTile.transform.localPosition.z);
-                activeTiles.Add(_updatedTile);
+                _updatedTile.transform.localPosition = new Vector3(0.03f, _updatedTile.transform.localPosition.y, _updatedTile.transform.localPosition.z);                  //temp visuals
+
+                if (!activeTiles.Contains(ObjToPos(_updatedTile)))
+                    activeTiles.Add(ObjToPos(_updatedTile));
             }
             else
             {
-                _updatedTile.transform.localPosition = new Vector3(0.01029964f, _updatedTile.transform.localPosition.y, _updatedTile.transform.localPosition.z);
-                activeTiles.Remove(_updatedTile);
+                _updatedTile.transform.localPosition = new Vector3(0.01029964f, _updatedTile.transform.localPosition.y, _updatedTile.transform.localPosition.z);            //temp visuals
+
+                if (activeTiles.Contains(ObjToPos(_updatedTile)))
+                    activeTiles.Remove(ObjToPos(_updatedTile));
             }
         }
         else if (_updatedTile == endTile)
         {
-            int rotSteps = GetRotationSteps(_curRotation);
+            int rotSteps = GetRotationSteps(updatedTileCurRotation);
         }
         else
         {
             List<GameObject> neighbours = GetAllNeighbours(_updatedTile);
 
-            foreach(GameObject neighbour in neighbours)
+            foreach (GameObject neighbour in neighbours)
             {
-                if(activeTiles.Contains(neighbour))
+                if (activeTiles.Contains(ObjToPos(neighbour)))
                 {
-                    //liegt output von neighbour an _updatedTile?
-                    //Überprüfung wie bei 0,0 an neighbour zu _updatedTile
-                    //Überprüfung wie bei 0,0 an _updatedTile zu neighbour
-                    //wenn ja setz auf activeTiles
+
+                    if (OriginHasConnectionToTarget(neighbour, _updatedTile) && OriginHasConnectionToTarget(_updatedTile, neighbour))
+                    {
+                        _updatedTile.transform.localPosition = new Vector3(0.03f, _updatedTile.transform.localPosition.y, _updatedTile.transform.localPosition.z);          //temp visuals
+
+                        if (!activeTiles.Contains(ObjToPos(_updatedTile)))
+                            activeTiles.Add(ObjToPos(_updatedTile));
+
+                        break;
+                    }
+                    else
+                    {
+                        _updatedTile.transform.localPosition = new Vector3(0.01029964f, _updatedTile.transform.localPosition.y, _updatedTile.transform.localPosition.z);    //temp visuals
+
+                        if (activeTiles.Contains(ObjToPos(_updatedTile)))
+                            activeTiles.Remove(ObjToPos(_updatedTile));
+                    }
                 }
             }
         }
     }
+
+
     #region Neighbours
-    private List<GameObject> GetAllNeighbours(GameObject updatedTile)
+    private List<GameObject> GetAllNeighbours(GameObject _updatedTile)
     {
         List<GameObject> neighbours = new List<GameObject>();
 
-        int row = -1, col = -1;
+        Vector2Int pos = ObjToPos(_updatedTile);
 
-        for (int r = 0; r < tileField.GetLength(0); r++)
-        {
-            for (int c = 0; c < tileField.GetLength(1); c++)
-            {
-                if (tileField[r, c] == updatedTile)
-                {
-                    row = r;
-                    col = c;
-                    break;
-                }
-            }
-        }
+        bool isOddY = pos.y % 2 == 0;
 
-        if (row == -1 || col == -1)
-            return neighbours;
+        CheckAndAddNeighbour(pos.x - 1, pos.y, neighbours);                             // up
 
-        bool isOddCol = col % 2 != 0;
+        CheckAndAddNeighbour(isOddY ? pos.x : pos.x - 1, pos.y + 1, neighbours);        // right up
+        CheckAndAddNeighbour(isOddY ? pos.x + 1 : pos.x, pos.y + 1, neighbours);    // right down
 
-        CheckAndAddNeighbour(row - 1, col, neighbours);  
-        
-        CheckAndAddNeighbour(isOddCol ? row-1 : row ,  col +1 , neighbours);
-        CheckAndAddNeighbour(isOddCol ? row  : row+ 1,   col  +1  , neighbours);  
-        
-        CheckAndAddNeighbour(row + 1, col, neighbours);  
-        
-        CheckAndAddNeighbour(isOddCol ? row  : row+ 1, col-1, neighbours);              
-        CheckAndAddNeighbour(isOddCol ? row - 1: row , col -1, neighbours);
+        CheckAndAddNeighbour(pos.x + 1, pos.y, neighbours);                             // down
+
+        CheckAndAddNeighbour(isOddY ? pos.x + 1 : pos.x, pos.y - 1, neighbours);          // left down
+        CheckAndAddNeighbour(isOddY ? pos.x : pos.x - 1, pos.y - 1, neighbours);         // left up
 
         return neighbours;
     }
 
-    private void CheckAndAddNeighbour(int neighborRow, int neighborCol, List<GameObject> neighbours)
+    private void CheckAndAddNeighbour(float _neighborRow, float _neighborCol, List<GameObject> _neighbours)
     {
-        if (neighborRow >= 0 && neighborRow < tileField.GetLength(0) &&
-            neighborCol >= 0 && neighborCol < tileField.GetLength(1))
+        if (_neighborRow >= 0 && _neighborRow < tileField.GetLength(0) &&
+            _neighborCol >= 0 && _neighborCol < tileField.GetLength(1))
         {
-            GameObject neighborTile = tileField[neighborRow, neighborCol];
+            GameObject neighborTile = tileField[(int)_neighborRow, (int)_neighborCol];
             if (neighborTile != null)
             {
-                neighbours.Add(neighborTile);
+                _neighbours.Add(neighborTile);
             }
         }
+    }
+    private directions GetConnectionDirection(GameObject _originTile, GameObject _targetTile)
+    {
+        Vector2Int posOrigin = ObjToPos(_originTile);
+        Vector2Int posTarget = ObjToPos(_targetTile);
+
+
+        bool isOddY = posOrigin.y % 2 == 0;
+
+        if (posOrigin.x - 1 == posTarget.x && posOrigin.y == posTarget.y)                               // Up
+            return directions.U;
+        if (posOrigin.x == (isOddY ? posTarget.x : posTarget.x + 1) && posOrigin.y == posTarget.y - 1) // Right Up
+            return directions.RU;
+        if (posOrigin.x == (isOddY ? posTarget.x - 1 : posTarget.x) && posOrigin.y == posTarget.y - 1) // Right Down
+            return directions.RD;
+        if (posOrigin.x + 1 == posTarget.x && posOrigin.y == posTarget.y)                              // Down
+            return directions.D;
+        if (posOrigin.x == (isOddY ? posTarget.x - 1 : posTarget.x) && posOrigin.y == posTarget.y + 1) // Left Down
+            return directions.LD;
+        if (posOrigin.x == (isOddY ? posTarget.x : posTarget.x + 1) && posOrigin.y == posTarget.y + 1) // Left Up
+            return directions.LU;
+
+        throw new System.Exception("Target Tile is not a valid neighbor of the Origin Tile what should't be possible but yeah");
+    }
+    private bool OriginHasConnectionToTarget(GameObject _origin, GameObject _target)
+    {
+        directions neededConnectionDirection = GetConnectionDirection(_origin, _target);
+        directions[] relativeDirections = GetRelativeDirections(_origin);
+
+        return relativeDirections.Contains(neededConnectionDirection);
+    }
+
+    private directions[] GetRelativeDirections(GameObject _tile)
+    {
+        int curRotation = _tile.GetComponent<PuzzleTileRotator>().curRotation;
+
+        int rotSteps = GetRotationSteps(curRotation);
+        directions[] absolutTypeDirections = GetConnectionsForTileType(_tile);
+        directions[] relativeDirections = ConvertDefaultConnectionIntoRotationRelative(absolutTypeDirections, rotSteps);
+        return relativeDirections;
     }
     #endregion
 
@@ -208,63 +254,35 @@ public class ElectricityPuzzelLogic : MonoBehaviour
         }
     }
     #endregion
-    private void PuzzleSolved()
+
+    #region DataConvertion
+    private GameObject PosInObj(Vector2Int _pos)
     {
-        Debug.Log("Puzzle Gelöst!");
+        return tileField[(int)_pos.x, (int)_pos.y];
     }
-
-    #region old code
-    private void CheckFromTile(GameObject _tileToCheckFrom)
+    private Vector2Int ObjToPos(GameObject _obj)
     {
-        int row = -1, col = -1;
+        Vector2Int pos = Vector2Int.zero;
 
-        // Suche nach der Position im Array
-        for (int r = 0; r < tileField.GetLength(0); r++)
+        for (int x = 0; x < tileField.GetLength(0); x++)
         {
-            for (int c = 0; c < tileField.GetLength(1); c++)
+            for (int y = 0; y < tileField.GetLength(1); y++)
             {
-                if (tileField[r, c] == _tileToCheckFrom)
+                if (tileField[x, y] == _obj)
                 {
-                    row = r;
-                    col = c;
+                    pos.x = x;
+                    pos.y = y;
                     break;
                 }
             }
         }
 
-        if (row == -1 || col == -1) return; // Tile nicht gefunden
-
-        // Füge das aktuelle Tile zur aktiven Liste hinzu
-        if (!activeTiles.Contains(_tileToCheckFrom))
-            activeTiles.Add(_tileToCheckFrom);
-
-        // Prüfe Nachbarn für Hexagone
-        bool isOddRow = row % 2 != 0;
-
-        CheckNeighbor(row - 1, col, _tileToCheckFrom, directions.D, directions.U);              // U (oben)
-        CheckNeighbor(row - 1, isOddRow ? col + 1 : col - 1, _tileToCheckFrom, directions.RD, directions.LU); // RU
-        CheckNeighbor(row, col + 1, _tileToCheckFrom, directions.LD, directions.RU);           // Rechts
-        CheckNeighbor(row + 1, isOddRow ? col + 1 : col - 1, _tileToCheckFrom, directions.LU, directions.RD); // RD
-        CheckNeighbor(row + 1, col, _tileToCheckFrom, directions.U, directions.D);             // Unten
-        CheckNeighbor(row, col - 1, _tileToCheckFrom, directions.RU, directions.LD);           // Links
+        return pos;
     }
-
-    private void CheckNeighbor(int neighborRow, int neighborCol, GameObject currentTile, directions myDirection, directions neighborDirection)
-    {
-        if (neighborRow < 0 || neighborRow >= tileField.GetLength(0) || neighborCol < 0 || neighborCol >= tileField.GetLength(1))
-            return;
-
-        GameObject neighborTile = tileField[neighborRow, neighborCol];
-
-        // Hole die TileType-Namen aus den GameObject-Namen
-        string currentTileType = currentTile.name;
-        string neighborTileType = neighborTile.name;
-
-    }
-
-    // Methode, um die Verbindungen eines TileTypes aus dem ScriptableObject zu holen
-
     #endregion
 
-
+    private void PuzzleSolved()
+    {
+        Debug.Log("Puzzle Gelöst!");
+    }
 }
