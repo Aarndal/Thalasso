@@ -398,39 +398,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8225338470686776699, guid: 7c90aba139351614683e37dace9cac0f, type: 3}
   m_PrefabInstance: {fileID: 164843856}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &167858780
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 167858781}
-  m_Layer: 0
-  m_Name: Windows
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &167858781
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 167858780}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1656375958}
-  - {fileID: 585588975}
-  m_Father: {fileID: 1338503502}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &183297417
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -503,7 +470,7 @@ GameObject:
   m_Component:
   - component: {fileID: 221240412}
   m_Layer: 0
-  m_Name: OuterDoors
+  m_Name: Outer_Doors
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -845,7 +812,7 @@ GameObject:
   m_Component:
   - component: {fileID: 341191937}
   m_Layer: 0
-  m_Name: InnerDoors
+  m_Name: Inner_Doors
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1865,37 +1832,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6305485972447216751, guid: 891222999c171bd44991ad1f1b95dff5, type: 3}
   m_PrefabInstance: {fileID: 568889529}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &585588974
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 585588975}
-  m_Layer: 0
-  m_Name: OuterWindows
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &585588975
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 585588974}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 167858781}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &596662695
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2063,7 +1999,7 @@ GameObject:
   m_Component:
   - component: {fileID: 605755027}
   m_Layer: 0
-  m_Name: OuterWalls
+  m_Name: Outer_Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4545,7 +4481,6 @@ Transform:
   m_Children:
   - {fileID: 1925104280}
   - {fileID: 604517374}
-  - {fileID: 167858781}
   - {fileID: 1381678706}
   - {fileID: 70094810}
   - {fileID: 1283556229}
@@ -5583,7 +5518,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1470483279}
   m_Layer: 0
-  m_Name: InnerWalls
+  m_Name: Inner_Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6050,37 +5985,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6305485972447216751, guid: 891222999c171bd44991ad1f1b95dff5, type: 3}
   m_PrefabInstance: {fileID: 1614052695}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1656375957
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1656375958}
-  m_Layer: 0
-  m_Name: InnerWindows
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1656375958
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1656375957}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 167858781}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1696599554
 PrefabInstance:
   m_ObjectHideFlags: 0
