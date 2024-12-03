@@ -30,7 +30,6 @@ public class PuzzleColliderLogic : MonoBehaviour
         bool isfocused = false;
         while (true)
         {
-            Debug.Log("acceptInput");
             if (Input.GetKeyDown(KeyCode.E))
             {
                 if (!isfocused)
