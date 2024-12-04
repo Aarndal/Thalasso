@@ -20,7 +20,7 @@ public class CamAnimation : MonoBehaviour
             originalPosition = playerCam.transform.position;
             originalRotation = playerCam.transform.rotation;
 
-            StartCoroutine(MoveToTransform(playerCam, targetTransform, animDurationInSec, null, () => buttonUICanvas.SetActive(true)));
+            StartCoroutine(MoveToTransform(playerCam, targetTransform, animDurationInSec, null, () => { buttonUICanvas.SetActive(true); Cursor.lockState = CursorLockMode.None; }));
         }
     }
 
@@ -32,7 +32,7 @@ public class CamAnimation : MonoBehaviour
             originalTransform.position = originalPosition;
             originalTransform.rotation = originalRotation;
 
-            StartCoroutine(MoveToTransform(playerCam, originalTransform, animDurationInSec, () => { buttonUICanvas.SetActive(false); cinemachineCamera.enabled = true; }, null));
+            StartCoroutine(MoveToTransform(playerCam, originalTransform, animDurationInSec, () => { buttonUICanvas.SetActive(false); }, () => { cinemachineCamera.enabled = true; Cursor.lockState = CursorLockMode.Locked; }));
 
             Destroy(originalTransform.gameObject);
         }

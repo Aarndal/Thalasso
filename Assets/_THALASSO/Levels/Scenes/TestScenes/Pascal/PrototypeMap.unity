@@ -742,6 +742,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 565302449}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &648627056 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3940138479737352813, guid: 868c0f7c965fc7f40b0296349e701191, type: 3}
+  m_PrefabInstance: {fileID: 1872992863}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &818927581
 GameObject:
   m_ObjectHideFlags: 0
@@ -2203,6 +2214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTag: Player
+  cinemachineCamera: {fileID: 648627056}
 --- !u!114 &1755487938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2246,9 +2258,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2112947734352982708, guid: 868c0f7c965fc7f40b0296349e701191, type: 3}
+      propertyPath: field of view
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 2112947734352982708, guid: 868c0f7c965fc7f40b0296349e701191, type: 3}
+      propertyPath: m_FocalLength
+      value: 21.982569
+      objectReference: {fileID: 0}
+    - target: {fileID: 2112947734352982708, guid: 868c0f7c965fc7f40b0296349e701191, type: 3}
+      propertyPath: m_SensorSize.x
+      value: 21.946
+      objectReference: {fileID: 0}
+    - target: {fileID: 2112947734352982708, guid: 868c0f7c965fc7f40b0296349e701191, type: 3}
+      propertyPath: m_SensorSize.y
+      value: 16.002
+      objectReference: {fileID: 0}
+    - target: {fileID: 2112947734352982708, guid: 868c0f7c965fc7f40b0296349e701191, type: 3}
+      propertyPath: m_projectionMatrixMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3940138479737352813, guid: 868c0f7c965fc7f40b0296349e701191, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3940138479737352813, guid: 868c0f7c965fc7f40b0296349e701191, type: 3}
+      propertyPath: m_Lens.FieldOfView
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 5402692798409858944, guid: 868c0f7c965fc7f40b0296349e701191, type: 3}
       propertyPath: m_Name

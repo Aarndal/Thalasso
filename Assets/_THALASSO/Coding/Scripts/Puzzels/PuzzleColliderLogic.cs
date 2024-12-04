@@ -1,6 +1,7 @@
 using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 
 public class PuzzleColliderLogic : MonoBehaviour
 {
