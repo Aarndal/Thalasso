@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class CamAnimation : MonoBehaviour
@@ -23,7 +24,7 @@ public class CamAnimation : MonoBehaviour
         }
     }
 
-    public void UnfocusPuzzle()
+    public void UnfocusPuzzle(CinemachineVirtualCamera cinemachineCamera)
     {
         if (!isMoving)
         {
@@ -31,7 +32,7 @@ public class CamAnimation : MonoBehaviour
             originalTransform.position = originalPosition;
             originalTransform.rotation = originalRotation;
 
-            StartCoroutine(MoveToTransform(playerCam, originalTransform, animDurationInSec, () => buttonUICanvas.SetActive(false), null));
+            StartCoroutine(MoveToTransform(playerCam, originalTransform, animDurationInSec, () => { buttonUICanvas.SetActive(false); cinemachineCamera.enabled = true; }, null));
 
             Destroy(originalTransform.gameObject);
         }
