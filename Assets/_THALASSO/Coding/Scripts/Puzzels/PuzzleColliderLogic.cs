@@ -4,12 +4,14 @@ using UnityEngine;
 public class PuzzleColliderLogic : MonoBehaviour
 {
     [SerializeField] private string playerTag;
-    private CamAnimation camAnim;
+    [SerializeField] private Transform targetCamera;
+    [SerializeField] private float transitionduration;
+    [SerializeField] private AnimationCurve animationSpeedCurve;
+
     private Coroutine curCoroutine;
-    private void Start()
-    {
-        camAnim = GetComponent<CamAnimation>();
-    }
+    private Transform originTransform;
+
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag(playerTag))
@@ -28,19 +30,21 @@ public class PuzzleColliderLogic : MonoBehaviour
     private IEnumerator AcceptInput()
     {
         bool isfocused = false;
+
         while (true)
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
                 if (!isfocused)
                 {
-                    camAnim.FocusPuzzle();
-                    isfocused = true;
+                    originTransform.position = Camera.main.transform.position;
+                    originTransform.rotation = Camera.main.transform.rotation;
+
+                    CamTransitionSystem.Instance.TransitionPosRot(Camera.main.gameObject, targetCamera, transitionduration, animationSpeedCurve, null, () => isfocused = true);
                 }
                 else
                 {
-                    camAnim.UnfocusPuzzle();
-                    isfocused = false;
+                    CamTransitionSystem.Instance.TransitionPosRot(Camera.main.gameObject, originTransform, transitionduration, animationSpeedCurve, null, () => isfocused = false);
                 }
             }
             yield return null;
