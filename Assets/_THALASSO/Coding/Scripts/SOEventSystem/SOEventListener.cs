@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class GameEventListener : MonoBehaviour
+public class SOEventListener : MonoBehaviour
 {
-    public GameEvent gameEvent;
+    public SO_Event gameEvent;
     public UnityEvent onEventRaised;
 
     private void OnEnable()

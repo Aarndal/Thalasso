@@ -1,11 +1,11 @@
 using System;
 
 [Serializable]
-public class BoolReference
+public class SOBoolReference
 {
     public bool useReference = true;
     public bool constantValue;
-    public BoolVariable boolVariable;
+    public SO_BoolVariable boolVariable;
 
     public bool Value
     {

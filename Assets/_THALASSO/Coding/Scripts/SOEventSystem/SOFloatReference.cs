@@ -1,11 +1,11 @@
 using System;
 
 [Serializable]
-public class FloatReference
+public class SOFloatReference
 {
     public bool useReference = true;
     public float constantValue;
-    public FloatVariable floatVariable;
+    public SO_FloatVariable floatVariable;
 
     public float Value
     {
