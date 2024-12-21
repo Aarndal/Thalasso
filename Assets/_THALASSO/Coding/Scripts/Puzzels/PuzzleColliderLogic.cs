@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PuzzleColliderLogic : MonoBehaviour
 {
@@ -8,9 +9,16 @@ public class PuzzleColliderLogic : MonoBehaviour
     [SerializeField] private float transitionduration;
     [SerializeField] private AnimationCurve animationSpeedCurve;
 
-    private Coroutine curCoroutine;
-    private Transform originTransform;
+    private PlayerInput playerInput;
 
+    private Coroutine curCoroutine;
+    private Vector3 originTransformPosition;
+    private Quaternion originTransformRotation;
+
+    private void Start()
+    {
+        playerInput = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInput>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -37,17 +45,29 @@ public class PuzzleColliderLogic : MonoBehaviour
             {
                 if (!isfocused)
                 {
-                    originTransform.position = Camera.main.transform.position;
-                    originTransform.rotation = Camera.main.transform.rotation;
+                    originTransformPosition = Camera.main.transform.position;
+                    originTransformRotation = Camera.main.transform.rotation;
 
-                    CamTransitionSystem.Instance.TransitionPosRot(Camera.main.gameObject, targetCamera, transitionduration, animationSpeedCurve, null, () => isfocused = true);
+                    CamTransitionSystem.Instance.TransitionPosRot(Camera.main.gameObject, targetCamera, transitionduration, animationSpeedCurve, () => playerInput.ActivateInput(), () => isfocused = true);
                 }
                 else
                 {
-                    CamTransitionSystem.Instance.TransitionPosRot(Camera.main.gameObject, originTransform, transitionduration, animationSpeedCurve, null, () => isfocused = false);
+                    CamTransitionSystem.Instance.TransitionPosRot(Camera.main.gameObject, PosRotToTransform(originTransformPosition,originTransformRotation), transitionduration, animationSpeedCurve, null, () =>
+                    {
+                        isfocused = false;
+                        playerInput.DeactivateInput();
+                    });
                 }
             }
             yield return null;
         }
+    }
+
+    public Transform PosRotToTransform(Vector3 position, Quaternion rotation)
+    {
+        GameObject transform = new GameObject("temp");
+        transform.transform.position = position;
+        transform.transform.rotation = rotation;
+        return transform.transform;
     }
 }
