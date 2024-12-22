@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class ElectricityPuzzelLogic : MonoBehaviour
+public class ElectricityPuzzleLogic : MonoBehaviour
 {
     [SerializeField] GameObject[] tileFieldInput;
     private GameObject[,] tileField = new GameObject[5, 3];
@@ -24,6 +24,7 @@ public class ElectricityPuzzelLogic : MonoBehaviour
     {
         SortTileInput();
         RandomizeTiles();
+        OnFieldGotUpdate(tileField[0, 0]);
     }
 
     private void SortTileInput()
@@ -87,6 +88,11 @@ public class ElectricityPuzzelLogic : MonoBehaviour
 
                 if (!activeTiles.Contains(ObjToPos(_updatedTile)))
                     activeTiles.Add(ObjToPos(_updatedTile));
+
+                List<GameObject> neighbours = GetAllNeighbours(_updatedTile);
+                foreach (GameObject neighbour in neighbours)
+                    if (activeTiles.Contains(ObjToPos(neighbour)))
+                        OnFieldGotUpdate(neighbour);
             }
             else
             {
@@ -99,6 +105,39 @@ public class ElectricityPuzzelLogic : MonoBehaviour
         else if (_updatedTile == endTile)
         {
             int rotSteps = GetRotationSteps(updatedTileCurRotation);
+            directions[] typeDirections = GetConnectionsForTileType(_updatedTile);
+            directions[] relativeDirections = ConvertDefaultConnectionIntoRotationRelative(typeDirections, rotSteps);
+
+            List<GameObject> neighbours = GetAllNeighbours(_updatedTile);
+
+            foreach (GameObject neighbour in neighbours)
+            {
+                if (activeTiles.Contains(ObjToPos(neighbour)))
+                {
+
+                    if (OriginHasConnectionToTarget(neighbour, _updatedTile) && OriginHasConnectionToTarget(_updatedTile, neighbour) && relativeDirections.Contains(directions.D))
+                    {
+                        _updatedTile.transform.localPosition = new Vector3(0.03f, _updatedTile.transform.localPosition.y, _updatedTile.transform.localPosition.z);          //temp visuals
+
+                        if (!activeTiles.Contains(ObjToPos(_updatedTile)))
+                            activeTiles.Add(ObjToPos(_updatedTile));
+
+                        foreach (GameObject neighbour2 in neighbours)
+                            if (!activeTiles.Contains(ObjToPos(neighbour)))
+                                OnFieldGotUpdate(neighbour2);
+
+                        break;
+                    }
+
+                    else
+                    {
+                        _updatedTile.transform.localPosition = new Vector3(0.01029964f, _updatedTile.transform.localPosition.y, _updatedTile.transform.localPosition.z);            //temp visuals
+
+                        if (activeTiles.Contains(ObjToPos(_updatedTile)))
+                            activeTiles.Remove(ObjToPos(_updatedTile));
+                    }
+                }
+            }
         }
         else
         {
@@ -116,6 +155,10 @@ public class ElectricityPuzzelLogic : MonoBehaviour
                         if (!activeTiles.Contains(ObjToPos(_updatedTile)))
                             activeTiles.Add(ObjToPos(_updatedTile));
 
+                        foreach (GameObject neighbour2 in neighbours)
+                            if (!activeTiles.Contains(ObjToPos(neighbour)))
+                                OnFieldGotUpdate(neighbour2);
+
                         break;
                     }
                     else
@@ -127,6 +170,11 @@ public class ElectricityPuzzelLogic : MonoBehaviour
                     }
                 }
             }
+        }
+
+        if (activeTiles.Contains(ObjToPos(endTile)))
+        {
+            PuzzleSolved();
         }
     }
 
