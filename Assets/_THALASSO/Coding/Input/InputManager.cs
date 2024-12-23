@@ -34,9 +34,9 @@ public class InputManager : MonoBehaviour
     public static event Action OnJumpGlobal;
     public static event Action OnSprintGlobal;
     public static event Action OnInteractGlobal;
-    private bool blockInput;
-    private bool blockPlayerMov;
-    private bool blockPlayerRot;
+    private bool blockInput = false;
+    private bool blockPlayerMov = false;
+    private bool blockPlayerRot = false;
 
 
 #if ENABLE_INPUT_SYSTEM
