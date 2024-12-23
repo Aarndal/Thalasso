@@ -9,7 +9,7 @@ public static class GlobalEventBus
 
     static GlobalEventBus() => EventListener = new();
 
-    public static void Register(int eventTypeID, EventFunction eventFunction) // Subscribe
+    public static void Register(int eventTypeID, EventFunction listenerEventFunction) // Subscribe
     {
         List<EventFunction> eventFunctions;
 
@@ -19,20 +19,20 @@ public static class GlobalEventBus
             EventListener.Add(eventTypeID, eventFunctions);
         }
 
-        eventFunctions.Add(eventFunction);
+        eventFunctions.Add(listenerEventFunction);
     }
 
-    public static void Deregister(int eventTypeID, EventFunction eventFunction) // Unsubscribe
+    public static void Deregister(int eventTypeID, EventFunction listenerEventFunction) // Unsubscribe
     {
         List<EventFunction> eventFunctions;
 
         if (!EventListener.TryGetValue(eventTypeID, out eventFunctions))
             return;
 
-        eventFunctions.Remove(eventFunction);
+        eventFunctions.Remove(listenerEventFunction);
     }
 
-    public static void Raise(int eventTypeID, params object[] data) // Push
+    public static void Raise(int eventTypeID, params object[] data) // Push/Publish
     {
         List<EventFunction> eventFunctions;
 
