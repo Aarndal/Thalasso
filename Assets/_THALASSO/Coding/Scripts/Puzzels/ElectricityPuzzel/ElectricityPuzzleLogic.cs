@@ -38,7 +38,7 @@ public class ElectricityPuzzleLogic : MonoBehaviour
             {
                 if (index < tileFieldInput.Length)
                 {
-                    tileField[row, col] = tileFieldInput[index]; 
+                    tileField[row, col] = tileFieldInput[index];
                     tileFieldButtonsInput[index].onClick.AddListener(tileFieldInput[index].GetComponent<PuzzleTileRotator>().OnRotateClick);
                     index++;
                 }
@@ -73,10 +73,9 @@ public class ElectricityPuzzleLogic : MonoBehaviour
     private List<Vector2Int> activeTiles = new List<Vector2Int>();
     private List<Vector2Int> updatedInThisLoop = new List<Vector2Int>();
 
-    private GameObject originTile;
     public void OnFieldGotUpdate(GameObject _updatedTile)
     {
-        if (originTile == _updatedTile)
+        if (updatedInThisLoop.Contains(ObjToPos(_updatedTile)))
             return;
 
         int updatedTileCurRotation = _updatedTile.GetComponent<PuzzleTileRotator>().curRotation;
@@ -97,25 +96,25 @@ public class ElectricityPuzzleLogic : MonoBehaviour
                 if (!activeTiles.Contains(ObjToPos(_updatedTile)))
                 {
                     activeTiles.Add(ObjToPos(_updatedTile));
-                    updatedInThisLoop.Add(ObjToPos(_updatedTile));
                 }
 
-                originTile = _updatedTile;
 
-                List<GameObject> neighbours = GetAllNeighbours(_updatedTile);
-                foreach (GameObject neighbour in neighbours)
-                    if (!updatedInThisLoop.Contains(ObjToPos(neighbour)))
-                        OnFieldGotUpdate(neighbour);
+                updatedInThisLoop.Add(ObjToPos(_updatedTile));
+                UpdateNeighbour(_updatedTile);
             }
             else
             {
                 _updatedTile.transform.localPosition = new Vector3(0.01029964f, _updatedTile.transform.localPosition.y, _updatedTile.transform.localPosition.z);            //temp visuals
 
                 if (activeTiles.Contains(ObjToPos(_updatedTile)))
+                {
                     activeTiles.Remove(ObjToPos(_updatedTile));
-
-                updatedInThisLoop.Add(ObjToPos(_updatedTile));
+                    UpdateNeighbour(_updatedTile);
+                }
             }
+
+            if (updatedInThisLoop.Contains(ObjToPos(_updatedTile)))
+                updatedInThisLoop.Add(ObjToPos(_updatedTile));
         }
         else if (_updatedTile == endTile)
         {
@@ -124,6 +123,8 @@ public class ElectricityPuzzleLogic : MonoBehaviour
             directions[] relativeDirections = ConvertDefaultConnectionIntoRotationRelative(typeDirections, rotSteps);
 
             List<GameObject> neighbours = GetAllNeighbours(_updatedTile);
+
+            bool hasActiveConnection = false;
 
             foreach (GameObject neighbour in neighbours)
             {
@@ -137,33 +138,37 @@ public class ElectricityPuzzleLogic : MonoBehaviour
                         if (!activeTiles.Contains(ObjToPos(_updatedTile)))
                         {
                             activeTiles.Add(ObjToPos(_updatedTile));
-                            updatedInThisLoop.Add(ObjToPos(_updatedTile));
                         }
 
-                        originTile = _updatedTile;
-
-                        foreach (GameObject neighbour2 in neighbours)
-                            if (!updatedInThisLoop.Contains(ObjToPos(neighbour2)))
-                                OnFieldGotUpdate(neighbour2);
-
-                        break;
-                    }
-
-                    else
-                    {
-                        _updatedTile.transform.localPosition = new Vector3(0.01029964f, _updatedTile.transform.localPosition.y, _updatedTile.transform.localPosition.z);            //temp visuals
-
-                        if (activeTiles.Contains(ObjToPos(_updatedTile)))
-                            activeTiles.Remove(ObjToPos(_updatedTile));
 
                         updatedInThisLoop.Add(ObjToPos(_updatedTile));
+                        UpdateNeighbour(_updatedTile);
+
+                        hasActiveConnection = true;
+                        break;
                     }
                 }
             }
+
+            if (!hasActiveConnection)
+            {
+                _updatedTile.transform.localPosition = new Vector3(0.01029964f, _updatedTile.transform.localPosition.y, _updatedTile.transform.localPosition.z);    //temp visuals
+
+                if (activeTiles.Contains(ObjToPos(_updatedTile)))
+                {
+                    activeTiles.Remove(ObjToPos(_updatedTile));
+                    UpdateNeighbour(_updatedTile);
+                }
+            }
+
+            if (updatedInThisLoop.Contains(ObjToPos(_updatedTile)))
+                updatedInThisLoop.Add(ObjToPos(_updatedTile));
         }
         else
         {
             List<GameObject> neighbours = GetAllNeighbours(_updatedTile);
+
+            bool hasActiveConnection = false;
 
             foreach (GameObject neighbour in neighbours)
             {
@@ -176,38 +181,51 @@ public class ElectricityPuzzleLogic : MonoBehaviour
 
                         if (!activeTiles.Contains(ObjToPos(_updatedTile)))
                         {
-                            updatedInThisLoop.Add(ObjToPos(_updatedTile));
                             activeTiles.Add(ObjToPos(_updatedTile));
                         }
 
-
-                        originTile = _updatedTile;
-
-                        foreach (GameObject neighbour2 in neighbours)
-                            if (!updatedInThisLoop.Contains(ObjToPos(neighbour2)))
-                                OnFieldGotUpdate(neighbour2);
-
-                        break;
-                    }
-                    else
-                    {
-                        _updatedTile.transform.localPosition = new Vector3(0.01029964f, _updatedTile.transform.localPosition.y, _updatedTile.transform.localPosition.z);    //temp visuals
-
-                        if (activeTiles.Contains(ObjToPos(_updatedTile)))
-                            activeTiles.Remove(ObjToPos(_updatedTile));
-
                         updatedInThisLoop.Add(ObjToPos(_updatedTile));
+                        UpdateNeighbour(_updatedTile);
+
+                        hasActiveConnection = true;
+                        break;
                     }
                 }
             }
+
+            if (!hasActiveConnection)
+            {
+                _updatedTile.transform.localPosition = new Vector3(0.01029964f, _updatedTile.transform.localPosition.y, _updatedTile.transform.localPosition.z);    //temp visuals
+
+                if (activeTiles.Contains(ObjToPos(_updatedTile)))
+                {
+                    activeTiles.Remove(ObjToPos(_updatedTile));
+                    UpdateNeighbour(_updatedTile);
+                }
+            }
+
+            if (updatedInThisLoop.Contains(ObjToPos(_updatedTile)))
+                updatedInThisLoop.Add(ObjToPos(_updatedTile));
         }
-        if (originTile == _updatedTile)
-            updatedInThisLoop.Clear();
+
+        if (updatedInThisLoop.Count != 0)
+            if (updatedInThisLoop[0] == ObjToPos(_updatedTile))
+                updatedInThisLoop.Clear();
+
+
 
         if (activeTiles.Contains(ObjToPos(endTile)))
         {
             PuzzleSolved();
         }
+    }
+
+    private void UpdateNeighbour(GameObject _updatedTile)
+    {
+        List<GameObject> neighbours = GetAllNeighbours(_updatedTile);
+        foreach (GameObject neighbour in neighbours)
+            if (!updatedInThisLoop.Contains(ObjToPos(neighbour)))
+                OnFieldGotUpdate(neighbour);
     }
 
 
