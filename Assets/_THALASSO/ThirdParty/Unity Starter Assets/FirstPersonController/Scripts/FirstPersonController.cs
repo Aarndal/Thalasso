@@ -6,9 +6,7 @@ using UnityEngine.InputSystem;
 namespace StarterAssets
 {
 	[RequireComponent(typeof(CharacterController))]
-#if ENABLE_INPUT_SYSTEM
-	[RequireComponent(typeof(PlayerInput))]
-#endif
+
 	public class FirstPersonController : MonoBehaviour
 	{
 		[Header("Player")]
@@ -69,7 +67,7 @@ namespace StarterAssets
 		private PlayerInput _playerInput;
 #endif
 		private CharacterController _controller;
-		private StarterAssetsInputs _input;
+		private InputManager _input;
 		private GameObject _mainCamera;
 
 		private const float _threshold = 0.01f;
@@ -98,9 +96,9 @@ namespace StarterAssets
 		private void Start()
 		{
 			_controller = GetComponent<CharacterController>();
-			_input = GetComponent<StarterAssetsInputs>();
+			_input = InputManager.Instance;
 #if ENABLE_INPUT_SYSTEM
-			_playerInput = GetComponent<PlayerInput>();
+			_playerInput = InputManager.Instance.gameObject.GetComponent<PlayerInput>();
 #else
 			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
 #endif

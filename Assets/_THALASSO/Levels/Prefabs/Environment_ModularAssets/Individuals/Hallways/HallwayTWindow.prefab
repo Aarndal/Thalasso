@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 905257361320346029}
   - component: {fileID: 6835118098143565335}
   - component: {fileID: 3592352193177892150}
+  - component: {fileID: 58167376514467094}
   m_Layer: 0
   m_Name: HallwayTWindow
   m_TagString: Untagged
@@ -87,6 +88,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &58167376514467094
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2503154234193347228}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -129434546948487876, guid: 950d2a9a69230d742b89bc84cb9cbbf4, type: 3}
 --- !u!1 &4567991795245407043
 GameObject:
   m_ObjectHideFlags: 0

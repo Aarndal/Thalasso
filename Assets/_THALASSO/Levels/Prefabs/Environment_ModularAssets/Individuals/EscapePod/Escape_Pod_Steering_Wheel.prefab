@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9005605002016289036}
   - component: {fileID: 1344605001933797983}
   - component: {fileID: 2386467617589713817}
+  - component: {fileID: -4780854060473398797}
   m_Layer: 0
   m_Name: Escape_Pod_Steering_Wheel
   m_TagString: Untagged
@@ -86,3 +87,25 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &-4780854060473398797
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8997728316812040226}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2560380832002754393, guid: 7692f251f1eb6eb449d01cbd8b6666f8, type: 3}
