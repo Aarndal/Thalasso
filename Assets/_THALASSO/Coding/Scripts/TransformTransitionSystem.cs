@@ -1,9 +1,9 @@
 using System.Collections;
 using UnityEngine;
 
-public class CamTransitionSystem : MonoBehaviour
+public class TransformTransitionSystem : MonoBehaviour
 {
-    public static CamTransitionSystem Instance;
+    public static TransformTransitionSystem Instance;
     void Awake()
     {
         if (Instance != null)
@@ -19,7 +19,7 @@ public class CamTransitionSystem : MonoBehaviour
     {
         return StartCoroutine(ETransitionPosRot(_actor, _target, _duration, _speedCurve, _onStartEvent, _onCompleteEvent));
     }
-    public  Coroutine TransitionPos(GameObject _actor, Transform _target, float _duration, AnimationCurve _speedCurve = null, System.Action _onStartEvent = null, System.Action _onCompleteEvent = null)
+    public  Coroutine TransitionPos(GameObject _actor, Vector3 _target, float _duration, AnimationCurve _speedCurve = null, System.Action _onStartEvent = null, System.Action _onCompleteEvent = null)
     {
         return StartCoroutine(ETransitionPos(_actor, _target, _duration, _speedCurve, _onStartEvent, _onCompleteEvent));
     }
@@ -71,7 +71,7 @@ public class CamTransitionSystem : MonoBehaviour
         }
     }
 
-    private IEnumerator ETransitionPos(GameObject _actor, Transform _target, float _duration, AnimationCurve _speedCurve, System.Action _onStart, System.Action _onComplete)
+    private IEnumerator ETransitionPos(GameObject _actor, Vector3 _target, float _duration, AnimationCurve _speedCurve, System.Action _onStart, System.Action _onComplete)
     {
         if (_onStart != null)
         {
@@ -80,7 +80,7 @@ public class CamTransitionSystem : MonoBehaviour
 
         Vector3 startPosition = _actor.transform.position;
 
-        Vector3 targetPosition = _target.position;
+        Vector3 targetPosition = _target;
 
         float elapsedTime = 0f;
 

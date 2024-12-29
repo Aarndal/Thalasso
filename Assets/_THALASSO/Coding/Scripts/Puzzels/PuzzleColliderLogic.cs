@@ -56,7 +56,7 @@ public class PuzzleColliderLogic : MonoBehaviour
                 originTransformPosition = Camera.main.transform.position;
                 originTransformRotation = Camera.main.transform.rotation;
 
-                CamTransitionSystem.Instance.TransitionPosRot(Camera.main.gameObject, targetCamera, transitionduration, animationSpeedCurve, () =>
+                TransformTransitionSystem.Instance.TransitionPosRot(Camera.main.gameObject, targetCamera, transitionduration, animationSpeedCurve, () =>
                 {
                     cinemachineVirtualCamera.enabled = false;
                     InputManager.Instance.BlockPlayerMoveAndRot();
@@ -71,7 +71,7 @@ public class PuzzleColliderLogic : MonoBehaviour
             {
                 Transform tempOriginalTransform = PosRotToTransform(originTransformPosition, originTransformRotation);
 
-                CamTransitionSystem.Instance.TransitionPosRot(Camera.main.gameObject, tempOriginalTransform, transitionduration, animationSpeedCurve, () =>
+                TransformTransitionSystem.Instance.TransitionPosRot(Camera.main.gameObject, tempOriginalTransform, transitionduration, animationSpeedCurve, () =>
                 {
                     Cursor.lockState = CursorLockMode.Locked;
                     buttonUICanvas.SetActive(false);
