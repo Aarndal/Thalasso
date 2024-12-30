@@ -807,7 +807,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 2
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -896,6 +896,8 @@ GameObject:
   m_Component:
   - component: {fileID: 558497460}
   - component: {fileID: 558497459}
+  - component: {fileID: 558497462}
+  - component: {fileID: 558497461}
   m_Layer: 0
   m_Name: MasterMind
   m_TagString: Untagged
@@ -970,6 +972,54 @@ Transform:
   - {fileID: 629076631}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 43.97, z: 0}
+--- !u!65 &558497461
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558497458}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.5, y: 1, z: 2}
+  m_Center: {x: 0, y: 0, z: -1.03}
+--- !u!114 &558497462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558497458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8eac7d5877451c743a2d9338f43cb021, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numButtons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  outputText:
+  - {fileID: 536674705}
+  - {fileID: 1468267072}
+  - {fileID: 726840288}
+  - {fileID: 1814391964}
 --- !u!1 &597438823
 GameObject:
   m_ObjectHideFlags: 0
@@ -1328,7 +1378,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 2
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1530,7 +1580,6 @@ GameObject:
   m_Component:
   - component: {fileID: 915757369}
   - component: {fileID: 915757372}
-  - component: {fileID: 915757371}
   - component: {fileID: 915757370}
   m_Layer: 0
   m_Name: FocusCam
@@ -1598,14 +1647,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!81 &915757371
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 915757368}
-  m_Enabled: 1
 --- !u!20 &915757372
 Camera:
   m_ObjectHideFlags: 0
@@ -1613,7 +1654,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 915757368}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
@@ -2369,7 +2410,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 2
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2831,7 +2872,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 2
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3099,6 +3140,249 @@ MonoBehaviour:
       componentName: 
       componentIndex: 0
       editorLocalId: 818927581
+      editorPrefabRelativePath: 
+      version: 1
+    _data:
+      data: []
+  - _sourceObject: {fileID: 558497462}
+    _sourceField: numButtons,8
+    DEPRECATED_fromObject:
+      scene:
+        editorAssetGUID: 
+        name: 
+        _path: 
+      fullPath: 
+      componentName: 
+      componentIndex: 0
+      editorLocalId: 0
+      editorPrefabRelativePath: 
+      version: 0
+    _toObject:
+      scene:
+        editorAssetGUID: 2558ceaa69a454044b82996aa68bb627
+        name: MastermindPuzzleUI
+        _path: Assets/_THALASSO/Levels/Scenes/TestScenes/Pascal/MastermindPuzzleUI.unity
+      fullPath: /PuzzleButtonUI/Buttons/Button 9
+      componentName: UnityEngine.UI.Button, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      componentIndex: 0
+      editorLocalId: 781397811
+      editorPrefabRelativePath: 
+      version: 1
+    _data:
+      data: []
+  - _sourceObject: {fileID: 558497462}
+    _sourceField: numButtons,7
+    DEPRECATED_fromObject:
+      scene:
+        editorAssetGUID: 
+        name: 
+        _path: 
+      fullPath: 
+      componentName: 
+      componentIndex: 0
+      editorLocalId: 0
+      editorPrefabRelativePath: 
+      version: 0
+    _toObject:
+      scene:
+        editorAssetGUID: 2558ceaa69a454044b82996aa68bb627
+        name: MastermindPuzzleUI
+        _path: Assets/_THALASSO/Levels/Scenes/TestScenes/Pascal/MastermindPuzzleUI.unity
+      fullPath: /PuzzleButtonUI/Buttons/Button 8
+      componentName: UnityEngine.UI.Button, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      componentIndex: 0
+      editorLocalId: 1586722624
+      editorPrefabRelativePath: 
+      version: 1
+    _data:
+      data: []
+  - _sourceObject: {fileID: 558497462}
+    _sourceField: numButtons,6
+    DEPRECATED_fromObject:
+      scene:
+        editorAssetGUID: 
+        name: 
+        _path: 
+      fullPath: 
+      componentName: 
+      componentIndex: 0
+      editorLocalId: 0
+      editorPrefabRelativePath: 
+      version: 0
+    _toObject:
+      scene:
+        editorAssetGUID: 2558ceaa69a454044b82996aa68bb627
+        name: MastermindPuzzleUI
+        _path: Assets/_THALASSO/Levels/Scenes/TestScenes/Pascal/MastermindPuzzleUI.unity
+      fullPath: /PuzzleButtonUI/Buttons/Button 7
+      componentName: UnityEngine.UI.Button, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      componentIndex: 0
+      editorLocalId: 1152693002
+      editorPrefabRelativePath: 
+      version: 1
+    _data:
+      data: []
+  - _sourceObject: {fileID: 558497462}
+    _sourceField: numButtons,5
+    DEPRECATED_fromObject:
+      scene:
+        editorAssetGUID: 
+        name: 
+        _path: 
+      fullPath: 
+      componentName: 
+      componentIndex: 0
+      editorLocalId: 0
+      editorPrefabRelativePath: 
+      version: 0
+    _toObject:
+      scene:
+        editorAssetGUID: 2558ceaa69a454044b82996aa68bb627
+        name: MastermindPuzzleUI
+        _path: Assets/_THALASSO/Levels/Scenes/TestScenes/Pascal/MastermindPuzzleUI.unity
+      fullPath: /PuzzleButtonUI/Buttons/Button 6
+      componentName: UnityEngine.UI.Button, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      componentIndex: 0
+      editorLocalId: 1974079282
+      editorPrefabRelativePath: 
+      version: 1
+    _data:
+      data: []
+  - _sourceObject: {fileID: 558497462}
+    _sourceField: numButtons,4
+    DEPRECATED_fromObject:
+      scene:
+        editorAssetGUID: 
+        name: 
+        _path: 
+      fullPath: 
+      componentName: 
+      componentIndex: 0
+      editorLocalId: 0
+      editorPrefabRelativePath: 
+      version: 0
+    _toObject:
+      scene:
+        editorAssetGUID: 2558ceaa69a454044b82996aa68bb627
+        name: MastermindPuzzleUI
+        _path: Assets/_THALASSO/Levels/Scenes/TestScenes/Pascal/MastermindPuzzleUI.unity
+      fullPath: /PuzzleButtonUI/Buttons/Button 5
+      componentName: UnityEngine.UI.Button, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      componentIndex: 0
+      editorLocalId: 682971468
+      editorPrefabRelativePath: 
+      version: 1
+    _data:
+      data: []
+  - _sourceObject: {fileID: 558497462}
+    _sourceField: numButtons,3
+    DEPRECATED_fromObject:
+      scene:
+        editorAssetGUID: 
+        name: 
+        _path: 
+      fullPath: 
+      componentName: 
+      componentIndex: 0
+      editorLocalId: 0
+      editorPrefabRelativePath: 
+      version: 0
+    _toObject:
+      scene:
+        editorAssetGUID: 2558ceaa69a454044b82996aa68bb627
+        name: MastermindPuzzleUI
+        _path: Assets/_THALASSO/Levels/Scenes/TestScenes/Pascal/MastermindPuzzleUI.unity
+      fullPath: /PuzzleButtonUI/Buttons/Button 4
+      componentName: UnityEngine.UI.Button, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      componentIndex: 0
+      editorLocalId: 281002873
+      editorPrefabRelativePath: 
+      version: 1
+    _data:
+      data: []
+  - _sourceObject: {fileID: 558497462}
+    _sourceField: numButtons,2
+    DEPRECATED_fromObject:
+      scene:
+        editorAssetGUID: 
+        name: 
+        _path: 
+      fullPath: 
+      componentName: 
+      componentIndex: 0
+      editorLocalId: 0
+      editorPrefabRelativePath: 
+      version: 0
+    _toObject:
+      scene:
+        editorAssetGUID: 2558ceaa69a454044b82996aa68bb627
+        name: MastermindPuzzleUI
+        _path: Assets/_THALASSO/Levels/Scenes/TestScenes/Pascal/MastermindPuzzleUI.unity
+      fullPath: /PuzzleButtonUI/Buttons/Button 3
+      componentName: UnityEngine.UI.Button, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      componentIndex: 0
+      editorLocalId: 533422078
+      editorPrefabRelativePath: 
+      version: 1
+    _data:
+      data: []
+  - _sourceObject: {fileID: 558497462}
+    _sourceField: numButtons,1
+    DEPRECATED_fromObject:
+      scene:
+        editorAssetGUID: 
+        name: 
+        _path: 
+      fullPath: 
+      componentName: 
+      componentIndex: 0
+      editorLocalId: 0
+      editorPrefabRelativePath: 
+      version: 0
+    _toObject:
+      scene:
+        editorAssetGUID: 2558ceaa69a454044b82996aa68bb627
+        name: MastermindPuzzleUI
+        _path: Assets/_THALASSO/Levels/Scenes/TestScenes/Pascal/MastermindPuzzleUI.unity
+      fullPath: /PuzzleButtonUI/Buttons/Button 2
+      componentName: UnityEngine.UI.Button, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      componentIndex: 0
+      editorLocalId: 150609073
+      editorPrefabRelativePath: 
+      version: 1
+    _data:
+      data: []
+  - _sourceObject: {fileID: 558497462}
+    _sourceField: numButtons,0
+    DEPRECATED_fromObject:
+      scene:
+        editorAssetGUID: 
+        name: 
+        _path: 
+      fullPath: 
+      componentName: 
+      componentIndex: 0
+      editorLocalId: 0
+      editorPrefabRelativePath: 
+      version: 0
+    _toObject:
+      scene:
+        editorAssetGUID: 2558ceaa69a454044b82996aa68bb627
+        name: MastermindPuzzleUI
+        _path: Assets/_THALASSO/Levels/Scenes/TestScenes/Pascal/MastermindPuzzleUI.unity
+      fullPath: /PuzzleButtonUI/Buttons/Button 1
+      componentName: UnityEngine.UI.Button, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      componentIndex: 0
+      editorLocalId: 1673743880
       editorPrefabRelativePath: 
       version: 1
     _data:
