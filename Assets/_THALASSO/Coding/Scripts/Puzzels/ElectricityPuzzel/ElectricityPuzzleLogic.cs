@@ -11,7 +11,7 @@ public class ElectricityPuzzleLogic : MonoBehaviour
     private GameObject[,] tileField = new GameObject[5, 3];
     [SerializeField] private GameObject[] differentTileTypes;
     [SerializeField] private ElectricityPuzzelTileTypeConnections differentTileTypeConnections;
-
+    [SerializeField] private DoorAnimationTrigger doorToUnlock;
 
     private void Awake()
     {
@@ -381,6 +381,6 @@ public class ElectricityPuzzleLogic : MonoBehaviour
 
     private void PuzzleSolved()
     {
-        Debug.Log("Puzzle Gelöst!");
+        doorToUnlock.Unlock();
     }
 }

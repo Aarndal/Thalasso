@@ -16,6 +16,7 @@ public class DoorAnimationTrigger : MonoBehaviour
     [SerializeField] private directions openingDirection;
     private Vector3 originTransformPosition;
     private Coroutine runningCoroutineAnimation;
+    [SerializeField] private bool isLocked = false;
 
 
     [Header("Opening")]
@@ -33,6 +34,9 @@ public class DoorAnimationTrigger : MonoBehaviour
 
     public void OpenDoor()
     {
+        if(isLocked)
+            return;
+
         Vector3 endPos;
         switch (openingDirection)
         {
@@ -75,10 +79,26 @@ public class DoorAnimationTrigger : MonoBehaviour
     }
     public void CloseDoor()
     {
+
+        if (isLocked)
+            return; 
+
         if (runningCoroutineAnimation != null)
         {
             StopCoroutine(runningCoroutineAnimation);
         }
         runningCoroutineAnimation = TransformTransitionSystem.Instance.TransitionPos(doorObj, originTransformPosition, closingDuration, closingSpeedCurve, null, () => runningCoroutineAnimation = null);
+    }
+
+    public void Unlock()
+    {
+        if (isLocked)
+            isLocked = false;
+    }
+
+    public void Lock()
+    {
+        if (!isLocked)
+            isLocked = true;
     }
 }
