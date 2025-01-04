@@ -1,3 +1,4 @@
+using System.Reflection;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -9,6 +10,10 @@ public class PuzzleColliderLogic : MonoBehaviour
     [SerializeField] private float transitionduration;
     [SerializeField] private AnimationCurve animationSpeedCurve;
     [SerializeField] private GameObject buttonUICanvas;
+
+    [SerializeField] private bool puzzleAutoStartNeeded = false;
+    [SerializeField]
+    private MonoBehaviour autoStartPuzzleScript;
 
     private bool inRange;
     private bool isfocused = false;
@@ -65,6 +70,12 @@ public class PuzzleColliderLogic : MonoBehaviour
                     Cursor.lockState = CursorLockMode.None;
                     buttonUICanvas.SetActive(true);
                     isfocused = true;
+
+                    if (puzzleAutoStartNeeded && autoStartPuzzleScript != null)
+                    {
+                        MethodInfo method = autoStartPuzzleScript.GetType().GetMethod("StartPuzzle");
+                        method?.Invoke(autoStartPuzzleScript, null);
+                    }
                 });
             }
             else
