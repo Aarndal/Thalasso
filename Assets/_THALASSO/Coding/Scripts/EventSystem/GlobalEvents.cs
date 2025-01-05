@@ -1,4 +1,4 @@
-﻿public class Events
+﻿public class GlobalEvents
 {
     public class UI // 0 - 99
     {
@@ -8,6 +8,6 @@
 
     public class Game // 100 - 299
     {
-        public const int HealthChanged = 100;
+        public const int TestTriggered = 100;
     }
 }
