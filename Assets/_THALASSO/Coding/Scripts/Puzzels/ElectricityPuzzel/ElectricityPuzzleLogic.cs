@@ -12,6 +12,9 @@ public class ElectricityPuzzleLogic : MonoBehaviour
     [SerializeField] private GameObject[] differentTileTypes;
     [SerializeField] private ElectricityPuzzelTileTypeConnections differentTileTypeConnections;
 
+    private bool isTesting = true;
+    private bool wasSolved = false;
+
 
     private void Awake()
     {
@@ -68,7 +71,55 @@ public class ElectricityPuzzleLogic : MonoBehaviour
             tile.GetComponent<MeshFilter>().mesh = newRandomMesh;
             tile.name = newName;
         }
+
+        if (!IsPossible())
+        {
+            RandomizeTiles();
+        }
+        else
+        {
+            isTesting = false;
+            foreach (GameObject tile in tileField)
+            {
+                tile.GetComponent<PuzzleTileRotator>().ResetTile();
+            }
+        }
     }
+
+    List<GameObject> tempTileList = new List<GameObject>();
+    private bool IsPossible()
+    {
+        foreach(GameObject tile in tileField)
+        {
+            tempTileList.Add(tile);
+        }
+        TestAllRotations(0);
+        return wasSolved;
+    }
+    int temp = 0;
+    private void TestAllRotations(int tileIndex)
+    {
+        temp++;
+        Debug.Log("test");
+
+        if (tileIndex == 15)
+            return;
+
+        OnFieldGotUpdate(tileField[0, 0]);
+
+        if (wasSolved) return;
+
+
+        GameObject currentTile = tempTileList[tileIndex];
+        PuzzleTileRotator rotator = currentTile.GetComponent<PuzzleTileRotator>();
+
+        for (int rotation = 0; rotation < 6; rotation++)
+        {
+            rotator.curRotation = rotation;
+            TestAllRotations(tileIndex + 1);
+        }
+    }
+
 
     private List<Vector2Int> activeTiles = new List<Vector2Int>();
     private List<Vector2Int> updatedInThisLoop = new List<Vector2Int>();
@@ -381,6 +432,14 @@ public class ElectricityPuzzleLogic : MonoBehaviour
 
     private void PuzzleSolved()
     {
-        Debug.Log("Puzzle Gelöst!");
+        if (isTesting)
+        {
+            wasSolved = true;
+            Debug.Log("Puzzle AI Gelöst!");
+        }
+        else
+        {
+            Debug.Log("Puzzle Gelöst!");
+        }
     }
 }

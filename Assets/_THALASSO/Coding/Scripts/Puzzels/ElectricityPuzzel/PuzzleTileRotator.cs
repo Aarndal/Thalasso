@@ -19,6 +19,13 @@ public class PuzzleTileRotator : MonoBehaviour
         }
     }
 
+    public void ResetTile()
+    {
+        StopAllCoroutines();
+
+        curRotation = 0;
+    }
+
     private IEnumerator RotateOverTime(int _angle, float _duration)
     {
         isRotating = true;
@@ -28,12 +35,12 @@ public class PuzzleTileRotator : MonoBehaviour
         while (elapsed < _duration)
         {
             float deltaRotation = rotationStep * Time.deltaTime;
-            transform.Rotate(new Vector3(deltaRotation, 0, 0), Space.World);
+            transform.Rotate(new Vector3(deltaRotation, 0, 0), Space.Self);
             elapsed += Time.deltaTime;
             yield return null;
         }
 
-        transform.Rotate(new Vector3(_angle - (rotationStep * elapsed), 0, 0), Space.World);
+        transform.Rotate(new Vector3(_angle - (rotationStep * elapsed), 0, 0), Space.Self);
         isRotating = false;
 
         curRotation += _angle;
