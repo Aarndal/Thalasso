@@ -9,10 +9,13 @@ public class MemoryPuzzleLogic : MonoBehaviour
     [SerializeField] private GameObject[] visualButtonOutput;
     [SerializeField] private GameObject[] visualLightOutput;
 
-    [SerializeField] private int totalRounds = 1;
-    [SerializeField] private int startCount = 3;
-    [SerializeField] private int countToAddEachRound = 1;
-    [SerializeField] private float visualOutputTimeInSec = 1f;
+    [SerializeField] private int totalRounds = 3;
+    [SerializeField] private int startCount = 2;
+    [SerializeField] private int countToAddEachRound = 2;
+    [SerializeField] private float visualOutputTimeInSec = 0.5f;
+
+    [SerializeField] private float buttonVisualFeedbackTravelDistance = 0.1f;
+    [SerializeField] private float buttonVisualFeedbackTravelDuration = 0.5f;
 
     private List<int> sequence = new List<int>();
     private List<int> inputSequence = new List<int>();
@@ -23,7 +26,7 @@ public class MemoryPuzzleLogic : MonoBehaviour
 
     private void Start()
     {
-        foreach (var button in inputButtons)
+        foreach (Button button in inputButtons)
         {
             button.onClick.RemoveAllListeners();
         }
@@ -46,6 +49,13 @@ public class MemoryPuzzleLogic : MonoBehaviour
         NextRound();
     }
 
+    private void NextRound()
+    {
+        GenerateNewSequence();
+        inputSequence.Clear();
+        StartCoroutine(ShowSequence());
+    }
+
     private void GenerateNewSequence()
     {
         System.Random rnd = new System.Random();
@@ -66,10 +76,10 @@ public class MemoryPuzzleLogic : MonoBehaviour
         }
     }
 
-    private IEnumerator ShowSequence()
+    private IEnumerator ShowSequence() //tempVisual
     {
         inputLocked = true;
-        foreach (var light in visualLightOutput)
+        foreach (GameObject light in visualLightOutput)
         {
             light.SetActive(false);
         }
@@ -79,6 +89,7 @@ public class MemoryPuzzleLogic : MonoBehaviour
             visualLightOutput[index - 1].SetActive(true);
             yield return new WaitForSeconds(visualOutputTimeInSec);
             visualLightOutput[index - 1].SetActive(false);
+            yield return new WaitForSeconds(0.2f);
         }
 
         inputLocked = false;
@@ -97,18 +108,25 @@ public class MemoryPuzzleLogic : MonoBehaviour
         }
     }
 
-    private IEnumerator ButtonFeedback(int index)
+    private IEnumerator ButtonFeedback(int index) //tempVisual
     {
-        visualButtonOutput[index - 1].SetActive(false);
-        yield return new WaitForSeconds(0.2f);
-        visualButtonOutput[index - 1].SetActive(true);
+        GameObject button = visualButtonOutput[index - 1].gameObject;
+        Vector3 originPos = button.transform.position;
+
+        Vector3 newPos = originPos + Vector3.down * buttonVisualFeedbackTravelDistance;
+
+        TransformTransitionSystem.Instance.TransitionPos(button, newPos, buttonVisualFeedbackTravelDuration);
+        yield return new WaitForSeconds(buttonVisualFeedbackTravelDuration + 0.2f);
+
+        TransformTransitionSystem.Instance.TransitionPos(button, originPos, buttonVisualFeedbackTravelDuration);
+
     }
 
     private void CheckSequence()
     {
         inputLocked = true;
 
-        if (inputSequence.Count != sequence.Count || !SequencesMatch())
+        if (inputSequence.Count != sequence.Count || !CheckInput())
         {
             StartCoroutine(ShowRetryFeedback());
             return;
@@ -125,7 +143,7 @@ public class MemoryPuzzleLogic : MonoBehaviour
         }
     }
 
-    private bool SequencesMatch()
+    private bool CheckInput()
     {
         for (int i = 0; i < sequence.Count; i++)
         {
@@ -135,27 +153,30 @@ public class MemoryPuzzleLogic : MonoBehaviour
         return true;
     }
 
-    private IEnumerator ShowRetryFeedback()
+    private IEnumerator ShowRetryFeedback() //tempVisual
     {
-        foreach (var light in visualLightOutput)
+        foreach (GameObject light in visualLightOutput)
         {
             light.GetComponent<Renderer>().material.color = Color.red;
             light.SetActive(true);
         }
 
         yield return new WaitForSeconds(1f);
-        foreach (var light in visualLightOutput)
+        foreach (GameObject light in visualLightOutput)
         {
+            light.GetComponent<Renderer>().material.color = Color.gray;
             light.SetActive(false);
         }
 
+
+        yield return new WaitForSeconds(1f);
         inputSequence.Clear();
         yield return ShowSequence();
     }
 
-    private IEnumerator ShowSolvedFeedback()
+    private IEnumerator ShowSolvedFeedback() //tempVisual
     {
-        foreach (var light in visualLightOutput)
+        foreach (GameObject light in visualLightOutput)
         {
             light.GetComponent<Renderer>().material.color = Color.green;
             light.SetActive(true);
@@ -165,12 +186,7 @@ public class MemoryPuzzleLogic : MonoBehaviour
         PuzzleSolved();
     }
 
-    private void NextRound()
-    {
-        GenerateNewSequence();
-        inputSequence.Clear();
-        StartCoroutine(ShowSequence());
-    }
+    
 
     private void PuzzleSolved()
     {

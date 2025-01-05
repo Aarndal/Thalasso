@@ -603,7 +603,9 @@ MonoBehaviour:
   totalRounds: 3
   startCount: 2
   countToAddEachRound: 2
-  visualOutputTimeInSec: 1
+  visualOutputTimeInSec: 0.5
+  buttonVisualFeedbackTravelDistance: 0.02
+  buttonVisualFeedbackTravelDuration: 0.06
 --- !u!4 &368592145
 Transform:
   m_ObjectHideFlags: 0
