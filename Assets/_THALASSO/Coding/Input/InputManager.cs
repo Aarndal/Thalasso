@@ -2,19 +2,10 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+//This script is responsible for managing the player's input, such as movement, looking, jumping, sprinting, and interacting.
 public class InputManager : MonoBehaviour
 { 
     public static InputManager Instance;
-    void Awake()
-    {
-        if (Instance != null)
-        {
-            Destroy(this.gameObject);
-            return;
-        }
-        Instance = this;
-        DontDestroyOnLoad(Instance);
-    }
 
     [Header("Character Input Values")]
     public Vector2 move;
@@ -38,6 +29,16 @@ public class InputManager : MonoBehaviour
     private bool blockPlayerMov = false;
     private bool blockPlayerRot = false;
 
+    void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(Instance);
+    }
 
 #if ENABLE_INPUT_SYSTEM
     public void OnMove(InputValue value)
