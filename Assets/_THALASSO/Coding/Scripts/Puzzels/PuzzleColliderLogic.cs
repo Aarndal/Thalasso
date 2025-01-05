@@ -1,7 +1,6 @@
 using System.Reflection;
 using Unity.Cinemachine;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PuzzleColliderLogic : MonoBehaviour
 {
@@ -21,6 +20,7 @@ public class PuzzleColliderLogic : MonoBehaviour
     private Quaternion originTransformRotation;
     private GameObject transform;
     private CinemachineVirtualCamera cinemachineVirtualCamera;
+    private bool inAnimation;
 
     private void Start()
     {
@@ -28,7 +28,7 @@ public class PuzzleColliderLogic : MonoBehaviour
         cinemachineVirtualCamera = GameObject.FindAnyObjectByType<CinemachineVirtualCamera>();
 
         InputManager.OnInteractGlobal += CheckCollision;
-        
+
     }
     private void OnDisable()
     {
@@ -52,47 +52,51 @@ public class PuzzleColliderLogic : MonoBehaviour
 
     private void CheckCollision()
     {
-        if (!inRange)
+        if (!inRange || inAnimation)
             return;
 
 
-            if (!isfocused)
+        if (!isfocused)
+        {
+            originTransformPosition = Camera.main.transform.position;
+            originTransformRotation = Camera.main.transform.rotation;
+
+            TransformTransitionSystem.Instance.TransitionPosRot(Camera.main.gameObject, targetCamera, transitionduration, animationSpeedCurve, () =>
             {
-                originTransformPosition = Camera.main.transform.position;
-                originTransformRotation = Camera.main.transform.rotation;
-
-                TransformTransitionSystem.Instance.TransitionPosRot(Camera.main.gameObject, targetCamera, transitionduration, animationSpeedCurve, () =>
-                {
-                    cinemachineVirtualCamera.enabled = false;
-                    InputManager.Instance.BlockPlayerMoveAndRot();
-                }, () =>
-                {
-                    Cursor.lockState = CursorLockMode.None;
-                    buttonUICanvas.SetActive(true);
-                    isfocused = true;
-
-                    if (puzzleAutoStartNeeded && autoStartPuzzleScript != null)
-                    {
-                        MethodInfo method = autoStartPuzzleScript.GetType().GetMethod("StartPuzzle");
-                        method?.Invoke(autoStartPuzzleScript, null);
-                    }
-                });
-            }
-            else
+                inAnimation = true;
+                cinemachineVirtualCamera.enabled = false;
+                InputManager.Instance.BlockPlayerMoveAndRot();
+            }, () =>
             {
-                Transform tempOriginalTransform = PosRotToTransform(originTransformPosition, originTransformRotation);
+                inAnimation = false;
+                Cursor.lockState = CursorLockMode.None;
+                buttonUICanvas.SetActive(true);
+                isfocused = true;
 
-                TransformTransitionSystem.Instance.TransitionPosRot(Camera.main.gameObject, tempOriginalTransform, transitionduration, animationSpeedCurve, () =>
+                if (puzzleAutoStartNeeded && autoStartPuzzleScript != null)
                 {
-                    Cursor.lockState = CursorLockMode.Locked;
-                    buttonUICanvas.SetActive(false);
-                }, () =>
-                {
-                    cinemachineVirtualCamera.enabled = true;
-                    isfocused = false;
-                    InputManager.Instance.UnblockPlayerMoveAndRot();
-                });
-            }
+                    MethodInfo method = autoStartPuzzleScript.GetType().GetMethod("StartPuzzle");
+                    method?.Invoke(autoStartPuzzleScript, null);
+                }
+            });
+        }
+        else
+        {
+            Transform tempOriginalTransform = PosRotToTransform(originTransformPosition, originTransformRotation);
+
+            TransformTransitionSystem.Instance.TransitionPosRot(Camera.main.gameObject, tempOriginalTransform, transitionduration, animationSpeedCurve, () =>
+            {
+                inAnimation = true;
+                Cursor.lockState = CursorLockMode.Locked;
+                buttonUICanvas.SetActive(false);
+            }, () =>
+            {
+                inAnimation = false;
+                cinemachineVirtualCamera.enabled = true;
+                isfocused = false;
+                InputManager.Instance.UnblockPlayerMoveAndRot();
+            });
+        }
     }
 
     public Transform PosRotToTransform(Vector3 position, Quaternion rotation)
