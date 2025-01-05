@@ -46,11 +46,13 @@ public class MemoryPuzzleLogic : MonoBehaviour
             isRunning = true;
 
         roundCounter = 0;
-        NextRound();
+        StartCoroutine(NextRound());
     }
 
-    private void NextRound()
+    private IEnumerator NextRound()
     {
+        yield return new WaitForSeconds(1f);
+
         GenerateNewSequence();
         inputSequence.Clear();
         StartCoroutine(ShowSequence());
@@ -139,7 +141,7 @@ public class MemoryPuzzleLogic : MonoBehaviour
         else
         {
             roundCounter++;
-            NextRound();
+            StartCoroutine(NextRound());
         }
     }
 
@@ -182,7 +184,7 @@ public class MemoryPuzzleLogic : MonoBehaviour
             light.SetActive(true);
         }
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.5f);
         PuzzleSolved();
     }
 
@@ -190,6 +192,7 @@ public class MemoryPuzzleLogic : MonoBehaviour
 
     private void PuzzleSolved()
     {
+        StopAllCoroutines();
         Debug.Log("Puzzle solved");
     }
 }
