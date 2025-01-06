@@ -50,10 +50,10 @@ public class PlayerController : MonoBehaviour
 
     public Transform PlayerCameraRoot { get => playerCameraRoot; }
     public float PlayerSpeed { get; private set; }
-    private bool IsCurrentDeviceMouse
-    {
-        get { return PlayerInputHandler.Instance.PlayerInput.currentControlScheme == "Keyboard and Mouse"; }
-    }
+    //private bool IsCurrentDeviceMouse
+    //{
+    //    get { return PlayerInputHandler.Instance.PlayerInput.currentControlScheme == "Keyboard and Mouse"; }
+    //}
 
     #region Unity MonoBehaviour Methods
     private void Awake()
@@ -71,67 +71,67 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        playerLookDirection = GetLookInput();
-        RotatePlayer();
-        TiltCamera();
+        //playerLookDirection = GetLookInput();
+        //RotatePlayer();
+        //TiltCamera();
 
-        playerMoveDirection = GetMoveInput();
-        MovePlayer();
+        //playerMoveDirection = GetMoveInput();
+        //MovePlayer();
 
         //SetPlayerGravity();
         //Jump();
     }
     #endregion
 
-    private Vector3 GetLookInput()
-    {
-        previousPlayerLookDirection = playerLookDirection;
+    //private Vector3 GetLookInput()
+    //{
+    //    previousPlayerLookDirection = playerLookDirection;
 
-        playerLookDirection = new(
-        x: (!PlayerInputHandler.Instance.LookXInputIsInverted ? PlayerInputHandler.Instance.LookInput.x : -PlayerInputHandler.Instance.LookInput.x),
-        y: (!PlayerInputHandler.Instance.LookYInputIsInverted ? PlayerInputHandler.Instance.LookInput.y : -PlayerInputHandler.Instance.LookInput.y),
-        z: 0.0f);
+    //    playerLookDirection = new(
+    //    x: (!PlayerInputHandler.Instance.LookXInputIsInverted ? PlayerInputHandler.Instance.LookInput.x : -PlayerInputHandler.Instance.LookInput.x),
+    //    y: (!PlayerInputHandler.Instance.LookYInputIsInverted ? PlayerInputHandler.Instance.LookInput.y : -PlayerInputHandler.Instance.LookInput.y),
+    //    z: 0.0f);
 
-        float deltaTime = IsCurrentDeviceMouse ? 1.0f : Time.fixedDeltaTime;
+    //    float deltaTime = IsCurrentDeviceMouse ? 1.0f : Time.fixedDeltaTime;
 
-        return Vector3.Lerp(previousPlayerLookDirection, playerLookDirection * deltaTime, rotationSmoothFactor);
-    }
+    //    return Vector3.Lerp(previousPlayerLookDirection, playerLookDirection * deltaTime, rotationSmoothFactor);
+    //}
 
-    private Vector3 GetMoveInput()
-    {
-        return new(
-            x: PlayerInputHandler.Instance.MoveInput.x,
-            y: 0.0f,
-            z: PlayerInputHandler.Instance.MoveInput.y);
-    }
+    //private Vector3 GetMoveInput()
+    //{
+    //    return new(
+    //        x: PlayerInputHandler.Instance.MoveInput.x,
+    //        y: 0.0f,
+    //        z: PlayerInputHandler.Instance.MoveInput.y);
+    //}
 
 
-    private void RotatePlayer()
-    {
-        playerYRotation += playerLookDirection.x * horizontalSensitivity;
+    //private void RotatePlayer()
+    //{
+    //    playerYRotation += playerLookDirection.x * horizontalSensitivity;
 
-        playerRigidbody.rotation = Quaternion.Euler(0f, playerYRotation, 0f);
-    }
+    //    playerRigidbody.rotation = Quaternion.Euler(0f, playerYRotation, 0f);
+    //}
 
-    private void TiltCamera()
-    {
-        Vector3 currentCameraRotation = playerCameraRoot.rotation.eulerAngles;
-        cameraTilt += playerLookDirection.y * verticalSensitivity;
+    //private void TiltCamera()
+    //{
+    //    Vector3 currentCameraRotation = playerCameraRoot.rotation.eulerAngles;
+    //    cameraTilt += playerLookDirection.y * verticalSensitivity;
 
-        cameraTilt = Mathf.Clamp(cameraTilt, bottomClampAngle, topClampAngle);
+    //    cameraTilt = Mathf.Clamp(cameraTilt, bottomClampAngle, topClampAngle);
 
-        playerCameraRoot.rotation = Quaternion.Euler(cameraTilt, currentCameraRotation.y, currentCameraRotation.z);
-    }
+    //    playerCameraRoot.rotation = Quaternion.Euler(cameraTilt, currentCameraRotation.y, currentCameraRotation.z);
+    //}
 
-    private void MovePlayer()
-    {
-        PlayerSpeed = (PlayerInputHandler.Instance.SprintIsTriggered == false ? walkingSpeed : sprintSpeed);
+    //private void MovePlayer()
+    //{
+    //    PlayerSpeed = (PlayerInputHandler.Instance.SprintIsTriggered == false ? walkingSpeed : sprintSpeed);
 
-        //if (!playerIsGrounded.Value)
-        //    PlayerSpeed *= inAirMovementMultiplier;
+    //    //if (!playerIsGrounded.Value)
+    //    //    PlayerSpeed *= inAirMovementMultiplier;
 
-        playerRigidbody.AddRelativeForce(force: playerRigidbody.mass * PlayerSpeed * playerMoveDirection / Time.fixedDeltaTime, mode: ForceMode.Force);
-    }
+    //    playerRigidbody.AddRelativeForce(force: playerRigidbody.mass * PlayerSpeed * playerMoveDirection / Time.fixedDeltaTime, mode: ForceMode.Force);
+    //}
 
     //private void SetPlayerGravity()
     //{
