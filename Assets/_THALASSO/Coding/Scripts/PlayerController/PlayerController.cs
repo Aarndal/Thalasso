@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
         get { return PlayerInputHandler.Instance.PlayerInput.currentControlScheme == "Keyboard and Mouse"; }
     }
 
-    #region MonoBehaviour Event Routine
+    #region Unity MonoBehaviour Methods
     private void Awake()
     {
         playerRigidbody = GetComponent<Rigidbody>();
