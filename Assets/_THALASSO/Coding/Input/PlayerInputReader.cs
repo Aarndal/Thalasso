@@ -10,6 +10,7 @@ public class PlayerInputReader : ScriptableObject, GameInput.IPlayerActions
     public event Action<Vector2> LookInputHasChanged;
     public event Action JumpIsPerformed;
     public event Action JumpIsCanceled;
+    public event Action<bool> SprintIsTriggered;
 
     // Debug Member Values
     private Vector2 _moveInput;
@@ -69,14 +70,14 @@ public class PlayerInputReader : ScriptableObject, GameInput.IPlayerActions
     #region PlayerInput CallbackFunctions
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (MoveInputHasChanged != null && context.performed)
+        if (MoveInputHasChanged != null && context.phase == InputActionPhase.Performed)
         {
             _moveInput = context.ReadValue<Vector2>();
             MoveIsTriggered = true;
             MoveInputHasChanged?.Invoke(_moveInput);
         }
 
-        if (MoveInputHasChanged != null && context.canceled)
+        if (MoveInputHasChanged != null && context.phase == InputActionPhase.Canceled)
         {
             _moveInput = Vector2.zero;
             MoveIsTriggered = false;
@@ -101,17 +102,17 @@ public class PlayerInputReader : ScriptableObject, GameInput.IPlayerActions
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     public void OnInteract(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     public void OnCrouch(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     public void OnJump(InputAction.CallbackContext context)
@@ -131,17 +132,27 @@ public class PlayerInputReader : ScriptableObject, GameInput.IPlayerActions
 
     public void OnPrevious(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     public void OnNext(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     public void OnSprint(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+        if(SprintIsTriggered != null && context.performed)
+        {
+            SprintIsTriggered?.Invoke(true);
+            _sprintIsTriggered = true;
+        }
+
+        if (SprintIsTriggered != null && context.canceled)
+        {
+            SprintIsTriggered?.Invoke(false);
+            _sprintIsTriggered = false;
+        }
     }
     #endregion
 }

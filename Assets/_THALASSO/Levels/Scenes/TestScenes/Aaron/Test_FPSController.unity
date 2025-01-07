@@ -815,15 +815,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fbf579886a056b4fb182712be995415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCameraRoot: {fileID: 7307243630604411782}
-  cameraTilt: 0
-  topClampAngle: 80
-  bottomClampAngle: -80
-  rotationSmoothFactor: 0.35
-  horizontalSensitivity: 1
-  verticalSensitivity: 1
-  walkingSpeed: 2
-  sprintSpeed: 3
+  _input: {fileID: 11400000, guid: 1be96561094e41f40a93bc6aac51e76e, type: 2}
+  _playerCameraRoot: {fileID: 7307243630604411782}
+  _cameraTilt: 0
+  _topClampAngle: 80
+  _bottomClampAngle: -80
+  _rotationSmoothFactor: 0.35
+  _horizontalSensitivity: 1
+  _verticalSensitivity: 1
+  _walkingSpeed: 1
+  _sprintSpeed: 2
 --- !u!4 &7307243630604411782
 Transform:
   m_ObjectHideFlags: 0
