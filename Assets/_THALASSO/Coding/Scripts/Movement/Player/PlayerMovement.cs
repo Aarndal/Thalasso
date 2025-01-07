@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider))]
-public class PlayerController : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, IAmMovable
 {
     [Header("References")]
     [SerializeField] private PlayerInputReader _input;
@@ -69,7 +69,6 @@ public class PlayerController : MonoBehaviour
         _input.SprintIsTriggered += OnSprint;
     }
 
-
     private void Start()
     {
         _rigidbody.freezeRotation = true;
@@ -85,7 +84,7 @@ public class PlayerController : MonoBehaviour
         //RotatePlayer();
         //TiltCamera();
 
-        MovePlayer();
+        Move();
         
         //SetPlayerGravity();
         //Jump();
@@ -129,6 +128,7 @@ public class PlayerController : MonoBehaviour
     //    playerCameraRoot.rotation = Quaternion.Euler(cameraTilt, currentCameraRotation.y, currentCameraRotation.z);
     //}
 
+    #region Delegate Methods
     private void OnMove(Vector2 moveInput)
     {
         //if (!playerIsGrounded.Value)
@@ -146,15 +146,16 @@ public class PlayerController : MonoBehaviour
     {
         _speedFactor = (sprinting == false ? _walkingSpeed : _sprintSpeed);
     }
+    #endregion
 
-    private void MovePlayer()
+    #region Interface Implementation
+    public void Move()
     {
-
         //if (!playerIsGrounded.Value)
         //    PlayerSpeed *= inAirMovementMultiplier;
-
         _rigidbody.AddRelativeForce(force: _rigidbody.mass * _speedFactor * _moveDirection / Time.fixedDeltaTime, mode: ForceMode.Force);
     }
+    #endregion
 
     //private void SetPlayerGravity()
     //{
