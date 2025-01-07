@@ -866,7 +866,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2678325455940076482}
   - component: {fileID: 2921881800176706373}
-  - component: {fileID: 8922309513041637600}
   m_Layer: 8
   m_Name: InputHandler
   m_TagString: Untagged
@@ -874,26 +873,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &8922309513041637600
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8626588669597304865}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3630ee5d4524090479fbb5534838366f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _moveInput: {x: 0, y: 0}
-  _moveIsTriggered: 0
-  _sprintIsTriggered: 0
-  _lookInput: {x: 0, y: 0}
-  _jumpIsTriggered: 0
-  _interactIsTriggered: 0
-  _invertXLookInput: 0
-  _invertYLookInput: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

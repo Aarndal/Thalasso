@@ -5,11 +5,13 @@ using UnityEngine.InputSystem;
 [CreateAssetMenu(fileName = "NewInputHandler", menuName = "Scriptable Objects/InputHandler")]
 public class PlayerInputReader : ScriptableObject, GameInput.IPlayerActions
 {
+    // Player Actions
     public event Action<Vector2> MoveInputHasChanged;
     public event Action<Vector2> LookInputHasChanged;
     public event Action JumpIsPerformed;
     public event Action JumpIsCanceled;
 
+    // Debug Member Values
     private Vector2 _moveInput;
     private bool _moveIsTriggered;
     private bool _sprintIsTriggered;
@@ -30,18 +32,14 @@ public class PlayerInputReader : ScriptableObject, GameInput.IPlayerActions
     public bool LookYInputIsInverted { get => _invertYLookInput; private set => _invertYLookInput = value; }
     public bool InteractIsTriggered { get => _interactIsTriggered; private set => _interactIsTriggered = value; }
 
-
-    private void Awake()
+    private void OnEnable()
     {
         if (_gameInput == null)
         {
             _gameInput = new GameInput();
             _gameInput.Player.SetCallbacks(this);
         }
-    }
 
-    private void OnEnable()
-    {
         EnablePlayerInput();
     }
 
@@ -50,21 +48,22 @@ public class PlayerInputReader : ScriptableObject, GameInput.IPlayerActions
         DisableAllInput();
     }
 
-    private void OnDestroy()
-    {
-        _gameInput.Player.RemoveCallbacks(this);
-    }
-
     public void EnablePlayerInput()
     {
         _gameInput.Player.Enable();
         _gameInput.UI.Disable();
     }
 
+    public void EnableUIInput()
+    {
+        _gameInput.UI.Enable();
+        _gameInput.Player.Disable();
+    }
+
     public void DisableAllInput()
     {
-        _gameInput.Player.Disable();
         _gameInput.UI.Disable();
+        _gameInput.Player.Disable();
     }
 
     #region PlayerInput CallbackFunctions
