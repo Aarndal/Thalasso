@@ -6,25 +6,7 @@ public class PlayerMovement : MonoBehaviour, IAmMovable
 {
     [Header("References")]
     [SerializeField] private PlayerInputReader _input;
-    [Tooltip("Target that the camera is following and on which it is centered.")]
-    [SerializeField] private Transform _playerCameraRoot;
-
-    [Header("Look Variables")]
-    [Tooltip("Current tilt of the camera around the local x axis of the set camera root.")]
-    [SerializeField] private float _cameraTilt = 0.0f;
-    [Tooltip("How far in degrees can you move the camera up.")]
-    [SerializeField] private float _topClampAngle = 80.0f;
-    [Tooltip("How far in degrees can you move the camera down.")]
-    [SerializeField] private float _bottomClampAngle = -80.0f;
-
-    [Space(10)]
-    [Tooltip("How smooth the player character rotates towards the look direction.")]
-    [SerializeField][Range(0.1f, 0.9f)] private float _rotationSmoothFactor = 0.35f;
-    [Tooltip("How fast the player character can rotate left and right.")]
-    [SerializeField][Range(0.1f, 10.0f)] private float _horizontalSensitivity = 1.0f;
-    [Tooltip("How fast the player character can look up and down.")]
-    [SerializeField][Range(0.1f, 10.0f)] private float _verticalSensitivity = 1.0f;
-
+    
     [Header("Movement Variables")]
     [Tooltip("Movement speed of the player character in m/s.")]
     [SerializeField][Range(0.0f, 10.0f)] private float _walkingSpeed = 1.0f;
@@ -47,15 +29,6 @@ public class PlayerMovement : MonoBehaviour, IAmMovable
     private Rigidbody _rigidbody;
     private Vector3 _moveDirection = Vector3.zero;
     private float _speedFactor = 0.0f;
-    private Vector3 playerLookDirection = Vector3.zero;
-    private Vector3 previousPlayerLookDirection = Vector3.zero;
-    private float playerYRotation = 0.0f;
-
-    public Transform PlayerCameraRoot { get => _playerCameraRoot; }
-    //private bool IsCurrentDeviceMouse
-    //{
-    //    get { return PlayerInputHandler.Instance.PlayerInput.currentControlScheme == "Keyboard and Mouse"; }
-    //}
 
     #region Unity MonoBehaviour Methods
     private void Awake()
@@ -65,25 +38,18 @@ public class PlayerMovement : MonoBehaviour, IAmMovable
 
     private void OnEnable()
     {
-        _input.MoveInputHasChanged += OnMove;
-        _input.SprintIsTriggered += OnSprint;
+        _input.MoveInputHasChanged += OnMoveInputHasChanged;
+        _input.SprintIsTriggered += OnSprintIsTriggered;
     }
 
     private void Start()
     {
         _rigidbody.freezeRotation = true;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-
         _speedFactor = _walkingSpeed;
     }
 
     private void FixedUpdate()
     {
-        //playerLookDirection = GetLookInput();
-        //RotatePlayer();
-        //TiltCamera();
-
         Move();
         
         //SetPlayerGravity();
@@ -92,44 +58,13 @@ public class PlayerMovement : MonoBehaviour, IAmMovable
 
     private void OnDisable()
     {
-        _input.MoveInputHasChanged -= OnMove;
-        _input.SprintIsTriggered -= OnSprint;
+        _input.MoveInputHasChanged -= OnMoveInputHasChanged;
+        _input.SprintIsTriggered -= OnSprintIsTriggered;
     }
     #endregion
 
-    //private Vector3 GetLookInput()
-    //{
-    //    previousPlayerLookDirection = playerLookDirection;
-
-    //    playerLookDirection = new(
-    //    x: (!PlayerInputHandler.Instance.LookXInputIsInverted ? PlayerInputHandler.Instance.LookInput.x : -PlayerInputHandler.Instance.LookInput.x),
-    //    y: (!PlayerInputHandler.Instance.LookYInputIsInverted ? PlayerInputHandler.Instance.LookInput.y : -PlayerInputHandler.Instance.LookInput.y),
-    //    z: 0.0f);
-
-    //    float deltaTime = IsCurrentDeviceMouse ? 1.0f : Time.fixedDeltaTime;
-
-    //    return Vector3.Lerp(previousPlayerLookDirection, playerLookDirection * deltaTime, rotationSmoothFactor);
-    //}
-
-    //private void RotatePlayer()
-    //{
-    //    playerYRotation += playerLookDirection.x * horizontalSensitivity;
-
-    //    playerRigidbody.rotation = Quaternion.Euler(0f, playerYRotation, 0f);
-    //}
-
-    //private void TiltCamera()
-    //{
-    //    Vector3 currentCameraRotation = playerCameraRoot.rotation.eulerAngles;
-    //    cameraTilt += playerLookDirection.y * verticalSensitivity;
-
-    //    cameraTilt = Mathf.Clamp(cameraTilt, bottomClampAngle, topClampAngle);
-
-    //    playerCameraRoot.rotation = Quaternion.Euler(cameraTilt, currentCameraRotation.y, currentCameraRotation.z);
-    //}
-
     #region Delegate Methods
-    private void OnMove(Vector2 moveInput)
+    private void OnMoveInputHasChanged(Vector2 moveInput)
     {
         //if (!playerIsGrounded.Value)
         //    PlayerSpeed *= inAirMovementMultiplier;
@@ -142,7 +77,7 @@ public class PlayerMovement : MonoBehaviour, IAmMovable
         Debug.Log("Move Input: " + _moveDirection);
     }
 
-    private void OnSprint(bool sprinting)
+    private void OnSprintIsTriggered(bool sprinting)
     {
         _speedFactor = (sprinting == false ? _walkingSpeed : _sprintSpeed);
     }
@@ -184,5 +119,4 @@ public class PlayerMovement : MonoBehaviour, IAmMovable
     //    else
     //        counterToMaxJump -= Time.fixedDeltaTime;
     //}
-
 }
