@@ -815,15 +815,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fbf579886a056b4fb182712be995415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCameraRoot: {fileID: 7307243630604411782}
-  cameraTilt: 0
-  topClampAngle: 80
-  bottomClampAngle: -80
-  rotationSmoothFactor: 0.35
-  horizontalSensitivity: 1
-  verticalSensitivity: 1
-  walkingSpeed: 2
-  sprintSpeed: 3
+  _input: {fileID: 11400000, guid: 1be96561094e41f40a93bc6aac51e76e, type: 2}
+  _playerCameraRoot: {fileID: 7307243630604411782}
+  _cameraTilt: 0
+  _topClampAngle: 80
+  _bottomClampAngle: -80
+  _rotationSmoothFactor: 0.35
+  _horizontalSensitivity: 1
+  _verticalSensitivity: 1
+  _walkingSpeed: 1
+  _sprintSpeed: 2
 --- !u!4 &7307243630604411782
 Transform:
   m_ObjectHideFlags: 0
@@ -866,7 +867,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2678325455940076482}
   - component: {fileID: 2921881800176706373}
-  - component: {fileID: 8922309513041637600}
   m_Layer: 8
   m_Name: InputHandler
   m_TagString: Untagged
@@ -874,26 +874,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &8922309513041637600
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8626588669597304865}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3630ee5d4524090479fbb5534838366f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _moveInput: {x: 0, y: 0}
-  _moveIsTriggered: 0
-  _sprintIsTriggered: 0
-  _lookInput: {x: 0, y: 0}
-  _jumpIsTriggered: 0
-  _interactIsTriggered: 0
-  _invertXLookInput: 0
-  _invertYLookInput: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

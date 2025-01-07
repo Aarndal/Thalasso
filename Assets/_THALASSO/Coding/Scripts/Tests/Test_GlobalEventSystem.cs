@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Test_GlobalEventSystem : MonoBehaviour
 {
-    #region Unity Methods
+    #region Unity MonoBehaviour Methods
     private void OnEnable()
     {
         GlobalEventBus.Register(GlobalEvents.Game.TestTriggered, OnTestTriggered);
