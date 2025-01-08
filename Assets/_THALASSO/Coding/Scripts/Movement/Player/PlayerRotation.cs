@@ -74,7 +74,14 @@ public class PlayerRotation : MonoBehaviour
 
     private void OnLookInputHasChanged(Vector2 lookInput)
     {
+
         _previousLookDirection = _lookDirection;
+
+        //if (lookInput.sqrMagnitude <= ROTATION_TRESHOLD)
+        //{
+        //    _lookDirection = Vector3.zero;
+        //    return;
+        //}
 
         _lookDirection = new(
         x: (!_input.LookXInputIsInverted ? lookInput.x : -lookInput.x),
