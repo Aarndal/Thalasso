@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Utilities;
 
 [CreateAssetMenu(fileName = "NewInputHandler", menuName = "Scriptable Objects/InputHandler")]
 public class PlayerInputReader : ScriptableObject, GameInput.IPlayerActions
@@ -28,6 +29,7 @@ public class PlayerInputReader : ScriptableObject, GameInput.IPlayerActions
 
     private GameInput _gameInput;
 
+    public ReadOnlyArray<InputControlScheme> ControlSchemes { get => _gameInput.controlSchemes; }
     public bool MoveIsTriggered { get => _moveIsTriggered; private set => _moveIsTriggered = value; }
     public bool LookXInputIsInverted { get => _invertXLookInput; private set => _invertXLookInput = value; }
     public bool LookYInputIsInverted { get => _invertYLookInput; private set => _invertYLookInput = value; }
