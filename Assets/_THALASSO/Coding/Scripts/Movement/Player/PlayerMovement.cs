@@ -78,8 +78,6 @@ public class PlayerMovement : MonoBehaviour, IAmMovable
             x: moveInput.x,
             y: 0.0f,
             z: moveInput.y);
-
-        Debug.Log("Move Input: " + _moveDirection);
     }
 
     private void OnSprintIsTriggered(bool sprinting)
