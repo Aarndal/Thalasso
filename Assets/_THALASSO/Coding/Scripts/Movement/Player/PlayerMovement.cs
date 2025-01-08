@@ -5,13 +5,18 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour, IAmMovable
 {
     [Header("References")]
-    [SerializeField] private PlayerInputReader _input;
-    
+    [SerializeField]
+    private PlayerInputReader _input;
+
     [Header("Movement Variables")]
     [Tooltip("Movement speed of the player character in m/s.")]
-    [SerializeField][Range(0.0f, 10.0f)] private float _walkingSpeed = 1.0f;
+    [SerializeField]
+    [Range(0.0f, 10.0f)]
+    private float _walkingSpeed = 1.0f;
     [Tooltip("Sprinting speed of the player character in m/s.")]
-    [SerializeField][Range(0.0f, 10.0f)] private float _sprintSpeed = 3.0f;
+    [SerializeField]
+    [Range(0.0f, 10.0f)]
+    private float _sprintSpeed = 3.0f;
     //[Tooltip("Multiplier for the movement speed of the player character while in the air.")]
     //[SerializeField][Range(0.0f, 1.0f)] private float inAirMovementMultiplier = 0.5f;
 
@@ -51,7 +56,7 @@ public class PlayerMovement : MonoBehaviour, IAmMovable
     private void FixedUpdate()
     {
         Move();
-        
+
         //SetPlayerGravity();
         //Jump();
     }
