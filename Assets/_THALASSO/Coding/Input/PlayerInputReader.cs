@@ -1,10 +1,12 @@
+using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
 [CreateAssetMenu(fileName = "NewInputHandler", menuName = "Scriptable Objects/InputHandler")]
-public class PlayerInputReader : ScriptableObject, GameInput.IPlayerActions
+public class PlayerInputReader : ScriptableObject, GameInput.IPlayerActions, GameInput.IUIActions
 {
     // Player Actions
     public event Action<Vector2> MoveInputHasChanged;
@@ -12,6 +14,19 @@ public class PlayerInputReader : ScriptableObject, GameInput.IPlayerActions
     public event Action JumpIsPerformed;
     public event Action JumpIsCanceled;
     public event Action<bool> SprintIsTriggered;
+
+    [SerializeField]
+    private InputActionMap _defaultActionMap;
+
+    [Header("Input Settings")]
+    [SerializeField]
+    private bool _invertXLookInput = false;
+    [SerializeField]
+    private bool _invertYLookInput = false;
+
+    private GameInput _gameInput = default;
+    private ReadOnlyArray<InputActionMap> _actionMaps;
+    private InputActionMap _currentActionMap;
 
     // Debug Member Values
     private Vector2 _moveInput;
@@ -21,55 +36,66 @@ public class PlayerInputReader : ScriptableObject, GameInput.IPlayerActions
     private bool _jumpIsTriggered;
     private bool _interactIsTriggered;
 
-    [Header("Input Settings")]
-    [SerializeField]
-    private bool _invertXLookInput = false;
-    [SerializeField]
-    private bool _invertYLookInput = false;
-
-    private GameInput _gameInput;
-
+    // Properties
     public ReadOnlyArray<InputControlScheme> ControlSchemes { get => _gameInput.controlSchemes; }
     public bool MoveIsTriggered { get => _moveIsTriggered; private set => _moveIsTriggered = value; }
     public bool LookXInputIsInverted { get => _invertXLookInput; private set => _invertXLookInput = value; }
     public bool LookYInputIsInverted { get => _invertYLookInput; private set => _invertYLookInput = value; }
     public bool InteractIsTriggered { get => _interactIsTriggered; private set => _interactIsTriggered = value; }
 
+
+    #region Unity MonoBehaviour Methods
     private void OnEnable()
     {
         if (_gameInput == null)
         {
             _gameInput = new GameInput();
+            _actionMaps = _gameInput.asset.actionMaps;
+
             _gameInput.Player.SetCallbacks(this);
+            _gameInput.UI.SetCallbacks(this);
+
+            _defaultActionMap = _actionMaps[0];
         }
 
-        EnablePlayerInput();
+        EnableDefaultActionMap();
     }
 
     private void OnDisable()
     {
-        DisableAllInput();
+        DisableAllActionMaps();
     }
+    #endregion
 
-    public void EnablePlayerInput()
+    public void EnableDefaultActionMap()
     {
-        _gameInput.Player.Enable();
-        _gameInput.UI.Disable();
+        _defaultActionMap.Enable();
+        _currentActionMap = _defaultActionMap;
     }
 
-    public void EnableUIInput()
+    public void SwitchCurrentActionMap(string actionMapName)
     {
-        _gameInput.UI.Enable();
-        _gameInput.Player.Disable();
+        foreach (var actionMap in _actionMaps)
+        {
+            if (actionMap.name == actionMapName && _currentActionMap.name != actionMapName)
+            {
+                _currentActionMap.Disable();
+                actionMap.Enable();
+                _currentActionMap = actionMap;
+                break;
+            }
+        }
+
+        Debug.LogErrorFormat($"Cannot find action map '{actionMapName}' in '{_gameInput.asset.name}'.", this);
     }
 
-    public void DisableAllInput()
+    public void DisableAllActionMaps()
     {
-        _gameInput.UI.Disable();
-        _gameInput.Player.Disable();
+        foreach (var actionMap in _actionMaps)
+            actionMap.Disable();
     }
 
-    #region PlayerInput CallbackFunctions
+    #region PlayerActionMap CallbackFunctions
     public void OnMove(InputAction.CallbackContext context)
     {
         if (MoveInputHasChanged != null && context.phase == InputActionPhase.Performed)
@@ -144,7 +170,7 @@ public class PlayerInputReader : ScriptableObject, GameInput.IPlayerActions
 
     public void OnSprint(InputAction.CallbackContext context)
     {
-        if(SprintIsTriggered != null && context.performed)
+        if (SprintIsTriggered != null && context.performed)
         {
             SprintIsTriggered?.Invoke(true);
             _sprintIsTriggered = true;
@@ -155,6 +181,58 @@ public class PlayerInputReader : ScriptableObject, GameInput.IPlayerActions
             SprintIsTriggered?.Invoke(false);
             _sprintIsTriggered = false;
         }
+    }
+    #endregion
+
+    #region UIActionMap CallbackFunctions
+    public void OnNavigate(InputAction.CallbackContext context)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void OnSubmit(InputAction.CallbackContext context)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void OnCancel(InputAction.CallbackContext context)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void OnPoint(InputAction.CallbackContext context)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void OnClick(InputAction.CallbackContext context)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void OnRightClick(InputAction.CallbackContext context)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void OnMiddleClick(InputAction.CallbackContext context)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void OnScrollWheel(InputAction.CallbackContext context)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void OnTrackedDevicePosition(InputAction.CallbackContext context)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void OnTrackedDeviceOrientation(InputAction.CallbackContext context)
+    {
+        throw new NotImplementedException();
     }
     #endregion
 }

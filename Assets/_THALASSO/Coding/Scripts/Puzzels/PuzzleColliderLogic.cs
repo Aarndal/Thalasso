@@ -19,13 +19,13 @@ public class PuzzleColliderLogic : MonoBehaviour
     private Vector3 originTransformPosition;
     private Quaternion originTransformRotation;
     private GameObject transform;
-    private CinemachineVirtualCamera cinemachineVirtualCamera;
+    private CinemachineCamera cinemachineVirtualCamera;
     private bool inAnimation;
 
     private void Start()
     {
         buttonUICanvas.SetActive(false);
-        cinemachineVirtualCamera = GameObject.FindAnyObjectByType<CinemachineVirtualCamera>();
+        cinemachineVirtualCamera = GameObject.FindAnyObjectByType<CinemachineCamera>();
 
         InputManager.OnInteractGlobal += CheckCollision;
 
