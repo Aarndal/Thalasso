@@ -14,6 +14,9 @@ public class PlayerInputReader : ScriptableObject, GameInput.IPlayerActions, Gam
     public event Action JumpIsPerformed;
     public event Action JumpIsCanceled;
     public event Action<bool> SprintIsTriggered;
+    public event Action PauseIsTriggered;
+
+    // UI Actions
 
     [SerializeField]
     private InputActionMap _defaultActionMap;
@@ -182,6 +185,12 @@ public class PlayerInputReader : ScriptableObject, GameInput.IPlayerActions, Gam
             _sprintIsTriggered = false;
         }
     }
+
+    public void OnPause(InputAction.CallbackContext context)
+    {
+        if (PauseIsTriggered is not null && context.performed)
+            PauseIsTriggered.Invoke();
+    }
     #endregion
 
     #region UIActionMap CallbackFunctions
@@ -234,5 +243,6 @@ public class PlayerInputReader : ScriptableObject, GameInput.IPlayerActions, Gam
     {
         throw new NotImplementedException();
     }
+
     #endregion
 }
