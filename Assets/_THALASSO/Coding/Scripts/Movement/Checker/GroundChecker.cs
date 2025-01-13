@@ -3,7 +3,7 @@ using UnityEngine;
 public class GroundChecker : MonoBehaviour, IAmChecker
 {
     [SerializeField]
-    private LayerMask _groundLayerMask;
+    private LayerMask _groundLayerMask = default;
     [SerializeField]
     private Vector3 _groundCheckOffset = Vector3.zero;
     [SerializeField]
@@ -23,9 +23,14 @@ public class GroundChecker : MonoBehaviour, IAmChecker
             if (_isGrounded != value)
             {
                 _isGrounded = value;
-                GlobalEventBus.Raise(GlobalEvents.Player.IsGrounded, _isGrounded);
+                GlobalEventBus.Raise(GlobalEvents.Player.GroundedStateChanged, _isGrounded);
             }
         }
+    }
+
+    private void Start()
+    {
+        GlobalEventBus.Raise(GlobalEvents.Player.GroundedStateChanged, _isGrounded);
     }
 
     private void Update()

@@ -93,12 +93,19 @@ public class PCRotation : MonoBehaviour
             _pitch += Mathf.LerpAngle(_previousLookDirection.y, _lookDirection.y, _pitchSmoothFactor) * _verticalSensitivity * deltaTimeMultiplier;
             _yaw += Mathf.LerpAngle(_previousLookDirection.x, _lookDirection.x, _yawSmoothFactor) * _horizontalSensitivity * deltaTimeMultiplier;
 
-            //_pitch = ClampAngle(_pitch, _bottomClampAngle, _topClampAngle);
-            _pitch = Mathf.Clamp(_pitch, _bottomClampAngle, _topClampAngle);
+            _pitch = ClampAngle(_pitch, _bottomClampAngle, _topClampAngle);
+            //_pitch = Mathf.Clamp(_pitch, _bottomClampAngle, _topClampAngle);
 
             _cameraRoot.localRotation = Quaternion.Euler(-_pitch, 0.0f, 0.0f);
 
             this.transform.localRotation = Quaternion.Euler(0.0f, _yaw, 0.0f);
         }
+    }
+
+    private float ClampAngle(float lfAngle, float lfMin, float lfMax)
+    {
+        if (lfAngle < -360f) lfAngle += 360f;
+        if (lfAngle > 360f) lfAngle -= 360f;
+        return Mathf.Clamp(lfAngle, lfMin, lfMax);
     }
 }

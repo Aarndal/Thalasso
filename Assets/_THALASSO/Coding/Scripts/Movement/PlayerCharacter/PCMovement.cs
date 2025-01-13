@@ -6,47 +6,41 @@ public class PCMovement : MonoBehaviour, IAmMovable
 {
     [Header("References")]
     [SerializeField]
-    private SO_GameInputReader _input;
+    private SO_GameInputReader _input = default;
 
     [Header("Movement Variables")]
     [Tooltip("Movement speed of the player character in m/s.")]
-    [SerializeField]
-    [Range(0.0f, 10.0f)]
+    [SerializeField, Min(0.0f)]
     private float _walkingSpeed = 1.0f;
     [Tooltip("Sprinting speed of the player character in m/s.")]
-    [SerializeField]
-    [Range(0.0f, 10.0f)]
+    [SerializeField, Min(0.0f)]
     private float _sprintSpeed = 3.0f;
 
-    //[Tooltip("Multiplier for the movement speed of the player character while in the air.")]
-    //[SerializeField][Range(0.0f, 1.0f)] private float inAirMovementMultiplier = 0.5f;
+    [Tooltip("Multiplier for the movement speed of the player character while in the air.")]
+    [SerializeField, Min(0.0f)]
+    private float _inAirSpeed = 0.5f;
 
-    //[Header("Jump Variables")]
-    //[Tooltip("The velocity with which the player character is jumping in m/s.")]
-    //[SerializeField][Range(0.0f, 10.0f)] private float verticalVelocity = 2.0f;
-    //[Tooltip("Time in seconds the player input is taken into account for the jump after leaving the ground.")]
-    //[SerializeField][Range(0.0f, 0.2f)] private float timeToMaxJump = 0.15f;
-    //[SerializeField] private float counterToMaxJump = 0.0f;
-
-    //[Header("Gravity Variables")]
-    //[Tooltip("Will be added on top of Unity's gravity.")]
-    //[SerializeField][Range(0.0f, 100.0f)] private float gravityIncrease = 10.0f;
-
-    private Rigidbody _rigidbody;
+    private Rigidbody _rigidbody = default;
     private Vector3 _moveDirection = Vector3.zero;
+    private Vector3 _previousMoveDirection = Vector3.zero;
     private float _speedFactor = 0.0f;
+    private bool _isSprinting = false;
+    private bool _isGrounded = true;
 
     #region Unity MonoBehaviour Methods
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        //_previousMoveDirection = _moveDirection;
     }
 
     private void OnEnable()
     {
+        GlobalEventBus.Register(GlobalEvents.Player.GroundedStateChanged, OnGroundedStateChanged);
         _input.MoveInputHasChanged += OnMoveInputHasChanged;
         _input.SprintIsTriggered += OnSprintIsTriggered;
     }
+
 
     private void Start()
     {
@@ -57,23 +51,24 @@ public class PCMovement : MonoBehaviour, IAmMovable
     private void FixedUpdate()
     {
         Move();
-
-        //SetPlayerGravity();
-        //Jump();
     }
 
     private void OnDisable()
     {
-        _input.MoveInputHasChanged -= OnMoveInputHasChanged;
         _input.SprintIsTriggered -= OnSprintIsTriggered;
+        _input.MoveInputHasChanged -= OnMoveInputHasChanged;
+        GlobalEventBus.Deregister(GlobalEvents.Player.GroundedStateChanged, OnGroundedStateChanged);
     }
     #endregion
 
-    #region Delegate Methods
+    private void OnGroundedStateChanged(object[] args)
+    {
+        _isGrounded = (bool)args[0];
+    }
+
     private void OnMoveInputHasChanged(Vector2 moveInput)
     {
-        //if (!playerIsGrounded.Value)
-        //    PlayerSpeed *= inAirMovementMultiplier;
+        //_previousMoveDirection = _moveDirection;
 
         _moveDirection = new(
             x: moveInput.x,
@@ -81,46 +76,19 @@ public class PCMovement : MonoBehaviour, IAmMovable
             z: moveInput.y);
     }
 
-    private void OnSprintIsTriggered(bool sprinting)
+    private void OnSprintIsTriggered(bool isSprinting)
     {
-        _speedFactor = (sprinting == false ? _walkingSpeed : _sprintSpeed);
+        _isSprinting = isSprinting;
     }
-    #endregion
 
-    #region Interface Implementation
     public void Move()
     {
-        //if (!playerIsGrounded.Value)
-        //    PlayerSpeed *= inAirMovementMultiplier;
+        if (!_isGrounded)
+            _speedFactor = _inAirSpeed;
+
+        if(_isGrounded)
+            _speedFactor = _isSprinting == false ? _walkingSpeed : _sprintSpeed;
+        
         _rigidbody.AddRelativeForce(force: _rigidbody.mass * _speedFactor * _moveDirection / Time.fixedDeltaTime, mode: ForceMode.Force);
     }
-    #endregion
-
-    //private void SetPlayerGravity()
-    //{
-    //    if (playerIsGrounded.Value)
-    //        playerRigidbody.useGravity = false;
-    //    else
-    //    {
-    //        playerRigidbody.useGravity = true;
-    //        playerRigidbody.AddForce(0.0f, -gravityIncrease, 0.0f, ForceMode.Acceleration);
-    //    }
-    //}
-
-    //private void Jump()
-    //{
-    //    SetMaxJumpTimer();
-    //    if (counterToMaxJump > 0f && input.JumpIsTriggered)
-    //        playerRigidbody.AddForce(force: playerRigidbody.mass * verticalVelocity * Vector3.up, mode: ForceMode.Impulse);
-    //    else
-    //        counterToMaxJump = 0f;
-    //}
-
-    //private void SetMaxJumpTimer()
-    //{
-    //    if (playerIsGrounded.Value)
-    //        counterToMaxJump = timeToMaxJump;
-    //    else
-    //        counterToMaxJump -= Time.fixedDeltaTime;
-    //}
 }

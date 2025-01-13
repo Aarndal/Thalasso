@@ -1,5 +1,4 @@
-﻿using PlasticPipe.PlasticProtocol.Client;
-
+﻿
 public class GlobalEvents
 {
     public class UI // 0 - 99
@@ -15,6 +14,6 @@ public class GlobalEvents
 
     public class Player // 300 - 499
     {
-        public const int IsGrounded = 300;
+        public const int GroundedStateChanged = 300;
     }
 }
