@@ -45,11 +45,6 @@ public class PCRotation : MonoBehaviour
 
     public Transform CameraRoot { get => _cameraRoot; }
 
-    //private bool IsCurrentDeviceMouse
-    //{
-    //    get { return playerInput.currentControlScheme == "Keyboard and Mouse"; }
-    //}
-
     #region Unity MonoBehaviour Methods
     private void OnEnable()
     {
@@ -105,12 +100,5 @@ public class PCRotation : MonoBehaviour
 
             this.transform.localRotation = Quaternion.Euler(0.0f, _yaw, 0.0f);
         }
-    }
-
-    private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
-    {
-        if (lfAngle < -360f) lfAngle += 360f;
-        if (lfAngle > 360f) lfAngle -= 360f;
-        return Mathf.Clamp(lfAngle, lfMin, lfMax);
     }
 }

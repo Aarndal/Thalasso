@@ -33,12 +33,12 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
     private InputActionMap _currentActionMap;
 
     // Debug Member Values
-    private bool _isMoveTriggered;
-    private bool _isSprintTriggered;
-    private Vector2 _moveInput;
-    private Vector2 _lookInput;
-    private bool _isJumpTriggered;
-    private bool _isInteractTriggered;
+    private bool _isMoveTriggered = false;
+    private bool _isSprintTriggered = false;
+    private Vector2 _moveInput = new();
+    private Vector2 _lookInput = new ();
+    private bool _isJumpTriggered = false;
+    private bool _isInteractTriggered = false;
 
     // Properties
     public ReadOnlyArray<InputControlScheme> ControlSchemes { get => _gameInput.controlSchemes; }
@@ -200,7 +200,7 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
 
     public void OnInteract(InputAction.CallbackContext context)
     {
-        if (InteractIsTriggered is not null && context.phase == InputActionPhase.Started || context.phase == InputActionPhase.Performed)
+        if (InteractIsTriggered is not null && context.phase == InputActionPhase.Performed)
             IsInteractTriggered = true;
 
         if (InteractIsTriggered is not null && context.phase == InputActionPhase.Canceled)
@@ -214,10 +214,10 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (JumpIsTriggered is not null && context.phase == InputActionPhase.Started || context.phase == InputActionPhase.Performed)
+        if (JumpIsTriggered is not null && context.performed)
             IsJumpTriggered = true;
 
-        if (JumpIsTriggered is not null && context.phase == InputActionPhase.Canceled)
+        if (JumpIsTriggered is not null && context.canceled)
             IsJumpTriggered = false;
 
     }
@@ -249,59 +249,59 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
 
     public void OnZoom(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
     #endregion
 
     #region UIActionMap CallbackFunctions
     public void OnNavigate(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     public void OnSubmit(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     public void OnCancel(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     public void OnPoint(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     public void OnClick(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     public void OnRightClick(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     public void OnMiddleClick(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     public void OnScrollWheel(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     public void OnTrackedDevicePosition(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     public void OnTrackedDeviceOrientation(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
     #endregion
 

@@ -1,4 +1,6 @@
-﻿public class GlobalEvents
+﻿using PlasticPipe.PlasticProtocol.Client;
+
+public class GlobalEvents
 {
     public class UI // 0 - 99
     {
@@ -9,5 +11,10 @@
     public class Game // 100 - 299
     {
         public const int TestTriggered = 100;
+    }
+
+    public class Player // 300 - 499
+    {
+        public const int IsGrounded = 300;
     }
 }
