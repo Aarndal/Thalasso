@@ -2,11 +2,11 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider))]
-public class PlayerMovement : MonoBehaviour, IAmMovable
+public class PCMovement : MonoBehaviour, IAmMovable
 {
     [Header("References")]
     [SerializeField]
-    private PlayerInputReader _input;
+    private SO_GameInputReader _input;
 
     [Header("Movement Variables")]
     [Tooltip("Movement speed of the player character in m/s.")]

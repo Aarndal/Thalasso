@@ -5,18 +5,19 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-[CreateAssetMenu(fileName = "NewInputHandler", menuName = "Scriptable Objects/InputHandler")]
-public class PlayerInputReader : ScriptableObject, GameInput.IPlayerActions, GameInput.IUIActions
+[CreateAssetMenu(fileName = "NewGameInputReader", menuName = "Scriptable Objects/GameInputReader")]
+public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, GameInput.IUIActions
 {
     // Player Actions
     public event Action<Vector2> MoveInputHasChanged;
-    public event Action<Vector2> LookInputHasChanged;
-    public event Action JumpIsPerformed;
-    public event Action JumpIsCanceled;
+    public event Action<Vector2, bool> LookInputHasChanged;
+    public event Action<bool> JumpIsTriggered;
     public event Action<bool> SprintIsTriggered;
-    public event Action PauseIsTriggered;
+    public event Action<bool> InteractIsTriggered;
+    public event Action PauseIsPerformed;
 
     // UI Actions
+    // ...
 
     [SerializeField]
     private InputActionMap _defaultActionMap;
@@ -32,20 +33,64 @@ public class PlayerInputReader : ScriptableObject, GameInput.IPlayerActions, Gam
     private InputActionMap _currentActionMap;
 
     // Debug Member Values
+    private bool _isMoveTriggered;
+    private bool _isSprintTriggered;
     private Vector2 _moveInput;
-    private bool _moveIsTriggered;
-    private bool _sprintIsTriggered;
     private Vector2 _lookInput;
-    private bool _jumpIsTriggered;
-    private bool _interactIsTriggered;
+    private bool _isJumpTriggered;
+    private bool _isInteractTriggered;
 
     // Properties
     public ReadOnlyArray<InputControlScheme> ControlSchemes { get => _gameInput.controlSchemes; }
-    public bool MoveIsTriggered { get => _moveIsTriggered; private set => _moveIsTriggered = value; }
-    public bool LookXInputIsInverted { get => _invertXLookInput; private set => _invertXLookInput = value; }
-    public bool LookYInputIsInverted { get => _invertYLookInput; private set => _invertYLookInput = value; }
-    public bool InteractIsTriggered { get => _interactIsTriggered; private set => _interactIsTriggered = value; }
-
+    public bool IsXLookInputInverted { get => _invertXLookInput; private set => _invertXLookInput = value; }
+    public bool IsYLookInputInverted { get => _invertYLookInput; private set => _invertYLookInput = value; }
+    public bool IsMoveTriggered
+    {
+        get => _isMoveTriggered;
+        private set
+        {
+            if (_isMoveTriggered != value)
+            {
+                _isMoveTriggered = value;
+            }
+        }
+    }
+    public bool IsJumpTriggered
+    {
+        get => _isJumpTriggered;
+        private set
+        {
+            if (_isJumpTriggered != value)
+            {
+                _isJumpTriggered = value;
+                JumpIsTriggered?.Invoke(_isJumpTriggered);
+            };
+        }
+    }
+    public bool IsSprintTriggered
+    {
+        get => _isSprintTriggered;
+        private set
+        {
+            if (_isSprintTriggered != value)
+            {
+                _isSprintTriggered = value;
+                SprintIsTriggered?.Invoke(_isSprintTriggered);
+            };
+        }
+    }
+    public bool IsInteractTriggered
+    {
+        get => _isInteractTriggered;
+        private set
+        {
+            if (_isInteractTriggered != value)
+            {
+                _isInteractTriggered = value;
+                InteractIsTriggered?.Invoke(_isInteractTriggered);
+            }
+        }
+    }
 
     #region Unity MonoBehaviour Methods
     private void OnEnable()
@@ -70,6 +115,7 @@ public class PlayerInputReader : ScriptableObject, GameInput.IPlayerActions, Gam
     }
     #endregion
 
+    #region Enable/Disable Action Maps
     public void EnableDefaultActionMap()
     {
         _defaultActionMap.Enable();
@@ -92,42 +138,58 @@ public class PlayerInputReader : ScriptableObject, GameInput.IPlayerActions, Gam
         Debug.LogErrorFormat($"Cannot find action map '{actionMapName}' in '{_gameInput.asset.name}'.", this);
     }
 
+    public void SwitchCurrentActionMap(Guid actionMapID)
+    {
+        foreach (var actionMap in _actionMaps)
+        {
+            if (actionMap.id == actionMapID && _currentActionMap.id != actionMapID)
+            {
+                _currentActionMap.Disable();
+                actionMap.Enable();
+                _currentActionMap = actionMap;
+                break;
+            }
+        }
+        Debug.LogErrorFormat($"Cannot find action map '{actionMapID}' in '{_gameInput.asset.name}'.", this);
+    }
+
     public void DisableAllActionMaps()
     {
         foreach (var actionMap in _actionMaps)
             actionMap.Disable();
     }
+    #endregion
 
     #region PlayerActionMap CallbackFunctions
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (MoveInputHasChanged != null && context.phase == InputActionPhase.Performed)
+        if (MoveInputHasChanged is not null && context.phase == InputActionPhase.Performed)
         {
             _moveInput = context.ReadValue<Vector2>();
-            MoveIsTriggered = true;
-            MoveInputHasChanged?.Invoke(_moveInput);
+            IsMoveTriggered = true;
+            MoveInputHasChanged.Invoke(_moveInput);
         }
 
-        if (MoveInputHasChanged != null && context.phase == InputActionPhase.Canceled)
+        if (MoveInputHasChanged is not null && context.phase == InputActionPhase.Canceled)
         {
             _moveInput = Vector2.zero;
-            MoveIsTriggered = false;
-            MoveInputHasChanged?.Invoke(_moveInput);
+            IsMoveTriggered = false;
+            MoveInputHasChanged.Invoke(_moveInput);
         }
     }
 
     public void OnLook(InputAction.CallbackContext context)
     {
-        if (LookInputHasChanged != null && context.performed)
+        if (LookInputHasChanged is not null && context.phase == InputActionPhase.Performed)
         {
             _lookInput = context.ReadValue<Vector2>();
-            LookInputHasChanged?.Invoke(_lookInput);
+            LookInputHasChanged.Invoke(_lookInput, IsDeviceMouse(context));
         }
 
-        if (LookInputHasChanged != null && context.canceled)
+        if (LookInputHasChanged is not null && context.phase == InputActionPhase.Canceled)
         {
             _lookInput = Vector2.zero;
-            LookInputHasChanged?.Invoke(_lookInput);
+            LookInputHasChanged.Invoke(_lookInput, IsDeviceMouse(context));
         }
     }
 
@@ -138,7 +200,11 @@ public class PlayerInputReader : ScriptableObject, GameInput.IPlayerActions, Gam
 
     public void OnInteract(InputAction.CallbackContext context)
     {
-        //throw new NotImplementedException();
+        if (InteractIsTriggered is not null && context.phase == InputActionPhase.Started || context.phase == InputActionPhase.Performed)
+            IsInteractTriggered = true;
+
+        if (InteractIsTriggered is not null && context.phase == InputActionPhase.Canceled)
+            IsInteractTriggered = false;
     }
 
     public void OnCrouch(InputAction.CallbackContext context)
@@ -148,17 +214,12 @@ public class PlayerInputReader : ScriptableObject, GameInput.IPlayerActions, Gam
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (JumpIsPerformed != null && context.performed)
-        {
-            JumpIsPerformed?.Invoke();
-            _jumpIsTriggered = true;
-        }
+        if (JumpIsTriggered is not null && context.phase == InputActionPhase.Started || context.phase == InputActionPhase.Performed)
+            IsJumpTriggered = true;
 
-        if (JumpIsCanceled != null && context.canceled)
-        {
-            JumpIsCanceled?.Invoke();
-            _jumpIsTriggered = false;
-        }
+        if (JumpIsTriggered is not null && context.phase == InputActionPhase.Canceled)
+            IsJumpTriggered = false;
+
     }
 
     public void OnPrevious(InputAction.CallbackContext context)
@@ -173,23 +234,22 @@ public class PlayerInputReader : ScriptableObject, GameInput.IPlayerActions, Gam
 
     public void OnSprint(InputAction.CallbackContext context)
     {
-        if (SprintIsTriggered != null && context.performed)
-        {
-            SprintIsTriggered?.Invoke(true);
-            _sprintIsTriggered = true;
-        }
+        if (SprintIsTriggered is not null && context.phase == InputActionPhase.Started || context.phase == InputActionPhase.Performed)
+            IsSprintTriggered = true;
 
-        if (SprintIsTriggered != null && context.canceled)
-        {
-            SprintIsTriggered?.Invoke(false);
-            _sprintIsTriggered = false;
-        }
+        if (SprintIsTriggered is not null && context.phase == InputActionPhase.Canceled)
+            IsSprintTriggered = false;
     }
 
     public void OnPause(InputAction.CallbackContext context)
     {
-        if (PauseIsTriggered is not null && context.performed)
-            PauseIsTriggered.Invoke();
+        if (PauseIsPerformed is not null && context.phase == InputActionPhase.Performed)
+            PauseIsPerformed.Invoke();
+    }
+
+    public void OnZoom(InputAction.CallbackContext context)
+    {
+        throw new NotImplementedException();
     }
     #endregion
 
@@ -243,6 +303,7 @@ public class PlayerInputReader : ScriptableObject, GameInput.IPlayerActions, Gam
     {
         throw new NotImplementedException();
     }
-
     #endregion
+
+    private bool IsDeviceMouse(InputAction.CallbackContext context) => context.control.device.name == "Mouse";
 }

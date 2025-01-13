@@ -9,13 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66f41fce7032eb141a4829b1898b7ea5, type: 3}
-  m_Name: InputReader
+  m_Script: {fileID: 11500000, guid: a09f092c2ec02e749aff27ddf6030487, type: 3}
+  m_Name: PCInputReader
   m_EditorClassIdentifier: 
-  _moveIsTriggered: 0
-  _sprintIsTriggered: 0
-  _lookInput: {x: 0, y: 0}
-  _jumpIsTriggered: 0
-  _interactIsTriggered: 0
+  _defaultActionMap:
+    m_Name: Default
+    m_Id: 467876da-2667-4d3f-af32-8a3a1e772c60
+    m_Asset: {fileID: 0}
+    m_Actions: []
+    m_Bindings: []
   _invertXLookInput: 0
   _invertYLookInput: 0

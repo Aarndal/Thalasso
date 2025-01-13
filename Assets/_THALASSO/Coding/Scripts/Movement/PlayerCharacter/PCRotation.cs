@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class PlayerRotation : MonoBehaviour
+public class PCRotation : MonoBehaviour
 {
     
     [Header("References")]
     [SerializeField]
-    private PlayerInputReader _input = default;
+    private SO_GameInputReader _input = default;
     [Tooltip("Target that the camera is following and on which it is centered.")]
     [SerializeField]
     private Transform _cameraRoot;
@@ -76,13 +76,13 @@ public class PlayerRotation : MonoBehaviour
     }
     #endregion
 
-    private void OnLookInputHasChanged(Vector2 lookInput)
+    private void OnLookInputHasChanged(Vector2 lookInput, bool isCurrentDeviceMouse)
     {
         _previousLookDirection = _lookDirection;
 
         _lookDirection = new(
-        x: (!_input.LookXInputIsInverted ? lookInput.x : -lookInput.x),
-        y: (_input.LookYInputIsInverted ? lookInput.y : -lookInput.y),
+        x: (!_input.IsXLookInputInverted ? lookInput.x : -lookInput.x),
+        y: (_input.IsYLookInputInverted ? lookInput.y : -lookInput.y),
         z: 0.0f);
     }
 
