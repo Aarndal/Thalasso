@@ -1,5 +1,7 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.Windows;
 
 [RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider))]
 public class PCMovement : MonoBehaviour, IAmMovable
@@ -88,7 +90,16 @@ public class PCMovement : MonoBehaviour, IAmMovable
 
         if(_isGrounded)
             _speedFactor = _isSprinting == false ? _walkingSpeed : _sprintSpeed;
-        
+
+        //float playerAcceleration = PlayerSpeed * moveDirection / Time.fixedDeltaTime;
+
+        //playerRigidbody.AddForce(playerRigidbody.mass * playerAcceleration * Vector2.right, ForceMode2D.Force);
+
+        //if (input.SprintIsTriggered && Mathf.Abs(playerRigidbody.velocity.x) > sprintSpeed)
+        //    playerRigidbody.velocity = new(sprintSpeed * Mathf.Sign(playerRigidbody.velocity.x), playerRigidbody.velocity.y);
+        //else if (!input.SprintIsTriggered && Mathf.Abs(playerRigidbody.velocity.x) > walkingSpeed)
+        //    playerRigidbody.velocity = new(walkingSpeed * Mathf.Sign(playerRigidbody.velocity.x), playerRigidbody.velocity.y);
+
         _rigidbody.AddRelativeForce(force: _rigidbody.mass * _speedFactor * _moveDirection / Time.fixedDeltaTime, mode: ForceMode.Force);
     }
 }

@@ -3,13 +3,11 @@ using UnityEngine;
 public class GroundChecker : MonoBehaviour, IMakeChecks
 {
     [SerializeField]
-    private LayerMask _groundLayerMask = default;
+    private LayerMask _groundLayerMasks = default;
     [SerializeField]
     private Vector3 _groundCheckOffset = Vector3.zero;
     [SerializeField]
     private float _groundCheckRadius = 0.1f;
-    [SerializeField]
-    private float _groundCheckDistance = 0.1f;
 
     private bool _isActive = true;
     private bool _isGrounded = true;
@@ -47,7 +45,10 @@ public class GroundChecker : MonoBehaviour, IMakeChecks
 
     public void Check()
     {
-        IsGrounded = Physics.SphereCastNonAlloc(transform.position + _groundCheckOffset, _groundCheckRadius, Vector3.down, new RaycastHit[1], _groundCheckDistance, _groundLayerMask) > 0;
+        int maxColliders = 10;
+        Collider[] hitColliders = new Collider[maxColliders];
+
+        IsGrounded = Physics.OverlapSphereNonAlloc(transform.position + _groundCheckOffset, _groundCheckRadius, hitColliders, _groundLayerMasks, QueryTriggerInteraction.Ignore) > 0;
     }
 
 }

@@ -76,12 +76,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fea4ba468c00a0844a19f3b2e5235122, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _groundLayerMask:
+  _groundLayerMasks:
     serializedVersion: 2
     m_Bits: 65
   _groundCheckOffset: {x: 0, y: 0, z: 0}
   _groundCheckRadius: 0.2
-  _groundCheckDistance: 0.1
 --- !u!1 &5963170513019493714
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,9 +183,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _input: {fileID: 11400000, guid: bcec874ef13692e4d84d8d005895f237, type: 2}
-  _walkingSpeed: 1
-  _sprintSpeed: 2
-  _inAirSpeed: 0.25
+  _walkingSpeed: 0.45
+  _sprintSpeed: 0.6
+  _inAirSpeed: 0.2
 --- !u!114 &461265599906433445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,9 +203,9 @@ MonoBehaviour:
   _rotationThreshold: 2
   _topClampAngle: 60
   _bottomClampAngle: -45
-  _yawSmoothFactor: 0.5
+  _yawSmoothFactor: 0.75
   _pitchSmoothFactor: 0.25
-  _horizontalSensitivity: 0.15
+  _horizontalSensitivity: 0.1
   _verticalSensitivity: 0.5
 --- !u!114 &5281623358517571688
 MonoBehaviour:
@@ -221,7 +220,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _input: {fileID: 11400000, guid: bcec874ef13692e4d84d8d005895f237, type: 2}
-  _defaultJumpForce: 7.5
+  _takeoffVelocity: 7
+  _gravityIncrease: 15
 --- !u!1 &6327895202458033173
 GameObject:
   m_ObjectHideFlags: 0
