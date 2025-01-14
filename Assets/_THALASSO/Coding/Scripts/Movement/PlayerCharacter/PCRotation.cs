@@ -16,31 +16,23 @@ public class PCRotation : MonoBehaviour
     [SerializeField, Range(1.0f, 10.0f)]
     private float _rotationThreshold = 1.0f;
     [Tooltip("How far in degrees can you move the camera up.")]
-    [SerializeField]
+    [SerializeField, Range(30.0f, 80.0f)]
     private float _topClampAngle = 80.0f;
     [Tooltip("How far in degrees can you move the camera down.")]
-    [SerializeField]
+    [SerializeField, Range(-30.0f, -80.0f)]
     private float _bottomClampAngle = -80.0f;
 
     [Space(10)]
-    //[SerializeField]
-    //[Range(0.1f, 0.9f)]
-    //private float _yawSmoothFactor = 0.5f;
-    //[SerializeField]
-    //[Range(0.1f, 0.9f)]
-    //private float _pitchSmoothFactor = 0.5f;
+    
     [Tooltip("How fast the player character can rotate left and right.")]
-    [SerializeField]
-    [Range(0.01f, 2.0f)]
+    [SerializeField, Range(0.01f, 2.0f)]
     private float _horizontalSensitivity = 1.0f;
     [Tooltip("How fast the player character can look up and down.")]
-    [SerializeField]
-    [Range(0.01f, 2.0f)]
+    [SerializeField, Range(0.01f, 2.0f)]
     private float _verticalSensitivity = 1.0f;
 
     private Rigidbody _rigidbody;
     private Vector3 _lookDirection = Vector3.zero;
-    private Vector3 _previousLookDirection = Vector3.zero;
     private float _deltaTimeMultiplier = 1.0f; //? Obsolete because of Delta Time Scale processor in Input Action Asset?
     private float _pitch = 0.0f;
     private float _yaw = 0.0f;
@@ -71,7 +63,7 @@ public class PCRotation : MonoBehaviour
 
     private void LateUpdate()
     {
-        CameraRotation();
+        Rotate();
     }
 
     private void OnDisable()
@@ -84,7 +76,7 @@ public class PCRotation : MonoBehaviour
     {
         _deltaTimeMultiplier = isCurrentDeviceMouse ? 1.0f : Time.deltaTime; //? Obsolete because of Delta Time Scale processor in Input Action Asset?
 
-        _previousLookDirection = _lookDirection;
+        //_previousLookDirection = _lookDirection;
 
         _lookDirection = new(
         x: (!_input.IsXLookInputInverted ? lookInput.x : -lookInput.x),
@@ -92,7 +84,7 @@ public class PCRotation : MonoBehaviour
         z: 0.0f);
     }
 
-    private void CameraRotation()
+    private void Rotate()
     {
         if (_lookDirection.sqrMagnitude >= _rotationThreshold)
         {
