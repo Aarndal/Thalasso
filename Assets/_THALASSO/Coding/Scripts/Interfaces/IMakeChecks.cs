@@ -1,4 +1,4 @@
-public interface IAmChecker
+public interface IMakeChecks
 {
     public bool IsActive { get; set; }
 

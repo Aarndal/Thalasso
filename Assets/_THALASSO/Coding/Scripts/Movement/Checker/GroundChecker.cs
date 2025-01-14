@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GroundChecker : MonoBehaviour, IAmChecker
+public class GroundChecker : MonoBehaviour, IMakeChecks
 {
     [SerializeField]
     private LayerMask _groundLayerMask = default;
