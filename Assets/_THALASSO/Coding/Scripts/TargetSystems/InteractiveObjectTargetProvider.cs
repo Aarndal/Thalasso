@@ -2,76 +2,89 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [DisallowMultipleComponent]
-[RequireComponent(typeof(SphereCollider))]
-public class InteractiveObjectTargetProvider : TargetProvider
+[RequireComponent(typeof(CapsuleCollider))]
+public sealed class InteractiveObjectTargetProvider : TargetProvider
 {
     [Header("Variables")]
     [SerializeField]
     private LayerMask _layerMask;
     [SerializeField]
-    private float _searchRadius = 10f;
-    [SerializeField]
     private int _maxTargetsToSearch = 5;
+    [SerializeField]
+    private float _sphereCastRadius = 0.5f;
+    [SerializeField]
+    private float _sphereCastDistance = 1.2f;
 
+    private CapsuleCollider _capsuleCollider = default;
+    private RaycastHit[] _hitTargets;
     private int _numTargetsFound = 0;
-    private SphereCollider _sphereCollider = default;
-    private Collider[] _targetsInSearchRadius;
-    private List<Collider> _closestTargets;
-    private List<IAmInteractive> _closestInteractives;
+    private List<Transform> _closestTargets;
 
-    public float SearchRadius => _searchRadius;
-
+    #region Unity MonoBehaviour Methods
     private void Awake()
     {
-        _sphereCollider = GetComponent<SphereCollider>();
-        
-        _targetsInSearchRadius = new Collider[_maxTargetsToSearch];
+        _capsuleCollider = GetComponent<CapsuleCollider>();
+
+        _hitTargets = new RaycastHit[_maxTargetsToSearch];
         _closestTargets = new();
-        _closestInteractives = new();
     }
 
     private void Start()
     {
-        _sphereCollider.radius = _searchRadius;
-        _sphereCollider.isTrigger = true;
+        _capsuleCollider.direction = 2;
+        _capsuleCollider.height = _sphereCastDistance + 2 * _sphereCastRadius;
+        _capsuleCollider.radius = _sphereCastRadius;
+        _capsuleCollider.center = Vector3.forward * (_capsuleCollider.height/2);
+        _capsuleCollider.isTrigger = true;
     }
 
     private void OnTriggerEnter(Collider other) => GetTarget();
-
+    private void OnTriggerStay(Collider other) => GetTarget();
     private void OnTriggerExit(Collider other) => GetTarget();
+    #endregion
 
-    public override Transform GetTarget() => Target = FindClosestInteractiveObject();
+    public override Transform GetTarget() => Target = GetClosestInteractiveObject();
 
-    private Transform FindClosestInteractiveObject()
+    private Transform GetClosestInteractiveObject()
     {
         _closestTargets.Clear();
 
-        _numTargetsFound = Physics.OverlapSphereNonAlloc(transform.position, _searchRadius, _targetsInSearchRadius, _layerMask, QueryTriggerInteraction.Collide);
-        
+        _numTargetsFound = Physics.SphereCastNonAlloc(transform.position + Vector3.forward * _sphereCastRadius, _sphereCastRadius, Vector3.forward, _hitTargets, _sphereCastDistance, _layerMask, QueryTriggerInteraction.Collide);
+
         for (int i = 0; i < _numTargetsFound; i++)
         {
-            if (_targetsInSearchRadius[i].gameObject.TryGetComponent<IAmInteractive>(out IAmInteractive component))
-                _closestTargets.Add(_targetsInSearchRadius[i]);
+            if (_hitTargets[i].transform.TryGetComponent<IAmInteractive>(out IAmInteractive component))
+                _closestTargets.Add(_hitTargets[i].transform);
         }
 
-        float distanceToClosestPlayer = float.MaxValue;
-        Transform closestPlayer = null;
+        Transform closestTarget = null;
+        float cosPhiToClosestTarget = 0.0f;
+        float sqrDistanceToClosestTarget = _sphereCastDistance * _sphereCastDistance + _sphereCastRadius * _sphereCastRadius;
 
-        //for (int i = 0; i < _closestTargets.Count; i++)
-        //{
-        //    if (_closestTargets[i] == null)
-        //        continue;
+        Vector3 directionToTarget = Vector3.right;
+        float cosPhiToTarget = 0.0f;
+        float sqrDistanceToTarget = float.MaxValue;
 
-        //    for (int j = 1; j < _tempNavMeshPath.corners.Length; j++)
-        //        sqrDistance += Vector3.SqrMagnitude(_tempNavMeshPath.corners[j] - _tempNavMeshPath.corners[j - 1]);
+        for (int i = 0; i < _closestTargets.Count; i++)
+        {
+            if (_closestTargets[i] == null)
+                continue;
 
-        //    if (sqrDistance >= distanceToClosestPlayer)
-        //        continue;
+            directionToTarget = Vector3.Normalize(_closestTargets[i].position - transform.position);
+            cosPhiToTarget = Vector3.Dot(transform.forward, directionToTarget);
+            sqrDistanceToTarget = Vector3.SqrMagnitude(directionToTarget);
 
-        //    distanceToClosestPlayer = sqrDistance;
-        //    closestPlayer = _closestTargets[i].transform;
-        //}
+            if (cosPhiToTarget < cosPhiToClosestTarget)
+                continue;
 
-        return closestPlayer;
+            if (cosPhiToTarget == cosPhiToClosestTarget && sqrDistanceToTarget >= sqrDistanceToClosestTarget)
+                continue;
+
+            cosPhiToClosestTarget = cosPhiToTarget;
+            sqrDistanceToClosestTarget = sqrDistanceToTarget;
+            closestTarget = _closestTargets[i];
+        }
+
+        return closestTarget;
     }
 }

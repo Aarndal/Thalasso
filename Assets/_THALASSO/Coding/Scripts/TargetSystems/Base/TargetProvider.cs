@@ -4,38 +4,30 @@ using UnityEngine;
 [Serializable]
 public abstract class TargetProvider : MonoBehaviour
 {
-    //public event Action TargetDetected;
-    //public event Action TargetLost;
+    public event Action<Transform> NewTargetDetected;
+    public event Action<Transform> TargetLost;
 
-    public Transform Target { get; protected set; }
-    public bool HasTarget
+    private Transform _target;
+
+    public Transform Target
     {
-        get
+        get => _target;
+        protected set
         {
-            return Target != null && Target.gameObject.activeInHierarchy;
-
-            //if (Target != null && Target.gameObject.activeInHierarchy)
-            //{
-            //    TargetDetected?.Invoke();
-            //    return true;
-            //}
-            //else
-            //{
-            //    TargetLost?.Invoke();
-            //    return false;
-            //}
+            if (_target != value && value == null)
+            {
+                TargetLost?.Invoke(_target);
+                _target = value;
+            }
+            if (_target != value && value != null)
+            {
+                _target = value;
+                NewTargetDetected?.Invoke(_target);
+            }
         }
     }
-    public float SqrDistanceToTarget
-    {
-        get
-        {
-            if (HasTarget)
-                return (Target.position - transform.parent.transform.position).sqrMagnitude;
 
-            return float.MaxValue; // Maybe change this to null or 0.0f?
-        }
-    }
+    public bool HasTarget => Target != null && Target.gameObject.activeInHierarchy;
 
     public abstract Transform GetTarget();
 }
