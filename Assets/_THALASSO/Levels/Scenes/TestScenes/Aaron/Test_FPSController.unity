@@ -634,7 +634,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4afa82ae3200b82408d605c3dbdd1e38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damping: 0.05
+  Damping: 0.1
 --- !u!114 &860312145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -790,6 +790,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 461265599906433445, guid: 7f1a256885e70b5458a41dc6482233d5, type: 3}
+      propertyPath: _yawSmoothFactor
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 461265599906433445, guid: 7f1a256885e70b5458a41dc6482233d5, type: 3}
+      propertyPath: _verticalSensitivity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 461265599906433445, guid: 7f1a256885e70b5458a41dc6482233d5, type: 3}
+      propertyPath: _horizontalSensitivity
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1655773893568295454, guid: 7f1a256885e70b5458a41dc6482233d5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

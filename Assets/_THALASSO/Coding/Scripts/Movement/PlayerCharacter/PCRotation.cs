@@ -1,8 +1,9 @@
+using System;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class PCRotation : MonoBehaviour
 {
-    
     [Header("References")]
     [SerializeField]
     private SO_GameInputReader _input = default;
@@ -11,8 +12,8 @@ public class PCRotation : MonoBehaviour
     private Transform _cameraRoot;
 
     [Header("Look Variables")]
-    [SerializeField]
-    [Range(1.0f, 2.0f)]
+    [Tooltip("Defines the minimum threshold value for registering the look input for the rotation. Is compared with the squared magnitude of the look input vector.")]
+    [SerializeField, Range(1.0f, 10.0f)]
     private float _rotationThreshold = 1.0f;
     [Tooltip("How far in degrees can you move the camera up.")]
     [SerializeField]
@@ -22,30 +23,36 @@ public class PCRotation : MonoBehaviour
     private float _bottomClampAngle = -80.0f;
 
     [Space(10)]
-    [Tooltip("How smooth the player character rotates towards the look direction.")]
-    [SerializeField]
-    [Range(0.1f, 0.9f)]
-    private float _yawSmoothFactor =  0.5f;
-    [SerializeField]
-    [Range(0.1f, 0.9f)]
-    private float _pitchSmoothFactor = 0.5f;
+    //[SerializeField]
+    //[Range(0.1f, 0.9f)]
+    //private float _yawSmoothFactor = 0.5f;
+    //[SerializeField]
+    //[Range(0.1f, 0.9f)]
+    //private float _pitchSmoothFactor = 0.5f;
     [Tooltip("How fast the player character can rotate left and right.")]
     [SerializeField]
-    [Range(0.1f, 10.0f)]
+    [Range(0.01f, 2.0f)]
     private float _horizontalSensitivity = 1.0f;
     [Tooltip("How fast the player character can look up and down.")]
     [SerializeField]
-    [Range(0.01f, 1.0f)]
-    private float _verticalSensitivity = 0.1f;
+    [Range(0.01f, 2.0f)]
+    private float _verticalSensitivity = 1.0f;
 
+    private Rigidbody _rigidbody;
     private Vector3 _lookDirection = Vector3.zero;
     private Vector3 _previousLookDirection = Vector3.zero;
+    private float _deltaTimeMultiplier = 1.0f; //? Obsolete because of Delta Time Scale processor in Input Action Asset?
     private float _pitch = 0.0f;
     private float _yaw = 0.0f;
 
     public Transform CameraRoot { get => _cameraRoot; }
 
     #region Unity MonoBehaviour Methods
+    private void Awake()
+    {
+        _rigidbody = GetComponent<Rigidbody>();
+    }
+
     private void OnEnable()
     {
         _input.LookInputHasChanged += OnLookInputHasChanged;
@@ -56,8 +63,10 @@ public class PCRotation : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
+        _deltaTimeMultiplier = 1.0f;
+
         _pitch = _cameraRoot.localEulerAngles.x;
-        _yaw = this.transform.localEulerAngles.y;
+        _yaw = transform.localEulerAngles.y;
     }
 
     private void LateUpdate()
@@ -73,6 +82,8 @@ public class PCRotation : MonoBehaviour
 
     private void OnLookInputHasChanged(Vector2 lookInput, bool isCurrentDeviceMouse)
     {
+        _deltaTimeMultiplier = isCurrentDeviceMouse ? 1.0f : Time.deltaTime; //? Obsolete because of Delta Time Scale processor in Input Action Asset?
+
         _previousLookDirection = _lookDirection;
 
         _lookDirection = new(
@@ -85,20 +96,21 @@ public class PCRotation : MonoBehaviour
     {
         if (_lookDirection.sqrMagnitude >= _rotationThreshold)
         {
-            ////Don't multiply mouse input by Time.deltaTime
-            //float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
+            //_pitch += Mathf.LerpAngle(_previousLookDirection.y, _lookDirection.y, _pitchSmoothFactor) * _verticalSensitivity * _deltaTimeMultiplier;
 
-            float deltaTimeMultiplier = 1.0f;
-
-            _pitch += Mathf.LerpAngle(_previousLookDirection.y, _lookDirection.y, _pitchSmoothFactor) * _verticalSensitivity * deltaTimeMultiplier;
-            _yaw += Mathf.LerpAngle(_previousLookDirection.x, _lookDirection.x, _yawSmoothFactor) * _horizontalSensitivity * deltaTimeMultiplier;
+            _pitch += _lookDirection.y * _verticalSensitivity * _deltaTimeMultiplier;
 
             _pitch = ClampAngle(_pitch, _bottomClampAngle, _topClampAngle);
             //_pitch = Mathf.Clamp(_pitch, _bottomClampAngle, _topClampAngle);
 
             _cameraRoot.localRotation = Quaternion.Euler(-_pitch, 0.0f, 0.0f);
 
-            this.transform.localRotation = Quaternion.Euler(0.0f, _yaw, 0.0f);
+            //_yaw += Mathf.LerpAngle(_previousLookDirection.x, _lookDirection.x, _yawSmoothFactor) * _horizontalSensitivity * _deltaTimeMultiplier;
+
+            _yaw += _lookDirection.x * _horizontalSensitivity * _deltaTimeMultiplier;
+
+            _rigidbody.MoveRotation(Quaternion.Euler(0.0f, _yaw, 0.0f));
+            //transform.localRotation = Quaternion.Euler(0.0f, _yaw, 0.0f);
         }
     }
 

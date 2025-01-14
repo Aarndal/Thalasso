@@ -3,7 +3,7 @@
 [RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider))]
 public class PCJump : MonoBehaviour
 {
-    [Tooltip("References")]
+    [Header("References")]
     [SerializeField]
     private SO_GameInputReader _input = default;
 
