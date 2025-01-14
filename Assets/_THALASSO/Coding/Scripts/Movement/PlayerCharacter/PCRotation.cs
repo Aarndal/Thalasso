@@ -61,11 +61,6 @@ public class PCRotation : MonoBehaviour
         _yaw = transform.localEulerAngles.y;
     }
 
-    private void LateUpdate()
-    {
-        Rotate();
-    }
-
     private void OnDisable()
     {
         _input.LookInputHasChanged -= OnLookInputHasChanged;
@@ -82,6 +77,8 @@ public class PCRotation : MonoBehaviour
         x: (!_input.IsXLookInputInverted ? lookInput.x : -lookInput.x),
         y: (_input.IsYLookInputInverted ? lookInput.y : -lookInput.y),
         z: 0.0f);
+        
+        Rotate();
     }
 
     private void Rotate()
