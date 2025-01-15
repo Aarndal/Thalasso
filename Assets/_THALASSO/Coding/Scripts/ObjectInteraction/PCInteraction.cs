@@ -45,7 +45,7 @@ public class PCInteraction : MonoBehaviour
     private void OnInteractIsTriggered(bool isInteractTriggered)
     {
         if (isInteractTriggered && _targetProvider.HasTarget)
-            _currentTarget.Interact();
+            _currentTarget.Interact(this.transform);
     }
 
     private void OnNewTargetDetected(Transform newTarget)

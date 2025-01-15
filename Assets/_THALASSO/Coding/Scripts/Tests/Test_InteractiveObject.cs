@@ -19,7 +19,7 @@ public class Test_InteractiveObject : MonoBehaviour, IAmInteractive
         _meshRenderer.material.color = _baseColor;
     }
 
-    public void Interact()
+    public void Interact(Transform transform)
     {
         if (_meshRenderer.material.color == _baseColor)
             _meshRenderer.material.color = Color.red;

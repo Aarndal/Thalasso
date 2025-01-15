@@ -1,4 +1,6 @@
+using UnityEngine;
+
 public interface IAmInteractive
 {
-    void Interact();
+    void Interact(Transform transform);
 }

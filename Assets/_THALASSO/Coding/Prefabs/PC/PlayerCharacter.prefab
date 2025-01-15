@@ -377,7 +377,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7208296715624822748}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -560,7 +560,49 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 53b5a0c0d0c72954a9a7a8c5d54b197c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7149565688526126496}
+    - targetCorrespondingSourceObject: {fileID: -6218373586504331676, guid: 53b5a0c0d0c72954a9a7a8c5d54b197c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5627335356295637302}
+    - targetCorrespondingSourceObject: {fileID: -2710815275360258988, guid: 53b5a0c0d0c72954a9a7a8c5d54b197c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3712927559019566863}
   m_SourcePrefab: {fileID: 100100000, guid: 53b5a0c0d0c72954a9a7a8c5d54b197c, type: 3}
+--- !u!1 &3181200694670741640 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -2710815275360258988, guid: 53b5a0c0d0c72954a9a7a8c5d54b197c, type: 3}
+  m_PrefabInstance: {fileID: 8522177135482348764}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3712927559019566863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3181200694670741640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9382f5fee09297c4bbc231e29f701939, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cameraRoot: {fileID: 4114602463727402307}
+--- !u!1 &6915062653792381624 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -6218373586504331676, guid: 53b5a0c0d0c72954a9a7a8c5d54b197c, type: 3}
+  m_PrefabInstance: {fileID: 8522177135482348764}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5627335356295637302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6915062653792381624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9382f5fee09297c4bbc231e29f701939, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cameraRoot: {fileID: 4114602463727402307}
 --- !u!4 &8200601436109456183 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 53b5a0c0d0c72954a9a7a8c5d54b197c, type: 3}
