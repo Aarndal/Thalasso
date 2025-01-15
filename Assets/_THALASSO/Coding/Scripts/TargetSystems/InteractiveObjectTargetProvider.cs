@@ -34,13 +34,19 @@ public sealed class InteractiveObjectTargetProvider : TargetProvider
         _capsuleCollider.direction = 2;
         _capsuleCollider.height = _sphereCastDistance + 2 * _sphereCastRadius;
         _capsuleCollider.radius = _sphereCastRadius;
-        _capsuleCollider.center = Vector3.forward * (_capsuleCollider.height/2);
+        _capsuleCollider.center = Vector3.forward * (_capsuleCollider.height / 2);
         _capsuleCollider.isTrigger = true;
     }
 
     private void OnTriggerEnter(Collider other) => GetTarget();
     private void OnTriggerStay(Collider other) => GetTarget();
     private void OnTriggerExit(Collider other) => GetTarget();
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position + transform.forward * _sphereCastRadius, transform.position + transform.forward * (_sphereCastDistance + _sphereCastRadius * 2));
+    }
     #endregion
 
     public override Transform GetTarget() => Target = GetClosestInteractiveObject();
@@ -49,7 +55,7 @@ public sealed class InteractiveObjectTargetProvider : TargetProvider
     {
         _closestTargets.Clear();
 
-        _numTargetsFound = Physics.SphereCastNonAlloc(transform.position + Vector3.forward * _sphereCastRadius, _sphereCastRadius, Vector3.forward, _hitTargets, _sphereCastDistance, _layerMask, QueryTriggerInteraction.Collide);
+        _numTargetsFound = Physics.SphereCastNonAlloc(transform.position + transform.forward * _sphereCastRadius, _sphereCastRadius, transform.forward, _hitTargets, _sphereCastDistance, _layerMask, QueryTriggerInteraction.Collide);
 
         for (int i = 0; i < _numTargetsFound; i++)
         {

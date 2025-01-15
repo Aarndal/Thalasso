@@ -152,7 +152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _layerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 1048576
   _maxTargetsToSearch: 10
   _sphereCastRadius: 0.5
   _sphereCastDistance: 1.2
@@ -290,7 +290,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _input: {fileID: 11400000, guid: bcec874ef13692e4d84d8d005895f237, type: 2}
   _cameraRoot: {fileID: 4114602463727402307}
-  _rotationThreshold: 2
+  _rotationThreshold: 1
   _topClampAngle: 60
   _bottomClampAngle: -40
   _horizontalSensitivity: 1
@@ -323,7 +323,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _input: {fileID: 11400000, guid: bcec874ef13692e4d84d8d005895f237, type: 2}
-  _targetProvider: {fileID: 0}
+  _targetProvider: {fileID: 4478603242622535927}
 --- !u!1 &6327895202458033173
 GameObject:
   m_ObjectHideFlags: 0

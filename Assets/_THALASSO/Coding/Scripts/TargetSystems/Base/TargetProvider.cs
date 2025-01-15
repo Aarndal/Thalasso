@@ -23,6 +23,7 @@ public abstract class TargetProvider : MonoBehaviour
             {
                 _target = value;
                 NewTargetDetected?.Invoke(_target);
+                Debug.Log($"New target detected: {_target.name}");
             }
         }
     }
