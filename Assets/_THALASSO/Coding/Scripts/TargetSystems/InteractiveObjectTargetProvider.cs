@@ -103,11 +103,13 @@ public sealed class InteractiveObjectTargetProvider : TargetProvider
             if (cosPhiToTarget < _targetThreshold)
                 continue;
 
-            if (sqrDistanceToTarget >= sqrDistanceToClosestTarget)
+            if (sqrDistanceToTarget > sqrDistanceToClosestTarget)
                 continue;
 
-            if (cosPhiToTarget < cosPhiToClosestTarget && sqrDistanceToTarget <= sqrDistanceToClosestTarget)
+            if (cosPhiToTarget < cosPhiToClosestTarget)
                 continue;
+
+            //TODO: Add Raycast
 
             cosPhiToClosestTarget = cosPhiToTarget;
             sqrDistanceToClosestTarget = sqrDistanceToTarget;

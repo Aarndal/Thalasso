@@ -793,7 +793,7 @@ GameObject:
   - component: {fileID: 1482306959}
   - component: {fileID: 1482306958}
   m_Layer: 20
-  m_Name: CylinderWithKinematicRB
+  m_Name: OrangeWithKinematicRB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -826,7 +826,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 098efb2783601d9468d301d743c16892, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseColor: {r: 1, g: 1, b: 1, a: 1}
+  _baseColor: {r: 1, g: 0.5667743, b: 0, a: 1}
 --- !u!54 &1482306959
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -945,7 +945,7 @@ GameObject:
   - component: {fileID: 1647368892}
   - component: {fileID: 1647368891}
   m_Layer: 20
-  m_Name: CylinderWithRB
+  m_Name: GreenWithRB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -978,7 +978,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 098efb2783601d9468d301d743c16892, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseColor: {r: 1, g: 1, b: 1, a: 1}
+  _baseColor: {r: 0, g: 1, b: 0.13247585, a: 1}
 --- !u!54 &1647368892
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1096,7 +1096,7 @@ GameObject:
   - component: {fileID: 2001574158}
   - component: {fileID: 2001574156}
   m_Layer: 20
-  m_Name: CylinderWithoutRB
+  m_Name: WhiteWithoutRB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
