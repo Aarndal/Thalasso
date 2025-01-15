@@ -131,7 +131,6 @@ GameObject:
   - component: {fileID: 114513655}
   - component: {fileID: 114513654}
   - component: {fileID: 114513653}
-  - component: {fileID: 114513657}
   - component: {fileID: 114513658}
   m_Layer: 0
   m_Name: MainCamera
@@ -258,19 +257,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1449700816}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114513657
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 114513652}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 181b3ea7b4b9c44488f3e1054874efe1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _cameraRoot: {fileID: 3202077631516987933}
 --- !u!114 &114513658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -807,7 +793,7 @@ GameObject:
   - component: {fileID: 1482306959}
   - component: {fileID: 1482306958}
   m_Layer: 20
-  m_Name: Cylinder (2)
+  m_Name: CylinderWithKinematicRB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -959,7 +945,7 @@ GameObject:
   - component: {fileID: 1647368892}
   - component: {fileID: 1647368891}
   m_Layer: 20
-  m_Name: Cylinder
+  m_Name: CylinderWithRB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1110,7 +1096,7 @@ GameObject:
   - component: {fileID: 2001574158}
   - component: {fileID: 2001574156}
   m_Layer: 20
-  m_Name: Cylinder (1)
+  m_Name: CylinderWithoutRB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -8,7 +8,7 @@ public class PCInteraction : MonoBehaviour
     private SO_GameInputReader _input = default;
 
     [SerializeField]
-    private InteractiveObjectTargetProvider _targetProvider = default;
+    private TargetProvider _targetProvider = default;
 
     private IAmInteractive _currentTarget = null;
 

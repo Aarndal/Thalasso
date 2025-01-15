@@ -14,6 +14,8 @@ public sealed class InteractiveObjectTargetProvider : TargetProvider
     private float _sphereCastRadius = 0.5f;
     [SerializeField]
     private float _sphereCastDistance = 1.2f;
+    [SerializeField, Range(0.9f, 1.0f)]
+    private float _targetThreshold = 0.9f;
 
     private CapsuleCollider _capsuleCollider = default;
     private RaycastHit[] _hitTargets;
@@ -38,9 +40,21 @@ public sealed class InteractiveObjectTargetProvider : TargetProvider
         _capsuleCollider.isTrigger = true;
     }
 
-    private void OnTriggerEnter(Collider other) => GetTarget();
-    private void OnTriggerStay(Collider other) => GetTarget();
-    private void OnTriggerExit(Collider other) => GetTarget();
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent<IAmInteractive>(out IAmInteractive component))
+            GetTarget();
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.TryGetComponent<IAmInteractive>(out IAmInteractive component))
+            GetTarget();
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.TryGetComponent<IAmInteractive>(out IAmInteractive component))
+            GetTarget();
+    }
 
     private void OnDrawGizmos()
     {
@@ -65,7 +79,7 @@ public sealed class InteractiveObjectTargetProvider : TargetProvider
 
         Transform closestTarget = null;
         float cosPhiToClosestTarget = 0.0f;
-        float sqrDistanceToClosestTarget = _sphereCastDistance * _sphereCastDistance + _sphereCastRadius * _sphereCastRadius;
+        float sqrDistanceToClosestTarget = Mathf.Pow(_sphereCastDistance + 2 * _sphereCastRadius, 2);
 
         Vector3 directionToTarget = Vector3.right;
         float cosPhiToTarget = 0.0f;
@@ -76,14 +90,23 @@ public sealed class InteractiveObjectTargetProvider : TargetProvider
             if (_closestTargets[i] == null)
                 continue;
 
-            directionToTarget = Vector3.Normalize(_closestTargets[i].position - transform.position);
-            cosPhiToTarget = Vector3.Dot(transform.forward, directionToTarget);
+            directionToTarget = _closestTargets[i].position - transform.position;
             sqrDistanceToTarget = Vector3.SqrMagnitude(directionToTarget);
+            cosPhiToTarget = Vector3.Dot(transform.forward.normalized, directionToTarget.normalized);
 
-            if (cosPhiToTarget < cosPhiToClosestTarget)
+            //if (cosPhiToTarget < cosPhiToClosestTarget)
+            //    continue;
+
+            //if (cosPhiToTarget == cosPhiToClosestTarget && sqrDistanceToTarget >= sqrDistanceToClosestTarget)
+            //    continue;
+
+            if (cosPhiToTarget < _targetThreshold)
                 continue;
 
-            if (cosPhiToTarget == cosPhiToClosestTarget && sqrDistanceToTarget >= sqrDistanceToClosestTarget)
+            if (sqrDistanceToTarget >= sqrDistanceToClosestTarget)
+                continue;
+
+            if (cosPhiToTarget < cosPhiToClosestTarget && sqrDistanceToTarget <= sqrDistanceToClosestTarget)
                 continue;
 
             cosPhiToClosestTarget = cosPhiToTarget;
