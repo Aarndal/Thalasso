@@ -9,7 +9,7 @@ public sealed class InteractiveObjectTargetProvider : TargetProvider
     [SerializeField]
     private LayerMask _targetLayerMask;
     [SerializeField]
-    private LayerMask _blockingLayerMasks;
+    private LayerMask _ignoredLayerMasks;
     [SerializeField]
     private int _maxTargetsToSearch = 5;
     [SerializeField]
@@ -41,6 +41,11 @@ public sealed class InteractiveObjectTargetProvider : TargetProvider
         _capsuleCollider.center = Vector3.forward * (_capsuleCollider.height / 2);
         _capsuleCollider.isTrigger = true;
     }
+
+    //private void FixedUpdate()
+    //{
+    //        GetTarget();
+    //}
 
     private void OnTriggerEnter(Collider other)
     {
@@ -97,8 +102,11 @@ public sealed class InteractiveObjectTargetProvider : TargetProvider
             cosPhiToTarget = Vector3.Dot(transform.forward.normalized, directionToTarget.normalized);
 
             //TODO: Add Raycast
-            if (Physics.Raycast(transform.position, directionToTarget, out RaycastHit hitinfo, sqrDistanceToTarget, _blockingLayerMasks, QueryTriggerInteraction.Ignore))
+            if (Physics.Raycast(transform.position + transform.forward * _sphereCastRadius, transform.forward, out RaycastHit hitinfo, _sphereCastDistance + _sphereCastRadius, ~_ignoredLayerMasks, QueryTriggerInteraction.Ignore) && hitinfo.transform != _closestTargets[i])
                 continue;
+
+            //if (cosPhiToTarget < _targetThreshold && cosPhiToTarget < cosPhiToClosestTarget)
+            //    continue;
 
             if (cosPhiToTarget < _targetThreshold)
                 continue;

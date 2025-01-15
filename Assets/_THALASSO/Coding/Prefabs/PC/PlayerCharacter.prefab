@@ -150,9 +150,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b4bd58f7f7b0e04a86fa367823d2049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _layerMask:
+  _targetLayerMask:
     serializedVersion: 2
     m_Bits: 1048576
+  _ignoredLayerMasks:
+    serializedVersion: 2
+    m_Bits: 0
   _maxTargetsToSearch: 10
   _sphereCastRadius: 0.25
   _sphereCastDistance: 1
@@ -291,9 +294,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _input: {fileID: 11400000, guid: bcec874ef13692e4d84d8d005895f237, type: 2}
   _cameraRoot: {fileID: 4114602463727402307}
-  _rotationThreshold: 1
+  _rotationThreshold: 0.1
   _topClampAngle: 60
-  _bottomClampAngle: -40
+  _bottomClampAngle: -45
   _horizontalSensitivity: 1
   _verticalSensitivity: 1
 --- !u!114 &5281623358517571688
