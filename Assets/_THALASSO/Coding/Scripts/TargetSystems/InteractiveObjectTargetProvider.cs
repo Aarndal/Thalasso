@@ -7,7 +7,9 @@ public sealed class InteractiveObjectTargetProvider : TargetProvider
 {
     [Header("Variables")]
     [SerializeField]
-    private LayerMask _layerMask;
+    private LayerMask _targetLayerMask;
+    [SerializeField]
+    private LayerMask _blockingLayerMasks;
     [SerializeField]
     private int _maxTargetsToSearch = 5;
     [SerializeField]
@@ -69,7 +71,7 @@ public sealed class InteractiveObjectTargetProvider : TargetProvider
     {
         _closestTargets.Clear();
 
-        _numTargetsFound = Physics.SphereCastNonAlloc(transform.position + transform.forward * _sphereCastRadius, _sphereCastRadius, transform.forward, _hitTargets, _sphereCastDistance, _layerMask, QueryTriggerInteraction.Collide);
+        _numTargetsFound = Physics.SphereCastNonAlloc(transform.position + transform.forward * _sphereCastRadius, _sphereCastRadius, transform.forward, _hitTargets, _sphereCastDistance, _targetLayerMask, QueryTriggerInteraction.Collide);
 
         for (int i = 0; i < _numTargetsFound; i++)
         {
@@ -94,11 +96,9 @@ public sealed class InteractiveObjectTargetProvider : TargetProvider
             sqrDistanceToTarget = Vector3.SqrMagnitude(directionToTarget);
             cosPhiToTarget = Vector3.Dot(transform.forward.normalized, directionToTarget.normalized);
 
-            //if (cosPhiToTarget < cosPhiToClosestTarget)
-            //    continue;
-
-            //if (cosPhiToTarget == cosPhiToClosestTarget && sqrDistanceToTarget >= sqrDistanceToClosestTarget)
-            //    continue;
+            //TODO: Add Raycast
+            if (Physics.Raycast(transform.position, directionToTarget, out RaycastHit hitinfo, sqrDistanceToTarget, _blockingLayerMasks, QueryTriggerInteraction.Ignore))
+                continue;
 
             if (cosPhiToTarget < _targetThreshold)
                 continue;
@@ -108,8 +108,6 @@ public sealed class InteractiveObjectTargetProvider : TargetProvider
 
             if (cosPhiToTarget < cosPhiToClosestTarget)
                 continue;
-
-            //TODO: Add Raycast
 
             cosPhiToClosestTarget = cosPhiToTarget;
             sqrDistanceToClosestTarget = sqrDistanceToTarget;
