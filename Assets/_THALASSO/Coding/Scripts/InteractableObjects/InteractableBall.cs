@@ -14,6 +14,7 @@ public class InteractableBall : MonoBehaviour, IAmInteractive, IAmMovable
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        this.GetComponent<MeshRenderer>().material.color = Random.ColorHSV(0.0f, 1.0f, 0.75f, 1.0f, 0.5f, 1.0f);
     }
 
     private void FixedUpdate()

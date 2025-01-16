@@ -42,11 +42,6 @@ public sealed class InteractiveObjectTargetProvider : TargetProvider
         _capsuleCollider.isTrigger = true;
     }
 
-    //private void FixedUpdate()
-    //{
-    //        GetTarget();
-    //}
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent<IAmInteractive>(out IAmInteractive component))
@@ -59,8 +54,7 @@ public sealed class InteractiveObjectTargetProvider : TargetProvider
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.TryGetComponent<IAmInteractive>(out IAmInteractive component))
-            GetTarget();
+        GetTarget();
     }
 
     private void OnDrawGizmos()
@@ -76,7 +70,13 @@ public sealed class InteractiveObjectTargetProvider : TargetProvider
     {
         _closestTargets.Clear();
 
-        _numTargetsFound = Physics.SphereCastNonAlloc(transform.position + transform.forward * _sphereCastRadius, _sphereCastRadius, transform.forward, _hitTargets, _sphereCastDistance, _targetLayerMask, QueryTriggerInteraction.Collide);
+        Vector3 sphereCastOrigin = transform.position + transform.forward * _sphereCastRadius;
+        float sphereCastMaxDistance = _sphereCastDistance;
+
+        _numTargetsFound = Physics.SphereCastNonAlloc(sphereCastOrigin, _sphereCastRadius, transform.forward, _hitTargets, sphereCastMaxDistance, _targetLayerMask, QueryTriggerInteraction.Collide);
+
+        if (_numTargetsFound <= 0)
+            return null;
 
         for (int i = 0; i < _numTargetsFound; i++)
         {
@@ -86,7 +86,7 @@ public sealed class InteractiveObjectTargetProvider : TargetProvider
 
         Transform closestTarget = null;
         float cosPhiToClosestTarget = 0.0f;
-        float sqrDistanceToClosestTarget = Mathf.Pow(_sphereCastDistance + 2 * _sphereCastRadius, 2);
+        float sqrDistanceToClosestTarget = float.MaxValue;
 
         Vector3 directionToTarget = Vector3.right;
         float cosPhiToTarget = 0.0f;
@@ -101,12 +101,8 @@ public sealed class InteractiveObjectTargetProvider : TargetProvider
             sqrDistanceToTarget = Vector3.SqrMagnitude(directionToTarget);
             cosPhiToTarget = Vector3.Dot(transform.forward.normalized, directionToTarget.normalized);
 
-            //TODO: Add Raycast
-            if (Physics.Raycast(transform.position + transform.forward * _sphereCastRadius, transform.forward, out RaycastHit hitinfo, _sphereCastDistance + _sphereCastRadius, ~_ignoredLayerMasks, QueryTriggerInteraction.Ignore) && hitinfo.transform != _closestTargets[i])
+            if (Physics.Raycast(sphereCastOrigin, transform.forward, out RaycastHit hitinfo, sphereCastMaxDistance + _sphereCastRadius, ~_ignoredLayerMasks, QueryTriggerInteraction.Ignore) && hitinfo.transform != _closestTargets[i])
                 continue;
-
-            //if (cosPhiToTarget < _targetThreshold && cosPhiToTarget < cosPhiToClosestTarget)
-            //    continue;
 
             if (cosPhiToTarget < _targetThreshold)
                 continue;
