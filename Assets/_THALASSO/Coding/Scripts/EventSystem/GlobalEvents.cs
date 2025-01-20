@@ -10,7 +10,7 @@ public class GlobalEvents
     public class Game // 100 - 299
     {
         public const int TestTriggered = 100;
-        public const int ProgessionCompleted = 101;
+        public const int ProgressionCompleted = 101;
     }
 
     public class Player // 300 - 499

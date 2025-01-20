@@ -3,14 +3,13 @@ using UnityEngine;
 
 namespace ProgressionTracking
 {
-    [CreateAssetMenu(fileName = "NewProgessionTracker", menuName = "Scriptable Objects/ProgessionTracker")]
-    public class SO_ProgessionTracker : ScriptableObject
+    public class ProgressionTracker : MonoBehaviour
     {
         [SerializeField]
         private uint _id = 0;
 
         [SerializeField]
-        private List<IAmSolvable> _solvableDependencies = new List<IAmSolvable>();
+        private List<SolvableObjectBase> _solvableDependencies = new ();
 
         private bool _isCompleted = false;
 
@@ -40,10 +39,10 @@ namespace ProgressionTracking
             {
                 if (!solvableDependency.IsSolved)
                     return;
-
-                IsCompleted = true;
-                GlobalEventBus.Raise(GlobalEvents.Game.ProgessionCompleted, _id);
             }
+
+            IsCompleted = true;
+            GlobalEventBus.Raise(GlobalEvents.Game.ProgressionCompleted, _id);
         }
     }
 }
