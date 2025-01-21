@@ -9,12 +9,23 @@ namespace ProgressionTracking
         private uint _id = 0;
 
         [SerializeField]
-        private List<SolvableObjectBase> _solvableDependencies = new ();
+        private List<SolvableObjectBase> _solvableDependencies = new();
 
         private bool _isCompleted = false;
 
         public uint ID { get => _id; private set => _id = value; }
-        public bool IsCompleted { get => _isCompleted; private set => _isCompleted = value; }
+        public bool IsCompleted
+        {
+            get => _isCompleted;
+            private set
+            {
+                if (_isCompleted != value)
+                    _isCompleted = value;
+
+                if (_isCompleted)
+                    GlobalEventBus.Raise(GlobalEvents.Game.ProgressionCompleted, _id);
+            }
+        }
 
         private void Awake()
         {
@@ -42,7 +53,6 @@ namespace ProgressionTracking
             }
 
             IsCompleted = true;
-            GlobalEventBus.Raise(GlobalEvents.Game.ProgressionCompleted, _id);
         }
     }
 }
