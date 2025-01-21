@@ -1,4 +1,3 @@
-using ProgressionTracking;
 using System;
 using UnityEngine;
 
@@ -7,6 +6,9 @@ namespace ProgressionTracking
     [Serializable]
     public class Test_SolvablePlatform : SolvableObjectBase
     {
+        [SerializeField]
+        private uint _reactionID;
+
         private Collider _collider = default;
         private MeshRenderer _meshRenderer = default;
 
@@ -46,7 +48,7 @@ namespace ProgressionTracking
 
         private void OnProgressionCompleted(object[] args)
         {
-            if ((uint)args[0] == 101)
+            if ((uint)args[0] == _reactionID)
                 _meshRenderer.material.color = Color.white;
         }
     }

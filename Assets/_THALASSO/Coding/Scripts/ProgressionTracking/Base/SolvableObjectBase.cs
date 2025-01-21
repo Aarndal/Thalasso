@@ -10,14 +10,16 @@ namespace ProgressionTracking
 
         private bool _isSolved = false;
 
-        public bool IsSolved { get => _isSolved;
+        public bool IsSolved
+        {
+            get => _isSolved;
             protected set
             {
-                if (_isSolved == value)
-                    return;
+                if (_isSolved != value)
+                    _isSolved = value;
 
-                _isSolved = value;
-                HasBeenSolved?.Invoke();
+                if (_isSolved)
+                    HasBeenSolved?.Invoke();
             }
         }
 
