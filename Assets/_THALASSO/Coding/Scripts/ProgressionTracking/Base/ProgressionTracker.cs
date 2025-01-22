@@ -9,7 +9,7 @@ namespace ProgressionTracking
         private uint _id = 0;
 
         [SerializeField]
-        private HashSet<SolvableObjectBase> _solvableDependencies = new();
+        private List<SolvableObjectBase> _solvableDependencies = new();
 
         private bool _isCompleted = false;
 
@@ -32,6 +32,8 @@ namespace ProgressionTracking
             foreach (var solvableDependency in _solvableDependencies)
                 if (solvableDependency != null)
                     solvableDependency.HasBeenSolved += OnHasBeenSolved;
+                else
+                    Debug.LogError(solvableDependency.transform.name + " is null.");
         }
 
         private void OnDisable()
@@ -39,6 +41,8 @@ namespace ProgressionTracking
             foreach (var solvableDependency in _solvableDependencies)
                 if (solvableDependency != null)
                     solvableDependency.HasBeenSolved -= OnHasBeenSolved;
+                else
+                    Debug.LogError(solvableDependency.transform.name + " is null.");
         }
 
         private void OnHasBeenSolved()
