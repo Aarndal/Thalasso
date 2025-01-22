@@ -1,8 +1,9 @@
+﻿using ProgressionTracking;
+using System;
 using UnityEngine;
 
-[DisallowMultipleComponent]
-[RequireComponent(typeof(MeshRenderer), typeof(MeshFilter))]
-public class Test_InteractiveObject : MonoBehaviour, IAmInteractive
+[Serializable]
+public class Test_InteractiveSolvableObject : SolvableObjectBase, IAmInteractive
 {
     [SerializeField]
     private bool _isActivatable = true;
@@ -28,9 +29,20 @@ public class Test_InteractiveObject : MonoBehaviour, IAmInteractive
         if (!IsActivatable)
             return;
 
+        Solve();
+    }
+
+    public override void Solve()
+    {
         if (_meshRenderer.material.color == _baseColor)
-            _meshRenderer.material.color = Color.red;
+        {
+            _meshRenderer.material.color = Color.green;
+            IsSolved = true;
+        }
         else
+        {
             _meshRenderer.material.color = _baseColor;
+            IsSolved = false;
+        }
     }
 }

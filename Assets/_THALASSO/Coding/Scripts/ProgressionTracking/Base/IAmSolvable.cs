@@ -6,7 +6,7 @@ namespace ProgressionTracking
     {
         public event Action HasBeenSolved;
 
-        public bool IsSolved { get; set; }
+        public bool IsSolved { get; }
 
         void Solve();
     }
