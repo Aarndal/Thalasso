@@ -11,7 +11,13 @@ public class ElectricityPuzzleLogic : MonoBehaviour
     private GameObject[,] tileField = new GameObject[5, 3];
     [SerializeField] private GameObject[] differentTileTypes;
     [SerializeField] private ElectricityPuzzelTileTypeConnections differentTileTypeConnections;
-    [SerializeField] private DoorAnimationTrigger doorToUnlock;
+
+
+    private GameObject startTile;
+    private GameObject endTile;
+
+    private System.Random rnd = new System.Random();
+
 
     private void Awake()
     {
@@ -24,12 +30,16 @@ public class ElectricityPuzzleLogic : MonoBehaviour
 
     private void Start()
     {
-        SortTileInput();
-        RandomizeTiles();
+        SetupTileInput();
+
+        startTile = tileField[0, 0];
+        endTile = tileField[4, 2];
+
+        GenerateNewLayout();
         OnFieldGotUpdate(tileField[0, 0]);
     }
 
-    private void SortTileInput()
+    private void SetupTileInput()
     {
         int index = 0;
         for (int row = 0; row < tileField.GetLength(0); row++)
@@ -46,28 +56,78 @@ public class ElectricityPuzzleLogic : MonoBehaviour
         }
     }
 
-    private void RandomizeTiles()
+    private List<Vector2Int> connectiongTiles = new List<Vector2Int>();
+
+    private void GenerateNewLayout()
     {
-        System.Random rnd = new System.Random();
-        foreach (GameObject tile in tileField)
+        connectiongTiles.Clear();
+        connectiongTiles.Add(ObjToPos(startTile));
+
+        ChooseNextTile(startTile);
+        BuildPathWithTiles();
+    }
+
+    private void ChooseNextTile(GameObject curTile)
+    {
+        List<GameObject> neighboursTiles = GetAllNeighbours(curTile).FindAll(tile => !connectiongTiles.Contains(ObjToPos(tile)));
+
+        if (neighboursTiles.Count == 0)
         {
-            Mesh newRandomMesh = new Mesh();
-            string newName;
-
-            int rndValue = rnd.Next(differentTileTypes.Length);
-
-            newRandomMesh = differentTileTypes[rndValue].GetComponent<MeshFilter>().sharedMesh;
-            newName = differentTileTypes[rndValue].name;
-
-            if (tile == tileField[4, 2])
+            if (curTile == startTile)
             {
-                newRandomMesh = differentTileTypes[4].GetComponent<MeshFilter>().sharedMesh;
-                newName = differentTileTypes[4].name;
+                GenerateNewLayout();
+                return;
+            }
+            connectiongTiles.RemoveAt(connectiongTiles.Count - 1);
+            ChooseNextTile(PosToObj(connectiongTiles[connectiongTiles.Count - 1]));
+            return;
+        }
+
+        GameObject newTile = neighboursTiles[rnd.Next(neighboursTiles.Count)];
+        connectiongTiles.Add(ObjToPos(newTile));
+
+        if (newTile == endTile)
+        {
+            return;
+        }
+
+        ChooseNextTile(newTile);
+    }
+
+    private void BuildPathWithTiles()
+    {
+        for (int i = 0; i > connectiongTiles.Count; i++)
+        {
+            directions[] neededDirection = new directions[2];
+            if (PosToObj(connectiongTiles[i]) == startTile)
+            {
+                neededDirection.Append(directions.U);
+            }
+            else
+            {
+                neededDirection.Append(GetConnectionDirection(PosToObj(connectiongTiles[i]), PosToObj(connectiongTiles[i + 1])));
             }
 
-            tile.GetComponent<MeshFilter>().mesh = newRandomMesh;
-            tile.name = newName;
+            if (PosToObj(connectiongTiles[i]) == endTile)
+            {
+                neededDirection.Append(directions.D);
+            }
+            else
+            {
+                neededDirection.Append(GetConnectionDirection(PosToObj(connectiongTiles[i]), PosToObj(connectiongTiles[i - 1])));
+            }
+
+            ChooseTileBasedOnRequirements(neededDirection);
         }
+    }
+
+    private void ChooseTileBasedOnRequirements(directions[] neededDirections)
+    {
+        int directionOneValue = (int)neededDirections[0];
+        int directionTwoValue = (int)neededDirections[1];
+
+        int tileTypeValue = Math.Abs(directionOneValue - directionTwoValue) - 3;
+        Debug.Log(tileTypeValue);
     }
 
     private List<Vector2Int> activeTiles = new List<Vector2Int>();
@@ -80,8 +140,6 @@ public class ElectricityPuzzleLogic : MonoBehaviour
 
         int updatedTileCurRotation = _updatedTile.GetComponent<PuzzleTileRotator>().curRotation;
 
-        GameObject startTile = tileField[0, 0];
-        GameObject endTile = tileField[4, 2];
 
         if (_updatedTile == startTile)
         {
@@ -354,7 +412,7 @@ public class ElectricityPuzzleLogic : MonoBehaviour
     #endregion
 
     #region DataConvertion
-    private GameObject PosInObj(Vector2Int _pos)
+    private GameObject PosToObj(Vector2Int _pos)
     {
         return tileField[(int)_pos.x, (int)_pos.y];
     }
@@ -381,6 +439,6 @@ public class ElectricityPuzzleLogic : MonoBehaviour
 
     private void PuzzleSolved()
     {
-        doorToUnlock.Unlock();
+        Debug.Log("Puzzle Gelöst!");
     }
 }
