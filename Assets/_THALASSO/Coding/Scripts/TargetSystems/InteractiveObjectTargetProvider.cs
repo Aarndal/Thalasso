@@ -82,6 +82,8 @@ public sealed class InteractiveObjectTargetProvider : TargetProvider
         {
             if (_hitTargets[i].transform.TryGetComponent<IAmInteractive>(out IAmInteractive component))
                 _closestTargets.Add(_hitTargets[i].transform);
+
+            Debug.Log(_hitTargets[i].transform.transform.name);
         }
 
         Transform closestTarget = null;
@@ -101,7 +103,7 @@ public sealed class InteractiveObjectTargetProvider : TargetProvider
             sqrDistanceToTarget = Vector3.SqrMagnitude(directionToTarget);
             cosPhiToTarget = Vector3.Dot(transform.forward.normalized, directionToTarget.normalized);
 
-            if (Physics.Raycast(sphereCastOrigin, transform.forward, out RaycastHit hitinfo, sphereCastMaxDistance + _sphereCastRadius, ~_ignoredLayerMasks, QueryTriggerInteraction.Ignore) && hitinfo.transform != _closestTargets[i])
+            if (Physics.Raycast(sphereCastOrigin, transform.forward, out RaycastHit hitinfo, sphereCastMaxDistance + _sphereCastRadius, ~_ignoredLayerMasks, QueryTriggerInteraction.Ignore) && hitinfo.transform != _closestTargets[i]) //! Attention please! This will ignore Triggers! Don't use them for interactable objects...
                 continue;
 
             if (cosPhiToTarget < _targetThreshold)
