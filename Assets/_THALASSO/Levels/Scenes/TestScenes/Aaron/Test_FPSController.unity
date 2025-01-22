@@ -677,7 +677,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _version: 2
-  _crossSceneReferences: []
+  _crossSceneReferences:
+  - _sourceObject: {fileID: 1740080631}
+    _sourceField: _solvableDependencies,1
+    DEPRECATED_fromObject:
+      scene:
+        editorAssetGUID: 
+        name: 
+        _path: 
+      fullPath: 
+      componentName: 
+      componentIndex: 0
+      editorLocalId: 0
+      editorPrefabRelativePath: 
+      version: 0
+    _toObject:
+      scene:
+        editorAssetGUID: f0957c582928cca498abd762f6beaddc
+        name: Test_EventSystem
+        _path: Assets/_THALASSO/Levels/Scenes/TestScenes/Aaron/Test_EventSystem.unity
+      fullPath: /Test_Platform (1)
+      componentName: ProgressionTracking.Test_SolvablePlatform, Game, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      componentIndex: 0
+      editorLocalId: 1120957944
+      editorPrefabRelativePath: 
+      version: 1
+    _data:
+      data: []
   _realSceneRootsForPostBuild: []
   _mergedScenes: []
 --- !u!114 &788908501
@@ -1020,7 +1047,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1120957942}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: -1.47, z: -3.29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1954,10 +1981,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _id: 101
-  _solvableDependencies:
-  - {fileID: 971246532}
-  - {fileID: 1120957944}
-  - {fileID: 256052916}
 --- !u!1 &2001574154
 GameObject:
   m_ObjectHideFlags: 0
@@ -4867,7 +4890,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5858476017918080626, guid: 7f1a256885e70b5458a41dc6482233d5, type: 3}
       propertyPath: _sphereCastRadius
-      value: 0.25
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5858476017918080626, guid: 7f1a256885e70b5458a41dc6482233d5, type: 3}
+      propertyPath: _sphereCastDistance
+      value: 1.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6237166822625079456, guid: 7f1a256885e70b5458a41dc6482233d5, type: 3}
+      propertyPath: m_Height
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6237166822625079456, guid: 7f1a256885e70b5458a41dc6482233d5, type: 3}
+      propertyPath: m_Radius
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6237166822625079456, guid: 7f1a256885e70b5458a41dc6482233d5, type: 3}
+      propertyPath: m_Center.z
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

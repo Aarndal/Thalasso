@@ -265,7 +265,7 @@ Transform:
   m_GameObject: {fileID: 104361493}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -9.81}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -430,13 +430,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sceneSetupMode: 0
-  _sceneSetup:
-  - scene:
-      editorAssetGUID: 62b7b8a98211af748b85cbf5fc90faf1
-      name: UI_Ingame
-      _path: Assets/_THALASSO/Levels/UI/UI_Ingame.unity
-    loadInEditor: 1
-    loadMethod: 1
+  _sceneSetup: []
   _isMainScene: 0
   _version: 1
   _thisScenePath: Assets/_THALASSO/Levels/Scenes/TestScenes/Aaron/Test_EventSystem.unity

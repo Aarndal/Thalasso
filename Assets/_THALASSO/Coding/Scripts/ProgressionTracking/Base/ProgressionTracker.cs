@@ -9,11 +9,11 @@ namespace ProgressionTracking
         private uint _id = 0;
 
         [SerializeField]
-        private List<SolvableObjectBase> _solvableDependencies = new();
+        private HashSet<SolvableObjectBase> _solvableDependencies = new();
 
         private bool _isCompleted = false;
 
-        public uint ID { get => _id; private set => _id = value; }
+        public uint ID => _id;
         public bool IsCompleted
         {
             get => _isCompleted;
@@ -27,21 +27,18 @@ namespace ProgressionTracking
             }
         }
 
-        private void Awake()
-        {
-            IsCompleted = false;
-        }
-
         private void OnEnable()
         {
             foreach (var solvableDependency in _solvableDependencies)
-                solvableDependency.HasBeenSolved += OnHasBeenSolved;
+                if (solvableDependency != null)
+                    solvableDependency.HasBeenSolved += OnHasBeenSolved;
         }
 
         private void OnDisable()
         {
             foreach (var solvableDependency in _solvableDependencies)
-                solvableDependency.HasBeenSolved -= OnHasBeenSolved;
+                if (solvableDependency != null)
+                    solvableDependency.HasBeenSolved -= OnHasBeenSolved;
         }
 
         private void OnHasBeenSolved()
