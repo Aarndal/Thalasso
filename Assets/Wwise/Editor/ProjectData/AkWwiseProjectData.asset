@@ -66,11 +66,11 @@ MonoBehaviour:
     ParentPath: SoundBanks\Default Work Unit
     guid: 120307a5affdda4f9c2c157df7e55198
     GuidInternal: 
-    m_lastTime: -8584641466194775808
+    m_lastTime: -8584639611284609843
     List:
-    - name: Main
-      guid: 9dc69c50d52f14498d4a9eb6a1187905
-      id: 3161908922
+    - name: Electronics_Room
+      guid: cbaaad52bb9e2344b4febe16c49db616
+      id: 2572679272
       PathAndIcons:
       - ElementName: SoundBanks
         ObjectType: 5
@@ -78,10 +78,24 @@ MonoBehaviour:
       - ElementName: Default Work Unit
         ObjectType: 12
         guid: 120307a5affdda4f9c2c157df7e55198
-      - ElementName: Main
+      - ElementName: Electronics_Room
+        ObjectType: 7
+        guid: cbaaad52bb9e2344b4febe16c49db616
+      Path: SoundBanks\Default Work Unit\Electronics_Room
+    - name: Player
+      guid: 9dc69c50d52f14498d4a9eb6a1187905
+      id: 1069431850
+      PathAndIcons:
+      - ElementName: SoundBanks
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 120307a5affdda4f9c2c157df7e55198
+      - ElementName: Player
         ObjectType: 7
         guid: 9dc69c50d52f14498d4a9eb6a1187905
-      Path: SoundBanks\Default Work Unit\Main
+      Path: SoundBanks\Default Work Unit\Player
   EventWwu:
   - PhysicalPath: Events\Default Work Unit.wwu
     PathAndIcons:
@@ -94,8 +108,59 @@ MonoBehaviour:
     ParentPath: Events\Default Work Unit
     guid: a73c7a02b02f814caa08ff6be5823e65
     GuidInternal: 
-    m_lastTime: -8584641470934775808
+    m_lastTime: -8584639611284520158
     List:
+    - name: Door_Closing
+      guid: 192f67e6cf8db145ae3ad50dddb560ce
+      id: 1591781701
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: a73c7a02b02f814caa08ff6be5823e65
+      - ElementName: Door_Closing
+        ObjectType: 3
+        guid: 192f67e6cf8db145ae3ad50dddb560ce
+      Path: Events\Default Work Unit\Door_Closing
+      maxAttenuation: 0
+      maxDuration: 3.0933332
+      minDuration: 3.0933332
+    - name: Door_Opening
+      guid: 91e93c347dacc04b8bbb9a25099a3401
+      id: 2589897592
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: a73c7a02b02f814caa08ff6be5823e65
+      - ElementName: Door_Opening
+        ObjectType: 3
+        guid: 91e93c347dacc04b8bbb9a25099a3401
+      Path: Events\Default Work Unit\Door_Opening
+      maxAttenuation: 0
+      maxDuration: 1.552
+      minDuration: 1.552
+    - name: Electronics_Room
+      guid: ab5be71ed586c148ab8c9f9ff816a8fb
+      id: 2572679272
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: a73c7a02b02f814caa08ff6be5823e65
+      - ElementName: Electronics_Room
+        ObjectType: 3
+        guid: ab5be71ed586c148ab8c9f9ff816a8fb
+      Path: Events\Default Work Unit\Electronics_Room
+      maxAttenuation: 0
+      maxDuration: 27.428562
+      minDuration: 27.428562
     - name: PlayerFoot
       guid: 9535f4e52441134bb64bf6b39f19f673
       id: 2664667690
@@ -111,8 +176,8 @@ MonoBehaviour:
         guid: 9535f4e52441134bb64bf6b39f19f673
       Path: Events\Default Work Unit\PlayerFoot
       maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxDuration: 2.6453333
+      minDuration: 0.5358854
   RtpcWwu:
   - PhysicalPath: Game Parameters\Default Work Unit.wwu
     PathAndIcons:
@@ -153,7 +218,7 @@ MonoBehaviour:
     ParentPath: Switches\Default Work Unit
     guid: 7efb8b82d304a74188c2d0309d757ff4
     GuidInternal: 
-    m_lastTime: -8584641470934775808
+    m_lastTime: -8584639611284560112
     List:
     - name: Footsteps_Material
       guid: 4d355412d47fe246b833edaf6951d735
@@ -220,7 +285,7 @@ MonoBehaviour:
     m_lastTime: -8584642281314775808
     List: []
   ExpandedFileSystemItemIds: 
-  ExpandedWaapiItemIds: 
+  ExpandedWaapiItemIds: 06000000070000000c0000000d0000000e0000000f00000017000000
   AutoSyncSelection: 0
   autoPopulateEnabled: 1
   currentDataSource: 0
