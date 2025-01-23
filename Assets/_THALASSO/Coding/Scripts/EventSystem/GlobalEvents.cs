@@ -11,6 +11,7 @@ public class GlobalEvents
     {
         public const int TestTriggered = 100;
         public const int ProgressionCompleted = 101;
+        public const int HasBeenSolved = 102;
     }
 
     public class Player // 300 - 499
