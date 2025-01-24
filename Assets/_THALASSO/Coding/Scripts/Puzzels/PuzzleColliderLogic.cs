@@ -2,7 +2,7 @@ using System.Reflection;
 using Unity.Cinemachine;
 using UnityEngine;
 
-public class PuzzleColliderLogic : MonoBehaviour
+public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
 {
     [SerializeField] private string playerTag;
     [SerializeField] private Transform targetCamera;
@@ -26,36 +26,10 @@ public class PuzzleColliderLogic : MonoBehaviour
     {
         buttonUICanvas.SetActive(false);
         cinemachineVirtualCamera = GameObject.FindAnyObjectByType<CinemachineCamera>();
-
-        InputManager.OnInteractGlobal += CheckCollision;
-
-    }
-    private void OnDisable()
-    {
-        InputManager.OnInteractGlobal -= CheckCollision;
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void Interact(Transform transform)
     {
-        if (other.gameObject.CompareTag(playerTag))
-        {
-            inRange = true;
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag(playerTag))
-        {
-            inRange = false;
-        }
-    }
-
-    private void CheckCollision()
-    {
-        if (!inRange || inAnimation)
-            return;
-
-
         if (!isfocused)
         {
             originTransformPosition = Camera.main.transform.position;
@@ -116,4 +90,5 @@ public class PuzzleColliderLogic : MonoBehaviour
             Destroy(transform);
         }
     }
+
 }
