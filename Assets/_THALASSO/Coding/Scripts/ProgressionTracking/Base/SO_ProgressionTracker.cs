@@ -4,7 +4,7 @@ using UnityEngine;
 namespace ProgressionTracking
 {
     [CreateAssetMenu(fileName = "NewProgressionTracker", menuName = "Scriptable Objects/Progression Tracker")]
-    public class SO_ProgressionTracker : ScriptableObject
+    public class SO_ProgressionTracker : SO_Singleton
     {
         [SerializeField]
         private uint _id = 0;
@@ -28,9 +28,11 @@ namespace ProgressionTracking
                 }
             }
         }
-
-        private void Awake()
+        
+        protected override void Awake()
         {
+            base.Awake();
+
             if (_solvableDependenciesID.Count > 0)
                 foreach (var id in _solvableDependenciesID)
                     _progression.Add(id, false);
@@ -50,10 +52,11 @@ namespace ProgressionTracking
 
         private void OnHasBeenSolved(object[] args)
         {
+            Debug.Log(this.name + " OnHasBeenSolved is being executed.");
             if (args[0] is uint id)
             {
                 _progression[id] = true;
-
+                Debug.Log(args[0] + " has been solved.");
                 CheckProgression();
             }
         }
