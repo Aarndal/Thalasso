@@ -22,6 +22,9 @@ public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
     private CinemachineCamera cinemachineVirtualCamera;
     private bool inAnimation;
 
+    private bool isActivatable = true;
+    public bool IsActivatable => isActivatable;
+
     private void Start()
     {
         buttonUICanvas.SetActive(false);
