@@ -680,33 +680,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _version: 2
   _crossSceneReferences:
-  - _sourceObject: {fileID: 597438824}
-    _sourceField: m_UIInputModule
-    DEPRECATED_fromObject:
-      scene:
-        editorAssetGUID: 
-        name: 
-        _path: 
-      fullPath: 
-      componentName: 
-      componentIndex: 0
-      editorLocalId: 0
-      editorPrefabRelativePath: 
-      version: 0
-    _toObject:
-      scene:
-        editorAssetGUID: 7b96a24fb5b467b49ba29123be5c8750
-        name: ElectricityPuzzleUI
-        _path: Assets/_THALASSO/Levels/Scenes/TestScenes/Pascal/ElectricityPuzzleUI.unity
-      fullPath: /EventSystem
-      componentName: UnityEngine.InputSystem.UI.InputSystemUIInputModule, Unity.InputSystem,
-        Version=1.11.2.0, Culture=neutral, PublicKeyToken=null
-      componentIndex: 0
-      editorLocalId: 1208871418
-      editorPrefabRelativePath: 
-      version: 1
-    _data:
-      data: []
   - _sourceObject: {fileID: 0}
     _sourceField: numButtons,11
     DEPRECATED_fromObject:
@@ -1292,6 +1265,12 @@ MonoBehaviour:
       editorAssetGUID: 6e3b89fbbd86e0b4c853f33d33323c6d
       name: Cells
       _path: Assets/_THALASSO/Levels/Scenes/Cells.unity
+    loadInEditor: 1
+    loadMethod: 1
+  - scene:
+      editorAssetGUID: 7b96a24fb5b467b49ba29123be5c8750
+      name: ElectricityPuzzleUI
+      _path: Assets/_THALASSO/Levels/Scenes/TestScenes/Pascal/ElectricityPuzzleUI.unity
     loadInEditor: 1
     loadMethod: 1
   _isMainScene: 0
