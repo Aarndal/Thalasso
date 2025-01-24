@@ -6,6 +6,8 @@ using UnityEngine;
 public class Test_InteractiveSolvableObject : SolvableObjectBase, IAmInteractive
 {
     [SerializeField]
+    private uint _id;
+    [SerializeField]
     private bool _isActivatable = true;
     [SerializeField]
     private Color _baseColor = Color.white;
@@ -38,6 +40,7 @@ public class Test_InteractiveSolvableObject : SolvableObjectBase, IAmInteractive
         {
             _meshRenderer.material.color = Color.green;
             IsSolved = true;
+            GlobalEventBus.Raise(GlobalEvents.Game.HasBeenSolved, _id);
         }
         else
         {

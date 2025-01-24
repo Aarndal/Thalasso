@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 namespace ProgressionTracking
 {
@@ -12,8 +13,10 @@ namespace ProgressionTracking
         [SerializeField]
         private List<uint> _solvableDependenciesID = new();
 
+        [SerializeField]
         private bool _isCompleted = false;
-        private Dictionary<uint, bool> _progression = new();
+
+        private readonly Dictionary<uint, bool> _progression = new();
 
         public uint ID => _id;
         public bool IsCompleted
@@ -21,14 +24,16 @@ namespace ProgressionTracking
             get => _isCompleted;
             private set
             {
-                if (_isCompleted != value && value == true)
+                if (_isCompleted != value)
                 {
                     _isCompleted = value;
-                    GlobalEventBus.Raise(GlobalEvents.Game.ProgressionCompleted, _id);
+                 
+                    if (_isCompleted)
+                        GlobalEventBus.Raise(GlobalEvents.Game.ProgressionCompleted, _id);
                 }
             }
         }
-        
+
         protected override void Awake()
         {
             base.Awake();
@@ -40,19 +45,27 @@ namespace ProgressionTracking
 
         private void OnEnable()
         {
-            foreach (var id in _progression)
-                GlobalEventBus.Register(GlobalEvents.Game.HasBeenSolved, OnHasBeenSolved);
+            GlobalEventBus.Register(GlobalEvents.Game.HasBeenSolved, OnHasBeenSolved);
+            IsCompleted = false;
         }
 
         private void OnDisable()
         {
-            foreach (var id in _progression)
-                GlobalEventBus.Deregister(GlobalEvents.Game.HasBeenSolved, OnHasBeenSolved);
+            GlobalEventBus.Deregister(GlobalEvents.Game.HasBeenSolved, OnHasBeenSolved);
+        }
+
+        private void OnValidate()
+        {
+            if (_solvableDependenciesID.Count > 0)
+            {
+                _progression.Clear();
+                foreach (var id in _solvableDependenciesID)
+                    _progression.Add(id, false);
+            }
         }
 
         private void OnHasBeenSolved(object[] args)
         {
-            Debug.Log(this.name + " OnHasBeenSolved is being executed.");
             if (args[0] is uint id)
             {
                 _progression[id] = true;
@@ -63,7 +76,8 @@ namespace ProgressionTracking
 
         private void CheckProgression()
         {
-            IsCompleted = System.Linq.Enumerable.All(_progression, (o) => o.Value);
+            if(IsCompleted = System.Linq.Enumerable.All(_progression, (o) => o.Value))
+                Debug.Log("Progression of " + _id + " has been completed.");
         }
     }
 }

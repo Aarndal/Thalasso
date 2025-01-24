@@ -7,6 +7,8 @@ namespace ProgressionTracking
     public class Test_SolvablePlatform : SolvableObjectBase
     {
         [SerializeField]
+        private uint _id;
+        [SerializeField]
         private uint _reactionID;
 
         private Collider _collider = default;
@@ -32,7 +34,8 @@ namespace ProgressionTracking
 
         private void OnTriggerEnter(Collider other)
         {
-            Solve();
+            if (other.transform.CompareTag("Player"))
+                Solve();
         }
 
         private void OnDisable()
@@ -43,7 +46,7 @@ namespace ProgressionTracking
         public override void Solve()
         {
             _meshRenderer.material.color = Color.green;
-            IsSolved = true;
+            GlobalEventBus.Raise(GlobalEvents.Game.HasBeenSolved, _id);
         }
 
         private void OnProgressionCompleted(object[] args)

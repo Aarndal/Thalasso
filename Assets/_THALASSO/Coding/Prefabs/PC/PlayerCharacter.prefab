@@ -1249,7 +1249,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1436463936003658835}
   - component: {fileID: 3941479682246126129}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: PC_GroundChecker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2045,10 +2045,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.25
-  m_Height: 1.7
+  m_Radius: 0.2
+  m_Height: 2
   m_Direction: 2
-  m_Center: {x: 0, y: 0, z: 0.85}
+  m_Center: {x: 0, y: 0, z: 1}
 --- !u!114 &5858476017918080626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2068,8 +2068,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 54
   _maxTargetsToSearch: 10
-  _sphereCastRadius: 0.25
-  _sphereCastDistance: 1.2
+  _sphereCastRadius: 0.2
+  _sphereCastDistance: 1.6
   _targetThreshold: 0.9
 --- !u!114 &3889207154362529058
 MonoBehaviour:
@@ -2814,9 +2814,9 @@ GameObject:
   - component: {fileID: 7551320785702381447}
   - component: {fileID: 4108986684782331324}
   - component: {fileID: 2327573157270684837}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: PlayerCharacter
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2920,7 +2920,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _input: {fileID: 11400000, guid: bcec874ef13692e4d84d8d005895f237, type: 2}
   _cameraRoot: {fileID: 9113321653146743760}
-  _rotationThreshold: 0.1
+  _rotationThreshold: 0.01
   _topClampAngle: 60
   _bottomClampAngle: -50
   _horizontalSensitivity: 1
@@ -3380,7 +3380,7 @@ GameObject:
   - component: {fileID: 1786248715229087662}
   - component: {fileID: 962865512225803788}
   - component: {fileID: 4507699242303498203}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: PC_Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
