@@ -33,6 +33,8 @@ public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
 
     public void Interact(Transform transform)
     {
+        if (inAnimation)
+            return;
         if (!isfocused)
         {
             originTransformPosition = Camera.main.transform.position;

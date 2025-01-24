@@ -12,6 +12,10 @@ public class ElectricityPuzzleLogic : MonoBehaviour
     [SerializeField] private GameObject[] differentTileTypes;
     [SerializeField] private ElectricityPuzzelTileTypeConnections differentTileTypeConnections;
 
+    [SerializeField] private GameObject doorLockLid;
+    [SerializeField] private Transform doorLockLidRotationPoint;
+    [SerializeField] private float transitionduration = 0.5f;
+    [SerializeField] private AnimationCurve animationSpeedCurve;
 
     private GameObject startTile;
     private GameObject endTile;
@@ -37,6 +41,10 @@ public class ElectricityPuzzleLogic : MonoBehaviour
 
         GenerateNewLayout();
         OnFieldGotUpdate(tileField[0, 0]);
+    }
+    public void StartPuzzle()
+    {
+        TransformTransitionSystem.Instance.TransitionRot(doorLockLid, doorLockLidRotationPoint, transitionduration, animationSpeedCurve,null, null);
     }
 
     private void SetupTileInput()

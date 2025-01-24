@@ -119,6 +119,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &17674205 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1732256068995673940, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
+  m_PrefabInstance: {fileID: 4330289872165752771}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &25306239
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1903,6 +1908,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3186821504866357764, guid: f7da796fa3c7d7c4b8b7b08484c2f965, type: 3}
   m_PrefabInstance: {fileID: 621871497}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &647116461 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2352432381689995529, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
+  m_PrefabInstance: {fileID: 4330289872165752771}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &726598850
 GameObject:
   m_ObjectHideFlags: 0
@@ -3526,438 +3536,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _version: 2
-  _crossSceneReferences:
-  - _sourceObject: {fileID: 3139497917162105247}
-    _sourceField: buttonUICanvas
-    DEPRECATED_fromObject:
-      scene:
-        editorAssetGUID: 
-        name: 
-        _path: 
-      fullPath: 
-      componentName: 
-      componentIndex: 0
-      editorLocalId: 0
-      editorPrefabRelativePath: 
-      version: 0
-    _toObject:
-      scene:
-        editorAssetGUID: 7b96a24fb5b467b49ba29123be5c8750
-        name: ElectricityPuzzleUI
-        _path: Assets/_THALASSO/Levels/Scenes/TestScenes/Pascal/ElectricityPuzzleUI.unity
-      fullPath: /PuzzleButtonUI
-      componentName: 
-      componentIndex: 0
-      editorLocalId: 818927581
-      editorPrefabRelativePath: 
-      version: 1
-    _data:
-      data: []
-  - _sourceObject: {fileID: 3139497917162105246}
-    _sourceField: tileFieldButtonsInput,14
-    DEPRECATED_fromObject:
-      scene:
-        editorAssetGUID: 
-        name: 
-        _path: 
-      fullPath: 
-      componentName: 
-      componentIndex: 0
-      editorLocalId: 0
-      editorPrefabRelativePath: 
-      version: 0
-    _toObject:
-      scene:
-        editorAssetGUID: 7b96a24fb5b467b49ba29123be5c8750
-        name: ElectricityPuzzleUI
-        _path: Assets/_THALASSO/Levels/Scenes/TestScenes/Pascal/ElectricityPuzzleUI.unity
-      fullPath: /PuzzleButtonUI/Row 5/TileRotateButton (2)
-      componentName: UnityEngine.UI.Button, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      componentIndex: 0
-      editorLocalId: 1652759701
-      editorPrefabRelativePath: 
-      version: 1
-    _data:
-      data: []
-  - _sourceObject: {fileID: 3139497917162105246}
-    _sourceField: tileFieldButtonsInput,13
-    DEPRECATED_fromObject:
-      scene:
-        editorAssetGUID: 
-        name: 
-        _path: 
-      fullPath: 
-      componentName: 
-      componentIndex: 0
-      editorLocalId: 0
-      editorPrefabRelativePath: 
-      version: 0
-    _toObject:
-      scene:
-        editorAssetGUID: 7b96a24fb5b467b49ba29123be5c8750
-        name: ElectricityPuzzleUI
-        _path: Assets/_THALASSO/Levels/Scenes/TestScenes/Pascal/ElectricityPuzzleUI.unity
-      fullPath: /PuzzleButtonUI/Row 5/TileRotateButton (1)
-      componentName: UnityEngine.UI.Button, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      componentIndex: 0
-      editorLocalId: 273467598
-      editorPrefabRelativePath: 
-      version: 1
-    _data:
-      data: []
-  - _sourceObject: {fileID: 3139497917162105246}
-    _sourceField: tileFieldButtonsInput,12
-    DEPRECATED_fromObject:
-      scene:
-        editorAssetGUID: 
-        name: 
-        _path: 
-      fullPath: 
-      componentName: 
-      componentIndex: 0
-      editorLocalId: 0
-      editorPrefabRelativePath: 
-      version: 0
-    _toObject:
-      scene:
-        editorAssetGUID: 7b96a24fb5b467b49ba29123be5c8750
-        name: ElectricityPuzzleUI
-        _path: Assets/_THALASSO/Levels/Scenes/TestScenes/Pascal/ElectricityPuzzleUI.unity
-      fullPath: /PuzzleButtonUI/Row 5/TileRotateButton
-      componentName: UnityEngine.UI.Button, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      componentIndex: 0
-      editorLocalId: 1366164501
-      editorPrefabRelativePath: 
-      version: 1
-    _data:
-      data: []
-  - _sourceObject: {fileID: 3139497917162105246}
-    _sourceField: tileFieldButtonsInput,11
-    DEPRECATED_fromObject:
-      scene:
-        editorAssetGUID: 
-        name: 
-        _path: 
-      fullPath: 
-      componentName: 
-      componentIndex: 0
-      editorLocalId: 0
-      editorPrefabRelativePath: 
-      version: 0
-    _toObject:
-      scene:
-        editorAssetGUID: 7b96a24fb5b467b49ba29123be5c8750
-        name: ElectricityPuzzleUI
-        _path: Assets/_THALASSO/Levels/Scenes/TestScenes/Pascal/ElectricityPuzzleUI.unity
-      fullPath: /PuzzleButtonUI/Row 4/TileRotateButton (2)
-      componentName: UnityEngine.UI.Button, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      componentIndex: 0
-      editorLocalId: 310512398
-      editorPrefabRelativePath: 
-      version: 1
-    _data:
-      data: []
-  - _sourceObject: {fileID: 3139497917162105246}
-    _sourceField: tileFieldButtonsInput,10
-    DEPRECATED_fromObject:
-      scene:
-        editorAssetGUID: 
-        name: 
-        _path: 
-      fullPath: 
-      componentName: 
-      componentIndex: 0
-      editorLocalId: 0
-      editorPrefabRelativePath: 
-      version: 0
-    _toObject:
-      scene:
-        editorAssetGUID: 7b96a24fb5b467b49ba29123be5c8750
-        name: ElectricityPuzzleUI
-        _path: Assets/_THALASSO/Levels/Scenes/TestScenes/Pascal/ElectricityPuzzleUI.unity
-      fullPath: /PuzzleButtonUI/Row 4/TileRotateButton (1)
-      componentName: UnityEngine.UI.Button, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      componentIndex: 0
-      editorLocalId: 1686012675
-      editorPrefabRelativePath: 
-      version: 1
-    _data:
-      data: []
-  - _sourceObject: {fileID: 3139497917162105246}
-    _sourceField: tileFieldButtonsInput,9
-    DEPRECATED_fromObject:
-      scene:
-        editorAssetGUID: 
-        name: 
-        _path: 
-      fullPath: 
-      componentName: 
-      componentIndex: 0
-      editorLocalId: 0
-      editorPrefabRelativePath: 
-      version: 0
-    _toObject:
-      scene:
-        editorAssetGUID: 7b96a24fb5b467b49ba29123be5c8750
-        name: ElectricityPuzzleUI
-        _path: Assets/_THALASSO/Levels/Scenes/TestScenes/Pascal/ElectricityPuzzleUI.unity
-      fullPath: /PuzzleButtonUI/Row 4/TileRotateButton
-      componentName: UnityEngine.UI.Button, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      componentIndex: 0
-      editorLocalId: 1158763788
-      editorPrefabRelativePath: 
-      version: 1
-    _data:
-      data: []
-  - _sourceObject: {fileID: 3139497917162105246}
-    _sourceField: tileFieldButtonsInput,8
-    DEPRECATED_fromObject:
-      scene:
-        editorAssetGUID: 
-        name: 
-        _path: 
-      fullPath: 
-      componentName: 
-      componentIndex: 0
-      editorLocalId: 0
-      editorPrefabRelativePath: 
-      version: 0
-    _toObject:
-      scene:
-        editorAssetGUID: 7b96a24fb5b467b49ba29123be5c8750
-        name: ElectricityPuzzleUI
-        _path: Assets/_THALASSO/Levels/Scenes/TestScenes/Pascal/ElectricityPuzzleUI.unity
-      fullPath: /PuzzleButtonUI/Row 3/TileRotateButton (2)
-      componentName: UnityEngine.UI.Button, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      componentIndex: 0
-      editorLocalId: 1353311465
-      editorPrefabRelativePath: 
-      version: 1
-    _data:
-      data: []
-  - _sourceObject: {fileID: 3139497917162105246}
-    _sourceField: tileFieldButtonsInput,7
-    DEPRECATED_fromObject:
-      scene:
-        editorAssetGUID: 
-        name: 
-        _path: 
-      fullPath: 
-      componentName: 
-      componentIndex: 0
-      editorLocalId: 0
-      editorPrefabRelativePath: 
-      version: 0
-    _toObject:
-      scene:
-        editorAssetGUID: 7b96a24fb5b467b49ba29123be5c8750
-        name: ElectricityPuzzleUI
-        _path: Assets/_THALASSO/Levels/Scenes/TestScenes/Pascal/ElectricityPuzzleUI.unity
-      fullPath: /PuzzleButtonUI/Row 3/TileRotateButton (1)
-      componentName: UnityEngine.UI.Button, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      componentIndex: 0
-      editorLocalId: 1079970675
-      editorPrefabRelativePath: 
-      version: 1
-    _data:
-      data: []
-  - _sourceObject: {fileID: 3139497917162105246}
-    _sourceField: tileFieldButtonsInput,6
-    DEPRECATED_fromObject:
-      scene:
-        editorAssetGUID: 
-        name: 
-        _path: 
-      fullPath: 
-      componentName: 
-      componentIndex: 0
-      editorLocalId: 0
-      editorPrefabRelativePath: 
-      version: 0
-    _toObject:
-      scene:
-        editorAssetGUID: 7b96a24fb5b467b49ba29123be5c8750
-        name: ElectricityPuzzleUI
-        _path: Assets/_THALASSO/Levels/Scenes/TestScenes/Pascal/ElectricityPuzzleUI.unity
-      fullPath: /PuzzleButtonUI/Row 3/TileRotateButton
-      componentName: UnityEngine.UI.Button, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      componentIndex: 0
-      editorLocalId: 254392178
-      editorPrefabRelativePath: 
-      version: 1
-    _data:
-      data: []
-  - _sourceObject: {fileID: 3139497917162105246}
-    _sourceField: tileFieldButtonsInput,5
-    DEPRECATED_fromObject:
-      scene:
-        editorAssetGUID: 
-        name: 
-        _path: 
-      fullPath: 
-      componentName: 
-      componentIndex: 0
-      editorLocalId: 0
-      editorPrefabRelativePath: 
-      version: 0
-    _toObject:
-      scene:
-        editorAssetGUID: 7b96a24fb5b467b49ba29123be5c8750
-        name: ElectricityPuzzleUI
-        _path: Assets/_THALASSO/Levels/Scenes/TestScenes/Pascal/ElectricityPuzzleUI.unity
-      fullPath: /PuzzleButtonUI/Row 2/TileRotateButton (2)
-      componentName: UnityEngine.UI.Button, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      componentIndex: 0
-      editorLocalId: 1236262891
-      editorPrefabRelativePath: 
-      version: 1
-    _data:
-      data: []
-  - _sourceObject: {fileID: 3139497917162105246}
-    _sourceField: tileFieldButtonsInput,4
-    DEPRECATED_fromObject:
-      scene:
-        editorAssetGUID: 
-        name: 
-        _path: 
-      fullPath: 
-      componentName: 
-      componentIndex: 0
-      editorLocalId: 0
-      editorPrefabRelativePath: 
-      version: 0
-    _toObject:
-      scene:
-        editorAssetGUID: 7b96a24fb5b467b49ba29123be5c8750
-        name: ElectricityPuzzleUI
-        _path: Assets/_THALASSO/Levels/Scenes/TestScenes/Pascal/ElectricityPuzzleUI.unity
-      fullPath: /PuzzleButtonUI/Row 2/TileRotateButton (1)
-      componentName: UnityEngine.UI.Button, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      componentIndex: 0
-      editorLocalId: 1905482025
-      editorPrefabRelativePath: 
-      version: 1
-    _data:
-      data: []
-  - _sourceObject: {fileID: 3139497917162105246}
-    _sourceField: tileFieldButtonsInput,3
-    DEPRECATED_fromObject:
-      scene:
-        editorAssetGUID: 
-        name: 
-        _path: 
-      fullPath: 
-      componentName: 
-      componentIndex: 0
-      editorLocalId: 0
-      editorPrefabRelativePath: 
-      version: 0
-    _toObject:
-      scene:
-        editorAssetGUID: 7b96a24fb5b467b49ba29123be5c8750
-        name: ElectricityPuzzleUI
-        _path: Assets/_THALASSO/Levels/Scenes/TestScenes/Pascal/ElectricityPuzzleUI.unity
-      fullPath: /PuzzleButtonUI/Row 2/TileRotateButton
-      componentName: UnityEngine.UI.Button, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      componentIndex: 0
-      editorLocalId: 860031671
-      editorPrefabRelativePath: 
-      version: 1
-    _data:
-      data: []
-  - _sourceObject: {fileID: 3139497917162105246}
-    _sourceField: tileFieldButtonsInput,2
-    DEPRECATED_fromObject:
-      scene:
-        editorAssetGUID: 
-        name: 
-        _path: 
-      fullPath: 
-      componentName: 
-      componentIndex: 0
-      editorLocalId: 0
-      editorPrefabRelativePath: 
-      version: 0
-    _toObject:
-      scene:
-        editorAssetGUID: 7b96a24fb5b467b49ba29123be5c8750
-        name: ElectricityPuzzleUI
-        _path: Assets/_THALASSO/Levels/Scenes/TestScenes/Pascal/ElectricityPuzzleUI.unity
-      fullPath: /PuzzleButtonUI/Row 1/TileRotateButton (2)
-      componentName: UnityEngine.UI.Button, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      componentIndex: 0
-      editorLocalId: 740602311
-      editorPrefabRelativePath: 
-      version: 1
-    _data:
-      data: []
-  - _sourceObject: {fileID: 3139497917162105246}
-    _sourceField: tileFieldButtonsInput,1
-    DEPRECATED_fromObject:
-      scene:
-        editorAssetGUID: 
-        name: 
-        _path: 
-      fullPath: 
-      componentName: 
-      componentIndex: 0
-      editorLocalId: 0
-      editorPrefabRelativePath: 
-      version: 0
-    _toObject:
-      scene:
-        editorAssetGUID: 7b96a24fb5b467b49ba29123be5c8750
-        name: ElectricityPuzzleUI
-        _path: Assets/_THALASSO/Levels/Scenes/TestScenes/Pascal/ElectricityPuzzleUI.unity
-      fullPath: /PuzzleButtonUI/Row 1/TileRotateButton (1)
-      componentName: UnityEngine.UI.Button, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      componentIndex: 0
-      editorLocalId: 1307052953
-      editorPrefabRelativePath: 
-      version: 1
-    _data:
-      data: []
-  - _sourceObject: {fileID: 3139497917162105246}
-    _sourceField: tileFieldButtonsInput,0
-    DEPRECATED_fromObject:
-      scene:
-        editorAssetGUID: 
-        name: 
-        _path: 
-      fullPath: 
-      componentName: 
-      componentIndex: 0
-      editorLocalId: 0
-      editorPrefabRelativePath: 
-      version: 0
-    _toObject:
-      scene:
-        editorAssetGUID: 7b96a24fb5b467b49ba29123be5c8750
-        name: ElectricityPuzzleUI
-        _path: Assets/_THALASSO/Levels/Scenes/TestScenes/Pascal/ElectricityPuzzleUI.unity
-      fullPath: /PuzzleButtonUI/Row 1/TileRotateButton
-      componentName: UnityEngine.UI.Button, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      componentIndex: 0
-      editorLocalId: 376941056
-      editorPrefabRelativePath: 
-      version: 1
-    _data:
-      data: []
+  _crossSceneReferences: []
   _realSceneRootsForPostBuild: []
   _mergedScenes: []
 --- !u!114 &1344535696
@@ -6141,6 +5720,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5483408893343472924, guid: 28118b1673a88dd498d74e547d39bc7d, type: 3}
   m_PrefabInstance: {fileID: 2043252240}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &2044649954 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3817413518757616783, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
+  m_PrefabInstance: {fileID: 4330289872165752771}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2062416510
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6699,23 +6283,33 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6969806969965695194, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
   m_PrefabInstance: {fileID: 4330289872165752771}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 17674205}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 61a6be10288f0034fb287629cf5d083f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3139497917162105247 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1213776938615444198, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
-  m_PrefabInstance: {fileID: 4330289872165752771}
+--- !u!65 &3139497917162105248
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 17674205}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63c358ab2401376488269c3b6b085392, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  serializedVersion: 3
+  m_Size: {x: 0.4, y: 0.5, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &4330289872165752771
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6788,9 +6382,21 @@ PrefabInstance:
       propertyPath: buttonUICanvas
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1213776938615444198, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
+      propertyPath: autoStartPuzzleScript
+      value: 
+      objectReference: {fileID: 3139497917162105246}
+    - target: {fileID: 1213776938615444198, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
+      propertyPath: puzzleAutoStartNeeded
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1732256068995673940, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
       propertyPath: m_Name
       value: SM_DoorLock_Riddle
+      objectReference: {fileID: 0}
+    - target: {fileID: 1732256068995673940, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
+      propertyPath: m_Layer
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1732256068995673940, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
       propertyPath: m_IsActive
@@ -6949,6 +6555,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6969806969965695194, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
+      propertyPath: doorLockLid
+      value: 
+      objectReference: {fileID: 647116461}
+    - target: {fileID: 6969806969965695194, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
+      propertyPath: doorLockLidRotationPoint
+      value: 
+      objectReference: {fileID: 2044649954}
+    - target: {fileID: 6969806969965695194, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
       propertyPath: tileFieldButtonsInput.Array.size
       value: 15
       objectReference: {fileID: 0}
@@ -7075,7 +6689,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1732256068995673940, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3139497917162105248}
   m_SourcePrefab: {fileID: 100100000, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
 --- !u!1001 &4363028374751300099
 PrefabInstance:
