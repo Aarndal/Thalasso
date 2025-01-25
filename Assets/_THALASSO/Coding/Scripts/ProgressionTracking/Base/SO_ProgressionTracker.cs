@@ -69,7 +69,6 @@ namespace ProgressionTracking
             if (args[0] is uint id)
             {
                 _progression[id] = true;
-                Debug.Log(args[0] + " has been solved.");
                 CheckProgression();
             }
         }
