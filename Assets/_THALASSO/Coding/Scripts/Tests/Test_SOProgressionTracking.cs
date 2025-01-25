@@ -17,14 +17,27 @@ public class Test_SOProgressionTracking : MonoBehaviour
         _meshRenderer = GetComponent<MeshRenderer>();
     }
 
-    private void Start()
+    private void OnEnable()
     {
-        _meshRenderer.material.color = _baseColor;
+        GlobalEventBus.Register(GlobalEvents.Game.ProgressionCompleted, OnProgressionCompleted);
     }
 
-    private void Update()
+    private void Start()
     {
-        if(_progressionTracker.IsCompleted)
+        if (_progressionTracker.IsCompleted)
+            _meshRenderer.material.color = Color.green;
+        else
+            _meshRenderer.material.color = _baseColor;
+    }
+
+    private void OnDisable()
+    {
+        GlobalEventBus.Register(GlobalEvents.Game.ProgressionCompleted, OnProgressionCompleted);
+    }
+
+    private void OnProgressionCompleted(object[] args)
+    {
+        if ((uint)args[0] == _progressionTracker.ID)
             _meshRenderer.material.color = Color.green;
     }
 }

@@ -28,8 +28,8 @@ namespace ProgressionTracking
                 {
                     _isCompleted = value;
 
-                    if (_isCompleted)
-                        GlobalEventBus.Raise(GlobalEvents.Game.ProgressionCompleted, _id);
+                    //if (_isCompleted)
+                    //    GlobalEventBus.Raise(GlobalEvents.Game.ProgressionCompleted, _id);
                 }
             }
         }
@@ -46,7 +46,10 @@ namespace ProgressionTracking
         private void OnEnable()
         {
             GlobalEventBus.Register(GlobalEvents.Game.HasBeenSolved, OnHasBeenSolved);
+
+#if UNITY_EDITOR
             IsCompleted = false;
+#endif
         }
 
         private void OnDisable()
@@ -76,7 +79,10 @@ namespace ProgressionTracking
         private void CheckProgression()
         {
             if (IsCompleted = System.Linq.Enumerable.All(_progression, (o) => o.Value))
+            {
+                GlobalEventBus.Raise(GlobalEvents.Game.ProgressionCompleted, _id);
                 Debug.Log("Progression of " + _id + " has been completed.");
+            }
         }
     }
 }
