@@ -11,7 +11,7 @@ namespace ProgressionTracking
         private uint _id = 0;
 
         [SerializeField]
-        private List<uint> _solvableDependenciesID = new();
+        private List<SO_UIntVariable> _solvableDependenciesID = new();
 
         [SerializeField]
         private bool _isCompleted = false;
@@ -27,7 +27,7 @@ namespace ProgressionTracking
                 if (_isCompleted != value)
                 {
                     _isCompleted = value;
-                 
+
                     if (_isCompleted)
                         GlobalEventBus.Raise(GlobalEvents.Game.ProgressionCompleted, _id);
                 }
@@ -38,9 +38,9 @@ namespace ProgressionTracking
         {
             base.Awake();
 
-            if (_solvableDependenciesID.Count > 0)
+            if (_solvableDependenciesID.Count > 0 && _solvableDependenciesID.Count != _progression.Count)
                 foreach (var id in _solvableDependenciesID)
-                    _progression.Add(id, false);
+                    _progression.Add(id.Value, false);
         }
 
         private void OnEnable()
@@ -56,11 +56,11 @@ namespace ProgressionTracking
 
         private void OnValidate()
         {
-            if (_solvableDependenciesID.Count > 0)
+            if (_solvableDependenciesID.Count > 0 && _solvableDependenciesID.Count != _progression.Count)
             {
                 _progression.Clear();
                 foreach (var id in _solvableDependenciesID)
-                    _progression.Add(id, false);
+                    _progression.Add(id.Value, false);
             }
         }
 
@@ -76,7 +76,7 @@ namespace ProgressionTracking
 
         private void CheckProgression()
         {
-            if(IsCompleted = System.Linq.Enumerable.All(_progression, (o) => o.Value))
+            if (IsCompleted = System.Linq.Enumerable.All(_progression, (o) => o.Value))
                 Debug.Log("Progression of " + _id + " has been completed.");
         }
     }

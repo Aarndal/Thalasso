@@ -240,7 +240,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 842353e4279f1c24087c37db72c24f2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: 1031
+  _id:
+    useReference: 1
+    constantValue: 0
+    uintVariable: {fileID: 11400000, guid: 90e95788629534d4fad0f69967f9bcad, type: 2}
   _reactionID: 103
 --- !u!1 &385144306
 GameObject:
@@ -946,7 +949,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 842353e4279f1c24087c37db72c24f2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: 1032
+  _id:
+    useReference: 1
+    constantValue: 0
+    uintVariable: {fileID: 11400000, guid: 37d4b7d59d67100488e065b43b63ece9, type: 2}
   _reactionID: 103
 --- !u!1 &1295507071
 GameObject:

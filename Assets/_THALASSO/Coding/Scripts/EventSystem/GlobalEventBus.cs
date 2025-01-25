@@ -5,11 +5,11 @@ public static class GlobalEventBus
 {
     public delegate void EventFunction(params object[] args);
 
-    private static Dictionary<int, List<EventFunction>> EventListener { get; set; }
+    private static Dictionary<uint, List<EventFunction>> EventListener { get; set; }
 
     static GlobalEventBus() => EventListener = new();
 
-    public static void Register(int eventTypeID, EventFunction listenerEventFunction) // Subscribe
+    public static void Register(uint eventTypeID, EventFunction listenerEventFunction) // Subscribe
     {
         List<EventFunction> eventFunctions;
 
@@ -22,7 +22,7 @@ public static class GlobalEventBus
         eventFunctions.Add(listenerEventFunction);
     }
 
-    public static void Deregister(int eventTypeID, EventFunction listenerEventFunction) // Unsubscribe
+    public static void Deregister(uint eventTypeID, EventFunction listenerEventFunction) // Unsubscribe
     {
         List<EventFunction> eventFunctions;
 
@@ -32,7 +32,7 @@ public static class GlobalEventBus
         eventFunctions.Remove(listenerEventFunction);
     }
 
-    public static void Raise(int eventTypeID, params object[] data) // Push/Publish
+    public static void Raise(uint eventTypeID, params object[] data) // Push/Publish
     {
         List<EventFunction> eventFunctions;
 

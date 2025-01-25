@@ -3,19 +3,19 @@ public class GlobalEvents
 {
     public class UI // 0 - 99
     {
-        public const int MenuOpened = 0;
-        public const int MenuClosed = 1;
+        public const uint MenuOpened = 0;
+        public const uint MenuClosed = 1;
     }
 
     public class Game // 100 - 299
     {
-        public const int TestTriggered = 100;
-        public const int ProgressionCompleted = 101;
-        public const int HasBeenSolved = 102;
+        public const uint TestTriggered = 100;
+        public const uint ProgressionCompleted = 101;
+        public const uint HasBeenSolved = 102;
     }
 
     public class Player // 300 - 499
     {
-        public const int GroundedStateChanged = 300;
+        public const uint GroundedStateChanged = 300;
     }
 }

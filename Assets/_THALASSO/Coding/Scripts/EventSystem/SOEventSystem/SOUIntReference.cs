@@ -7,8 +7,8 @@ public class SOUIntReference
     public uint constantValue;
     public SO_UIntVariable uintVariable;
 
-    public float Value
+    public uint Value
     {
-        get { return useReference ? uintVariable.value : constantValue; }
+        get { return useReference ? uintVariable.Value : constantValue; }
     }
 }

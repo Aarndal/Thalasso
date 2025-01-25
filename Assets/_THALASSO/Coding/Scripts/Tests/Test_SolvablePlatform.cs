@@ -7,7 +7,7 @@ namespace ProgressionTracking
     public class Test_SolvablePlatform : SolvableObjectBase
     {
         [SerializeField]
-        private uint _id;
+        private SOUIntReference _id;
         [SerializeField]
         private uint _reactionID;
 
@@ -46,7 +46,7 @@ namespace ProgressionTracking
         public override void Solve()
         {
             _meshRenderer.material.color = Color.green;
-            GlobalEventBus.Raise(GlobalEvents.Game.HasBeenSolved, _id);
+            GlobalEventBus.Raise(GlobalEvents.Game.HasBeenSolved, _id.Value);
         }
 
         private void OnProgressionCompleted(object[] args)
