@@ -1055,7 +1055,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79ac76512b87bea47a65925b574c3d4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: 1033
+  _id:
+    useReference: 1
+    constantValue: 0
+    uintVariable: {fileID: 11400000, guid: e8b037d333380ea47be9083775dd663d, type: 2}
   _isActivatable: 1
   _baseColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &937888829
@@ -1105,7 +1108,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79ac76512b87bea47a65925b574c3d4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: 1033
+  _id:
+    useReference: 1
+    constantValue: 0
+    uintVariable: {fileID: 11400000, guid: e8b037d333380ea47be9083775dd663d, type: 2}
   _isActivatable: 1
   _baseColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!65 &937888832

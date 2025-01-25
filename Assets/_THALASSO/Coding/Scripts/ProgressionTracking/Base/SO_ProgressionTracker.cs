@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
 namespace ProgressionTracking
 {
@@ -46,15 +45,15 @@ namespace ProgressionTracking
         private void OnEnable()
         {
             GlobalEventBus.Register(GlobalEvents.Game.HasBeenSolved, OnHasBeenSolved);
-
-#if UNITY_EDITOR
-            IsCompleted = false;
-#endif
         }
 
         private void OnDisable()
         {
             GlobalEventBus.Deregister(GlobalEvents.Game.HasBeenSolved, OnHasBeenSolved);
+
+#if UNITY_EDITOR
+            IsCompleted = false;
+#endif
         }
 
         private void OnValidate()

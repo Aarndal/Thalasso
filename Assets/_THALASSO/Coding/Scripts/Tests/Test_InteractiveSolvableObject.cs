@@ -6,7 +6,7 @@ using UnityEngine;
 public class Test_InteractiveSolvableObject : SolvableObjectBase, IAmInteractive
 {
     [SerializeField]
-    private uint _id;
+    private SOUIntReference _id;
     [SerializeField]
     private bool _isActivatable = true;
     [SerializeField]
@@ -40,7 +40,7 @@ public class Test_InteractiveSolvableObject : SolvableObjectBase, IAmInteractive
         {
             _meshRenderer.material.color = Color.green;
             IsSolved = true;
-            GlobalEventBus.Raise(GlobalEvents.Game.HasBeenSolved, _id);
+            GlobalEventBus.Raise(GlobalEvents.Game.HasBeenSolved, _id.Value);
         }
         else
         {

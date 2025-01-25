@@ -24,10 +24,7 @@ public class Test_SOProgressionTracking : MonoBehaviour
 
     private void Start()
     {
-        if (_progressionTracker.IsCompleted)
-            _meshRenderer.material.color = Color.green;
-        else
-            _meshRenderer.material.color = _baseColor;
+        _meshRenderer.material.color = _progressionTracker.IsCompleted ? Color.green : _baseColor;
     }
 
     private void OnDisable()
