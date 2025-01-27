@@ -253,7 +253,7 @@ GameObject:
   - component: {fileID: 62974803}
   - component: {fileID: 62974802}
   - component: {fileID: 62974801}
-  - component: {fileID: 62974800}
+  - component: {fileID: 62974805}
   m_Layer: 20
   m_Name: TestObject (1)
   m_TagString: Untagged
@@ -276,24 +276,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 104361494}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &62974800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 62974798}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79ac76512b87bea47a65925b574c3d4e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _id:
-    useReference: 1
-    constantValue: 0
-    uintVariable: {fileID: 11400000, guid: 37d4b7d59d67100488e065b43b63ece9, type: 2}
-  _isActivatable: 1
-  _baseColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!54 &62974801
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -397,6 +379,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 62974798}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &62974805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 62974798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78a8df120b972c54bbb7a45b756975d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _solvableObject: {fileID: 11400000, guid: fcacb02f2a0b1bd40bc7a8842ff49eb4, type: 2}
+  _isActivatable: 1
+  _baseColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &104361493
 GameObject:
   m_ObjectHideFlags: 0
@@ -694,7 +691,7 @@ GameObject:
   - component: {fileID: 1355948772}
   - component: {fileID: 1355948771}
   - component: {fileID: 1355948770}
-  - component: {fileID: 1355948769}
+  - component: {fileID: 1355948774}
   m_Layer: 20
   m_Name: TestObject (2)
   m_TagString: Untagged
@@ -717,24 +714,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 104361494}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1355948769
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1355948767}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79ac76512b87bea47a65925b574c3d4e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _id:
-    useReference: 1
-    constantValue: 0
-    uintVariable: {fileID: 11400000, guid: 90e95788629534d4fad0f69967f9bcad, type: 2}
-  _isActivatable: 1
-  _baseColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!54 &1355948770
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -838,6 +817,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1355948767}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1355948774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1355948767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78a8df120b972c54bbb7a45b756975d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _solvableObject: {fileID: 11400000, guid: b39eb2377d667d14391c6e752bd87f94, type: 2}
+  _isActivatable: 1
+  _baseColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &1486386170
 GameObject:
   m_ObjectHideFlags: 0
@@ -917,7 +911,7 @@ GameObject:
   - component: {fileID: 1838180902}
   - component: {fileID: 1838180901}
   - component: {fileID: 1838180900}
-  - component: {fileID: 1838180904}
+  - component: {fileID: 1838180905}
   m_Layer: 20
   m_Name: TestObject
   m_TagString: Untagged
@@ -1043,7 +1037,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1838180898}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1838180904
+--- !u!114 &1838180905
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1052,13 +1046,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1838180898}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79ac76512b87bea47a65925b574c3d4e, type: 3}
+  m_Script: {fileID: 11500000, guid: 78a8df120b972c54bbb7a45b756975d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id:
-    useReference: 1
-    constantValue: 0
-    uintVariable: {fileID: 11400000, guid: e8b037d333380ea47be9083775dd663d, type: 2}
+  _solvableObject: {fileID: 11400000, guid: a4dd18b8d4917f2448ce17a24d04710f, type: 2}
   _isActivatable: 1
   _baseColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &2038589677

@@ -1,9 +1,10 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace ProgressionTracking
 {
-    [CreateAssetMenu(fileName = "NewProgressionTracker", menuName = "Scriptable Objects/Progression Tracker")]
+    [CreateAssetMenu(fileName = "NewProgressionTracker02", menuName = "Scriptable Objects/Progression Tracker02")]
     public class SO_ProgressionTracker02 : SO_Singleton
     {
         [SerializeField]
@@ -15,22 +16,13 @@ namespace ProgressionTracking
         [SerializeField]
         private bool _isCompleted = false;
 
-        private readonly Dictionary<uint, bool> _progression = new();
+        private readonly Dictionary<uint, SO_SolvableObject> _progression = new();
 
         public uint ID => _id;
         public bool IsCompleted
         {
             get => _isCompleted;
-            private set
-            {
-                if (_isCompleted != value)
-                {
-                    _isCompleted = value;
-
-                    //if (_isCompleted)
-                    //    GlobalEventBus.Raise(GlobalEvents.Game.ProgressionCompleted, _id);
-                }
-            }
+            private set => _isCompleted = value;
         }
 
         protected override void Awake()
@@ -38,50 +30,67 @@ namespace ProgressionTracking
             base.Awake();
 
             if (_solvableDependenciesID.Count > 0 && _solvableDependenciesID.Count != _progression.Count)
-                foreach (var solvableObject in _solvableDependenciesID)
-                    _progression.Add(solvableObject.ID, solvableObject.IsSolved);
+                InitializeProgression();
+
+            CheckProgression();
         }
+
 
         private void OnEnable()
         {
-            GlobalEventBus.Register(GlobalEvents.Game.HasBeenSolved, OnHasBeenSolved);
+            foreach (var solvableObject in _progression.Values)
+                solvableObject.ValueChanged += OnSolveStateChanged;
         }
+
 
         private void OnDisable()
         {
-            GlobalEventBus.Deregister(GlobalEvents.Game.HasBeenSolved, OnHasBeenSolved);
+            foreach (var solvableObject in _progression.Values)
+                solvableObject.ValueChanged -= OnSolveStateChanged;
 
 #if UNITY_EDITOR
-            IsCompleted = false;
+            if (IsCompleted)
+                IsCompleted = false;
 #endif
         }
 
         private void OnValidate()
         {
             if (_solvableDependenciesID.Count > 0 && _solvableDependenciesID.Count != _progression.Count)
-            {
-                _progression.Clear();
-                foreach (var solvableObject in _solvableDependenciesID)
-                    _progression.Add(solvableObject.ID, solvableObject.IsSolved);
-            }
+                InitializeProgression();
         }
 
-        private void OnHasBeenSolved(object[] args)
+        private void OnSolveStateChanged(uint id, bool isSolved)
         {
-            if (args[0] is uint id)
+            if (_progression.ContainsKey(id))
             {
-                _progression[id] = true;
                 CheckProgression();
             }
         }
 
         private void CheckProgression()
         {
-            if (IsCompleted = System.Linq.Enumerable.All(_progression, (o) => o.Value))
+            string debugColor = "cyan";
+
+            Debug.LogFormat("<color={0}>Progression Tracker ID: {1}</color>", debugColor, _id);
+            foreach (var progress in _progression)
+            {
+                debugColor = progress.Value.IsSolved ? "green" : "red";
+                Debug.LogFormat("Solvable ID: <color={0}>{1}</color> | Is Solved: <color={0}>{2}</color>", debugColor, progress.Key, progress.Value.IsSolved);
+            }
+
+            if (IsCompleted = _progression.All((o) => o.Value.IsSolved))
             {
                 GlobalEventBus.Raise(GlobalEvents.Game.ProgressionCompleted, _id);
-                Debug.Log("Progression of " + _id + " has been completed.");
+                Debug.LogFormat("<color={0}>Progression of {1} has been completed</color>", debugColor, _id);
             }
+        }
+
+        private void InitializeProgression()
+        {
+            _progression.Clear();
+            foreach (var solvableObject in _solvableDependenciesID)
+                _progression.Add(solvableObject.ID, solvableObject);
         }
     }
 }

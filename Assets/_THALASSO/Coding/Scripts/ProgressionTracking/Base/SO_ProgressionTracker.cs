@@ -21,16 +21,7 @@ namespace ProgressionTracking
         public bool IsCompleted
         {
             get => _isCompleted;
-            private set
-            {
-                if (_isCompleted != value)
-                {
-                    _isCompleted = value;
-
-                    //if (_isCompleted)
-                    //    GlobalEventBus.Raise(GlobalEvents.Game.ProgressionCompleted, _id);
-                }
-            }
+            private set => _isCompleted = value;
         }
 
         protected override void Awake()
@@ -38,8 +29,7 @@ namespace ProgressionTracking
             base.Awake();
 
             if (_solvableDependenciesID.Count > 0 && _solvableDependenciesID.Count != _progression.Count)
-                foreach (var id in _solvableDependenciesID)
-                    _progression.Add(id.Value, false);
+                InitializeProgression();
         }
 
         private void OnEnable()
@@ -52,23 +42,20 @@ namespace ProgressionTracking
             GlobalEventBus.Deregister(GlobalEvents.Game.HasBeenSolved, OnHasBeenSolved);
 
 #if UNITY_EDITOR
-            IsCompleted = false;
+            if (IsCompleted)
+                IsCompleted = false;
 #endif
         }
 
         private void OnValidate()
         {
             if (_solvableDependenciesID.Count > 0 && _solvableDependenciesID.Count != _progression.Count)
-            {
-                _progression.Clear();
-                foreach (var id in _solvableDependenciesID)
-                    _progression.Add(id.Value, false);
-            }
+                InitializeProgression();
         }
 
         private void OnHasBeenSolved(object[] args)
         {
-            if (args[0] is uint id)
+            if (args[0] is uint id && _progression.ContainsKey(id))
             {
                 _progression[id] = true;
                 CheckProgression();
@@ -77,11 +64,27 @@ namespace ProgressionTracking
 
         private void CheckProgression()
         {
+            string debugColor = "cyan";
+
+            Debug.LogFormat("<color={0}>Progression Tracker ID: {1}</color>", debugColor, _id);
+            foreach (var progress in _progression)
+            {
+                debugColor = progress.Value ? "green" : "red";
+                Debug.LogFormat("Solvable ID: <color={0}>{1}</color> | Is Solved: <color={0}>{2}</color>", debugColor, progress.Key, progress.Value);
+            }
+
             if (IsCompleted = System.Linq.Enumerable.All(_progression, (o) => o.Value))
             {
                 GlobalEventBus.Raise(GlobalEvents.Game.ProgressionCompleted, _id);
-                Debug.Log("Progression of " + _id + " has been completed.");
+                Debug.LogFormat("<color={0}>Progression of {1} has been completed</color>", debugColor, _id);
             }
+        }
+
+        private void InitializeProgression()
+        {
+            _progression.Clear();
+            foreach (var id in _solvableDependenciesID)
+                _progression.Add(id.Value, false);
         }
     }
 }

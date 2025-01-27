@@ -1,13 +1,16 @@
 using System;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 [CreateAssetMenu(fileName = "NewSolvableObject", menuName = "Scriptable Objects/Solvable Object")]
-public class SO_SolvableObject : ScriptableObject
+public class SO_SolvableObject : ScriptableObject, INotifyValueChanged<uint, bool>
 {
-    public event Action<uint, bool> SolvedStateChanged;
-
+    [SerializeField]
     private uint _id;
+    [SerializeField]
     private bool _isSolved;
+
+    private Action<uint, bool> _valueChanged;
 
     public uint ID => _id;
     public bool IsSolved
@@ -18,8 +21,35 @@ public class SO_SolvableObject : ScriptableObject
             if (value != _isSolved)
             {
                 _isSolved = value;
-                SolvedStateChanged?.Invoke(_id, _isSolved);
+                _valueChanged?.Invoke(_id, _isSolved);
             }
         }
+    }
+
+    public event Action<uint, bool> ValueChanged 
+    {
+        add
+        {
+            _valueChanged -= value;
+            _valueChanged += value;
+        }
+        remove
+        {
+            _valueChanged -= value;
+        }
+    }
+
+    private void Awake()
+    {
+#if UNITY_EDITOR
+        IsSolved = false;
+#endif
+    }
+
+    private void OnDisable()
+    {
+#if UNITY_EDITOR
+        IsSolved = false;
+#endif
     }
 }
