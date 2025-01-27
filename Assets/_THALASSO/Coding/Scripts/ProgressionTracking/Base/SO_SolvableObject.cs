@@ -1,55 +1,45 @@
 using System;
 using UnityEngine;
-using UnityEngine.UIElements;
 
-[CreateAssetMenu(fileName = "NewSolvableObject", menuName = "Scriptable Objects/Solvable Object")]
-public class SO_SolvableObject : ScriptableObject, INotifyValueChanged<uint, bool>
+namespace ProgressionTracking
 {
-    [SerializeField]
-    private uint _id;
-    [SerializeField]
-    private bool _isSolved;
-
-    private Action<uint, bool> _valueChanged;
-
-    public uint ID => _id;
-    public bool IsSolved
+    [CreateAssetMenu(fileName = "NewSolvableObject", menuName = "Scriptable Objects/Solvable Object")]
+    public class SO_SolvableObject : SO_ResettableData, INotifyValueChanged<uint, bool>
     {
-        get => _isSolved;
-        set
+        [SerializeField]
+        private uint _id;
+        [SerializeField]
+        private bool _isSolved;
+
+        private Action<uint, bool> _valueChanged;
+
+        public uint ID => _id;
+        public bool IsSolved
         {
-            if (value != _isSolved)
+            get => _isSolved;
+            set
             {
-                _isSolved = value;
-                _valueChanged?.Invoke(_id, _isSolved);
+                if (value != _isSolved)
+                {
+                    _isSolved = value;
+                    _valueChanged?.Invoke(_id, _isSolved);
+                }
             }
         }
-    }
 
-    public event Action<uint, bool> ValueChanged 
-    {
-        add
+        public event Action<uint, bool> ValueChanged
         {
-            _valueChanged -= value;
-            _valueChanged += value;
+            add
+            {
+                _valueChanged -= value;
+                _valueChanged += value;
+            }
+            remove
+            {
+                _valueChanged -= value;
+            }
         }
-        remove
-        {
-            _valueChanged -= value;
-        }
-    }
 
-    private void Awake()
-    {
-#if UNITY_EDITOR
-        IsSolved = false;
-#endif
-    }
-
-    private void OnDisable()
-    {
-#if UNITY_EDITOR
-        IsSolved = false;
-#endif
+        public override void ResetData() => IsSolved = false;
     }
 }

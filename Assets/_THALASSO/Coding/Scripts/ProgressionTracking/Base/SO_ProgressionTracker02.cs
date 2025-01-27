@@ -5,25 +5,21 @@ using UnityEngine;
 namespace ProgressionTracking
 {
     [CreateAssetMenu(fileName = "NewProgressionTracker02", menuName = "Scriptable Objects/Progression Tracker02")]
-    public class SO_ProgressionTracker02 : SO_Singleton
+    public class SO_ProgressionTracker02 : SO_ResettableDataSingleton
     {
         [SerializeField]
         private uint _id = 0;
 
         [SerializeField]
-        private List<SO_SolvableObject> _solvableDependenciesID = new();
+        private bool _isCompleted = false;
 
         [SerializeField]
-        private bool _isCompleted = false;
+        private List<SO_SolvableObject> _solvableDependenciesID = new();
 
         private readonly Dictionary<uint, SO_SolvableObject> _progression = new();
 
         public uint ID => _id;
-        public bool IsCompleted
-        {
-            get => _isCompleted;
-            private set => _isCompleted = value;
-        }
+        public bool IsCompleted { get => _isCompleted; private set => _isCompleted = value; }
 
         protected override void Awake()
         {
@@ -36,22 +32,21 @@ namespace ProgressionTracking
         }
 
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
+
             foreach (var solvableObject in _progression.Values)
                 solvableObject.ValueChanged += OnSolveStateChanged;
         }
 
 
-        private void OnDisable()
+        protected override void OnDisable()
         {
             foreach (var solvableObject in _progression.Values)
                 solvableObject.ValueChanged -= OnSolveStateChanged;
 
-#if UNITY_EDITOR
-            if (IsCompleted)
-                IsCompleted = false;
-#endif
+            base.OnDisable();
         }
 
         private void OnValidate()
@@ -63,10 +58,10 @@ namespace ProgressionTracking
         private void OnSolveStateChanged(uint id, bool isSolved)
         {
             if (_progression.ContainsKey(id))
-            {
                 CheckProgression();
-            }
         }
+
+        public override void ResetData() => IsCompleted = false;
 
         private void CheckProgression()
         {

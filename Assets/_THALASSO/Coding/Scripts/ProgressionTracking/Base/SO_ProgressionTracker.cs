@@ -4,25 +4,21 @@ using UnityEngine;
 namespace ProgressionTracking
 {
     [CreateAssetMenu(fileName = "NewProgressionTracker", menuName = "Scriptable Objects/Progression Tracker")]
-    public class SO_ProgressionTracker : SO_Singleton
+    public class SO_ProgressionTracker : SO_ResettableDataSingleton
     {
         [SerializeField]
         private uint _id = 0;
 
         [SerializeField]
-        private List<SO_UIntVariable> _solvableDependenciesID = new();
+        private bool _isCompleted = false;
 
         [SerializeField]
-        private bool _isCompleted = false;
+        private List<SO_UIntVariable> _solvableDependenciesID = new();
 
         private readonly Dictionary<uint, bool> _progression = new();
 
         public uint ID => _id;
-        public bool IsCompleted
-        {
-            get => _isCompleted;
-            private set => _isCompleted = value;
-        }
+        public bool IsCompleted { get => _isCompleted; private set => _isCompleted = value; }
 
         protected override void Awake()
         {
@@ -30,21 +26,22 @@ namespace ProgressionTracking
 
             if (_solvableDependenciesID.Count > 0 && _solvableDependenciesID.Count != _progression.Count)
                 InitializeProgression();
+
+            CheckProgression();
         }
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
+
             GlobalEventBus.Register(GlobalEvents.Game.HasBeenSolved, OnHasBeenSolved);
         }
 
-        private void OnDisable()
+        protected override void OnDisable()
         {
             GlobalEventBus.Deregister(GlobalEvents.Game.HasBeenSolved, OnHasBeenSolved);
 
-#if UNITY_EDITOR
-            if (IsCompleted)
-                IsCompleted = false;
-#endif
+            base.OnDisable();
         }
 
         private void OnValidate()
@@ -60,6 +57,12 @@ namespace ProgressionTracking
                 _progression[id] = true;
                 CheckProgression();
             }
+        }
+
+        public override void ResetData()
+        {
+            IsCompleted = false;
+            InitializeProgression();
         }
 
         private void CheckProgression()
