@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class ElectricityPuzzleLogic : MonoBehaviour
 {
-    [SerializeField] GameObject[] tileFieldInput;
-    [SerializeField] Button[] tileFieldButtonsInput;
+    [SerializeField] private int puzzleID = 0;
+    [SerializeField] private GameObject[] tileFieldInput;
     private GameObject[,] tileField = new GameObject[5, 3];
     [SerializeField] private GameObject[] differentTileTypes;
     [SerializeField] private ElectricityPuzzelTileTypeConnections differentTileTypeConnections;
@@ -19,17 +19,31 @@ public class ElectricityPuzzleLogic : MonoBehaviour
 
     private GameObject startTile;
     private GameObject endTile;
+    private GameObject buttonUICanvas;
+    private Button[] tileFieldButtonsInput;
 
     private System.Random rnd = new System.Random();
 
 
     private void Awake()
     {
+        PuzzleUIReferencesSender.puzzleUIReferenceLogger += GetUIReference;
         PuzzleTileRotator.tileWasUpdated += OnFieldGotUpdate;
+    }
+
+    private void GetUIReference(GameObject reference, int ID)
+    {
+        buttonUICanvas = reference;
+        buttonUICanvas.SetActive(false);
+        if (ID == puzzleID)
+        {
+            buttonUICanvas = reference;
+        }
     }
     private void OnDestroy()
     {
         PuzzleTileRotator.tileWasUpdated -= OnFieldGotUpdate;
+        PuzzleUIReferencesSender.puzzleUIReferenceLogger -= GetUIReference;
     }
 
     private void Start()
@@ -44,11 +58,17 @@ public class ElectricityPuzzleLogic : MonoBehaviour
     }
     public void StartPuzzle()
     {
-        TransformTransitionSystem.Instance.TransitionRot(doorLockLid, doorLockLidRotationPoint, transitionduration, animationSpeedCurve,null, null);
+        TransformTransitionSystem.Instance.TransitionRot(doorLockLid, doorLockLidRotationPoint, transitionduration, animationSpeedCurve, null, null);
     }
 
     private void SetupTileInput()
     {
+        Button[] allChildWithButtons = buttonUICanvas.transform.GetComponentsInChildren<Button>();
+        for (int i = 0; i < allChildWithButtons.Length; i++)
+        {
+            tileFieldButtonsInput[i] = allChildWithButtons[i];
+        }
+
         int index = 0;
         for (int row = 0; row < tileField.GetLength(0); row++)
         {
