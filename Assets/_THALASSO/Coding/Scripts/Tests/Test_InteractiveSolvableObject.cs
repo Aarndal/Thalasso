@@ -6,15 +6,13 @@ using UnityEngine;
 public class Test_InteractiveSolvableObject : SolvableObjectBase, IAmInteractive
 {
     [SerializeField]
-    private SOUIntReference _id;
-    [SerializeField]
     private bool _isActivatable = true;
     [SerializeField]
-    private Color _baseColor = Color.white;
+    private Color _baseColor = Color.red;
 
     private MeshRenderer _meshRenderer = default;
 
-    public bool IsActivatable => _isActivatable;
+    public bool IsActivatable { get => _isActivatable; private set => _isActivatable = value; }
 
     private void Awake()
     {
@@ -23,7 +21,9 @@ public class Test_InteractiveSolvableObject : SolvableObjectBase, IAmInteractive
 
     private void Start()
     {
-        _meshRenderer.material.color = _baseColor;
+        _meshRenderer.material.color = IsSolved ? Color.green : _baseColor;
+
+        IsActivatable = !IsSolved;
     }
 
     public void Interact(Transform transform)
@@ -34,18 +34,17 @@ public class Test_InteractiveSolvableObject : SolvableObjectBase, IAmInteractive
         Solve();
     }
 
-    public override void Solve()
+    public override bool Solve() => IsSolved = IsPlatformActivated();
+
+    private bool IsPlatformActivated()
     {
         if (_meshRenderer.material.color == _baseColor)
         {
             _meshRenderer.material.color = Color.green;
-            IsSolved = true;
-            GlobalEventBus.Raise(GlobalEvents.Game.HasBeenSolved, _id.Value);
+            IsActivatable = false;
+            return true;
         }
-        else
-        {
-            _meshRenderer.material.color = _baseColor;
-            IsSolved = false;
-        }
+
+        return false;
     }
 }

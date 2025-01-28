@@ -1,6 +1,8 @@
 ﻿using System;
 
-internal interface INotifyValueChanged<T1, T2>
+internal interface INotifyValueChanged<T>
 {
-    public event Action<T1, T2> ValueChanged;
+    uint ID { get; }
+
+    event Action<uint, T> ValueChanged;
 }

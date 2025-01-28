@@ -2,13 +2,13 @@ using ProgressionTracking;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshRenderer), typeof(MeshFilter))]
-public class Test_SOProgressionTracking : MonoBehaviour
+public class Test_ProgressionTracking : MonoBehaviour
 {
     [SerializeField]
     private SO_ProgressionTracker _progressionTracker;
 
     [SerializeField]
-    private Color _baseColor = Color.white;
+    private Color _baseColor = Color.red;
 
     private MeshRenderer _meshRenderer = default;
     
