@@ -28,12 +28,12 @@ public class PuzzleTileRotator : MonoBehaviour
         while (elapsed < _duration)
         {
             float deltaRotation = rotationStep * Time.deltaTime;
-            transform.Rotate(new Vector3(deltaRotation, 0, 0), Space.World);
+            transform.Rotate(transform.up * deltaRotation, Space.World);
             elapsed += Time.deltaTime;
             yield return null;
         }
 
-        transform.Rotate(new Vector3(_angle - (rotationStep * elapsed), 0, 0), Space.World);
+        transform.Rotate(transform.up * (_angle - (rotationStep * elapsed)), Space.World);
         isRotating = false;
 
         curRotation += _angle;
