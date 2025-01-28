@@ -9,11 +9,11 @@ public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
     [SerializeField] private Transform targetCamera;
     [SerializeField] private float transitionduration;
     [SerializeField] private AnimationCurve animationSpeedCurve;
-    [SerializeField] private GameObject buttonUICanvas;
 
     [SerializeField] private bool puzzleAutoStartNeeded = false;
     [SerializeField] private MonoBehaviour autoStartPuzzleScript;
 
+    private GameObject buttonUICanvas;
     private bool isfocused = false;
     private Vector3 originTransformPosition;
     private Quaternion originTransformRotation;

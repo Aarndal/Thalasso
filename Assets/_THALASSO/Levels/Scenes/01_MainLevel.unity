@@ -513,6 +513,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &192681793 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9113321653146743760, guid: 7f1a256885e70b5458a41dc6482233d5, type: 3}
+  m_PrefabInstance: {fileID: 601804939}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &237150351
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1544,9 +1549,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4853351898340630964, guid: 28b8030160a05364597927f760ba1486, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.14
+      objectReference: {fileID: 0}
+    - target: {fileID: 4853351898340630964, guid: 28b8030160a05364597927f760ba1486, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -45.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6531619286678820560, guid: 28b8030160a05364597927f760ba1486, type: 3}
       propertyPath: m_Name
       value: Cameras
+      objectReference: {fileID: 0}
+    - target: {fileID: 6648870256644327031, guid: 28b8030160a05364597927f760ba1486, type: 3}
+      propertyPath: Target.TrackingTarget
+      value: 
+      objectReference: {fileID: 192681793}
+    - target: {fileID: 8049120205045296738, guid: 28b8030160a05364597927f760ba1486, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.14
+      objectReference: {fileID: 0}
+    - target: {fileID: 8049120205045296738, guid: 28b8030160a05364597927f760ba1486, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -45.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
