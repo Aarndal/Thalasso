@@ -8,9 +8,14 @@ public class PuzzleUIReferencesSender : MonoBehaviour
 
     public static event Action<GameObject, int> puzzleUIReferenceLogger;
 
+    private bool send = false;
     private void OnEnable()
     {
-        puzzleUIReferenceLogger?.Invoke(this.gameObject, puzzleID);
-        this.gameObject.SetActive(false);
+        if (!send)
+        {
+            puzzleUIReferenceLogger?.Invoke(this.gameObject, puzzleID);
+            send = true;
+        }
+
     }
 }

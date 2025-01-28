@@ -85,8 +85,6 @@ public class ButtonActions : MonoBehaviour
 
     private IEnumerator LoadSceneWithoutFade(int sceneId)
     {
-
-        // Lade die Szene asynchron
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneId);
         asyncOperation.allowSceneActivation = false;
 
@@ -104,10 +102,8 @@ public class ButtonActions : MonoBehaviour
     }
     private IEnumerator LoadSceneWithFade(int sceneId)
     {
-        // Fade-Out
         yield return FadeOut();
 
-        // Lade die Szene asynchron
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneId);
         asyncOperation.allowSceneActivation = false;
 

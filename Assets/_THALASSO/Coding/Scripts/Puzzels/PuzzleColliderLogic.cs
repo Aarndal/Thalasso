@@ -56,11 +56,12 @@ public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
             {
                 inAnimation = true;
                 cinemachineVirtualCamera.enabled = false;
-                InputManager.Instance.BlockPlayerMoveAndRot();
+                //InputManager.Instance.BlockPlayerMoveAndRot();
             }, () =>
             {
                 inAnimation = false;
-                Cursor.lockState = CursorLockMode.None;
+                Cursor.lockState = CursorLockMode.Confined;
+                Cursor.visible = true;
                 buttonUICanvas.SetActive(true);
                 isfocused = true;
 
@@ -79,13 +80,14 @@ public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
             {
                 inAnimation = true;
                 Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
                 buttonUICanvas.SetActive(false);
             }, () =>
             {
                 inAnimation = false;
                 cinemachineVirtualCamera.enabled = true;
                 isfocused = false;
-                InputManager.Instance.UnblockPlayerMoveAndRot();
+                //InputManager.Instance.UnblockPlayerMoveAndRot();
             });
         }
     }

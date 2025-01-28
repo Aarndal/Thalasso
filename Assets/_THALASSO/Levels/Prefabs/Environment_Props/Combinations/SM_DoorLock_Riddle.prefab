@@ -213,7 +213,8 @@ GameObject:
   - component: {fileID: 8816796418483307134}
   - component: {fileID: 1213776938615444198}
   - component: {fileID: 6969806969965695194}
-  m_Layer: 0
+  - component: {fileID: 7974840517239052111}
+  m_Layer: 20
   m_Name: SM_DoorLock_Riddle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -253,6 +254,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTag: Player
+  puzzleID: 0
   targetCamera: {fileID: 603496917885852219}
   transitionduration: 0.3
   animationSpeedCurve:
@@ -279,9 +281,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  buttonUICanvas: {fileID: 0}
-  puzzleAutoStartNeeded: 0
-  autoStartPuzzleScript: {fileID: 0}
+  puzzleAutoStartNeeded: 1
+  autoStartPuzzleScript: {fileID: 6969806969965695194}
 --- !u!114 &6969806969965695194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,6 +295,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61a6be10288f0034fb287629cf5d083f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  puzzleID: 0
   tileFieldInput:
   - {fileID: 6214229965573777476}
   - {fileID: 3822502647878888828}
@@ -310,7 +312,6 @@ MonoBehaviour:
   - {fileID: 2730538487600662991}
   - {fileID: 39034109878631512}
   - {fileID: 3576894849755111769}
-  tileFieldButtonsInput: []
   differentTileTypes:
   - {fileID: 530002048275990149, guid: da461c4c5a9381d4eb97fe3836eb1848, type: 3}
   - {fileID: 3638134644204868524, guid: 70d5da8c35230ce47b049a6ab1104d18, type: 3}
@@ -318,7 +319,54 @@ MonoBehaviour:
   - {fileID: 1506800843788323426, guid: 2c0ff9dab3bddf0428aa01a6871c0176, type: 3}
   - {fileID: 3547263255872438697, guid: e742defb153419c4fa58d39542037f2c, type: 3}
   differentTileTypeConnections: {fileID: 11400000, guid: be66ad4be9ca1f34993ff381bd23629f, type: 2}
-  doorToUnlock: {fileID: 0}
+  doorLockLid: {fileID: 2352432381689995529}
+  doorLockLidRotationPoint: {fileID: 3817413518757616783}
+  transitionduration: 0.5
+  animationSpeedCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!65 &7974840517239052111
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1732256068995673940}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.4, y: 0.5, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1946311772140399596
 GameObject:
   m_ObjectHideFlags: 0
@@ -1720,6 +1768,11 @@ PrefabInstance:
 --- !u!4 &1107069299560191594 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4191699889002865763, guid: c3130759aa7ca0340b4dbe0a77e6df69, type: 3}
+  m_PrefabInstance: {fileID: 3852532057935311369}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2352432381689995529 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1572730124456678144, guid: c3130759aa7ca0340b4dbe0a77e6df69, type: 3}
   m_PrefabInstance: {fileID: 3852532057935311369}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7283146309007833196
