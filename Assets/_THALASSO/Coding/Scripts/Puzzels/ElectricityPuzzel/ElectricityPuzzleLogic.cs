@@ -52,8 +52,8 @@ public class ElectricityPuzzleLogic : MonoBehaviour
         startTile = tileField[0, 0];
         endTile = tileField[4, 2];
 
-        GenerateNewLayout();
-        OnFieldGotUpdate(tileField[0, 0]);
+        //GenerateNewLayout();
+        //OnFieldGotUpdate(tileField[0, 0]);
     }
     public void StartPuzzle()
     {
@@ -177,7 +177,7 @@ public class ElectricityPuzzleLogic : MonoBehaviour
 
             if (relativeDirections.Contains(directions.U))
             {
-                _updatedTile.transform.localPosition = new Vector3(0.03f, _updatedTile.transform.localPosition.y, _updatedTile.transform.localPosition.z);                  //temp visuals
+                _updatedTile.GetComponent<MeshRenderer>().material.color = Color.green;                 //temp visuals
 
                 if (!activeTiles.Contains(ObjToPos(_updatedTile)))
                 {
@@ -190,7 +190,7 @@ public class ElectricityPuzzleLogic : MonoBehaviour
             }
             else
             {
-                _updatedTile.transform.localPosition = new Vector3(0.01029964f, _updatedTile.transform.localPosition.y, _updatedTile.transform.localPosition.z);            //temp visuals
+                _updatedTile.GetComponent<MeshRenderer>().material.color = Color.red;                 //temp visuals
 
                 if (activeTiles.Contains(ObjToPos(_updatedTile)))
                 {
@@ -219,7 +219,7 @@ public class ElectricityPuzzleLogic : MonoBehaviour
 
                     if (OriginHasConnectionToTarget(neighbour, _updatedTile) && OriginHasConnectionToTarget(_updatedTile, neighbour) && relativeDirections.Contains(directions.D))
                     {
-                        _updatedTile.transform.localPosition = new Vector3(0.03f, _updatedTile.transform.localPosition.y, _updatedTile.transform.localPosition.z);          //temp visuals
+                        _updatedTile.GetComponent<MeshRenderer>().material.color = Color.green;               //temp visuals
 
                         if (!activeTiles.Contains(ObjToPos(_updatedTile)))
                         {
@@ -238,7 +238,7 @@ public class ElectricityPuzzleLogic : MonoBehaviour
 
             if (!hasActiveConnection)
             {
-                _updatedTile.transform.localPosition = new Vector3(0.01029964f, _updatedTile.transform.localPosition.y, _updatedTile.transform.localPosition.z);    //temp visuals
+                _updatedTile.GetComponent<MeshRenderer>().material.color = Color.red;    //temp visuals
 
                 if (activeTiles.Contains(ObjToPos(_updatedTile)))
                 {
@@ -263,7 +263,7 @@ public class ElectricityPuzzleLogic : MonoBehaviour
 
                     if (OriginHasConnectionToTarget(neighbour, _updatedTile) && OriginHasConnectionToTarget(_updatedTile, neighbour))
                     {
-                        _updatedTile.transform.localPosition = new Vector3(0.03f, _updatedTile.transform.localPosition.y, _updatedTile.transform.localPosition.z);          //temp visuals
+                        _updatedTile.GetComponent<MeshRenderer>().material.color = Color.green;               //temp visuals
 
                         if (!activeTiles.Contains(ObjToPos(_updatedTile)))
                         {
@@ -281,7 +281,7 @@ public class ElectricityPuzzleLogic : MonoBehaviour
 
             if (!hasActiveConnection)
             {
-                _updatedTile.transform.localPosition = new Vector3(0.01029964f, _updatedTile.transform.localPosition.y, _updatedTile.transform.localPosition.z);    //temp visuals
+                _updatedTile.GetComponent<MeshRenderer>().material.color = Color.red;         //temp visuals
 
                 if (activeTiles.Contains(ObjToPos(_updatedTile)))
                 {
