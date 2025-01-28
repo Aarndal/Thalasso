@@ -1,25 +1,45 @@
 using System;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewSolvableObject", menuName = "Scriptable Objects/Solvable Object")]
-public class SO_SolvableObject : ScriptableObject
+namespace ProgressionTracking
 {
-    public event Action<uint, bool> SolvedStateChanged;
-
-    private uint _id;
-    private bool _isSolved;
-
-    public uint ID => _id;
-    public bool IsSolved
+    [CreateAssetMenu(fileName = "NewSolvableObject", menuName = "Scriptable Objects/Solvable Object")]
+    public class SO_SolvableObject : SO_ResettableData, INotifyValueChanged<uint, bool>
     {
-        get => _isSolved;
-        set
+        [SerializeField]
+        private uint _id;
+        [SerializeField]
+        private bool _isSolved;
+
+        private Action<uint, bool> _valueChanged;
+
+        public uint ID => _id;
+        public bool IsSolved
         {
-            if (value != _isSolved)
+            get => _isSolved;
+            set
             {
-                _isSolved = value;
-                SolvedStateChanged?.Invoke(_id, _isSolved);
+                if (value != _isSolved)
+                {
+                    _isSolved = value;
+                    _valueChanged?.Invoke(_id, _isSolved);
+                }
             }
         }
+
+        public event Action<uint, bool> ValueChanged
+        {
+            add
+            {
+                _valueChanged -= value;
+                _valueChanged += value;
+            }
+            remove
+            {
+                _valueChanged -= value;
+            }
+        }
+
+        public override void ResetData() => IsSolved = false;
     }
 }
