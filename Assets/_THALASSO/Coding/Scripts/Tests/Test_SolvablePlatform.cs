@@ -33,7 +33,7 @@ namespace ProgressionTracking
         private void OnTriggerEnter(Collider other)
         {
             if (other.transform.CompareTag("Player"))
-                IsSolved = Solve();
+                Solve();
         }
 
         private void OnDisable()
@@ -41,7 +41,9 @@ namespace ProgressionTracking
             GlobalEventBus.Deregister(GlobalEvents.Game.ProgressionCompleted, OnProgressionCompleted);
         }
 
-        public override bool Solve()
+        public override bool Solve() => IsSolved = IsPlatformActivated();
+
+        private bool IsPlatformActivated()
         {
             _meshRenderer.material.color = Color.green;
             return true;
