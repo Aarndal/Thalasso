@@ -6,15 +6,28 @@ using UnityEngine.UI;
 public class ButtonActions : MonoBehaviour
 {
 
+    [SerializeField] private bool useFade = true;
     [SerializeField] private Image fadeImage;
     [SerializeField] private float fadeDuration = 0.5f;
+
+    [HideInInspector] public GameObject pauseMenuToggle;
+
     private void Start()
     {
-        if (fadeImage != null)
+        if (fadeImage != null && useFade)
         {
             fadeImage.gameObject.SetActive(true);
             fadeImage.color = new Color(0, 0, 0, 1);
             StartCoroutine(FadeIn());
+        }
+        try
+        {
+            pauseMenuToggle = transform.Find("Toggle").gameObject;
+            pauseMenuToggle.gameObject.SetActive(false);
+        }
+        catch 
+        { 
+            pauseMenuToggle = null;
         }
     }
 
@@ -27,14 +40,68 @@ public class ButtonActions : MonoBehaviour
         Application.Quit();
 #endif
     }
+    public void PauseGame()
+    {
+        pauseMenuToggle.gameObject.SetActive(true);
+        //ToDo: block normal input
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
+    }
+    public void ResumeGame()
+    {
+        pauseMenuToggle.gameObject.SetActive(false);
+        //ToDo: unblock normal input
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
     #endregion
 
     #region SceneLoadingButtonActions
     public void LoadScene(int sceneId)
     {
-        StartCoroutine(LoadSceneWithFade(sceneId));
+        if (sceneId == 3) //mainGame
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
+        }
+        if (useFade)
+        {
+            StartCoroutine(LoadSceneWithFade(sceneId));
+        }
+        else
+        {
+            LoadSceneWithoutFade(sceneId);
+        }
+    }
+    public void UnloadScene(int sceneId)
+    {
+        SceneManager.UnloadSceneAsync(sceneId);
     }
 
+    private IEnumerator LoadSceneWithoutFade(int sceneId)
+    {
+
+        // Lade die Szene asynchron
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneId);
+        asyncOperation.allowSceneActivation = false;
+
+        while (!asyncOperation.isDone)
+        {
+            if (asyncOperation.progress >= 0.9f)
+            {
+                asyncOperation.allowSceneActivation = true;
+            }
+            yield return null;
+        }
+
+        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(sceneId));
+
+    }
     private IEnumerator LoadSceneWithFade(int sceneId)
     {
         // Fade-Out
@@ -94,7 +161,7 @@ public class ButtonActions : MonoBehaviour
                 yield return null;
             }
             fadeImage.color = new Color(0, 0, 0, 0);
-            fadeImage.gameObject.SetActive(false); 
+            fadeImage.gameObject.SetActive(false);
         }
     }
     #endregion
