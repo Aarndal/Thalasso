@@ -5,16 +5,15 @@ using UnityEngine;
 public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
 {
     [SerializeField] private string playerTag;
+    [SerializeField] private int puzzleID;
     [SerializeField] private Transform targetCamera;
     [SerializeField] private float transitionduration;
     [SerializeField] private AnimationCurve animationSpeedCurve;
     [SerializeField] private GameObject buttonUICanvas;
 
     [SerializeField] private bool puzzleAutoStartNeeded = false;
-    [SerializeField]
-    private MonoBehaviour autoStartPuzzleScript;
+    [SerializeField] private MonoBehaviour autoStartPuzzleScript;
 
-    private bool inRange;
     private bool isfocused = false;
     private Vector3 originTransformPosition;
     private Quaternion originTransformRotation;
@@ -25,9 +24,23 @@ public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
     private bool isActivatable = true;
     public bool IsActivatable => isActivatable;
 
+    private void Awake()
+    {
+        PuzzleUIReferencesSender.puzzleUIReferenceLogger += GetUIReference;
+    }
+
+    private void GetUIReference(GameObject reference, int ID)
+    {
+        buttonUICanvas = reference;
+        buttonUICanvas.SetActive(false);
+        if (ID == puzzleID)
+        {
+            buttonUICanvas = reference;
+        }
+    }
+
     private void Start()
     {
-        buttonUICanvas.SetActive(false);
         cinemachineVirtualCamera = GameObject.FindAnyObjectByType<CinemachineCamera>();
     }
 
