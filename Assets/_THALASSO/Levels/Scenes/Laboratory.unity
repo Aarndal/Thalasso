@@ -334,7 +334,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &57337355
 Light:
   m_ObjectHideFlags: 0
@@ -1769,6 +1769,10 @@ PrefabInstance:
     - target: {fileID: 3308758673271440624, guid: 805d3793adccf5845a68c2cf59d08da4, type: 3}
       propertyPath: m_Name
       value: Ceiling
+      objectReference: {fileID: 0}
+    - target: {fileID: 3308758673271440624, guid: 805d3793adccf5845a68c2cf59d08da4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4216511843466098421, guid: 805d3793adccf5845a68c2cf59d08da4, type: 3}
       propertyPath: m_LocalPosition.x
