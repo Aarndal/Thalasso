@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-public abstract class SO_ResettableDataSingleton : SO_Singleton<SO_ResettableDataSingleton>
+public abstract class SO_ResettableDataSingleton : SO_Singleton
 {
     protected bool _isPlayMode;
 

@@ -7,9 +7,7 @@ namespace ProgressionTracking
     public class Test_SolvablePlatform : SolvableObjectBase
     {
         [SerializeField]
-        private SOUIntReference _id;
-        [SerializeField]
-        private uint _reactionID;
+        private SO_ProgressionTracker _progressionTracker = default;
 
         private Collider _collider = default;
         private MeshRenderer _meshRenderer = default;
@@ -29,13 +27,13 @@ namespace ProgressionTracking
         private void Start()
         {
             _collider.isTrigger = true;
-            _meshRenderer.material.color = Color.red;
+            _meshRenderer.material.color = IsSolved ? Color.green : Color.red;
         }
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.transform.CompareTag("Player"))
-                Solve();
+                IsSolved = Solve();
         }
 
         private void OnDisable()
@@ -43,16 +41,16 @@ namespace ProgressionTracking
             GlobalEventBus.Deregister(GlobalEvents.Game.ProgressionCompleted, OnProgressionCompleted);
         }
 
-        public override void Solve()
+        public override bool Solve()
         {
             _meshRenderer.material.color = Color.green;
-            GlobalEventBus.Raise(GlobalEvents.Game.HasBeenSolved, _id.Value);
+            return true;
         }
 
         private void OnProgressionCompleted(object[] args)
         {
-            if ((uint)args[0] == _reactionID)
-                _meshRenderer.material.color = Color.white;
+            if ((uint)args[0] == _progressionTracker.ID)
+                _meshRenderer.material.color = Color.cyan;
         }
     }
 }

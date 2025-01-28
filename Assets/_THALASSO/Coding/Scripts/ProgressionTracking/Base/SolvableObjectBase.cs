@@ -6,23 +6,15 @@ namespace ProgressionTracking
     [Serializable]
     public abstract class SolvableObjectBase : MonoBehaviour, IAmSolvable
     {
-        public event Action HasBeenSolved;
-
-        private bool _isSolved = false;
+        [SerializeField]
+        protected SO_SolvableData _solvableData;
 
         public bool IsSolved
         {
-            get => _isSolved;
-            protected set
-            {
-                if (_isSolved != value)
-                    _isSolved = value;
-
-                if (_isSolved)
-                    HasBeenSolved?.Invoke();
-            }
+            get => _solvableData.IsSolved;
+            protected set => _solvableData.IsSolved = value;
         }
 
-        public virtual void Solve() { }
+        public abstract bool Solve();
     }
 }

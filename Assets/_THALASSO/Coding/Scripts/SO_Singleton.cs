@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public abstract class SO_Singleton<T> : ScriptableObject where T : ScriptableObject
+public abstract class SO_Singleton : ScriptableObject
 {
-    private T _instance;
+    private SO_Singleton _instance;
 
-    public T Instance { get => _instance; private set => _instance = value; }
+    public SO_Singleton Instance { get => _instance; private set => _instance = value; }
 
     protected virtual void Awake()
     {
@@ -14,7 +14,7 @@ public abstract class SO_Singleton<T> : ScriptableObject where T : ScriptableObj
             return;
         }
 
-        Instance = this as T;
+        Instance = this;
 
         // This will prevent the object from being destroyed when loading a new scene
         DontDestroyOnLoad(this);

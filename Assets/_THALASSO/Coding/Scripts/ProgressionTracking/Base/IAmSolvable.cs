@@ -1,13 +1,9 @@
-﻿using System;
-
-namespace ProgressionTracking
+﻿namespace ProgressionTracking
 {
     internal interface IAmSolvable
     {
-        public event Action HasBeenSolved;
+        bool IsSolved { get; }
 
-        public bool IsSolved { get; }
-
-        void Solve();
+        bool Solve();
     }
 }

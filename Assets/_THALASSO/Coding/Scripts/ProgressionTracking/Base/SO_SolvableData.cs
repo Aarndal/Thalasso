@@ -3,15 +3,13 @@ using UnityEngine;
 
 namespace ProgressionTracking
 {
-    [CreateAssetMenu(fileName = "NewSolvableObject", menuName = "Scriptable Objects/Solvable Object")]
-    public class SO_SolvableObject : SO_ResettableData, INotifyValueChanged<uint, bool>
+    [CreateAssetMenu(fileName = "NewSolvableObject", menuName = "Scriptable Objects/Solvable Data")]
+    public class SO_SolvableData : SO_ResettableData, INotifyValueChanged<bool>
     {
         [SerializeField]
-        private uint _id;
+        private uint _id = 0;
         [SerializeField]
-        private bool _isSolved;
-
-        private Action<uint, bool> _valueChanged;
+        private bool _isSolved = false;
 
         public uint ID => _id;
         public bool IsSolved
@@ -26,7 +24,9 @@ namespace ProgressionTracking
                 }
             }
         }
-
+        
+        private Action<uint, bool> _valueChanged;
+        
         public event Action<uint, bool> ValueChanged
         {
             add
