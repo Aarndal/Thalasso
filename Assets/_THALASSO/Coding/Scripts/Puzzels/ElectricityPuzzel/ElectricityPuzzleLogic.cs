@@ -33,11 +33,10 @@ public class ElectricityPuzzleLogic : MonoBehaviour
 
     private void GetUIReference(GameObject reference, int ID)
     {
-        buttonUICanvas = reference;
-        buttonUICanvas.SetActive(false);
         if (ID == puzzleID)
         {
             buttonUICanvas = reference;
+            buttonUICanvas.SetActive(false);
         }
     }
     private void OnDestroy()
@@ -64,6 +63,7 @@ public class ElectricityPuzzleLogic : MonoBehaviour
     private void SetupTileInput()
     {
         Button[] allChildWithButtons = buttonUICanvas.transform.GetComponentsInChildren<Button>();
+        tileFieldButtonsInput = new Button[allChildWithButtons.Length];
         for (int i = 0; i < allChildWithButtons.Length; i++)
         {
             tileFieldButtonsInput[i] = allChildWithButtons[i];

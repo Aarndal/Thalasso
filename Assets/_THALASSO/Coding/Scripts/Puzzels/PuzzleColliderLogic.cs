@@ -31,11 +31,10 @@ public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
 
     private void GetUIReference(GameObject reference, int ID)
     {
-        buttonUICanvas = reference;
-        buttonUICanvas.SetActive(false);
         if (ID == puzzleID)
         {
             buttonUICanvas = reference;
+        buttonUICanvas.SetActive(false);
         }
     }
 
