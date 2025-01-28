@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class MemoryPuzzleLogic : MonoBehaviour
 {
-    [SerializeField] private Button[] inputButtons;
     [SerializeField] private GameObject[] visualButtonOutput;
     [SerializeField] private GameObject[] visualLightOutput;
 
@@ -17,6 +16,9 @@ public class MemoryPuzzleLogic : MonoBehaviour
     [SerializeField] private float buttonVisualFeedbackTravelDistance = 0.1f;
     [SerializeField] private float buttonVisualFeedbackTravelDuration = 0.5f;
 
+
+    [SerializeField] private int puzzleID = 2;
+
     private List<int> sequence = new List<int>();
     private List<int> inputSequence = new List<int>();
     private int roundCounter = 0;
@@ -24,6 +26,24 @@ public class MemoryPuzzleLogic : MonoBehaviour
 
     private bool isRunning = false;
 
+    private Button[] inputButtons;
+    private void Awake()
+    {
+        PuzzleUIReferencesSender.puzzleUIReferenceLogger += GetUIReference;
+    }
+
+    private void GetUIReference(GameObject reference, int ID)
+    {
+        if (ID == puzzleID)
+        {
+            Button[] allChildWithButtons = reference.transform.GetComponentsInChildren<Button>();
+            inputButtons = new Button[allChildWithButtons.Length];
+            for (int i = 0; i < allChildWithButtons.Length; i++)
+            {
+                inputButtons[i] = allChildWithButtons[i];
+            }
+        }
+    }
     private void Start()
     {
         foreach (Button button in inputButtons)

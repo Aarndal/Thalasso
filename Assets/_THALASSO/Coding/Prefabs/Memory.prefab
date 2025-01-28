@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 238691747605346050}
   serializedVersion: 2
   m_LocalRotation: {x: 0.4483052, y: 0, z: 0, w: 0.8938806}
-  m_LocalPosition: {x: 0.018, y: 0.326, z: -0.34}
+  m_LocalPosition: {x: -0.059, y: 0.326, z: -0.339}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -75,7 +75,7 @@ Camera:
     m_Bits: 4294967295
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 1
+  m_TargetDisplay: 2
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
@@ -742,7 +742,7 @@ GameObject:
   - component: {fileID: 8310084915965228529}
   - component: {fileID: 1545796829132803026}
   - component: {fileID: 5082768268643050514}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: Memory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -779,36 +779,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70495dcc6ee7d4042a0591efd46b839f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputButtons:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   visualButtonOutput:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 7346340660276977505}
+  - {fileID: 7482324334082464310}
+  - {fileID: 8811632905515489910}
+  - {fileID: 6925271186509984075}
+  - {fileID: 5946630732699799462}
+  - {fileID: 8419909391233743044}
+  - {fileID: 8138669611374895507}
   visualLightOutput:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 609550419728110473}
+  - {fileID: 4664757626819512655}
+  - {fileID: 500081234829175769}
+  - {fileID: 935560720706147224}
+  - {fileID: 2388005649728336676}
+  - {fileID: 3622660287892857714}
+  - {fileID: 7125199049715733865}
   totalRounds: 3
   startCount: 2
   countToAddEachRound: 2
   visualOutputTimeInSec: 0.5
   buttonVisualFeedbackTravelDistance: 0.02
   buttonVisualFeedbackTravelDuration: 0.06
+  puzzleID: 2
 --- !u!114 &1545796829132803026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -822,6 +815,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTag: Player
+  puzzleID: 2
   targetCamera: {fileID: 3468028388866126675}
   transitionduration: 0.5
   animationSpeedCurve:
@@ -857,7 +851,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  buttonUICanvas: {fileID: 0}
   puzzleAutoStartNeeded: 1
   autoStartPuzzleScript: {fileID: 8310084915965228529}
 --- !u!65 &5082768268643050514
@@ -875,12 +868,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2, y: 1, z: 2}
-  m_Center: {x: 0, y: 0, z: -0.5}
+  m_Size: {x: 1.2, y: 0.2, z: 0.5}
+  m_Center: {x: -0.06, y: -0.1, z: 0}
 --- !u!1 &2388005649728336676
 GameObject:
   m_ObjectHideFlags: 0
