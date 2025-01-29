@@ -253,6 +253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63c358ab2401376488269c3b6b085392, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _input: {fileID: 11400000, guid: bcec874ef13692e4d84d8d005895f237, type: 2}
   playerTag: Player
   puzzleID: 0
   targetCamera: {fileID: 603496917885852219}
@@ -1035,7 +1036,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.01
   far clip plane: 1000
   field of view: 60
   orthographic: 0
