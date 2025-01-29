@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -2016,6 +2016,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7866026252157562912, guid: f7da796fa3c7d7c4b8b7b08484c2f965, type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8955671098794020342, guid: f7da796fa3c7d7c4b8b7b08484c2f965, type: 3}
       propertyPath: m_Name
       value: InnerWall225Left (1)
@@ -2800,6 +2804,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 341191937}
     m_Modifications:
+    - target: {fileID: 3538759362947298622, guid: 261c627b89849bc42931d070738be608, type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3538759362947298622, guid: 261c627b89849bc42931d070738be608, type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3538759362947298622, guid: 261c627b89849bc42931d070738be608, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3873098113950125193, guid: 261c627b89849bc42931d070738be608, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5
@@ -5598,7 +5614,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7902955107687358319, guid: d3d67580807e9124782668f8af34b1ce, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7902955107687358319, guid: d3d67580807e9124782668f8af34b1ce, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5792,6 +5808,10 @@ PrefabInstance:
     - target: {fileID: 2771182048826141610, guid: 6cafbdc66007702479265f4cce9a8e1b, type: 3}
       propertyPath: m_Name
       value: Outer_Door
+      objectReference: {fileID: 0}
+    - target: {fileID: 5056955753548701972, guid: 6cafbdc66007702479265f4cce9a8e1b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6251,7 +6271,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7902955107687358319, guid: d3d67580807e9124782668f8af34b1ce, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 7902955107687358319, guid: d3d67580807e9124782668f8af34b1ce, type: 3}
       propertyPath: m_LocalPosition.y
