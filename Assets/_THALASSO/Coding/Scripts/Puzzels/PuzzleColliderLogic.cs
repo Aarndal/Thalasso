@@ -1,9 +1,13 @@
 using System.Reflection;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
 {
+    [Header("References")]
+    [SerializeField] private SO_GameInputReader _input;
+
     [SerializeField] private string playerTag;
     [SerializeField] private int puzzleID;
     [SerializeField] private Transform targetCamera;
@@ -34,7 +38,7 @@ public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
         if (ID == puzzleID)
         {
             buttonUICanvas = reference;
-        buttonUICanvas.SetActive(false);
+            buttonUICanvas.SetActive(false);
         }
     }
 
@@ -71,6 +75,8 @@ public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
                     method?.Invoke(autoStartPuzzleScript, null);
                 }
             });
+
+            _input.SwitchCurrentActionMapTo("UI");
         }
         else
         {
@@ -89,6 +95,8 @@ public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
                 isfocused = false;
                 //InputManager.Instance.UnblockPlayerMoveAndRot();
             });
+            
+            _input.SwitchCurrentActionMapTo("Player");
         }
     }
 

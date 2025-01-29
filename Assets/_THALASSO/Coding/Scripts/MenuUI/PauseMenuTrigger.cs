@@ -1,24 +1,37 @@
+using System;
 using UnityEngine;
 
 public class PauseMenuTrigger : MonoBehaviour
 {
+    [SerializeField]
+    private SO_GameInputReader _input;
+
     private ButtonActions buttonActions;
-    private void Start()
+
+    private void Awake()
     {
         buttonActions = GetComponent<ButtonActions>();
     }
-    void Update()
+
+    private void OnEnable()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        _input.PauseIsPerformed += OnPauseIsPerformed;
+    }
+
+    private void OnDisable()
+    {
+        _input.PauseIsPerformed -= OnPauseIsPerformed;
+    }
+
+    private void OnPauseIsPerformed()
+    {
+        if (buttonActions.pauseMenuToggle.activeSelf)
         {
-            if (buttonActions.pauseMenuToggle.activeSelf)
-            {
-                GetComponent<ButtonActions>().ResumeGame();
-            }
-            else
-            {
-                GetComponent<ButtonActions>().PauseGame();
-            }
+            GetComponent<ButtonActions>().ResumeGame();
+        }
+        else
+        {
+            GetComponent<ButtonActions>().PauseGame();
         }
     }
 }
