@@ -84,7 +84,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doorObjL: {fileID: 1788400818795385200}
   doorObjR: {fileID: 6307057787128477229}
-  openingDistance: 0.6
+  openingDistance: 0.65
   isLocked: 0
   openingDuration: 1
   openingSpeedCurve:
@@ -180,7 +180,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 0.9}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8704775720721243755}

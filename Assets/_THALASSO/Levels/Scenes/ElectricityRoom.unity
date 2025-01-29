@@ -5180,7 +5180,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 303340863190256010, guid: 76053507027451f4e8dca44e55128cbd, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6306467543571895697, guid: 76053507027451f4e8dca44e55128cbd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6181,6 +6181,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: "Gr\xF6\xDFePC"
       objectReference: {fileID: 0}
+    - target: {fileID: 5777375586528238949, guid: 114d2b16c09ef274385ebcf7f2be9c1d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8721384175565475737, guid: 114d2b16c09ef274385ebcf7f2be9c1d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.84
@@ -6617,7 +6621,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 303340863190256010, guid: 76053507027451f4e8dca44e55128cbd, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6306467543571895697, guid: 76053507027451f4e8dca44e55128cbd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7984,6 +7988,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63c358ab2401376488269c3b6b085392, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _input: {fileID: 0}
   playerTag: Player
   puzzleID: 1
   targetCamera: {fileID: 7499387984852806443}
