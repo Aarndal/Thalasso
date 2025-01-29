@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class ButtonActions : MonoBehaviour
 {
+    [SerializeField]
+    private SO_GameInputReader _input;
 
     [SerializeField] private bool useFade = true;
     [SerializeField] private Image fadeImage;
@@ -25,8 +27,8 @@ public class ButtonActions : MonoBehaviour
             pauseMenuToggle = transform.Find("Toggle").gameObject;
             pauseMenuToggle.gameObject.SetActive(false);
         }
-        catch 
-        { 
+        catch
+        {
             pauseMenuToggle = null;
         }
     }
@@ -43,14 +45,14 @@ public class ButtonActions : MonoBehaviour
     public void PauseGame()
     {
         pauseMenuToggle.gameObject.SetActive(true);
-        //ToDo: block normal input
+        _input.SwitchCurrentActionMapTo("UI"); // Switching to UI ActionMap
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
     }
     public void ResumeGame()
     {
         pauseMenuToggle.gameObject.SetActive(false);
-        //ToDo: unblock normal input
+        _input.SwitchCurrentActionMapTo("Player"); // Switching to Player ActionMap
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }

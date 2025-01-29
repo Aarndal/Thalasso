@@ -6488,6 +6488,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1753295511}
     m_Modifications:
+    - target: {fileID: 1213776938615444198, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
+      propertyPath: _input
+      value: 
+      objectReference: {fileID: 11400000, guid: bcec874ef13692e4d84d8d005895f237, type: 2}
     - target: {fileID: 1732256068995673940, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
       propertyPath: m_Name
       value: SM_DoorLock_Riddle
@@ -6503,6 +6507,10 @@ PrefabInstance:
     - target: {fileID: 6969806969965695194, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
       propertyPath: animationSpeedCurve.m_Curve.Array.data[1].value
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7630269912768350015, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
+      propertyPath: near clip plane
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 8816796418483307134, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
       propertyPath: m_LocalPosition.x
