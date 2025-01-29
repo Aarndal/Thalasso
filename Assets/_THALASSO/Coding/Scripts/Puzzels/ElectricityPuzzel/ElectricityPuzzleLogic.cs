@@ -52,7 +52,7 @@ public class ElectricityPuzzleLogic : MonoBehaviour
         startTile = tileField[0, 0];
         endTile = tileField[4, 2];
 
-        //GenerateNewLayout();
+        GenerateNewLayout();
         //OnFieldGotUpdate(tileField[0, 0]);
     }
     public void StartPuzzle()
@@ -124,7 +124,7 @@ public class ElectricityPuzzleLogic : MonoBehaviour
 
     private void BuildPathWithTiles()
     {
-        for (int i = 0; i > connectiongTiles.Count; i++)
+        for (int i = 0; i < connectiongTiles.Count; i++)
         {
             directions[] neededDirection = new directions[2];
             if (PosToObj(connectiongTiles[i]) == startTile)
