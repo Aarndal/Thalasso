@@ -65,11 +65,13 @@ public class ButtonActions : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+            _input.SwitchCurrentActionMapTo("Player"); // Switching to Player ActionMap
         }
         else
         {
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
+            _input.SwitchCurrentActionMapTo("UI"); // Switching to UI ActionMap
         }
         if (useFade)
         {
@@ -77,7 +79,7 @@ public class ButtonActions : MonoBehaviour
         }
         else
         {
-            LoadSceneWithoutFade(sceneId);
+            StartCoroutine(LoadSceneWithoutFade(sceneId));
         }
     }
     public void UnloadScene(int sceneId)

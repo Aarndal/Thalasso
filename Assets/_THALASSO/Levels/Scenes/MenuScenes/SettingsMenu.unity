@@ -2451,8 +2451,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6483677002d91ac48b4e3e8bcb10ad50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _input: {fileID: 11400000, guid: bcec874ef13692e4d84d8d005895f237, type: 2}
+  useFade: 1
   fadeImage: {fileID: 8089958055720816419}
   fadeDuration: 0.2
+  pauseMenuToggle: {fileID: 0}
 --- !u!114 &2796245227589966282
 MonoBehaviour:
   m_ObjectHideFlags: 0
