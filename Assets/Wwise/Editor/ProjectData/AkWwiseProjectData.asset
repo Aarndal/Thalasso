@@ -38,8 +38,88 @@ MonoBehaviour:
     ParentPath: Master-Mixer Hierarchy\Default Work Unit
     guid: e859a97a12de8f4f9f8b1ba45dc16a06
     GuidInternal: 
-    m_lastTime: -8584642281314775808
+    m_lastTime: -8584633667975597762
     List:
+    - name: Electronics_Room
+      guid: ff3039f3c7bdaa4a8be83fc4c1f3b28b
+      id: 2572679272
+      PathAndIcons:
+      - ElementName: Master-Mixer Hierarchy
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: e859a97a12de8f4f9f8b1ba45dc16a06
+      - ElementName: Master Audio Bus
+        ObjectType: 2
+        guid: d8a41415a61d2a41a17e75ca0c2149f3
+      - ElementName: SFX
+        ObjectType: 2
+        guid: 5bae258e210e48488aa0c1df6f23f289
+      - ElementName: Electronics_Room
+        ObjectType: 1
+        guid: ff3039f3c7bdaa4a8be83fc4c1f3b28b
+      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\SFX\Electronics_Room
+    - name: Escape_Pod
+      guid: 9dbd6905158fb5488d809b3fb798946c
+      id: 1804753788
+      PathAndIcons:
+      - ElementName: Master-Mixer Hierarchy
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: e859a97a12de8f4f9f8b1ba45dc16a06
+      - ElementName: Master Audio Bus
+        ObjectType: 2
+        guid: d8a41415a61d2a41a17e75ca0c2149f3
+      - ElementName: SFX
+        ObjectType: 2
+        guid: 5bae258e210e48488aa0c1df6f23f289
+      - ElementName: Escape_Pod
+        ObjectType: 1
+        guid: 9dbd6905158fb5488d809b3fb798946c
+      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\SFX\Escape_Pod
+    - name: Hallways
+      guid: 472f765a94fa8644a6756b10ff14d24a
+      id: 4053971408
+      PathAndIcons:
+      - ElementName: Master-Mixer Hierarchy
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: e859a97a12de8f4f9f8b1ba45dc16a06
+      - ElementName: Master Audio Bus
+        ObjectType: 2
+        guid: d8a41415a61d2a41a17e75ca0c2149f3
+      - ElementName: SFX
+        ObjectType: 2
+        guid: 5bae258e210e48488aa0c1df6f23f289
+      - ElementName: Hallways
+        ObjectType: 1
+        guid: 472f765a94fa8644a6756b10ff14d24a
+      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\SFX\Hallways
+    - name: Laboratory
+      guid: e85d95025687ec43942d2b9f4f4c2f36
+      id: 766371778
+      PathAndIcons:
+      - ElementName: Master-Mixer Hierarchy
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: e859a97a12de8f4f9f8b1ba45dc16a06
+      - ElementName: Master Audio Bus
+        ObjectType: 2
+        guid: d8a41415a61d2a41a17e75ca0c2149f3
+      - ElementName: SFX
+        ObjectType: 2
+        guid: 5bae258e210e48488aa0c1df6f23f289
+      - ElementName: Laboratory
+        ObjectType: 1
+        guid: e85d95025687ec43942d2b9f4f4c2f36
+      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\SFX\Laboratory
     - name: Master Audio Bus
       guid: d8a41415a61d2a41a17e75ca0c2149f3
       id: 3803692087
@@ -54,6 +134,100 @@ MonoBehaviour:
         ObjectType: 2
         guid: d8a41415a61d2a41a17e75ca0c2149f3
       Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus
+    - name: Music
+      guid: 483dd457323152499dd41155740a8b8b
+      id: 3991942870
+      PathAndIcons:
+      - ElementName: Master-Mixer Hierarchy
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: e859a97a12de8f4f9f8b1ba45dc16a06
+      - ElementName: Master Audio Bus
+        ObjectType: 2
+        guid: d8a41415a61d2a41a17e75ca0c2149f3
+      - ElementName: Music
+        ObjectType: 2
+        guid: 483dd457323152499dd41155740a8b8b
+      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\Music
+    - name: Observation_Deck
+      guid: 01f45cd45f74f74fb5f9362ddef0b5e0
+      id: 3464770571
+      PathAndIcons:
+      - ElementName: Master-Mixer Hierarchy
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: e859a97a12de8f4f9f8b1ba45dc16a06
+      - ElementName: Master Audio Bus
+        ObjectType: 2
+        guid: d8a41415a61d2a41a17e75ca0c2149f3
+      - ElementName: SFX
+        ObjectType: 2
+        guid: 5bae258e210e48488aa0c1df6f23f289
+      - ElementName: Observation_Deck
+        ObjectType: 1
+        guid: 01f45cd45f74f74fb5f9362ddef0b5e0
+      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\SFX\Observation_Deck
+    - name: Security_Room
+      guid: 44e01494c0c46f45962d6bdf517d0657
+      id: 3965376459
+      PathAndIcons:
+      - ElementName: Master-Mixer Hierarchy
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: e859a97a12de8f4f9f8b1ba45dc16a06
+      - ElementName: Master Audio Bus
+        ObjectType: 2
+        guid: d8a41415a61d2a41a17e75ca0c2149f3
+      - ElementName: SFX
+        ObjectType: 2
+        guid: 5bae258e210e48488aa0c1df6f23f289
+      - ElementName: Security_Room
+        ObjectType: 1
+        guid: 44e01494c0c46f45962d6bdf517d0657
+      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\SFX\Security_Room
+    - name: SFX
+      guid: 5bae258e210e48488aa0c1df6f23f289
+      id: 393239870
+      PathAndIcons:
+      - ElementName: Master-Mixer Hierarchy
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: e859a97a12de8f4f9f8b1ba45dc16a06
+      - ElementName: Master Audio Bus
+        ObjectType: 2
+        guid: d8a41415a61d2a41a17e75ca0c2149f3
+      - ElementName: SFX
+        ObjectType: 2
+        guid: 5bae258e210e48488aa0c1df6f23f289
+      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\SFX
+    - name: Starting_Room
+      guid: b602ee8a7b1e514aacc06b9a4c095347
+      id: 65866301
+      PathAndIcons:
+      - ElementName: Master-Mixer Hierarchy
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: e859a97a12de8f4f9f8b1ba45dc16a06
+      - ElementName: Master Audio Bus
+        ObjectType: 2
+        guid: d8a41415a61d2a41a17e75ca0c2149f3
+      - ElementName: SFX
+        ObjectType: 2
+        guid: 5bae258e210e48488aa0c1df6f23f289
+      - ElementName: Starting_Room
+        ObjectType: 1
+        guid: b602ee8a7b1e514aacc06b9a4c095347
+      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\SFX\Starting_Room
   BankWwu:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
     PathAndIcons:
@@ -66,11 +240,11 @@ MonoBehaviour:
     ParentPath: SoundBanks\Default Work Unit
     guid: 120307a5affdda4f9c2c157df7e55198
     GuidInternal: 
-    m_lastTime: -8584639611284609843
+    m_lastTime: -8584633667969246545
     List:
-    - name: Electronics_Room
-      guid: cbaaad52bb9e2344b4febe16c49db616
-      id: 2572679272
+    - name: Enviroment
+      guid: 4ccb99699ec7c34ab35455a4ec799272
+      id: 3909959462
       PathAndIcons:
       - ElementName: SoundBanks
         ObjectType: 5
@@ -78,13 +252,55 @@ MonoBehaviour:
       - ElementName: Default Work Unit
         ObjectType: 12
         guid: 120307a5affdda4f9c2c157df7e55198
-      - ElementName: Electronics_Room
+      - ElementName: Enviroment
+        ObjectType: 7
+        guid: 4ccb99699ec7c34ab35455a4ec799272
+      Path: SoundBanks\Default Work Unit\Enviroment
+    - name: MenuSounds
+      guid: 0e2946daa19f8e418b57c1fe453c49e4
+      id: 2805599468
+      PathAndIcons:
+      - ElementName: SoundBanks
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 120307a5affdda4f9c2c157df7e55198
+      - ElementName: MenuSounds
+        ObjectType: 7
+        guid: 0e2946daa19f8e418b57c1fe453c49e4
+      Path: SoundBanks\Default Work Unit\MenuSounds
+    - name: MonsterSounds
+      guid: 6726617aaf1ef54393b2ef1dde5ce2ea
+      id: 682291357
+      PathAndIcons:
+      - ElementName: SoundBanks
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 120307a5affdda4f9c2c157df7e55198
+      - ElementName: MonsterSounds
+        ObjectType: 7
+        guid: 6726617aaf1ef54393b2ef1dde5ce2ea
+      Path: SoundBanks\Default Work Unit\MonsterSounds
+    - name: Music
+      guid: cbaaad52bb9e2344b4febe16c49db616
+      id: 3991942870
+      PathAndIcons:
+      - ElementName: SoundBanks
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 120307a5affdda4f9c2c157df7e55198
+      - ElementName: Music
         ObjectType: 7
         guid: cbaaad52bb9e2344b4febe16c49db616
-      Path: SoundBanks\Default Work Unit\Electronics_Room
-    - name: Player
+      Path: SoundBanks\Default Work Unit\Music
+    - name: PlayerSounds
       guid: 9dc69c50d52f14498d4a9eb6a1187905
-      id: 1069431850
+      id: 1327972334
       PathAndIcons:
       - ElementName: SoundBanks
         ObjectType: 5
@@ -92,10 +308,24 @@ MonoBehaviour:
       - ElementName: Default Work Unit
         ObjectType: 12
         guid: 120307a5affdda4f9c2c157df7e55198
-      - ElementName: Player
+      - ElementName: PlayerSounds
         ObjectType: 7
         guid: 9dc69c50d52f14498d4a9eb6a1187905
-      Path: SoundBanks\Default Work Unit\Player
+      Path: SoundBanks\Default Work Unit\PlayerSounds
+    - name: Riddles
+      guid: 788795a42aea234493cbc375a77e492d
+      id: 1872262486
+      PathAndIcons:
+      - ElementName: SoundBanks
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 120307a5affdda4f9c2c157df7e55198
+      - ElementName: Riddles
+        ObjectType: 7
+        guid: 788795a42aea234493cbc375a77e492d
+      Path: SoundBanks\Default Work Unit\Riddles
   EventWwu:
   - PhysicalPath: Events\Default Work Unit.wwu
     PathAndIcons:
@@ -108,7 +338,7 @@ MonoBehaviour:
     ParentPath: Events\Default Work Unit
     guid: a73c7a02b02f814caa08ff6be5823e65
     GuidInternal: 
-    m_lastTime: -8584639611284520158
+    m_lastTime: -8584633667983320876
     List:
     - name: Door_Closing
       guid: 192f67e6cf8db145ae3ad50dddb560ce
@@ -125,8 +355,8 @@ MonoBehaviour:
         guid: 192f67e6cf8db145ae3ad50dddb560ce
       Path: Events\Default Work Unit\Door_Closing
       maxAttenuation: 0
-      maxDuration: 3.0933332
-      minDuration: 3.0933332
+      maxDuration: -1
+      minDuration: -1
     - name: Door_Opening
       guid: 91e93c347dacc04b8bbb9a25099a3401
       id: 2589897592
@@ -142,11 +372,11 @@ MonoBehaviour:
         guid: 91e93c347dacc04b8bbb9a25099a3401
       Path: Events\Default Work Unit\Door_Opening
       maxAttenuation: 0
-      maxDuration: 1.552
-      minDuration: 1.552
-    - name: Electronics_Room
-      guid: ab5be71ed586c148ab8c9f9ff816a8fb
-      id: 2572679272
+      maxDuration: -1
+      minDuration: -1
+    - name: MusicEvents
+      guid: e80974ccf0da144e8d6d47d361cb8a8b
+      id: 2858168685
       PathAndIcons:
       - ElementName: Events
         ObjectType: 5
@@ -154,13 +384,13 @@ MonoBehaviour:
       - ElementName: Default Work Unit
         ObjectType: 12
         guid: a73c7a02b02f814caa08ff6be5823e65
-      - ElementName: Electronics_Room
+      - ElementName: MusicEvents
         ObjectType: 3
-        guid: ab5be71ed586c148ab8c9f9ff816a8fb
-      Path: Events\Default Work Unit\Electronics_Room
+        guid: e80974ccf0da144e8d6d47d361cb8a8b
+      Path: Events\Default Work Unit\MusicEvents
       maxAttenuation: 0
-      maxDuration: 27.428562
-      minDuration: 27.428562
+      maxDuration: -1
+      minDuration: -1
     - name: PlayerFoot
       guid: 9535f4e52441134bb64bf6b39f19f673
       id: 2664667690
@@ -176,8 +406,25 @@ MonoBehaviour:
         guid: 9535f4e52441134bb64bf6b39f19f673
       Path: Events\Default Work Unit\PlayerFoot
       maxAttenuation: 0
-      maxDuration: 2.6453333
-      minDuration: 0.5358854
+      maxDuration: -1
+      minDuration: -1
+    - name: Room_Music
+      guid: ce8c73ed0e4fa04e8108a34a66524703
+      id: 1808177020
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: a73c7a02b02f814caa08ff6be5823e65
+      - ElementName: Room_Music
+        ObjectType: 3
+        guid: ce8c73ed0e4fa04e8108a34a66524703
+      Path: Events\Default Work Unit\Room_Music
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
   RtpcWwu:
   - PhysicalPath: Game Parameters\Default Work Unit.wwu
     PathAndIcons:
@@ -267,6 +514,117 @@ MonoBehaviour:
         - ElementName: Hollow
           ObjectType: 10
           guid: 1c8cf4c4230c834b9c17cb9dd745b3c7
+      ValueGuids: []
+      ValueIcons: []
+      valuesInternal: []
+  - PhysicalPath: Switches\Music.wwu
+    PathAndIcons:
+    - ElementName: Switches
+      ObjectType: 5
+      guid: 00000000000000000000000000000000
+    - ElementName: Music
+      ObjectType: 12
+      guid: 652c8a33c7907848bd83ece500481f31
+    ParentPath: Switches\Music
+    guid: 652c8a33c7907848bd83ece500481f31
+    GuidInternal: 
+    m_lastTime: -8584633667969246545
+    List:
+    - name: Rooms
+      guid: 93092362676ce24f8d05ad5cee6aec0f
+      id: 1359360203
+      PathAndIcons:
+      - ElementName: Switches
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Music
+        ObjectType: 12
+        guid: 652c8a33c7907848bd83ece500481f31
+      - ElementName: Rooms
+        ObjectType: 11
+        guid: 93092362676ce24f8d05ad5cee6aec0f
+      Path: Switches\Music\Rooms
+      values:
+      - name: Electronics_Room
+        guid: 1eab7b772b821044a791b49dfe853ba4
+        id: 2572679272
+        PathAndIcons:
+        - ElementName: Switches
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Music
+          ObjectType: 12
+          guid: 652c8a33c7907848bd83ece500481f31
+        - ElementName: Rooms
+          ObjectType: 11
+          guid: 93092362676ce24f8d05ad5cee6aec0f
+        - ElementName: Electronics_Room
+          ObjectType: 10
+          guid: 1eab7b772b821044a791b49dfe853ba4
+      - name: Laboratory1
+        guid: 9537441719cf954bb30529745b962772
+        id: 2864961111
+        PathAndIcons:
+        - ElementName: Switches
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Music
+          ObjectType: 12
+          guid: 652c8a33c7907848bd83ece500481f31
+        - ElementName: Rooms
+          ObjectType: 11
+          guid: 93092362676ce24f8d05ad5cee6aec0f
+        - ElementName: Laboratory1
+          ObjectType: 10
+          guid: 9537441719cf954bb30529745b962772
+      - name: Laboratory2
+        guid: 5dc9db0248fcf947bb69e0ed7f7fe084
+        id: 2864961108
+        PathAndIcons:
+        - ElementName: Switches
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Music
+          ObjectType: 12
+          guid: 652c8a33c7907848bd83ece500481f31
+        - ElementName: Rooms
+          ObjectType: 11
+          guid: 93092362676ce24f8d05ad5cee6aec0f
+        - ElementName: Laboratory2
+          ObjectType: 10
+          guid: 5dc9db0248fcf947bb69e0ed7f7fe084
+      - name: Observation_Deck
+        guid: c9c4d3ba305cec40a81c5e90b695d335
+        id: 3464770571
+        PathAndIcons:
+        - ElementName: Switches
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Music
+          ObjectType: 12
+          guid: 652c8a33c7907848bd83ece500481f31
+        - ElementName: Rooms
+          ObjectType: 11
+          guid: 93092362676ce24f8d05ad5cee6aec0f
+        - ElementName: Observation_Deck
+          ObjectType: 10
+          guid: c9c4d3ba305cec40a81c5e90b695d335
+      - name: Security_Room
+        guid: 42a03864b3214749be4683682e24f67e
+        id: 3965376459
+        PathAndIcons:
+        - ElementName: Switches
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Music
+          ObjectType: 12
+          guid: 652c8a33c7907848bd83ece500481f31
+        - ElementName: Rooms
+          ObjectType: 11
+          guid: 93092362676ce24f8d05ad5cee6aec0f
+        - ElementName: Security_Room
+          ObjectType: 10
+          guid: 42a03864b3214749be4683682e24f67e
       ValueGuids: []
       ValueIcons: []
       valuesInternal: []
