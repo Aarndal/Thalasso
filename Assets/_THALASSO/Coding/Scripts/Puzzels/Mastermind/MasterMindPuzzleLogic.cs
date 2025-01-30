@@ -8,11 +8,29 @@ public class MasterMindPuzzleLogic : MonoBehaviour
 {
     [SerializeField] private Button[] numButtons;
     [SerializeField] private TextMeshProUGUI[] outputText;
+    [SerializeField] private int puzzleID = 1;
 
     private int[] code = new int[4];
     private int[] inputCode = new int[4];
 
 
+    private void Awake()
+    {
+        PuzzleUIReferencesSender.puzzleUIReferenceLogger += GetUIReference;
+    }
+
+    private void GetUIReference(GameObject reference, int ID)
+    {
+        if (ID == puzzleID)
+        {
+            Button[] allChildWithButtons = reference.transform.GetComponentsInChildren<Button>();
+            numButtons = new Button[allChildWithButtons.Length];
+            for (int i = 0; i < allChildWithButtons.Length; i++)
+            {
+                numButtons[i] = allChildWithButtons[i];
+            }
+        }
+    }
 
     private void Start()
     {
@@ -38,7 +56,6 @@ public class MasterMindPuzzleLogic : MonoBehaviour
             code[i] = availableNumbers[randomIndex];
             availableNumbers.RemoveAt(randomIndex);
         }
-        Debug.Log(code);
     }
 
     private void OnDestroy()

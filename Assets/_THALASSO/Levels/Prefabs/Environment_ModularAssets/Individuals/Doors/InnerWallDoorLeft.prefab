@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2256343958886869342}
   - component: {fileID: 7118939946173155493}
   - component: {fileID: 5950384301726353387}
-  - component: {fileID: 2874418173962276030}
+  - component: {fileID: 5118053029932816206}
   m_Layer: 0
   m_Name: InnerWallDoorLeft
   m_TagString: Untagged
@@ -41,7 +41,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1240295762928888455}
-  m_Mesh: {fileID: -5192600266035919304, guid: 950d2a9a69230d742b89bc84cb9cbbf4, type: 3}
+  m_Mesh: {fileID: 1367244948187112638, guid: 950d2a9a69230d742b89bc84cb9cbbf4, type: 3}
 --- !u!23 &5950384301726353387
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: d1ab60dc74b46af41b288c0879a3a2c4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -87,7 +87,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &2874418173962276030
+--- !u!64 &5118053029932816206
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -108,4 +108,4 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: -5192600266035919304, guid: 950d2a9a69230d742b89bc84cb9cbbf4, type: 3}
+  m_Mesh: {fileID: 1367244948187112638, guid: 950d2a9a69230d742b89bc84cb9cbbf4, type: 3}

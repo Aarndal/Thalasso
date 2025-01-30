@@ -1,20 +1,23 @@
 using System.Reflection;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class PuzzleColliderLogic : MonoBehaviour
+public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
 {
+    [Header("References")]
+    [SerializeField] private SO_GameInputReader _input;
+
     [SerializeField] private string playerTag;
+    [SerializeField] private int puzzleID;
     [SerializeField] private Transform targetCamera;
     [SerializeField] private float transitionduration;
     [SerializeField] private AnimationCurve animationSpeedCurve;
-    [SerializeField] private GameObject buttonUICanvas;
 
     [SerializeField] private bool puzzleAutoStartNeeded = false;
-    [SerializeField]
-    private MonoBehaviour autoStartPuzzleScript;
+    [SerializeField] private MonoBehaviour autoStartPuzzleScript;
 
-    private bool inRange;
+    private GameObject buttonUICanvas;
     private bool isfocused = false;
     private Vector3 originTransformPosition;
     private Quaternion originTransformRotation;
@@ -22,40 +25,32 @@ public class PuzzleColliderLogic : MonoBehaviour
     private CinemachineCamera cinemachineVirtualCamera;
     private bool inAnimation;
 
+    private bool isActivatable = true;
+    public bool IsActivatable => isActivatable;
+
+    private void Awake()
+    {
+        PuzzleUIReferencesSender.puzzleUIReferenceLogger += GetUIReference;
+    }
+
+    private void GetUIReference(GameObject reference, int ID)
+    {
+        if (ID == puzzleID)
+        {
+            buttonUICanvas = reference;
+            buttonUICanvas.SetActive(false);
+        }
+    }
+
     private void Start()
     {
-        buttonUICanvas.SetActive(false);
         cinemachineVirtualCamera = GameObject.FindAnyObjectByType<CinemachineCamera>();
-
-        InputManager.OnInteractGlobal += CheckCollision;
-
-    }
-    private void OnDisable()
-    {
-        InputManager.OnInteractGlobal -= CheckCollision;
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void Interact(Transform transform)
     {
-        if (other.gameObject.CompareTag(playerTag))
-        {
-            inRange = true;
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag(playerTag))
-        {
-            inRange = false;
-        }
-    }
-
-    private void CheckCollision()
-    {
-        if (!inRange || inAnimation)
+        if (inAnimation)
             return;
-
-
         if (!isfocused)
         {
             originTransformPosition = Camera.main.transform.position;
@@ -65,11 +60,12 @@ public class PuzzleColliderLogic : MonoBehaviour
             {
                 inAnimation = true;
                 cinemachineVirtualCamera.enabled = false;
-                InputManager.Instance.BlockPlayerMoveAndRot();
+                //InputManager.Instance.BlockPlayerMoveAndRot();
             }, () =>
             {
                 inAnimation = false;
-                Cursor.lockState = CursorLockMode.None;
+                Cursor.lockState = CursorLockMode.Confined;
+                Cursor.visible = true;
                 buttonUICanvas.SetActive(true);
                 isfocused = true;
 
@@ -79,6 +75,8 @@ public class PuzzleColliderLogic : MonoBehaviour
                     method?.Invoke(autoStartPuzzleScript, null);
                 }
             });
+
+            _input.SwitchCurrentActionMapTo("UI");
         }
         else
         {
@@ -88,14 +86,17 @@ public class PuzzleColliderLogic : MonoBehaviour
             {
                 inAnimation = true;
                 Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
                 buttonUICanvas.SetActive(false);
             }, () =>
             {
                 inAnimation = false;
                 cinemachineVirtualCamera.enabled = true;
                 isfocused = false;
-                InputManager.Instance.UnblockPlayerMoveAndRot();
+                //InputManager.Instance.UnblockPlayerMoveAndRot();
             });
+            
+            _input.SwitchCurrentActionMapTo("Player");
         }
     }
 
@@ -116,4 +117,5 @@ public class PuzzleColliderLogic : MonoBehaviour
             Destroy(transform);
         }
     }
+
 }

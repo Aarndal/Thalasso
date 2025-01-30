@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,12 +35,13 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
     private bool _isMoveTriggered = false;
     private bool _isSprintTriggered = false;
     private Vector2 _moveInput = new();
-    private Vector2 _lookInput = new ();
+    private Vector2 _lookInput = new();
     private bool _isJumpTriggered = false;
     private bool _isInteractTriggered = false;
 
     // Properties
     public ReadOnlyArray<InputControlScheme> ControlSchemes { get => _gameInput.controlSchemes; }
+    public readonly Dictionary<int, InputActionMap> ActionMaps = new();
     public bool IsXLookInputInverted { get => _invertXLookInput; private set => _invertXLookInput = value; }
     public bool IsYLookInputInverted { get => _invertYLookInput; private set => _invertYLookInput = value; }
     public bool IsMoveTriggered
@@ -92,7 +92,7 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
         }
     }
 
-    #region Unity MonoBehaviour Methods
+    #region Unity Lifecycle Methods
     private void OnEnable()
     {
         if (_gameInput == null)
@@ -104,6 +104,13 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
             _gameInput.UI.SetCallbacks(this);
 
             _defaultActionMap = _actionMaps[0];
+        }
+
+        if (ActionMaps.Count > 0 && ActionMaps.Count != _actionMaps.Count)
+        {
+            ActionMaps.Clear();
+            for (int i = 0; i < _actionMaps.Count; i++)
+                ActionMaps.Add(i, _actionMaps[i]);
         }
 
         EnableDefaultActionMap();
@@ -122,8 +129,14 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
         _currentActionMap = _defaultActionMap;
     }
 
-    public void SwitchCurrentActionMap(string actionMapName)
+    public bool SwitchCurrentActionMapTo(string actionMapName)
     {
+        if (actionMapName == _currentActionMap.name)
+        {
+            Debug.LogWarningFormat("Action map with name <color=yellow>'{0}'</color> in <color=cyan>'{1}'</color> is already active!", actionMapName, _gameInput.asset.name);
+            return false;
+        }
+
         foreach (var actionMap in _actionMaps)
         {
             if (actionMap.name == actionMapName && _currentActionMap.name != actionMapName)
@@ -131,27 +144,33 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
                 _currentActionMap.Disable();
                 actionMap.Enable();
                 _currentActionMap = actionMap;
-                break;
+                return true;
             }
         }
 
-        Debug.LogErrorFormat($"Cannot find action map '{actionMapName}' in '{_gameInput.asset.name}'.", this);
+        Debug.LogErrorFormat("Cannot find action map with name <color=red>'{0}'</color> in <color=cyan>'{1}'</color>.", actionMapName, _gameInput.asset.name);
+        return false;
     }
 
-    public void SwitchCurrentActionMap(Guid actionMapID)
-    {
-        foreach (var actionMap in _actionMaps)
-        {
-            if (actionMap.id == actionMapID && _currentActionMap.id != actionMapID)
-            {
-                _currentActionMap.Disable();
-                actionMap.Enable();
-                _currentActionMap = actionMap;
-                break;
-            }
-        }
-        Debug.LogErrorFormat($"Cannot find action map '{actionMapID}' in '{_gameInput.asset.name}'.", this);
-    }
+    //public void SwitchCurrentActionMap(Guid actionMapID)
+    //{
+    //    bool transitionSuccessful = false;
+
+    //    foreach (var actionMap in _actionMaps)
+    //    {
+    //        if (actionMap.id == actionMapID && _currentActionMap.id != actionMapID)
+    //        {
+    //            _currentActionMap.Disable();
+    //            actionMap.Enable();
+    //            _currentActionMap = actionMap;
+    //            transitionSuccessful = true;
+    //            break;
+    //        }
+    //    }
+
+    //    if (!transitionSuccessful)
+    //        Debug.LogErrorFormat("Cannot find action map with Guid <color=red>'{0}'</color> in <color=cyan>'{1}'</color>.", actionMapID, _gameInput.asset.name);
+    //}
 
     public void DisableAllActionMaps()
     {

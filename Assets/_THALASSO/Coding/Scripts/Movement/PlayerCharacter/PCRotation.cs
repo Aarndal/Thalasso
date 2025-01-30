@@ -13,7 +13,7 @@ public class PCRotation : MonoBehaviour
 
     [Header("Look Variables")]
     [Tooltip("Defines the minimum threshold value for registering the look input for the rotation. Is compared with the squared magnitude of the look input vector.")]
-    [SerializeField, Range(0.1f, 10.0f)]
+    [SerializeField, Range(0.01f, 1.0f)]
     private float _rotationThreshold = 1.0f;
     [Tooltip("How far in degrees can you move the camera up.")]
     [SerializeField, Range(30.0f, 80.0f)]
@@ -52,9 +52,6 @@ public class PCRotation : MonoBehaviour
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-
         _deltaTimeMultiplier = 1.0f;
 
         _pitch = _cameraRoot.localEulerAngles.x;

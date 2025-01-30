@@ -5,9 +5,13 @@ using UnityEngine;
 public class Test_InteractiveObject : MonoBehaviour, IAmInteractive
 {
     [SerializeField]
+    private bool _isActivatable = true;
+    [SerializeField]
     private Color _baseColor = Color.white;
 
     private MeshRenderer _meshRenderer = default;
+
+    public bool IsActivatable => _isActivatable;
 
     private void Awake()
     {
@@ -21,6 +25,9 @@ public class Test_InteractiveObject : MonoBehaviour, IAmInteractive
 
     public void Interact(Transform transform)
     {
+        if (!IsActivatable)
+            return;
+
         if (_meshRenderer.material.color == _baseColor)
             _meshRenderer.material.color = Color.red;
         else

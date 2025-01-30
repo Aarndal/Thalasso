@@ -24,7 +24,7 @@ public class PCMovement : MonoBehaviour, IAmMovable
 
     private Rigidbody _rigidbody = default;
     private Vector3 _moveDirection = Vector3.zero;
-    private Vector3 _previousMoveDirection = Vector3.zero;
+    //private Vector3 _previousMoveDirection = Vector3.zero;
     private float _speedFactor = 0.0f;
     private bool _isSprinting = false;
     private bool _isGrounded = true;

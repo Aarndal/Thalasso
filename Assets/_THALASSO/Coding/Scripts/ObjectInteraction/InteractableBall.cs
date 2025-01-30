@@ -5,11 +5,15 @@ using UnityEngine;
 public class InteractableBall : MonoBehaviour, IAmInteractive, IAmMovable
 {
     [SerializeField]
+    private bool _isActivatable = true;
+    [SerializeField]
     private float _kickForce = 10f;
 
     private Rigidbody _rigidbody = default;
     private Vector3 _kickDirection = Vector3.zero;
     private bool _isBeingKicked = false;
+
+    public bool IsActivatable => _isActivatable;
 
     private void Awake()
     {
@@ -25,6 +29,9 @@ public class InteractableBall : MonoBehaviour, IAmInteractive, IAmMovable
 
     public void Interact(Transform transform)
     {
+        if (!IsActivatable)
+            return;
+
         _kickDirection = transform.forward;
         _isBeingKicked = true;
     }

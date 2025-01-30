@@ -2,20 +2,15 @@ using UnityEngine;
 
 public class DoorAnimationTrigger : MonoBehaviour
 {
-    private enum directions
-    {
-        Left,
-        Right,
-        Up,
-        Down
-    }
 
     [Header("General")]
-    [SerializeField] private GameObject doorObj;
+    [SerializeField] private GameObject doorObjL;
+    [SerializeField] private GameObject doorObjR;
     [SerializeField] private float openingDistance;
-    [SerializeField] private directions openingDirection;
-    private Vector3 originTransformPosition;
-    private Coroutine runningCoroutineAnimation;
+    private Vector3 originTransformPositionL;
+    private Vector3 originTransformPositionR;
+    private Coroutine runningCoroutineAnimationL;
+    private Coroutine runningCoroutineAnimationR;
     [SerializeField] private bool isLocked = false;
 
 
@@ -29,65 +24,41 @@ public class DoorAnimationTrigger : MonoBehaviour
 
     private void Start()
     {
-        originTransformPosition = doorObj.transform.position;
+        originTransformPositionL = doorObjL.transform.position;
+        originTransformPositionR = doorObjR.transform.position;
     }
 
     public void OpenDoor()
     {
-        if(isLocked)
+        if (isLocked)
             return;
 
-        Vector3 endPos;
-        switch (openingDirection)
+        Vector3 endPosL;
+        Vector3 endPosR;
+        endPosL = originTransformPositionL + (-doorObjL.transform.right * openingDistance);
+        endPosR = originTransformPositionR + (doorObjR.transform.right * openingDistance);
+
+        if (runningCoroutineAnimationL != null || runningCoroutineAnimationR != null)
         {
-            case directions.Left:
-                {
-                    endPos = originTransformPosition + (-doorObj.transform.right * openingDistance);
-                    break;
-                }
-
-            case directions.Right:
-                {
-                    endPos = originTransformPosition + (doorObj.transform.right * openingDistance);
-                    break;
-                }
-
-            case directions.Up:
-                {
-
-                    endPos = originTransformPosition + (doorObj.transform.up * openingDistance);
-                    break;
-                }
-
-            case directions.Down:
-                {
-                    endPos = originTransformPosition + (-doorObj.transform.up * openingDistance);
-                    break;
-                }
-
-            default:
-                {
-                    endPos = Vector3.zero;
-                    break;
-                }
+            StopCoroutine(runningCoroutineAnimationL);
+            StopCoroutine(runningCoroutineAnimationR);
         }
-        if (runningCoroutineAnimation != null)
-        {
-            StopCoroutine(runningCoroutineAnimation);
-        }
-        runningCoroutineAnimation = TransformTransitionSystem.Instance.TransitionPos(doorObj, endPos, openingDuration, openingSpeedCurve, null,() => runningCoroutineAnimation = null);
+        runningCoroutineAnimationL = TransformTransitionSystem.Instance.TransitionPos(doorObjL, endPosL, openingDuration, openingSpeedCurve, null, () => runningCoroutineAnimationL = null);
+        runningCoroutineAnimationR = TransformTransitionSystem.Instance.TransitionPos(doorObjR, endPosR, openingDuration, openingSpeedCurve, null, () => runningCoroutineAnimationR = null);
     }
     public void CloseDoor()
     {
 
         if (isLocked)
-            return; 
+            return;
 
-        if (runningCoroutineAnimation != null)
+        if (runningCoroutineAnimationL != null || runningCoroutineAnimationR != null)
         {
-            StopCoroutine(runningCoroutineAnimation);
+            StopCoroutine(runningCoroutineAnimationL);
+            StopCoroutine(runningCoroutineAnimationR);
         }
-        runningCoroutineAnimation = TransformTransitionSystem.Instance.TransitionPos(doorObj, originTransformPosition, closingDuration, closingSpeedCurve, null, () => runningCoroutineAnimation = null);
+        runningCoroutineAnimationL = TransformTransitionSystem.Instance.TransitionPos(doorObjL, originTransformPositionL, closingDuration, closingSpeedCurve, null, () => runningCoroutineAnimationL = null);
+        runningCoroutineAnimationR = TransformTransitionSystem.Instance.TransitionPos(doorObjR, originTransformPositionR, closingDuration, closingSpeedCurve, null, () => runningCoroutineAnimationR = null);
     }
 
     public void Unlock()
