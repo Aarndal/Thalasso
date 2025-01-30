@@ -240,7 +240,7 @@ MonoBehaviour:
     ParentPath: SoundBanks\Default Work Unit
     guid: 120307a5affdda4f9c2c157df7e55198
     GuidInternal: 
-    m_lastTime: -8584633667969246545
+    m_lastTime: -8584633610221950092
     List:
     - name: Enviroment
       guid: 4ccb99699ec7c34ab35455a4ec799272
@@ -338,7 +338,7 @@ MonoBehaviour:
     ParentPath: Events\Default Work Unit
     guid: a73c7a02b02f814caa08ff6be5823e65
     GuidInternal: 
-    m_lastTime: -8584633667983320876
+    m_lastTime: -8584633605843903634
     List:
     - name: Door_Closing
       guid: 192f67e6cf8db145ae3ad50dddb560ce
@@ -391,9 +391,9 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
-    - name: PlayerFoot
+    - name: PlayerFoot_Run
       guid: 9535f4e52441134bb64bf6b39f19f673
-      id: 2664667690
+      id: 4265836956
       PathAndIcons:
       - ElementName: Events
         ObjectType: 5
@@ -401,13 +401,30 @@ MonoBehaviour:
       - ElementName: Default Work Unit
         ObjectType: 12
         guid: a73c7a02b02f814caa08ff6be5823e65
-      - ElementName: PlayerFoot
+      - ElementName: PlayerFoot_Run
         ObjectType: 3
         guid: 9535f4e52441134bb64bf6b39f19f673
-      Path: Events\Default Work Unit\PlayerFoot
+      Path: Events\Default Work Unit\PlayerFoot_Run
       maxAttenuation: 0
-      maxDuration: 2.6453333
-      minDuration: 0.5358854
+      maxDuration: 0.81866664
+      minDuration: 0.604
+    - name: PlayerFoot_Walk
+      guid: d89b7d260f96d3469d767294b02d398d
+      id: 744081578
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: a73c7a02b02f814caa08ff6be5823e65
+      - ElementName: PlayerFoot_Walk
+        ObjectType: 3
+        guid: d89b7d260f96d3469d767294b02d398d
+      Path: Events\Default Work Unit\PlayerFoot_Walk
+      maxAttenuation: 0
+      maxDuration: 0.82516664
+      minDuration: 0.604
     - name: Room_Music
       guid: ce8c73ed0e4fa04e8108a34a66524703
       id: 1808177020
@@ -465,7 +482,7 @@ MonoBehaviour:
     ParentPath: Switches\Default Work Unit
     guid: 7efb8b82d304a74188c2d0309d757ff4
     GuidInternal: 
-    m_lastTime: -8584639611284560112
+    m_lastTime: -8584633527958670056
     List:
     - name: Footsteps_Material
       guid: 4d355412d47fe246b833edaf6951d735
@@ -643,7 +660,7 @@ MonoBehaviour:
     m_lastTime: -8584642281314775808
     List: []
   ExpandedFileSystemItemIds: 
-  ExpandedWaapiItemIds: 06000000070000000c0000000d0000000e0000000f00000017000000
+  ExpandedWaapiItemIds: 06000000070000000c0000000d0000000e0000000f00000010000000110000001700000018000000190000001a000000
   AutoSyncSelection: 0
   autoPopulateEnabled: 1
   currentDataSource: 0

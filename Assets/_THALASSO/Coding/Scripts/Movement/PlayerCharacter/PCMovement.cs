@@ -23,6 +23,7 @@ public class PCMovement : MonoBehaviour, IAmMovable
     private float _inAirSpeed = 0.5f;
 
     private Rigidbody _rigidbody = default;
+    private Animator _animator = default;
     private Vector3 _moveDirection = Vector3.zero;
     //private Vector3 _previousMoveDirection = Vector3.zero;
     private float _speedFactor = 0.0f;
@@ -34,6 +35,8 @@ public class PCMovement : MonoBehaviour, IAmMovable
     {
         _rigidbody = GetComponent<Rigidbody>();
         //_previousMoveDirection = _moveDirection;
+
+        _animator = GetComponentInChildren<Animator>();
     }
 
     private void OnEnable()
@@ -53,6 +56,9 @@ public class PCMovement : MonoBehaviour, IAmMovable
     private void FixedUpdate()
     {
         Move();
+
+        AnimatorControllerParameter PCHOrizontalVelocity = _animator.GetParameter(0);
+        _animator.SetFloat(PCHOrizontalVelocity.name, _rigidbody.linearVelocity.magnitude);
     }
 
     private void OnDisable()
