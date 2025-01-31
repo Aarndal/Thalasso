@@ -14,7 +14,7 @@ public class PostWwiseEvent : MonoBehaviour
     {
         if (_animator == null)
         {
-            _animator = GetComponent<Animator>();
+            _animator = GetComponentInChildren<Animator>();
 
             if (_animator == null)
                 Debug.LogError("No Animator component found on " + gameObject.name);
