@@ -1,6 +1,7 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Animations;
 public class PCAnimation : Entity
 {
     [Header("References")]
@@ -8,7 +9,7 @@ public class PCAnimation : Entity
     private SO_GameInputReader _input = default;
 
     [Header("Normalized Transition Durations")]
-    [SerializeField,Range(0.0f,1.0f)]
+    [SerializeField, Range(0.0f, 1.0f)]
     private float _idleTransitionTime = 0.0f;
     [SerializeField, Range(0.0f, 1.0f)]
     private float _walkTransitionTime = 0.0f;
@@ -50,6 +51,12 @@ public class PCAnimation : Entity
         ConditionChanged -= OnConditionChanged;
     }
 
+    protected virtual void OnValidate()
+    {
+        if (_input == null)
+            _input = FindFirstObjectByType<SO_GameInputReader>();
+    }
+
     protected override void OnAnimationEvenTriggered(AnimationEvent args)
     {
         if (args.stringParameter == "Walk")
@@ -60,7 +67,7 @@ public class PCAnimation : Entity
 
     private void OnConditionChanged()
     {
-        if (_isGrounded && !_isCurrentlyMoving && !Animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        if ((!_isGrounded && _isCurrentlyMoving || !_isCurrentlyMoving) && !Animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
             SetAnimationState(0, "Idle", _idleTransitionTime);
 
         if (_isGrounded && _isCurrentlyMoving && !Animator.GetCurrentAnimatorStateInfo(0).IsName("Walk"))
