@@ -7,6 +7,8 @@ public class PCAnimation : Entity
     [Header("References")]
     [SerializeField]
     private SO_GameInputReader _input = default;
+    [SerializeField]
+    private AK.Wwise.Event wwiseEvents;
 
     [Header("Normalized Transition Durations")]
     [SerializeField, Range(0.0f, 1.0f)]
@@ -61,7 +63,7 @@ public class PCAnimation : Entity
     {
         if (args.stringParameter == "Walk")
         {
-
+            wwiseEvents.Post(gameObject);
         }
     }
 
