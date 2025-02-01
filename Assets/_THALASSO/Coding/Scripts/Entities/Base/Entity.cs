@@ -33,5 +33,5 @@ public abstract class Entity : MonoBehaviour
             AnimationEventBroadcaster.AnimationEventTriggered -= OnAnimationEvenTriggered;
     }
 
-    protected virtual void OnAnimationEvenTriggered(AnimationEvent args) { }
+    protected virtual void OnAnimationEvenTriggered(AnimationEvent eventArgs) { }
 }
