@@ -748,34 +748,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2210585923915962435, guid: 7f1a256885e70b5458a41dc6482233d5, type: 3}
-      propertyPath: _runTransition
-      value: 0.02
-      objectReference: {fileID: 0}
-    - target: {fileID: 2210585923915962435, guid: 7f1a256885e70b5458a41dc6482233d5, type: 3}
-      propertyPath: _idleTransition
-      value: 0.02
-      objectReference: {fileID: 0}
-    - target: {fileID: 2210585923915962435, guid: 7f1a256885e70b5458a41dc6482233d5, type: 3}
-      propertyPath: _walkTransition
-      value: 0.02
-      objectReference: {fileID: 0}
-    - target: {fileID: 2210585923915962435, guid: 7f1a256885e70b5458a41dc6482233d5, type: 3}
-      propertyPath: _animationClips.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2210585923915962435, guid: 7f1a256885e70b5458a41dc6482233d5, type: 3}
-      propertyPath: '_animationClips.Array.data[3]'
-      value: 
-      objectReference: {fileID: 7400000, guid: c21b61835fda8c348b0861abbce897a5, type: 2}
-    - target: {fileID: 2210585923915962435, guid: 7f1a256885e70b5458a41dc6482233d5, type: 3}
-      propertyPath: '_animationClips.Array.data[4]'
-      value: 
-      objectReference: {fileID: 7400000, guid: 2133c54e2458d5a45bc0ddfb0f9bb6d8, type: 2}
-    - target: {fileID: 2210585923915962435, guid: 7f1a256885e70b5458a41dc6482233d5, type: 3}
-      propertyPath: '_animationClips.Array.data[5]'
-      value: 
-      objectReference: {fileID: 7400000, guid: 2133c54e2458d5a45bc0ddfb0f9bb6d8, type: 2}
     - target: {fileID: 4829465317767684519, guid: 7f1a256885e70b5458a41dc6482233d5, type: 3}
       propertyPath: m_Name
       value: PlayerCharacter
@@ -786,7 +758,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5526890881078507483, guid: 7f1a256885e70b5458a41dc6482233d5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5526890881078507483, guid: 7f1a256885e70b5458a41dc6482233d5, type: 3}
       propertyPath: m_LocalPosition.z
