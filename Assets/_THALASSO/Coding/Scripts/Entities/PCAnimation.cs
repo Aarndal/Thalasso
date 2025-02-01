@@ -105,7 +105,7 @@ public class PCAnimation : Entity
         if ((!_isGrounded && _isCurrentlyMoving || !_isCurrentlyMoving))
             return SetAnimationState(0, "Idle", _idleTransitionDuration);
 
-        if (_isGrounded && _isCurrentlyMoving)
+        if (_isGrounded && _isCurrentlyMoving && !_isSprintTriggered)
             return SetAnimationState(0, "Walk", _walkTransitionDuration);
 
         if (_isGrounded && _isCurrentlyMoving && _isSprintTriggered)
