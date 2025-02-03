@@ -42,6 +42,7 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
     // Properties
     public ReadOnlyArray<InputControlScheme> ControlSchemes { get => _gameInput.controlSchemes; }
     public readonly Dictionary<int, InputActionMap> ActionMaps = new();
+    public InputActionMap CurrentActionMap { get => _currentActionMap; }
     public bool IsXLookInputInverted { get => _invertXLookInput; private set => _invertXLookInput = value; }
     public bool IsYLookInputInverted { get => _invertYLookInput; private set => _invertYLookInput = value; }
     public bool IsMoveTriggered
@@ -67,6 +68,7 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
             };
         }
     }
+    public bool IsPauseActive { get; set; }
     public bool IsSprintTriggered
     {
         get => _isSprintTriggered;
@@ -114,6 +116,8 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
         }
 
         EnableDefaultActionMap();
+
+        IsPauseActive = false;
     }
 
     private void OnDisable()
@@ -127,10 +131,20 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
     {
         _defaultActionMap.Enable();
         _currentActionMap = _defaultActionMap;
+
+        if (_currentActionMap.name == "UI")
+            SetCursorSettings(true, CursorLockMode.Confined);
+        else
+            SetCursorSettings(false, CursorLockMode.Locked);
     }
 
     public bool SwitchCurrentActionMapTo(string actionMapName)
     {
+        if (actionMapName == "UI")
+            SetCursorSettings(true, CursorLockMode.Confined);
+        else
+            SetCursorSettings(false, CursorLockMode.Locked);
+
         if (actionMapName == _currentActionMap.name)
         {
             Debug.LogWarningFormat("Action map with name <color=yellow>'{0}'</color> in <color=cyan>'{1}'</color> is already active!", actionMapName, _gameInput.asset.name);
@@ -263,7 +277,10 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
     public void OnPause(InputAction.CallbackContext context)
     {
         if (PauseIsPerformed is not null && context.phase == InputActionPhase.Performed)
+        {
+            IsPauseActive = !IsPauseActive;
             PauseIsPerformed.Invoke();
+        }
     }
 
     public void OnZoom(InputAction.CallbackContext context)
@@ -325,4 +342,11 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
     #endregion
 
     private bool IsDeviceMouse(InputAction.CallbackContext context) => context.control.device.name == "Mouse";
+
+    public bool SetCursorSettings(bool isCursorVisible, CursorLockMode cursorLockMode)
+    {
+        Cursor.visible = isCursorVisible;
+        Cursor.lockState = cursorLockMode;
+        return Cursor.visible == isCursorVisible && Cursor.lockState == cursorLockMode;
+    }
 }

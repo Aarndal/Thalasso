@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ProgressionTracking
 {
-    [CreateAssetMenu(fileName = "NewSolvableObject", menuName = "Scriptable Objects/Solvable Data")]
+    [CreateAssetMenu(fileName = "NewSolvableData", menuName = "Scriptable Objects/Solvable Data")]
     public class SO_SolvableData : SO_ResettableData, INotifyValueChanged<bool>
     {
         [SerializeField]

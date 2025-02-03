@@ -1,12 +1,14 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ButtonActions : MonoBehaviour
 {
     [SerializeField]
-    private SO_GameInputReader _input;
+    private SO_GameInputReader _input = default;
 
     [SerializeField] private bool useFade = true;
     [SerializeField] private Image fadeImage;
@@ -14,8 +16,18 @@ public class ButtonActions : MonoBehaviour
 
     [HideInInspector] public GameObject pauseMenuToggle;
 
+    private InputActionMap _previousActionMap;
+
+    private void OnEnable()
+    {
+        _input.PauseIsPerformed += OnPauseIsPerformed;
+    }
+
     private void Start()
     {
+        _previousActionMap = _input.CurrentActionMap;
+
+
         if (fadeImage != null && useFade)
         {
             fadeImage.gameObject.SetActive(true);
@@ -32,6 +44,10 @@ public class ButtonActions : MonoBehaviour
             pauseMenuToggle = null;
         }
     }
+    private void OnDisable()
+    {
+        _input.PauseIsPerformed -= OnPauseIsPerformed;
+    }
 
     #region NormalUIButtonActions
     public void QuitGame()
@@ -42,19 +58,29 @@ public class ButtonActions : MonoBehaviour
         Application.Quit();
 #endif
     }
-    public void PauseGame()
+
+    private void OnPauseIsPerformed() => TogglePause();
+
+    public void TogglePause()
     {
-        pauseMenuToggle.gameObject.SetActive(true);
-        _input.SwitchCurrentActionMapTo("UI"); // Switching to UI ActionMap
-        Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = true;
+        if (_input.IsPauseActive)
+        {
+            pauseMenuToggle.SetActive(true);
+            _previousActionMap = _input.CurrentActionMap;
+            _input.SwitchCurrentActionMapTo("UI"); // Switch to UI ActionMap and disable any other Action Map.
+        }
+        else
+        {
+            pauseMenuToggle.SetActive(false);
+            _input.SwitchCurrentActionMapTo(_previousActionMap.name); // Switch to previous ActionMap before Pause and disable any other Action Map.
+        }
     }
+
     public void ResumeGame()
     {
-        pauseMenuToggle.gameObject.SetActive(false);
-        _input.SwitchCurrentActionMapTo("Player"); // Switching to Player ActionMap
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        _input.IsPauseActive = false;
+
+        TogglePause();
     }
     #endregion
 
@@ -63,15 +89,11 @@ public class ButtonActions : MonoBehaviour
     {
         if (sceneId == 3) //mainGame
         {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            _input.SwitchCurrentActionMapTo("Player"); // Switching to Player ActionMap
+            _input.SwitchCurrentActionMapTo("Player"); // Switch to Player ActionMap and disable any other Action Map
         }
         else
         {
-            Cursor.lockState = CursorLockMode.Confined;
-            Cursor.visible = true;
-            _input.SwitchCurrentActionMapTo("UI"); // Switching to UI ActionMap
+            _input.SwitchCurrentActionMapTo("UI"); // Switch to UI ActionMap and disable any other Action Map
         }
         if (useFade)
         {

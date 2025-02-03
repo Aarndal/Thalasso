@@ -1,10 +1,11 @@
+using ProgressionTracking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ElectricityPuzzleLogic : MonoBehaviour
+public class ElectricityPuzzleLogic : SolvableObjectBase
 {
     [SerializeField] private int puzzleID = 0;
     [SerializeField] private GameObject[] tileFieldInput;
@@ -302,7 +303,7 @@ public class ElectricityPuzzleLogic : MonoBehaviour
 
         if (activeTiles.Contains(ObjToPos(endTile)))
         {
-            PuzzleSolved();
+            Solve();
         }
     }
 
@@ -465,8 +466,10 @@ public class ElectricityPuzzleLogic : MonoBehaviour
     }
     #endregion
 
-    private void PuzzleSolved()
+    public override bool Solve()
     {
         Debug.Log("Puzzle Gelöst!");
+
+        return IsSolved = true;
     }
 }

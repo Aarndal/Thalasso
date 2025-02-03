@@ -13,25 +13,18 @@ public class PauseMenuTrigger : MonoBehaviour
         buttonActions = GetComponent<ButtonActions>();
     }
 
-    private void OnEnable()
-    {
-        _input.PauseIsPerformed += OnPauseIsPerformed;
-    }
+    //private void OnEnable()
+    //{
+    //    _input.PauseIsPerformed += OnPauseIsPerformed;
+    //}
 
-    private void OnDisable()
-    {
-        _input.PauseIsPerformed -= OnPauseIsPerformed;
-    }
+    //private void OnDisable()
+    //{
+    //    _input.PauseIsPerformed -= OnPauseIsPerformed;
+    //}
 
-    private void OnPauseIsPerformed()
-    {
-        if (buttonActions.pauseMenuToggle.activeSelf)
-        {
-            GetComponent<ButtonActions>().ResumeGame();
-        }
-        else
-        {
-            GetComponent<ButtonActions>().PauseGame();
-        }
-    }
+    //private void OnPauseIsPerformed()
+    //{
+    //    buttonActions.TogglePause();
+    //}
 }

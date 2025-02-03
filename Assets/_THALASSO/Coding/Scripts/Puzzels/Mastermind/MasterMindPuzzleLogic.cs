@@ -1,10 +1,11 @@
+using ProgressionTracking;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MasterMindPuzzleLogic : MonoBehaviour
+public class MasterMindPuzzleLogic : SolvableObjectBase
 {
     [SerializeField] private Button[] numButtons;
     [SerializeField] private TextMeshProUGUI[] outputText;
@@ -19,16 +20,13 @@ public class MasterMindPuzzleLogic : MonoBehaviour
         PuzzleUIReferencesSender.puzzleUIReferenceLogger += GetUIReference;
     }
 
-    private void GetUIReference(GameObject reference, int ID)
+    private void Reset()
     {
-        if (ID == puzzleID)
+        inputIndex = 0;
+        for (int i = 0; i < outputText.Length; i++)
         {
-            Button[] allChildWithButtons = reference.transform.GetComponentsInChildren<Button>();
-            numButtons = new Button[allChildWithButtons.Length];
-            for (int i = 0; i < allChildWithButtons.Length; i++)
-            {
-                numButtons[i] = allChildWithButtons[i];
-            }
+            outputText[i].text = "";
+            outputText[i].color = Color.white;
         }
     }
 
@@ -40,9 +38,14 @@ public class MasterMindPuzzleLogic : MonoBehaviour
             int buttonIndex = i + 1;
             numButtons[i].onClick.AddListener(() => NumButtonInput(buttonIndex));
         }
-        numButtons[9].onClick.AddListener(() => CheckInput());
+        numButtons[9].onClick.AddListener(() => Solve());
         numButtons[10].onClick.AddListener(() => NumButtonInput(0));
         numButtons[11].onClick.AddListener(() => Reset());
+    }
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
     }
 
     private void GenerateNewCode()
@@ -58,9 +61,17 @@ public class MasterMindPuzzleLogic : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
+    private void GetUIReference(GameObject reference, int ID)
     {
-        StopAllCoroutines();
+        if (ID == puzzleID)
+        {
+            Button[] allChildWithButtons = reference.transform.GetComponentsInChildren<Button>();
+            numButtons = new Button[allChildWithButtons.Length];
+            for (int i = 0; i < allChildWithButtons.Length; i++)
+            {
+                numButtons[i] = allChildWithButtons[i];
+            }
+        }
     }
 
     int inputIndex = 0;
@@ -75,10 +86,8 @@ public class MasterMindPuzzleLogic : MonoBehaviour
         }
     }
 
-    private void CheckInput()
+    private bool CheckInput()
     {
-        bool allCorrect = true;
-
         for (int i = 0; i < inputCode.Length; i++)
         {
             if (inputCode[i] == code[i])
@@ -88,35 +97,18 @@ public class MasterMindPuzzleLogic : MonoBehaviour
             else if (code.Contains(inputCode[i]))
             {
                 outputText[i].color = Color.yellow;
-                allCorrect = false;
+                return false;
             }
             else
             {
                 outputText[i].color = Color.white;
-                allCorrect = false;
+                return false;
             }
         }
 
-        if (allCorrect)
-        {
-            PuzzleSolved();
-        }
+        Debug.LogFormat("<color=green>{0} solved!</color>", name);
+        return true;
     }
 
-    private void PuzzleSolved()
-    {
-        Debug.Log("Puzzle solved!");
-    }
-
-    private void Reset()
-    {
-
-        inputIndex = 0;
-        for (int i = 0; i < outputText.Length; i++)
-        {
-            outputText[i].text = "";
-            outputText[i].color = Color.white;
-        }
-
-    }
+    public override bool Solve() => IsSolved = CheckInput();
 }

@@ -1,9 +1,10 @@
+using ProgressionTracking;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MemoryPuzzleLogic : MonoBehaviour
+public class MemoryPuzzleLogic : SolvableObjectBase
 {
     [SerializeField] private GameObject[] visualButtonOutput;
     [SerializeField] private GameObject[] visualLightOutput;
@@ -205,14 +206,15 @@ public class MemoryPuzzleLogic : MonoBehaviour
         }
 
         yield return new WaitForSeconds(0.5f);
-        PuzzleSolved();
+        Solve();
     }
 
     
 
-    private void PuzzleSolved()
+    public override bool Solve()
     {
         StopAllCoroutines();
         Debug.Log("Puzzle solved");
+        return IsSolved = true;
     }
 }
