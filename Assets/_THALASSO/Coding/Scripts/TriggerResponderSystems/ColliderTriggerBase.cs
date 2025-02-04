@@ -19,6 +19,7 @@ public class ColliderTriggerBase : MonoBehaviour, IAmTriggerable
 
     protected Action<IAmTriggerable> _hasBeenTriggered;
 
+    #region Unity Lifecycle Methods
     protected virtual void Awake() => _collider = _collider != null ? _collider : GetComponent<Collider>();
 
     protected virtual void Start() => _collider.isTrigger = true;
@@ -28,10 +29,10 @@ public class ColliderTriggerBase : MonoBehaviour, IAmTriggerable
         if (other.TryGetComponent(out Entity _))
             Trigger();
     }
+    #endregion
 
-    public virtual bool Trigger()
+    public virtual void Trigger()
     {
         _hasBeenTriggered?.Invoke(this);
-        return true;
     }
 }

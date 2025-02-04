@@ -15,17 +15,13 @@ public class Test_InteractiveTrigger : InteractiveTriggerBase
     private void Start() =>
         _meshRenderer.material.color = _baseColor;
 
-    public override bool Trigger()
+    public override void Trigger()
     {
-        if (!IsActivatable)
-            return false;
+        base.Trigger();
 
         if (_meshRenderer.material.color == _baseColor)
             _meshRenderer.material.color = Color.red;
         else
             _meshRenderer.material.color = _baseColor;
-
-        _hasBeenTriggered?.Invoke(this);
-        return true;
     }
 }

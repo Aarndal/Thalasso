@@ -2,7 +2,8 @@ using System;
 
 public interface IAmTriggerable
 {
+    event Action<IAmTriggerable> CannotBeTriggered;
     event Action<IAmTriggerable> HasBeenTriggered;
 
-    bool Trigger();
+    void Trigger();
 }

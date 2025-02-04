@@ -21,18 +21,16 @@ public abstract class InteractiveTriggerBase : MonoBehaviour, IAmTriggerable, IA
 
     protected Action<IAmTriggerable> _hasBeenTriggered;
 
-    public virtual void Interact(Transform transform)
-    {
-        if (!Trigger())
-            CannotBeTriggered?.Invoke(this);
-    }
+    public virtual void Interact(Transform transform) => Trigger();
 
-    public virtual bool Trigger()
+    public virtual void Trigger()
     {
         if (!IsActivatable)
-            return false;
+        {
+            CannotBeTriggered?.Invoke(this);
+            return;
+        }
 
         _hasBeenTriggered?.Invoke(this);
-        return true;
     }
 }

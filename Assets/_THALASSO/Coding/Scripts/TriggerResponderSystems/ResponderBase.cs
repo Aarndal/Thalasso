@@ -6,6 +6,7 @@ public abstract class ResponderBase : MonoBehaviour, IAmResponsive
     [SerializeField]
     protected List<MySerializableInterface<IAmTriggerable>> _triggers = new();
 
+    #region Unity Lifecycle Methods
     protected virtual void Awake() => ValidateTriggers();
 
     protected virtual void OnEnable()
@@ -21,6 +22,7 @@ public abstract class ResponderBase : MonoBehaviour, IAmResponsive
     }
 
     protected virtual void OnValidate() => ValidateTriggers();
+    #endregion
 
     private void ValidateTriggers()
     {
