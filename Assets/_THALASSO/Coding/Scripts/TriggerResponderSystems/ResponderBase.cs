@@ -3,34 +3,31 @@ using UnityEngine;
 
 public abstract class ResponderBase : MonoBehaviour, IAmResponsive
 {
-    protected HashSet<IAmTriggerable> _triggers = new(); //! HashSet to avoid duplicates. Interfaces are not serializable, so we can't use a HashSet directly in the inspector. Needs refactoring!
+    [SerializeField]
+    protected List<MySerializableInterface<IAmTriggerable>> _triggers = new();
 
-    protected virtual void Awake()
-    {
-        if(_triggers.Count == 0)
-        {
-            var foundTriggersInChildren = GetComponentsInChildren<IAmTriggerable>();
-
-            var foundTriggersInParent = GetComponentsInParent<IAmTriggerable>();
-
-            foreach (var trigger in foundTriggersInChildren)
-                _triggers.Add(trigger);
-
-            foreach (var trigger in foundTriggersInParent)
-                _triggers.Add(trigger);
-        }
-    }
+    protected virtual void Awake() =>
+        ValidateTriggers();
 
     protected virtual void OnEnable()
     {
         foreach (var trigger in _triggers)
-            trigger.HasBeenTriggered += OnHasBeenTriggered;
+            trigger.Interface.HasBeenTriggered += OnHasBeenTriggered;
     }
 
     protected virtual void OnDisable()
     {
         foreach (var trigger in _triggers)
-            trigger.HasBeenTriggered -= OnHasBeenTriggered;
+            trigger.Interface.HasBeenTriggered -= OnHasBeenTriggered;
+    }
+
+    protected virtual void OnValidate() =>
+        ValidateTriggers();
+
+    private void ValidateTriggers()
+    {
+        if (_triggers.Count <= 0)
+            Debug.LogWarningFormat("<color=yellow>Responder</color> {0} (ID: {1}) <color=yellow>has no triggers assigned!</color>", gameObject.name, gameObject.GetInstanceID());
     }
 
     protected virtual void OnHasBeenTriggered(IAmTriggerable trigger) => Respond(trigger);

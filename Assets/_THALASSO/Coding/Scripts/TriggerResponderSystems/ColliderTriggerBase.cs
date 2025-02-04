@@ -1,12 +1,10 @@
 using System;
 using UnityEngine;
 
-public abstract class InteractiveTriggerBase : MonoBehaviour, IAmTriggerable, IAmInteractive
+public class ColliderTriggerBase : MonoBehaviour, IAmTriggerable
 {
     [SerializeField]
-    protected bool _isActivatable;
-
-    public bool IsActivatable { get => _isActivatable; protected set => _isActivatable = value; }
+    protected Collider _collider = default;
 
     public event Action<IAmTriggerable> CannotBeTriggered;
     public event Action<IAmTriggerable> HasBeenTriggered
@@ -21,17 +19,20 @@ public abstract class InteractiveTriggerBase : MonoBehaviour, IAmTriggerable, IA
 
     protected Action<IAmTriggerable> _hasBeenTriggered;
 
-    public virtual void Interact(Transform transform)
+    protected virtual void Awake() =>
+        _collider = _collider != null ? _collider : GetComponent<Collider>();
+
+    protected virtual void Start() =>
+        _collider.isTrigger = true;
+
+    protected virtual void OnTriggerEnter(Collider other)
     {
-        if (!Trigger())
-            CannotBeTriggered?.Invoke(this);
+        if (other.TryGetComponent(out Entity _))
+            Trigger();
     }
 
     public virtual bool Trigger()
     {
-        if (!IsActivatable)
-            return false;
-
         _hasBeenTriggered?.Invoke(this);
         return true;
     }

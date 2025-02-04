@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -18,6 +17,12 @@ public class ButtonActions : MonoBehaviour
 
     private InputActionMap _previousActionMap;
 
+    private void Awake()
+    {
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+            _input.SwitchCurrentActionMapTo("UI"); // Switch to UI ActionMap and disable any other Action Map
+    }
+
     private void OnEnable()
     {
         _input.PauseIsPerformed += OnPauseIsPerformed;
@@ -26,7 +31,6 @@ public class ButtonActions : MonoBehaviour
     private void Start()
     {
         _previousActionMap = _input.CurrentActionMap;
-
 
         if (fadeImage != null && useFade)
         {
@@ -63,6 +67,9 @@ public class ButtonActions : MonoBehaviour
 
     public void TogglePause()
     {
+        if (pauseMenuToggle == null)
+            return;
+
         if (_input.IsPauseActive)
         {
             pauseMenuToggle.SetActive(true);
