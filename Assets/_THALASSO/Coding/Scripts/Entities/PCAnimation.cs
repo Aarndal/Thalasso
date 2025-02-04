@@ -99,9 +99,6 @@ public class PCAnimation : Entity
 
     private bool OnTransitionCheck()
     {
-        if (Animator.IsInTransition(0))
-            return false;
-
         if ((!_isGrounded && _isCurrentlyMoving || !_isCurrentlyMoving))
             return SetAnimationState(0, "Idle", _idleTransitionDuration);
 
@@ -134,7 +131,7 @@ public class PCAnimation : Entity
 
     private void OnMoveInputHasChanged(Vector2 moveInput)
     {
-        _isCurrentlyMoving = moveInput.sqrMagnitude >= 0.001;
+        _isCurrentlyMoving = moveInput.sqrMagnitude >= 0.0001;
 
         if (_wasMovingBefore != _isCurrentlyMoving)
         {
@@ -154,9 +151,6 @@ public class PCAnimation : Entity
 
     public bool SetAnimationState(int layerIndex, string animationState, float normalizedTransitionDuration = 0.0f, float normalizedTimeOffset = 0.0f, float normalizedTransitionTime = 0.0f)
     {
-        if(Animator.GetCurrentAnimatorStateInfo(0).IsName(animationState))
-            return false;
-
         if (Animator.HasState(layerIndex, Animator.StringToHash(animationState)))
         {
             if (normalizedTransitionDuration == 0.0f)
@@ -180,9 +174,6 @@ public class PCAnimation : Entity
             Debug.LogErrorFormat("{0} layer does not exist in Animator!", layerName);
             return false;
         }
-
-        if (Animator.GetCurrentAnimatorStateInfo(0).IsName(animationState))
-            return false;
 
         if (Animator.HasState(layerIndex, Animator.StringToHash(animationState)))
         {
