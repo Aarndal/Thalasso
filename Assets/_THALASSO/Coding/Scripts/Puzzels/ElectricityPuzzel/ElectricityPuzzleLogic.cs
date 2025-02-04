@@ -391,10 +391,11 @@ public class ElectricityPuzzleLogic : SolvableObjectBase
             {
                 updatedInThisLoop.Clear();
 
-        if (activeTiles.Contains(ObjToPos(endTile)))
-        {
-            Solve();
-        }
+                if (activeTiles.Contains(ObjToPos(endTile)))
+                {
+                    Solve();
+                }
+            }
     }
 
     private void UpdateNeighbour(GameObject _updatedTile)
