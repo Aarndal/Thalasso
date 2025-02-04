@@ -19,11 +19,9 @@ public class ColliderTriggerBase : MonoBehaviour, IAmTriggerable
 
     protected Action<IAmTriggerable> _hasBeenTriggered;
 
-    protected virtual void Awake() =>
-        _collider = _collider != null ? _collider : GetComponent<Collider>();
+    protected virtual void Awake() => _collider = _collider != null ? _collider : GetComponent<Collider>();
 
-    protected virtual void Start() =>
-        _collider.isTrigger = true;
+    protected virtual void Start() => _collider.isTrigger = true;
 
     protected virtual void OnTriggerEnter(Collider other)
     {

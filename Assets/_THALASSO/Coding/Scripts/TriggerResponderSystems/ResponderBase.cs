@@ -6,8 +6,7 @@ public abstract class ResponderBase : MonoBehaviour, IAmResponsive
     [SerializeField]
     protected List<MySerializableInterface<IAmTriggerable>> _triggers = new();
 
-    protected virtual void Awake() =>
-        ValidateTriggers();
+    protected virtual void Awake() => ValidateTriggers();
 
     protected virtual void OnEnable()
     {
@@ -21,8 +20,7 @@ public abstract class ResponderBase : MonoBehaviour, IAmResponsive
             trigger.Interface.HasBeenTriggered -= OnHasBeenTriggered;
     }
 
-    protected virtual void OnValidate() =>
-        ValidateTriggers();
+    protected virtual void OnValidate() => ValidateTriggers();
 
     private void ValidateTriggers()
     {
