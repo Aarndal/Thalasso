@@ -114,6 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63c358ab2401376488269c3b6b085392, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _input: {fileID: 0}
   playerTag: Player
   puzzleID: 1
   targetCamera: {fileID: 1455343918574866849}
@@ -151,7 +152,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  buttonUICanvas: {fileID: 0}
   puzzleAutoStartNeeded: 0
   autoStartPuzzleScript: {fileID: 0}
 --- !u!114 &2474010269150300573
@@ -166,6 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eac7d5877451c743a2d9338f43cb021, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _solvableData: {fileID: 11400000, guid: 9790e8ac21c10de48b310906bf5da764, type: 2}
   numButtons:
   - {fileID: 0}
   - {fileID: 0}
@@ -184,6 +185,7 @@ MonoBehaviour:
   - {fileID: 4244952392727804522}
   - {fileID: 7109709114991029918}
   - {fileID: 2160114375922791613}
+  puzzleID: 1
 --- !u!65 &8543911989638913182
 BoxCollider:
   m_ObjectHideFlags: 0

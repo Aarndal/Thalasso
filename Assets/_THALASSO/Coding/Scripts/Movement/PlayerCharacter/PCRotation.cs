@@ -67,9 +67,7 @@ public class PCRotation : MonoBehaviour
     private void OnLookInputHasChanged(Vector2 lookInput, bool isCurrentDeviceMouse)
     {
         _deltaTimeMultiplier = isCurrentDeviceMouse ? 1.0f : Time.deltaTime; //? Obsolete because of Delta Time Scale processor in Input Action Asset?
-
-        //_previousLookDirection = _lookDirection;
-
+        
         _lookDirection = new(
         x: (!_input.IsXLookInputInverted ? lookInput.x : -lookInput.x),
         y: (_input.IsYLookInputInverted ? lookInput.y : -lookInput.y),
@@ -82,21 +80,12 @@ public class PCRotation : MonoBehaviour
     {
         if (_lookDirection.sqrMagnitude >= _rotationThreshold)
         {
-            //_pitch += Mathf.LerpAngle(_previousLookDirection.y, _lookDirection.y, _pitchSmoothFactor) * _verticalSensitivity * _deltaTimeMultiplier;
-
             _pitch += _lookDirection.y * _verticalSensitivity * _deltaTimeMultiplier;
-
             _pitch = ClampAngle(_pitch, _bottomClampAngle, _topClampAngle);
-            //_pitch = Mathf.Clamp(_pitch, _bottomClampAngle, _topClampAngle);
-
             _cameraRoot.localRotation = Quaternion.Euler(-_pitch, 0.0f, 0.0f);
 
-            //_yaw += Mathf.LerpAngle(_previousLookDirection.x, _lookDirection.x, _yawSmoothFactor) * _horizontalSensitivity * _deltaTimeMultiplier;
-
             _yaw += _lookDirection.x * _horizontalSensitivity * _deltaTimeMultiplier;
-
             _rigidbody.MoveRotation(Quaternion.Euler(0.0f, _yaw, 0.0f));
-            //transform.localRotation = Quaternion.Euler(0.0f, _yaw, 0.0f);
         }
     }
 

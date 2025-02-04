@@ -12,6 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09ac1d48c7a0bc94387a8c7af7ccf1f4, type: 3}
   m_Name: ProgressionTracker_101
   m_EditorClassIdentifier: 
+  _progress:
+    dictionaryList:
+    - Key: 101
+      Value: {fileID: 11400000, guid: b39eb2377d667d14391c6e752bd87f94, type: 2}
+      index: 0
+      isKeyDuplicated: 0
+    - Key: 102
+      Value: {fileID: 11400000, guid: fcacb02f2a0b1bd40bc7a8842ff49eb4, type: 2}
+      index: 1
+      isKeyDuplicated: 0
   _id: 101
   _isCompleted: 0
   _solvableDependenciesID:

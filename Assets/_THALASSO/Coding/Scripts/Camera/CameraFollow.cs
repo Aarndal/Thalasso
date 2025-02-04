@@ -7,16 +7,15 @@ public class CameraFollow : MonoBehaviour
 
     private void OnEnable()
     {
-        this.transform.position = _cameraRoot.position;
-        this.transform.rotation = _cameraRoot.rotation;
+        transform.SetPositionAndRotation(_cameraRoot.position, _cameraRoot.rotation);
     }
 
     private void LateUpdate()
     {
-        if (this.transform.position != _cameraRoot.position)
-            this.transform.position = _cameraRoot.position;
+        if (transform.position != _cameraRoot.position)
+            transform.position = _cameraRoot.position;
 
-        if (this.transform.rotation != _cameraRoot.rotation)
-            this.transform.rotation = _cameraRoot.rotation;
+        if (transform.rotation != _cameraRoot.rotation)
+            transform.rotation = _cameraRoot.rotation;
     }
 }

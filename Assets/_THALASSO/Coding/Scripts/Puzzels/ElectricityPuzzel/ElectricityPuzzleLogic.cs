@@ -1,14 +1,14 @@
+using ProgressionTracking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ElectricityPuzzleLogic : MonoBehaviour
+public class ElectricityPuzzleLogic : SolvableObjectBase
 {
     [SerializeField] private int puzzleID = 0;
     [SerializeField] private GameObject[] tileFieldInput;
-    private GameObject[,] tileField = new GameObject[5, 3];
     [SerializeField] private GameObject[] differentTileTypes;
     [SerializeField] private ElectricityPuzzelTileTypeConnections differentTileTypeConnections;
 
@@ -20,29 +20,20 @@ public class ElectricityPuzzleLogic : MonoBehaviour
     private GameObject startTile;
     private GameObject endTile;
     private GameObject buttonUICanvas;
+    private int failBuffer = 0;
+    private System.Random rnd = new();
+
+    private GameObject[,] tileField = new GameObject[5, 3];
     private Button[] tileFieldButtonsInput;
+    private List<Vector2Int> activeTiles = new ();
+    private List<Vector2Int> updatedInThisLoop = new ();
+    private List<Vector2Int> connectiongTiles = new ();
 
-    private System.Random rnd = new System.Random();
-
-
+    #region Unity Lifecycle Methods
     private void Awake()
     {
         PuzzleUIReferencesSender.puzzleUIReferenceLogger += GetUIReference;
         PuzzleTileRotator.tileWasUpdated += OnFieldGotUpdate;
-    }
-
-    private void GetUIReference(GameObject reference, int ID)
-    {
-        if (ID == puzzleID)
-        {
-            buttonUICanvas = reference;
-            buttonUICanvas.SetActive(false);
-        }
-    }
-    private void OnDestroy()
-    {
-        PuzzleTileRotator.tileWasUpdated -= OnFieldGotUpdate;
-        PuzzleUIReferencesSender.puzzleUIReferenceLogger -= GetUIReference;
     }
 
     private void Start()
@@ -53,8 +44,25 @@ public class ElectricityPuzzleLogic : MonoBehaviour
         endTile = tileField[4, 2];
 
         GenerateNewLayout();
-        //OnFieldGotUpdate(tileField[0, 0]);
+        OnFieldGotUpdate(tileField[0, 0]);
     }
+
+    private void OnDestroy()
+    {
+        PuzzleTileRotator.tileWasUpdated -= OnFieldGotUpdate;
+        PuzzleUIReferencesSender.puzzleUIReferenceLogger -= GetUIReference;
+    }
+    #endregion
+
+    private void GetUIReference(GameObject reference, int ID)
+    {
+        if (ID == puzzleID)
+        {
+            buttonUICanvas = reference;
+            buttonUICanvas.SetActive(false);
+        }
+    }
+
     public void StartPuzzle()
     {
         TransformTransitionSystem.Instance.TransitionRot(doorLockLid, doorLockLidRotationPoint, transitionduration, animationSpeedCurve, null, null);
@@ -62,11 +70,23 @@ public class ElectricityPuzzleLogic : MonoBehaviour
 
     private void SetupTileInput()
     {
+        if (buttonUICanvas == null)
+        {
+            Debug.LogError("buttonUICanvas is null. Make sure it is assigned correctly.");
+            return;
+        }
+
         Button[] allChildWithButtons = buttonUICanvas.transform.GetComponentsInChildren<Button>();
         tileFieldButtonsInput = new Button[allChildWithButtons.Length];
         for (int i = 0; i < allChildWithButtons.Length; i++)
         {
             tileFieldButtonsInput[i] = allChildWithButtons[i];
+        }
+
+        if (tileFieldInput.Length < tileField.GetLength(0) * tileField.GetLength(1))
+        {
+            Debug.LogError("tileFieldInput does not have enough elements.");
+            return;
         }
 
         int index = 0;
@@ -77,26 +97,47 @@ public class ElectricityPuzzleLogic : MonoBehaviour
                 if (index < tileFieldInput.Length)
                 {
                     tileField[row, col] = tileFieldInput[index];
-                    tileFieldButtonsInput[index].onClick.AddListener(tileFieldInput[index].GetComponent<PuzzleTileRotator>().OnRotateClick);
+                    if (tileFieldInput[index] != null)
+                    {
+                        if (tileFieldInput[index].TryGetComponent<PuzzleTileRotator>(out var rotator))
+                        {
+                            tileFieldButtonsInput[index].onClick.AddListener(rotator.OnRotateClick);
+                        }
+                        else
+                        {
+                            Debug.LogError($"PuzzleTileRotator component not found on tileFieldInput[{index}].");
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError($"tileFieldInput[{index}] is null.");
+                    }
                     index++;
                 }
             }
         }
     }
 
-    private List<Vector2Int> connectiongTiles = new List<Vector2Int>();
-
     private void GenerateNewLayout()
     {
         connectiongTiles.Clear();
         connectiongTiles.Add(ObjToPos(startTile));
+        failBuffer = 0;
 
         ChooseNextTile(startTile);
         BuildPathWithTiles();
+        CompleteRestOfTiles();
     }
+
 
     private void ChooseNextTile(GameObject curTile)
     {
+        if (connectiongTiles.Count == 0 || failBuffer > 50)
+        {
+            GenerateNewLayout();
+            return;
+        }
+
         List<GameObject> neighboursTiles = GetAllNeighbours(curTile).FindAll(tile => !connectiongTiles.Contains(ObjToPos(tile)));
 
         if (neighboursTiles.Count == 0)
@@ -106,6 +147,7 @@ public class ElectricityPuzzleLogic : MonoBehaviour
                 GenerateNewLayout();
                 return;
             }
+            failBuffer++;
             connectiongTiles.RemoveAt(connectiongTiles.Count - 1);
             ChooseNextTile(PosToObj(connectiongTiles[connectiongTiles.Count - 1]));
             return;
@@ -126,56 +168,107 @@ public class ElectricityPuzzleLogic : MonoBehaviour
     {
         for (int i = 0; i < connectiongTiles.Count; i++)
         {
-            directions[] neededDirection = new directions[2];
+            List<Directions> neededDirection = new ();
             if (PosToObj(connectiongTiles[i]) == startTile)
             {
-                neededDirection.Append(directions.U);
+                neededDirection.Add(Directions.U);
+                neededDirection.Add(GetConnectionDirection(PosToObj(connectiongTiles[i]), PosToObj(connectiongTiles[i + 1])));
+            }
+            else if (PosToObj(connectiongTiles[i]) == endTile)
+            {
+                neededDirection.Add(Directions.D);
+                neededDirection.Add(GetConnectionDirection(PosToObj(connectiongTiles[i]), PosToObj(connectiongTiles[i - 1])));
             }
             else
             {
-                neededDirection.Append(GetConnectionDirection(PosToObj(connectiongTiles[i]), PosToObj(connectiongTiles[i + 1])));
+                neededDirection.Add(GetConnectionDirection(PosToObj(connectiongTiles[i]), PosToObj(connectiongTiles[i + 1])));
+                neededDirection.Add(GetConnectionDirection(PosToObj(connectiongTiles[i]), PosToObj(connectiongTiles[i - 1])));
             }
 
-            if (PosToObj(connectiongTiles[i]) == endTile)
-            {
-                neededDirection.Append(directions.D);
-            }
-            else
-            {
-                neededDirection.Append(GetConnectionDirection(PosToObj(connectiongTiles[i]), PosToObj(connectiongTiles[i - 1])));
-            }
-
-            ChooseTileBasedOnRequirements(neededDirection);
+            ChooseTileBasedOnRequirements(PosToObj(connectiongTiles[i]), neededDirection.ToArray());
         }
     }
 
-    private void ChooseTileBasedOnRequirements(directions[] neededDirections)
+    private void ChooseTileBasedOnRequirements(GameObject _tileObject, Directions[] _requiredDirections)
     {
-        int directionOneValue = (int)neededDirections[0];
-        int directionTwoValue = (int)neededDirections[1];
-
-        int tileTypeValue = Math.Abs(directionOneValue - directionTwoValue) - 3;
-        Debug.Log(tileTypeValue);
+        int directionOneValue = (int)_requiredDirections[0];
+        int directionTwoValue = (int)_requiredDirections[1];
+        int tileTypeValue;
+        if (Math.Abs(directionOneValue - directionTwoValue) > 3)
+        {
+            tileTypeValue = Math.Abs(3 - (Math.Abs(directionOneValue - directionTwoValue)));
+            Debug.Log("over" + tileTypeValue);
+        }
+        else
+        {
+            tileTypeValue = Math.Abs(directionOneValue - directionTwoValue);
+            Debug.Log("under" + tileTypeValue);
+        }
+        switch (tileTypeValue)
+        {
+            case 1:
+                {
+                    SetNewTileType(_tileObject, new int[] { 2, 3 });
+                    break;
+                }
+            case 2:
+                {
+                    SetNewTileType(_tileObject, new int[] { 1, 4 });
+                    break;
+                }
+            case 3:
+                {
+                    SetNewTileType(_tileObject, new int[] { 0 });
+                    break;
+                }
+        }
     }
 
-    private List<Vector2Int> activeTiles = new List<Vector2Int>();
-    private List<Vector2Int> updatedInThisLoop = new List<Vector2Int>();
+    private void SetNewTileType(GameObject _tileObject, int[] _tileTypeIndices)
+    {
+        int randomSelection = rnd.Next(_tileTypeIndices.Length);
+
+        GameObject newTileType = differentTileTypes[_tileTypeIndices[randomSelection]];
+
+        _tileObject.GetComponent<MeshFilter>().mesh = newTileType.GetComponent<MeshFilter>().sharedMesh;
+        _tileObject.name = newTileType.name;
+    }
+
+    private void CompleteRestOfTiles()
+    {
+        for (int row = 0; row < tileField.GetLength(0); row++)
+        {
+            for (int col = 0; col < tileField.GetLength(1); col++)
+            {
+                Vector2Int pos = new Vector2Int(row, col);
+                if (!connectiongTiles.Contains(pos))
+                {
+                    GameObject tile = tileField[row, col];
+                    int randomIndex = rnd.Next(differentTileTypes.Length);
+                    GameObject newTileType = differentTileTypes[randomIndex];
+
+                    tile.GetComponent<MeshFilter>().mesh = newTileType.GetComponent<MeshFilter>().sharedMesh;
+                    tile.name = newTileType.name;
+                }
+            }
+        }
+    }
 
     public void OnFieldGotUpdate(GameObject _updatedTile)
     {
         if (updatedInThisLoop.Contains(ObjToPos(_updatedTile)))
             return;
 
-        int updatedTileCurRotation = _updatedTile.GetComponent<PuzzleTileRotator>().curRotation;
+        int updatedTileCurRotation = Math.Abs(_updatedTile.GetComponent<PuzzleTileRotator>().curRotation);
 
 
         if (_updatedTile == startTile)
         {
             int rotSteps = GetRotationSteps(updatedTileCurRotation);
-            directions[] typeDirections = GetConnectionsForTileType(_updatedTile);
-            directions[] relativeDirections = ConvertDefaultConnectionIntoRotationRelative(typeDirections, rotSteps);
+            Directions[] typeDirections = GetConnectionsForTileType(_updatedTile);
+            Directions[] relativeDirections = ConvertDefaultConnectionIntoRotationRelative(typeDirections, rotSteps);
 
-            if (relativeDirections.Contains(directions.U))
+            if (relativeDirections.Contains(Directions.U))
             {
                 _updatedTile.GetComponent<MeshRenderer>().material.color = Color.green;                 //temp visuals
 
@@ -205,8 +298,8 @@ public class ElectricityPuzzleLogic : MonoBehaviour
         else if (_updatedTile == endTile)
         {
             int rotSteps = GetRotationSteps(updatedTileCurRotation);
-            directions[] typeDirections = GetConnectionsForTileType(_updatedTile);
-            directions[] relativeDirections = ConvertDefaultConnectionIntoRotationRelative(typeDirections, rotSteps);
+            Directions[] typeDirections = GetConnectionsForTileType(_updatedTile);
+            Directions[] relativeDirections = ConvertDefaultConnectionIntoRotationRelative(typeDirections, rotSteps);
 
             List<GameObject> neighbours = GetAllNeighbours(_updatedTile);
 
@@ -217,7 +310,7 @@ public class ElectricityPuzzleLogic : MonoBehaviour
                 if (activeTiles.Contains(ObjToPos(neighbour)))
                 {
 
-                    if (OriginHasConnectionToTarget(neighbour, _updatedTile) && OriginHasConnectionToTarget(_updatedTile, neighbour) && relativeDirections.Contains(directions.D))
+                    if (OriginHasConnectionToTarget(neighbour, _updatedTile) && OriginHasConnectionToTarget(_updatedTile, neighbour) && relativeDirections.Contains(Directions.D))
                     {
                         _updatedTile.GetComponent<MeshRenderer>().material.color = Color.green;               //temp visuals
 
@@ -296,14 +389,14 @@ public class ElectricityPuzzleLogic : MonoBehaviour
 
         if (updatedInThisLoop.Count != 0)
             if (updatedInThisLoop[0] == ObjToPos(_updatedTile))
+            {
                 updatedInThisLoop.Clear();
 
-
-
-        if (activeTiles.Contains(ObjToPos(endTile)))
-        {
-            PuzzleSolved();
-        }
+                if (activeTiles.Contains(ObjToPos(endTile)))
+                {
+                    Solve();
+                }
+            }
     }
 
     private void UpdateNeighbour(GameObject _updatedTile)
@@ -314,11 +407,10 @@ public class ElectricityPuzzleLogic : MonoBehaviour
                 OnFieldGotUpdate(neighbour);
     }
 
-
     #region Neighbours
     private List<GameObject> GetAllNeighbours(GameObject _updatedTile)
     {
-        List<GameObject> neighbours = new List<GameObject>();
+        List<GameObject> neighbours = new ();
 
         Vector2Int pos = ObjToPos(_updatedTile);
 
@@ -349,7 +441,7 @@ public class ElectricityPuzzleLogic : MonoBehaviour
             }
         }
     }
-    private directions GetConnectionDirection(GameObject _originTile, GameObject _targetTile)
+    private Directions GetConnectionDirection(GameObject _originTile, GameObject _targetTile)
     {
         Vector2Int posOrigin = ObjToPos(_originTile);
         Vector2Int posTarget = ObjToPos(_targetTile);
@@ -358,46 +450,46 @@ public class ElectricityPuzzleLogic : MonoBehaviour
         bool isOddY = posOrigin.y % 2 == 0;
 
         if (posOrigin.x - 1 == posTarget.x && posOrigin.y == posTarget.y)                               // Up
-            return directions.U;
+            return Directions.U;
         if (posOrigin.x == (isOddY ? posTarget.x : posTarget.x + 1) && posOrigin.y == posTarget.y - 1) // Right Up
-            return directions.RU;
+            return Directions.RU;
         if (posOrigin.x == (isOddY ? posTarget.x - 1 : posTarget.x) && posOrigin.y == posTarget.y - 1) // Right Down
-            return directions.RD;
+            return Directions.RD;
         if (posOrigin.x + 1 == posTarget.x && posOrigin.y == posTarget.y)                              // Down
-            return directions.D;
+            return Directions.D;
         if (posOrigin.x == (isOddY ? posTarget.x - 1 : posTarget.x) && posOrigin.y == posTarget.y + 1) // Left Down
-            return directions.LD;
+            return Directions.LD;
         if (posOrigin.x == (isOddY ? posTarget.x : posTarget.x + 1) && posOrigin.y == posTarget.y + 1) // Left Up
-            return directions.LU;
+            return Directions.LU;
 
         throw new System.Exception("Target Tile is not a valid neighbor of the Origin Tile what should't be possible but yeah");
     }
     private bool OriginHasConnectionToTarget(GameObject _origin, GameObject _target)
     {
-        directions neededConnectionDirection = GetConnectionDirection(_origin, _target);
-        directions[] relativeDirections = GetRelativeDirections(_origin);
+        Directions neededConnectionDirection = GetConnectionDirection(_origin, _target);
+        Directions[] relativeDirections = GetRelativeDirections(_origin);
 
         return relativeDirections.Contains(neededConnectionDirection);
     }
 
-    private directions[] GetRelativeDirections(GameObject _tile)
+    private Directions[] GetRelativeDirections(GameObject _tile)
     {
-        int curRotation = _tile.GetComponent<PuzzleTileRotator>().curRotation;
+        int curRotation = Math.Abs(_tile.GetComponent<PuzzleTileRotator>().curRotation);
 
         int rotSteps = GetRotationSteps(curRotation);
-        directions[] absolutTypeDirections = GetConnectionsForTileType(_tile);
-        directions[] relativeDirections = ConvertDefaultConnectionIntoRotationRelative(absolutTypeDirections, rotSteps);
+        Directions[] absolutTypeDirections = GetConnectionsForTileType(_tile);
+        Directions[] relativeDirections = ConvertDefaultConnectionIntoRotationRelative(absolutTypeDirections, rotSteps);
         return relativeDirections;
     }
     #endregion
 
     #region Directions&Rotations
-    private directions[] ConvertDefaultConnectionIntoRotationRelative(directions[] _directions, int _rotSteps)
+    private Directions[] ConvertDefaultConnectionIntoRotationRelative(Directions[] _directions, int _rotSteps)
     {
-        directions[] relativeDirections = new directions[_directions.Length];
+        Directions[] relativeDirections = new Directions[_directions.Length];
 
         int arrIndex = 0;
-        foreach (directions direction in _directions)
+        foreach (Directions direction in _directions)
         {
             int curIndex = (int)direction;
             int newIndex = curIndex + _rotSteps;
@@ -405,7 +497,7 @@ public class ElectricityPuzzleLogic : MonoBehaviour
             if (newIndex > 5)
                 newIndex -= 6;
 
-            relativeDirections[arrIndex] = (directions)newIndex;
+            relativeDirections[arrIndex] = (Directions)newIndex;
             arrIndex++;
         }
 
@@ -414,11 +506,10 @@ public class ElectricityPuzzleLogic : MonoBehaviour
 
     private int GetRotationSteps(float _rotation)
     {
-        int steps = 0;
-        steps = (int)(_rotation / 60);
-        return steps;
+        return (int)(_rotation / 60);
     }
-    private directions[] GetConnectionsForTileType(GameObject _tile)
+
+    private Directions[] GetConnectionsForTileType(GameObject _tile)
     {
         string tileType = _tile.name;
         switch (tileType)
@@ -444,6 +535,7 @@ public class ElectricityPuzzleLogic : MonoBehaviour
     {
         return tileField[(int)_pos.x, (int)_pos.y];
     }
+
     private Vector2Int ObjToPos(GameObject _obj)
     {
         Vector2Int pos = Vector2Int.zero;
@@ -465,8 +557,10 @@ public class ElectricityPuzzleLogic : MonoBehaviour
     }
     #endregion
 
-    private void PuzzleSolved()
+    public override bool Solve()
     {
         Debug.Log("Puzzle Gelöst!");
+
+        return IsSolved = true;
     }
 }

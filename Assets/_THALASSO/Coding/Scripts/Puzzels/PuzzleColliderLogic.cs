@@ -44,7 +44,7 @@ public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
 
     private void Start()
     {
-        cinemachineVirtualCamera = GameObject.FindAnyObjectByType<CinemachineCamera>();
+        cinemachineVirtualCamera = FindAnyObjectByType<CinemachineCamera>();
     }
 
     public void Interact(Transform transform)
@@ -60,12 +60,9 @@ public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
             {
                 inAnimation = true;
                 cinemachineVirtualCamera.enabled = false;
-                //InputManager.Instance.BlockPlayerMoveAndRot();
             }, () =>
             {
                 inAnimation = false;
-                Cursor.lockState = CursorLockMode.Confined;
-                Cursor.visible = true;
                 buttonUICanvas.SetActive(true);
                 isfocused = true;
 
@@ -76,7 +73,7 @@ public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
                 }
             });
 
-            _input.SwitchCurrentActionMapTo("UI");
+            _input.SwitchCurrentActionMapTo("UI"); // Switch to UI ActionMap and disable any other Action Map
         }
         else
         {
@@ -85,18 +82,15 @@ public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
             TransformTransitionSystem.Instance.TransitionPosRot(Camera.main.gameObject, tempOriginalTransform, transitionduration, animationSpeedCurve, () =>
             {
                 inAnimation = true;
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
                 buttonUICanvas.SetActive(false);
             }, () =>
             {
                 inAnimation = false;
                 cinemachineVirtualCamera.enabled = true;
                 isfocused = false;
-                //InputManager.Instance.UnblockPlayerMoveAndRot();
             });
             
-            _input.SwitchCurrentActionMapTo("Player");
+            _input.SwitchCurrentActionMapTo("Player"); // Switch to Player ActionMap and disable any other Action Map
         }
     }
 
@@ -105,17 +99,15 @@ public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
         if (transform == null)
             transform = new GameObject("temp");
 
-        transform.transform.position = position;
-        transform.transform.rotation = rotation;
+        transform.transform.SetPositionAndRotation(position, rotation);
         return transform.transform;
     }
 
     private void OnDestroy()
     {
-        if (transform != null)
+        if (gameObject != null)
         {
-            Destroy(transform);
+            Destroy(gameObject);
         }
     }
-
 }

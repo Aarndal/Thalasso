@@ -87,7 +87,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   puzzleAutoStartNeeded: 0
-  autoStartPuzzleScript: {fileID: 0}
+  autoStartPuzzleScript: {fileID: 3220617245164268276}
 --- !u!114 &6166777246373131767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eac7d5877451c743a2d9338f43cb021, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _solvableData: {fileID: 11400000, guid: 9790e8ac21c10de48b310906bf5da764, type: 2}
   numButtons:
   - {fileID: 0}
   - {fileID: 0}
@@ -885,13 +886,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7439487201916975276}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0040853918, y: -0.7022095, z: -0.0040853536, w: 0.711947}
-  m_LocalPosition: {x: 0.4942055, y: 0.033745468, z: -0.01599729}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0.5, y: 0.03, z: -0.016}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7179363425895904968}
-  m_LocalEulerAnglesHint: {x: 40, y: 45, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!20 &4955301893860770557
 Camera:
   m_ObjectHideFlags: 0

@@ -1,7 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.Windows;
 
 [RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider))]
 public class PCMovement : MonoBehaviour, IAmMovable
