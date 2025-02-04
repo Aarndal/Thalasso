@@ -1,0 +1,31 @@
+using UnityEngine;
+
+[DisallowMultipleComponent]
+[RequireComponent(typeof(MeshRenderer), typeof(MeshFilter))]
+public class Test_InteractiveTrigger : InteractiveTriggerBase
+{
+    [SerializeField]
+    private Color _baseColor = Color.white;
+
+    private MeshRenderer _meshRenderer = default;
+
+    private void Awake() =>
+        _meshRenderer = GetComponent<MeshRenderer>();
+
+    private void Start() =>
+        _meshRenderer.material.color = _baseColor;
+
+    public override bool Trigger()
+    {
+        if (!IsActivatable)
+            return false;
+
+        if (_meshRenderer.material.color == _baseColor)
+            _meshRenderer.material.color = Color.red;
+        else
+            _meshRenderer.material.color = _baseColor;
+
+        _hasBeenTriggered?.Invoke(this);
+        return true;
+    }
+}
