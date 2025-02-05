@@ -1,4 +1,4 @@
 public interface IAmResponsive
 {
-    bool Respond(IAmTriggerable trigger);
+    void Respond(IAmTriggerable trigger);
 }

@@ -2,17 +2,20 @@ using UnityEngine;
 
 public class ProximityDoorTrigger : MonoBehaviour
 {
-    private DoorAnimationTrigger doorAnimationTrigger;
+    [SerializeField]
+    private DoorAnimation doorAnimation;
+
     private void Start()
     {
-        doorAnimationTrigger = GetComponent<DoorAnimationTrigger>();
+        if (doorAnimation == null)
+            doorAnimation = GetComponentInChildren<DoorAnimation>();
     }
     private void OnTriggerEnter(Collider other)
     {
-        doorAnimationTrigger.OpenDoor();
+        doorAnimation.OpenDoor();
     }
     private void OnTriggerExit(Collider other)
     {
-        doorAnimationTrigger.CloseDoor();
+        doorAnimation.CloseDoor();
     }
 }

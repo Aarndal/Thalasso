@@ -23,13 +23,12 @@ public class Test_Responder : ResponderBase
         _discoTime = _defaultDiscoTime;
     }
 
-    public override bool Respond(IAmTriggerable trigger)
+    public override void Respond(IAmTriggerable trigger)
     {
         if(_discoTime < _defaultDiscoTime)
-            return false;
+            return;
 
         StartCoroutine(Disco());
-        return true;
     }
 
     private IEnumerator Disco()

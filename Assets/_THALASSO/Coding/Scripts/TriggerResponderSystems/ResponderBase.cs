@@ -1,3 +1,4 @@
+using ProjectTools;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -32,5 +33,5 @@ public abstract class ResponderBase : MonoBehaviour, IAmResponsive
 
     protected virtual void OnHasBeenTriggered(IAmTriggerable trigger) => Respond(trigger);
 
-    public abstract bool Respond(IAmTriggerable trigger);
+    public abstract void Respond(IAmTriggerable trigger);
 }
