@@ -6,7 +6,6 @@ public class ColliderTriggerBase : MonoBehaviour, IAmTriggerable
     [SerializeField]
     protected Collider _collider = default;
 
-    public event Action<IAmTriggerable> CannotBeTriggered;
     public event Action<IAmTriggerable> HasBeenTriggered
     {
         add

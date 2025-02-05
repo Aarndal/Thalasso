@@ -6,7 +6,7 @@ public abstract class InteractiveTriggerBase : MonoBehaviour, IAmTriggerable, IA
     [SerializeField]
     protected bool _isActivatable;
 
-    public bool IsActivatable { get => _isActivatable; protected set => _isActivatable = value; }
+    public bool IsActivatable => _isActivatable;
 
     public event Action<IAmTriggerable> CannotBeTriggered;
     public event Action<IAmTriggerable> HasBeenTriggered
