@@ -4,7 +4,7 @@ using UnityEngine;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Rigidbody), typeof(SphereCollider))]
-public class InteractableBall : MonoBehaviour, IAmInteractive, IAmMovable
+public class InteractiveDiscoBall : MonoBehaviour, IAmInteractive, IAmMovable
 {
     [SerializeField]
     private bool _isActivatable = true;

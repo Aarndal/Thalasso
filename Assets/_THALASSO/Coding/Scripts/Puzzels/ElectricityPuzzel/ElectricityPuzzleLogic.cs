@@ -65,7 +65,7 @@ public class ElectricityPuzzleLogic : SolvableObjectBase
 
     public void StartPuzzle()
     {
-        TransformTransitionSystem.Instance.TransitionRot(doorLockLid, doorLockLidRotationPoint, transitionduration, animationSpeedCurve, null, null);
+        TransformTransitionSystem.Instance.TransitionRot(doorLockLid, doorLockLidRotationPoint.rotation, transitionduration, animationSpeedCurve, null, null);
     }
 
     private void SetupTileInput()

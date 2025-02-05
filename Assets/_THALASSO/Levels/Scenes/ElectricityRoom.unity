@@ -4768,6 +4768,22 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1883652974512807524, guid: 8cba9bbe43d136d478aca13fb10d40d9, type: 3}
+      propertyPath: isLocked
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883652974512807524, guid: 8cba9bbe43d136d478aca13fb10d40d9, type: 3}
+      propertyPath: closingDuration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883652974512807524, guid: 8cba9bbe43d136d478aca13fb10d40d9, type: 3}
+      propertyPath: openingDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883652974512807524, guid: 8cba9bbe43d136d478aca13fb10d40d9, type: 3}
+      propertyPath: openingDuration
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2311822131589756056, guid: 8cba9bbe43d136d478aca13fb10d40d9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -4783,6 +4799,18 @@ PrefabInstance:
     - target: {fileID: 2311822131589756056, guid: 8cba9bbe43d136d478aca13fb10d40d9, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3282504909915694257, guid: 8cba9bbe43d136d478aca13fb10d40d9, type: 3}
+      propertyPath: isLocked
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3282504909915694257, guid: 8cba9bbe43d136d478aca13fb10d40d9, type: 3}
+      propertyPath: rotationAxis
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3282504909915694257, guid: 8cba9bbe43d136d478aca13fb10d40d9, type: 3}
+      propertyPath: openingRotation
+      value: -120
       objectReference: {fileID: 0}
     - target: {fileID: 3408974294599918686, guid: 8cba9bbe43d136d478aca13fb10d40d9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4844,7 +4872,12 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6813044888473152764, guid: 8cba9bbe43d136d478aca13fb10d40d9, type: 3}
+      propertyPath: _doorAnimationTrigger
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 1883652974512807524, guid: 8cba9bbe43d136d478aca13fb10d40d9, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

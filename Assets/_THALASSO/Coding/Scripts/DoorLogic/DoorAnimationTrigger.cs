@@ -22,6 +22,8 @@ public class DoorAnimationTrigger : MonoBehaviour
     [SerializeField] private float closingDuration;
     [SerializeField] private AnimationCurve closingSpeedCurve;
 
+    public bool IsLocked => isLocked;
+
     private void Start()
     {
         originTransformPositionL = doorObjL.transform.position;

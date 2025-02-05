@@ -23,7 +23,7 @@ public class TransformTransitionSystem : MonoBehaviour
     {
         return StartCoroutine(ETransitionPos(_actor, _target, _duration, _speedCurve, _onStartEvent, _onCompleteEvent));
     }
-    public Coroutine TransitionRot(GameObject _actor, Transform _target, float _duration, AnimationCurve _speedCurve = null, System.Action _onStartEvent = null, System.Action _onCompleteEvent = null)
+    public Coroutine TransitionRot(GameObject _actor, Quaternion _target, float _duration, AnimationCurve _speedCurve = null, System.Action _onStartEvent = null, System.Action _onCompleteEvent = null)
     {
         return StartCoroutine(ETransitionRot(_actor, _target, _duration, _speedCurve, _onStartEvent, _onCompleteEvent));
     }
@@ -103,7 +103,7 @@ public class TransformTransitionSystem : MonoBehaviour
             _onComplete.Invoke();
         }
     }
-    private IEnumerator ETransitionRot(GameObject _actor, Transform _target, float _duration, AnimationCurve _speedCurve, System.Action _onStart, System.Action _onComplete)
+    private IEnumerator ETransitionRot(GameObject _actor, Quaternion _target, float _duration, AnimationCurve _speedCurve, System.Action _onStart, System.Action _onComplete)
     {
         if (_onStart != null)
         {
@@ -112,7 +112,7 @@ public class TransformTransitionSystem : MonoBehaviour
 
         Quaternion startRotation = _actor.transform.rotation;
 
-        Quaternion targetRotation = _target.rotation;
+        Quaternion targetRotation = _target;
 
         float elapsedTime = 0f;
 
