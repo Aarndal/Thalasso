@@ -29,6 +29,8 @@ public class PCAnimation : Entity
     private bool _isJumpTriggered = false;
     private bool _isSprintTriggered = false;
 
+    public bool inCutscene = true;
+
     public Dictionary<int, string> AnimationStates => _animationStates;
 
     private event Func<bool> TransitionCheck;
@@ -99,6 +101,9 @@ public class PCAnimation : Entity
 
     private bool OnTransitionCheck()
     {
+        if (inCutscene)
+            return false;
+
         if ((!_isGrounded && _isCurrentlyMoving || !_isCurrentlyMoving))
             return SetAnimationState(0, "Idle", _idleTransitionDuration);
 
