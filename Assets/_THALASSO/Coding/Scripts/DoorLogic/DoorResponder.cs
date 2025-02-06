@@ -5,7 +5,7 @@ public class DoorResponder : ResponderBase
     [SerializeField]
     private DoorAnimation _doorAnimation = default;
 
-    private bool _doorIsOpen = false;
+    //private bool _doorIsOpen = false;
 
     protected override void Awake()
     {
@@ -26,23 +26,17 @@ public class DoorResponder : ResponderBase
     {
         base.OnEnable();
 
-        _doorAnimation.HasBeenOpened += () => _doorIsOpen = true;
-        _doorAnimation.HasBeenClosed += () => _doorIsOpen = false;
+        //_doorAnimation.HasBeenOpened += () => _doorIsOpen = true;
+        //_doorAnimation.HasBeenClosed += () => _doorIsOpen = false;
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
 
-        _doorAnimation.HasBeenOpened -= () => _doorIsOpen = true;
-        _doorAnimation.HasBeenClosed -= () => _doorIsOpen = false;
+        //_doorAnimation.HasBeenOpened -= () => _doorIsOpen = true;
+        //_doorAnimation.HasBeenClosed -= () => _doorIsOpen = false;
     }
 
-    public override void Respond(IAmTriggerable trigger)
-    {
-        if (_doorIsOpen)
-            _doorAnimation.CloseDoor();
-        else
-            _doorAnimation.OpenDoor();
-    }
+    public override void Respond(IAmTriggerable trigger) => _doorAnimation.OpenDoor();
 }

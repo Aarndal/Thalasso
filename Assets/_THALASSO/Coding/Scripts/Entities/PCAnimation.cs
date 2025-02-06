@@ -99,7 +99,7 @@ public class PCAnimation : Entity
 
     private bool OnTransitionCheck()
     {
-        if ((!_isGrounded && _isCurrentlyMoving || !_isCurrentlyMoving))
+        if (_isGrounded && !_isCurrentlyMoving)
             return SetAnimationState(0, "Idle", _idleTransitionDuration);
 
         if (_isGrounded && _isCurrentlyMoving && !_isSprintTriggered)
@@ -107,6 +107,9 @@ public class PCAnimation : Entity
 
         if (_isGrounded && _isCurrentlyMoving && _isSprintTriggered)
             return SetAnimationState(0, "Run", _runTransitionDuration);
+
+        if (!_isGrounded)
+            return SetAnimationState(0, "Jump", _idleTransitionDuration);
 
         return false;
     }

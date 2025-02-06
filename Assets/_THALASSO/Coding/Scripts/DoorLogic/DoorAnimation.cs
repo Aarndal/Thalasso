@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Animations;
 
@@ -19,14 +20,18 @@ public class DoorAnimation : MonoBehaviour
     [SerializeField] private bool areOpeningInSameDirection = false;
     [SerializeField] private float openingDistance;
     [SerializeField] private float openingRotation;
+    [SerializeField] private bool hasOpeningTime = true;
+    [SerializeField, Min(0.0f)] private float openingTime = 5.0f;
+    [SerializeField] private bool isLocked = false;
+    [SerializeField] private bool isOpen = false;
+
     private Vector3 originPositionL;
     private Vector3 originPositionR;
     private Quaternion originRotationL;
     private Quaternion originRotationR;
     private Coroutine runningCoroutineAnimationL;
     private Coroutine runningCoroutineAnimationR;
-    [SerializeField] private bool isLocked = false;
-    [SerializeField] private bool isOpen = false;
+    private bool inTransition = false;
 
     [Header("Opening")]
     [SerializeField] private float openingDuration;
@@ -37,6 +42,7 @@ public class DoorAnimation : MonoBehaviour
     [SerializeField] private AnimationCurve closingSpeedCurve;
 
     public bool IsLocked => isLocked;
+    public bool InTransition => inTransition;
 
     public event Action IsOpening;
     public event Action HasBeenOpened;
@@ -49,6 +55,14 @@ public class DoorAnimation : MonoBehaviour
             HasBeenOpened?.Invoke();
         else
             HasBeenClosed?.Invoke();
+    }
+
+    private void OnEnable()
+    {
+        IsOpening += () => inTransition = true;
+        IsClosing += () => inTransition = true;
+        HasBeenOpened += () => inTransition = false;
+        HasBeenClosed += () => inTransition = false;
     }
 
     private void Start()
@@ -64,6 +78,14 @@ public class DoorAnimation : MonoBehaviour
             originPositionR = doorObjR.transform.position;
             originRotationR = doorObjR.transform.rotation;
         }
+    }
+
+    private void OnDisable()
+    {
+        IsOpening -= () => inTransition = true;
+        IsClosing -= () => inTransition = true;
+        HasBeenOpened -= () => inTransition = false;
+        HasBeenClosed -= () => inTransition = false;
     }
 
     #region OpenDoor
@@ -88,6 +110,9 @@ public class DoorAnimation : MonoBehaviour
             default:
                 break;
         }
+
+        if (hasOpeningTime)
+            StartCoroutine(CloseDoor());
     }
 
     private void OpenDoorTranslation()
@@ -98,11 +123,11 @@ public class DoorAnimation : MonoBehaviour
 
             var endPosL = localAxis switch
             {
-                Axis.X => originPositionL + (doorObjL.transform.right * openingDistance * adjustOpeningDirection),
-                Axis.Y => originPositionL + (doorObjL.transform.up * openingDistance * adjustOpeningDirection),
-                Axis.Z => originPositionL + (doorObjL.transform.forward * openingDistance * adjustOpeningDirection),
-                Axis.None => originPositionL + (Vector3.one * openingDistance * adjustOpeningDirection),
-                _ => originPositionL + (-doorObjL.transform.right * openingDistance * adjustOpeningDirection),
+                Axis.X => originPositionL + (adjustOpeningDirection * openingDistance * doorObjL.transform.right),
+                Axis.Y => originPositionL + (adjustOpeningDirection * openingDistance * doorObjL.transform.up),
+                Axis.Z => originPositionL + (adjustOpeningDirection * openingDistance * doorObjL.transform.forward),
+                Axis.None => originPositionL + (adjustOpeningDirection * openingDistance * Vector3.one),
+                _ => originPositionL + (adjustOpeningDirection * openingDistance * doorObjL.transform.right),
             };
 
             runningCoroutineAnimationL = TransformTransitionSystem.Instance.TransitionPos(doorObjL, endPosL, openingDuration, openingSpeedCurve, IsOpening, HasBeenOpened);
@@ -131,11 +156,11 @@ public class DoorAnimation : MonoBehaviour
 
             var endPosL = localAxis switch
             {
-                Axis.X => Quaternion.Euler(originRotationL.eulerAngles + doorObjL.transform.right * openingRotation * adjustOpeningDirection),
-                Axis.Y => Quaternion.Euler(originRotationL.eulerAngles + doorObjL.transform.up * openingRotation * adjustOpeningDirection),
-                Axis.Z => Quaternion.Euler(originRotationL.eulerAngles + doorObjL.transform.forward * openingRotation * adjustOpeningDirection),
-                Axis.None => Quaternion.Euler(originRotationL.eulerAngles + Vector3.one * openingRotation * adjustOpeningDirection),
-                _ => Quaternion.Euler(originRotationL.eulerAngles + doorObjL.transform.up * openingRotation * adjustOpeningDirection),
+                Axis.X => Quaternion.Euler(originRotationL.eulerAngles + adjustOpeningDirection * openingRotation * doorObjL.transform.right),
+                Axis.Y => Quaternion.Euler(originRotationL.eulerAngles + adjustOpeningDirection * openingRotation * doorObjL.transform.up),
+                Axis.Z => Quaternion.Euler(originRotationL.eulerAngles + adjustOpeningDirection * openingRotation * doorObjL.transform.forward),
+                Axis.None => Quaternion.Euler(originRotationL.eulerAngles + adjustOpeningDirection * openingRotation * Vector3.one),
+                _ => Quaternion.Euler(originRotationL.eulerAngles + adjustOpeningDirection * openingRotation * doorObjL.transform.up),
             };
             runningCoroutineAnimationL = TransformTransitionSystem.Instance.TransitionRot(doorObjL, endPosL, openingDuration, openingSpeedCurve, IsOpening, HasBeenOpened);
         }
@@ -152,6 +177,8 @@ public class DoorAnimation : MonoBehaviour
             };
             runningCoroutineAnimationR = TransformTransitionSystem.Instance.TransitionRot(doorObjR, endPosR, openingDuration, openingSpeedCurve, IsOpening, HasBeenOpened);
         }
+
+
     }
 
     private void OpenDoorTranslationAndRotation()
@@ -161,10 +188,12 @@ public class DoorAnimation : MonoBehaviour
     #endregion
 
     #region CloseDoor
-    public void CloseDoor()
+    public IEnumerator CloseDoor()
     {
-        if (isLocked)
-            return;
+        yield return new WaitUntil(() => !inTransition);
+
+        if (hasOpeningTime)
+            yield return new WaitForSeconds(openingTime);
 
         StopRunningCoroutines();
 
@@ -227,6 +256,7 @@ public class DoorAnimation : MonoBehaviour
         {
             StopCoroutine(runningCoroutineAnimationL);
             StopCoroutine(runningCoroutineAnimationR);
+            StopCoroutine(CloseDoor());
         }
     }
 }
