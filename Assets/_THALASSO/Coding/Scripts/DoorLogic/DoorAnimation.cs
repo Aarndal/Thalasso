@@ -18,7 +18,7 @@ public class DoorAnimation : MonoBehaviour
     private GameObject leftOrBottomDoor = default;
     [SerializeField, Tooltip("Right or Upper Door")]
     private GameObject rightOrUpperDoor = default;
-    
+
     [Space(10)]
 
     [Header("Settings")]
@@ -51,9 +51,9 @@ public class DoorAnimation : MonoBehaviour
     private Vector3 originPositionR;
     private Quaternion originRotationL;
     private Quaternion originRotationR;
-    
+
     [Space(10)]
-    
+
     [Header("Opening Animation")]
     [SerializeField] private float openingDuration;
     [SerializeField] private AnimationCurve openingSpeedCurve;
@@ -66,9 +66,21 @@ public class DoorAnimation : MonoBehaviour
     public bool InTransition => inTransition;
     public bool IsAutomatic => isAutomatic;
     public bool IsClosing => isClosing;
-    public bool IsLocked => isLocked;
     public bool IsOpen => isOpen;
     public bool IsOpening => isOpening;
+    public bool IsLocked
+    {
+        get => isLocked;
+        private set
+        {
+            if (value != isLocked)
+            {
+                isLocked = value;
+                if(isLocked)
+                    isOpen = false;
+            }
+        }
+    }
 
     // Public Door Events
     public event Action IsBeingOpened;
@@ -77,12 +89,6 @@ public class DoorAnimation : MonoBehaviour
     public event Action HasBeenClosed;
 
     #region Unity Lifecycle Methods
-    private void Awake()
-    {
-        if (isOpen)
-            isLocked = false;
-    }
-
     private void OnEnable()
     {
         IsBeingOpened += () => SetDoorStates(false, true, false);
@@ -93,7 +99,10 @@ public class DoorAnimation : MonoBehaviour
 
     private void Start()
     {
-        if(leftOrBottomDoor == null && rightOrUpperDoor == null)
+        if (IsOpen)
+            IsLocked = false;
+
+        if (leftOrBottomDoor == null && rightOrUpperDoor == null)
         {
             Debug.LogErrorFormat("<color=red>DoorAnimation</color> component {0} (ID: {1}) <color=red>has no Door assigned!</color>", gameObject.name, gameObject.GetInstanceID());
             return;
@@ -305,14 +314,14 @@ public class DoorAnimation : MonoBehaviour
     #region Lock/Unlock Methods
     public void Lock()
     {
-        if (!isLocked)
-            isLocked = true;
+        if (!IsLocked)
+            IsLocked = true;
     }
 
     public void Unlock()
     {
-        if (isLocked)
-            isLocked = false;
+        if (IsLocked)
+            IsLocked = false;
     }
     #endregion
 

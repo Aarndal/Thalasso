@@ -5,8 +5,6 @@ public class DoorResponder : ResponderBase
     [SerializeField]
     private DoorAnimation _doorAnimation = default;
 
-    //private bool _doorIsOpening = false;
-
     protected override void Awake()
     {
         base.Awake();
@@ -22,8 +20,23 @@ public class DoorResponder : ResponderBase
             Debug.LogWarningFormat("<color=yellow>DoorResponder</color> {0} (ID: {1}) <color=yellow>has no DoorAnimation assigned!</color>", gameObject.name, gameObject.GetInstanceID());
     }
 
+    protected override void OnCannotBeTriggered(GameObject @gameObject, string messageText)
+    {
+        if (!_doorAnimation.IsLocked)
+            _doorAnimation.Lock();
+    }
+
     public override void Respond(IAmTriggerable trigger)
     {
+        if (!trigger.IsTriggerable && !_doorAnimation.IsLocked)
+        {
+            _doorAnimation.Lock();
+            return;
+        }
+
+        if (trigger.IsTriggerable && _doorAnimation.IsLocked)
+            _doorAnimation.Unlock();
+
         if (_doorAnimation.TryOpen())
             return;
 
