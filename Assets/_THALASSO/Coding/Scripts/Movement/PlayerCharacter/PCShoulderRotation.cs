@@ -7,10 +7,10 @@ public class PCShoulderRotation : MonoBehaviour
     [SerializeField]
     private Transform _cameraRoot = default;
 
-    [SerializeField]
-    private float _topClampAngle = 60.0f;
-    [SerializeField]
-    private float _bottomClampAngle = -60.0f;
+    //[SerializeField]
+    //private float _topClampAngle = 60.0f;
+    //[SerializeField]
+    //private float _bottomClampAngle = -60.0f;
     [SerializeField]
     private float _lerpFactor = 0.5f;
 

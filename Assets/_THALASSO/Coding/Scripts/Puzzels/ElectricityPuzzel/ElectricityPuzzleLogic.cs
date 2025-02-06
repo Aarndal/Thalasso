@@ -65,7 +65,7 @@ public class ElectricityPuzzleLogic : SolvableObjectBase
 
     public void StartPuzzle()
     {
-        TransformTransitionSystem.Instance.TransitionRot(doorLockLid, doorLockLidRotationPoint.rotation, transitionduration, animationSpeedCurve, null, null);
+        StartCoroutine(TransformTransitionSystem.Instance.TransitionRot(doorLockLid, doorLockLidRotationPoint.rotation, transitionduration, animationSpeedCurve, null, null));
     }
 
     private void SetupTileInput()
@@ -197,12 +197,12 @@ public class ElectricityPuzzleLogic : SolvableObjectBase
         if (Math.Abs(directionOneValue - directionTwoValue) > 3)
         {
             tileTypeValue = Math.Abs(3 - (Math.Abs(directionOneValue - directionTwoValue)));
-            Debug.Log("over" + tileTypeValue);
+            Debug.LogWarning("over" + tileTypeValue);
         }
         else
         {
             tileTypeValue = Math.Abs(directionOneValue - directionTwoValue);
-            Debug.Log("under" + tileTypeValue);
+            Debug.LogWarning("under" + tileTypeValue);
         }
         switch (tileTypeValue)
         {

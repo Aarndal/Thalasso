@@ -117,14 +117,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbd8fce770ce89e48bd986870c727186, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doorAnimationType: 0
-  axis: 1
-  doorObjL: {fileID: 1788400818795385200}
-  doorObjR: {fileID: 6307057787128477229}
+  leftOrBottomDoor: {fileID: 1788400818795385200}
+  rightOrUpperDoor: {fileID: 6307057787128477229}
+  isOpen: 0
+  isLocked: 0
+  isAutomatic: 1
+  openingTime: 3
+  doorAnimationType: 1
+  localAxis: 1
+  openInSameDirection: 0
   openingDistance: 0.65
   openingRotation: 0
-  isLocked: 0
-  isOpen: 0
   openingDuration: 1
   openingSpeedCurve:
     serializedVersion: 2

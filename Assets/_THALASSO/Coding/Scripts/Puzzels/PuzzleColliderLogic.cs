@@ -1,7 +1,6 @@
 using System.Reflection;
 using Unity.Cinemachine;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
 {
@@ -56,7 +55,7 @@ public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
             originTransformPosition = Camera.main.transform.position;
             originTransformRotation = Camera.main.transform.rotation;
 
-            TransformTransitionSystem.Instance.TransitionPosRot(Camera.main.gameObject, targetCamera, transitionduration, animationSpeedCurve, () =>
+            StartCoroutine(TransformTransitionSystem.Instance.TransitionPosRot(Camera.main.gameObject, targetCamera, transitionduration, animationSpeedCurve, () =>
             {
                 inAnimation = true;
                 cinemachineCamera.enabled = false;
@@ -71,7 +70,7 @@ public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
                     MethodInfo method = autoStartPuzzleScript.GetType().GetMethod("StartPuzzle");
                     method?.Invoke(autoStartPuzzleScript, null);
                 }
-            });
+            }));
 
             _input.SwitchCurrentActionMapTo("UI"); // Switch to UI ActionMap and disable any other Action Map
         }
@@ -79,7 +78,7 @@ public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
         {
             Transform tempOriginalTransform = PosRotToTransform(originTransformPosition, originTransformRotation);
 
-            TransformTransitionSystem.Instance.TransitionPosRot(Camera.main.gameObject, tempOriginalTransform, transitionduration, animationSpeedCurve, () =>
+            StartCoroutine(TransformTransitionSystem.Instance.TransitionPosRot(Camera.main.gameObject, tempOriginalTransform, transitionduration, animationSpeedCurve, () =>
             {
                 inAnimation = true;
                 buttonUICanvas.SetActive(false);
@@ -88,7 +87,7 @@ public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
                 inAnimation = false;
                 cinemachineCamera.enabled = true;
                 isfocused = false;
-            });
+            }));
             
             _input.SwitchCurrentActionMapTo("Player"); // Switch to Player ActionMap and disable any other Action Map
         }

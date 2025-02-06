@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: AddressableAssetSettings
   m_EditorClassIdentifier: 
   m_DefaultGroup: cadbd5e434a734e42b896356d0502e85
+  m_DefaultGroup: 7324a7bf7e8167b4d88f7a761590591d
   m_currentHash:
     serializedVersion: 2
     Hash: 00000000000000000000000000000000
@@ -59,37 +60,24 @@ MonoBehaviour:
   m_BuildAddressablesWithPlayerBuild: 0
   m_overridePlayerVersion: '[UnityEditor.PlayerSettings.bundleVersion]'
   m_GroupAssets:
-  - {fileID: 11400000, guid: 2277201b2c70b254caae2d5b6c6d8fa0, type: 2}
   m_BuildSettings:
     m_LogResourceManagerExceptions: 1
     m_BundleBuildPath: Temp/com.unity.addressables/AssetBundles
   m_ProfileSettings:
     m_Profiles:
     - m_InheritedParent: 
-      m_Id: 74c9a71cb7705594d89dfc90e6b46b41
       m_ProfileName: Default
       m_Values:
-      - m_Id: 01c7322f01036d3448f50eb196003300
         m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
-      - m_Id: 0535705e81454d149958f52adbf789ed
-        m_Value: 'ServerData/[BuildTarget]'
-      - m_Id: 10b27ed773511ce40ac63295699ac960
         m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
-      - m_Id: 1319bf80b45a44d4db65658daf70b4dc
         m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
       - m_Id: 80e2d494e66e4a74daa7c2df75770b46
         m_Value: <undefined>
     m_ProfileEntryNames:
-    - m_Id: 01c7322f01036d3448f50eb196003300
-      m_Name: Local.LoadPath
-      m_InlineUsage: 0
-    - m_Id: 0535705e81454d149958f52adbf789ed
       m_Name: Remote.BuildPath
       m_InlineUsage: 0
-    - m_Id: 10b27ed773511ce40ac63295699ac960
       m_Name: BuildTarget
       m_InlineUsage: 0
-    - m_Id: 1319bf80b45a44d4db65658daf70b4dc
       m_Name: Local.BuildPath
       m_InlineUsage: 0
     - m_Id: 80e2d494e66e4a74daa7c2df75770b46
@@ -101,14 +89,9 @@ MonoBehaviour:
     - default
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
-  - {fileID: 11400000, guid: 99995a98cae426a4e9403672826c3638, type: 2}
   m_InitializationObjects: []
   m_CertificateHandlerType:
     m_AssemblyName: 
     m_ClassName: 
   m_ActivePlayerDataBuilderIndex: 2
   m_DataBuilders:
-  - {fileID: 11400000, guid: c181f757571f3004182f015b2308a7c0, type: 2}
-  - {fileID: 11400000, guid: 6ad81b4ef6931d941a851dc36d007c6f, type: 2}
-  - {fileID: 11400000, guid: 6477d33fd4eb6bb41bf034f78aeb8325, type: 2}
-  m_ActiveProfileId: 74c9a71cb7705594d89dfc90e6b46b41

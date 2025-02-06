@@ -8,14 +8,15 @@ public class DoorColliderTrigger : ColliderTriggerBase
         if (other.TryGetComponent(out Entity _))
             Trigger();
     }
-    protected virtual void OnTriggerExit(Collider other)
+
+    protected virtual void OnTriggerStay(Collider other)
     {
-        if (other.TryGetComponent(out Entity _))
-            Trigger();
+        if (other.TryGetComponent(out Entity entity))
+        {
+            if (!entity.Animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+                Trigger();
+        }
     }
 
-    public override void Trigger()
-    {
-        _hasBeenTriggered?.Invoke(this);
-    }
+    public override void Trigger() => _hasBeenTriggered?.Invoke(this);
 }

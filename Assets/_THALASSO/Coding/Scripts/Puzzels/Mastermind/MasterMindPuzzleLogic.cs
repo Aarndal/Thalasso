@@ -38,7 +38,7 @@ public class MasterMindPuzzleLogic : SolvableObjectBase
             int buttonIndex = i + 1;
             numButtons[i].onClick.AddListener(() => NumButtonInput(buttonIndex));
         }
-        numButtons[9].onClick.AddListener(() => Solve());
+        numButtons[9].onClick.AddListener(() => CheckInput());
         numButtons[10].onClick.AddListener(() => NumButtonInput(0));
         numButtons[11].onClick.AddListener(() => Reset());
     }
@@ -107,8 +107,9 @@ public class MasterMindPuzzleLogic : SolvableObjectBase
         }
 
         Debug.LogFormat("<color=green>{0} solved!</color>", name);
+        Solve();
         return true;
     }
 
-    public override bool Solve() => IsSolved = CheckInput();
+    public override bool Solve() => IsSolved = true;
 }

@@ -12,10 +12,10 @@ public class ProximityDoorTrigger : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        doorAnimation.OpenDoor();
+        doorAnimation.TryOpen();
     }
     private void OnTriggerExit(Collider other)
     {
-        doorAnimation.CloseDoor();
+        doorAnimation.TryClose();
     }
 }

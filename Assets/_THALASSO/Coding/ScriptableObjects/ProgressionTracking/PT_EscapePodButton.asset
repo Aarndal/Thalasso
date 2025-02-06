@@ -9,7 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a189bb168d8d90478a09ea08c2f3d72, type: 3}
-  m_Name: DefaultObject
+  m_Script: {fileID: 11500000, guid: 09ac1d48c7a0bc94387a8c7af7ccf1f4, type: 3}
+  m_Name: PT_EscapePodButton
   m_EditorClassIdentifier: 
-  m_AddressableAssetSettingsGuid: fd4b476a3a410724cb097d30b96d6c32
+  _id: 201
+  _isCompleted: 0
+  _solvableDependenciesID:
+  - {fileID: 11400000, guid: 9790e8ac21c10de48b310906bf5da764, type: 2}

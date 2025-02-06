@@ -4,6 +4,7 @@ using UnityEngine;
 public class TransformTransitionSystem : MonoBehaviour
 {
     public static TransformTransitionSystem Instance;
+
     void Awake()
     {
         if (Instance != null)
@@ -15,18 +16,18 @@ public class TransformTransitionSystem : MonoBehaviour
         DontDestroyOnLoad(Instance);
     }
 
-    public Coroutine TransitionPosRot(GameObject _actor, Transform _target, float _duration, AnimationCurve _speedCurve = null, System.Action _onStartEvent = null, System.Action _onCompleteEvent = null)
-    {
-        return StartCoroutine(ETransitionPosRot(_actor, _target, _duration, _speedCurve, _onStartEvent, _onCompleteEvent));
-    }
-    public  Coroutine TransitionPos(GameObject _actor, Vector3 _target, float _duration, AnimationCurve _speedCurve = null, System.Action _onStartEvent = null, System.Action _onCompleteEvent = null)
-    {
-        return StartCoroutine(ETransitionPos(_actor, _target, _duration, _speedCurve, _onStartEvent, _onCompleteEvent));
-    }
-    public Coroutine TransitionRot(GameObject _actor, Quaternion _target, float _duration, AnimationCurve _speedCurve = null, System.Action _onStartEvent = null, System.Action _onCompleteEvent = null)
-    {
-        return StartCoroutine(ETransitionRot(_actor, _target, _duration, _speedCurve, _onStartEvent, _onCompleteEvent));
-    }
+    //public Coroutine TransitionPosRot(GameObject _actor, Transform _target, float _duration, AnimationCurve _speedCurve = null, System.Action _onStartEvent = null, System.Action _onCompleteEvent = null)
+    //{
+    //    return StartCoroutine(ETransitionPosRot(_actor, _target, _duration, _speedCurve, _onStartEvent, _onCompleteEvent));
+    //}
+    //public  Coroutine TransitionPos(GameObject _actor, Vector3 _target, float _duration, AnimationCurve _speedCurve = null, System.Action _onStartEvent = null, System.Action _onCompleteEvent = null)
+    //{
+    //    return StartCoroutine(ETransitionPos(_actor, _target, _duration, _speedCurve, _onStartEvent, _onCompleteEvent));
+    //}
+    //public Coroutine TransitionRot(GameObject _actor, Quaternion _target, float _duration, AnimationCurve _speedCurve = null, System.Action _onStartEvent = null, System.Action _onCompleteEvent = null)
+    //{
+    //    return StartCoroutine(ETransitionRot(_actor, _target, _duration, _speedCurve, _onStartEvent, _onCompleteEvent));
+    //}
 
     private void OnDestroy()
     {
@@ -34,18 +35,12 @@ public class TransformTransitionSystem : MonoBehaviour
     }
 
     #region IEnumerators
-    private IEnumerator ETransitionPosRot(GameObject _actor, Transform _target, float _duration, AnimationCurve _speedCurve, System.Action _onStart, System.Action _onComplete)
+    public IEnumerator TransitionPosRot(GameObject _actor, Transform _target, float _duration, AnimationCurve _speedCurve = null, System.Action _onStart = null, System.Action _onComplete = null)
     {
-        if (_onStart != null)
-        {
-            _onStart.Invoke();
-        }
+        _onStart?.Invoke();
 
-        Vector3 startPosition = _actor.transform.position;
-        Quaternion startRotation = _actor.transform.rotation;
-
-        Vector3 targetPosition = _target.position;
-        Quaternion targetRotation = _target.rotation;
+        _actor.transform.GetPositionAndRotation(out Vector3 startPosition, out Quaternion startRotation);
+        _target.GetPositionAndRotation(out Vector3 targetPosition, out Quaternion targetRotation);
 
         float elapsedTime = 0f;
 
@@ -56,27 +51,17 @@ public class TransformTransitionSystem : MonoBehaviour
 
             float curveT = _speedCurve != null ? _speedCurve.Evaluate(t) : t;
 
-            _actor.transform.position = Vector3.Lerp(startPosition, targetPosition, curveT);
-            _actor.transform.rotation = Quaternion.Lerp(startRotation, targetRotation, curveT);
-
+            _actor.transform.SetPositionAndRotation(Vector3.Lerp(startPosition, targetPosition, curveT), Quaternion.Lerp(startRotation, targetRotation, curveT));
             yield return null;
         }
 
-        _actor.transform.position = targetPosition;
-        _actor.transform.rotation = targetRotation;
-
-        if (_onComplete != null)
-        {
-            _onComplete.Invoke();
-        }
+        _actor.transform.SetPositionAndRotation(targetPosition, targetRotation);
+        _onComplete?.Invoke();
     }
 
-    private IEnumerator ETransitionPos(GameObject _actor, Vector3 _target, float _duration, AnimationCurve _speedCurve, System.Action _onStart, System.Action _onComplete)
+    public IEnumerator TransitionPos(GameObject _actor, Vector3 _target, float _duration, AnimationCurve _speedCurve = null, System.Action _onStart = null, System.Action _onComplete = null)
     {
-        if (_onStart != null)
-        {
-            _onStart.Invoke();
-        }
+        _onStart?.Invoke();
 
         Vector3 startPosition = _actor.transform.position;
 
@@ -98,17 +83,11 @@ public class TransformTransitionSystem : MonoBehaviour
 
         _actor.transform.position = targetPosition;
 
-        if (_onComplete != null)
-        {
-            _onComplete.Invoke();
-        }
+        _onComplete?.Invoke();
     }
-    private IEnumerator ETransitionRot(GameObject _actor, Quaternion _target, float _duration, AnimationCurve _speedCurve, System.Action _onStart, System.Action _onComplete)
+    public IEnumerator TransitionRot(GameObject _actor, Quaternion _target, float _duration, AnimationCurve _speedCurve = null, System.Action _onStart = null, System.Action _onComplete = null)
     {
-        if (_onStart != null)
-        {
-            _onStart.Invoke();
-        }
+        _onStart?.Invoke();
 
         Quaternion startRotation = _actor.transform.rotation;
 
@@ -130,10 +109,7 @@ public class TransformTransitionSystem : MonoBehaviour
 
         _actor.transform.rotation = targetRotation;
 
-        if (_onComplete != null)
-        {
-            _onComplete.Invoke();
-        }
+        _onComplete?.Invoke();
     }
     #endregion
 }

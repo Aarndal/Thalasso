@@ -1,9 +1,11 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Animations;
 
 public enum DoorAnimationType
 {
+    None,
     Translation,
     Rotation,
     TranslationAndRotation
@@ -11,217 +13,318 @@ public enum DoorAnimationType
 
 public class DoorAnimation : MonoBehaviour
 {
-    [Header("General")]
-    [SerializeField] private DoorAnimationType doorAnimationType;
-    [SerializeField] private Axis axis;
-    [SerializeField] private GameObject doorObjL;
-    [SerializeField] private GameObject doorObjR;
-    [SerializeField] private float openingDistance;
-    [SerializeField] private float openingRotation;
+    [Header("References")]
+    [SerializeField, Tooltip("Left or Bottom Door")]
+    private GameObject leftOrBottomDoor = default;
+    [SerializeField, Tooltip("Right or Upper Door")]
+    private GameObject rightOrUpperDoor = default;
+    
+    [Space(10)]
+
+    [Header("Settings")]
+
+    // Door States
+    [SerializeField] private bool isOpen = false;
+    private bool inTransition = false;
+    private bool isOpening = false;
+    private bool isClosing = false;
+
+    [SerializeField]
+    private bool isLocked = false;
+    [SerializeField]
+    private bool isAutomatic = true;
+    [SerializeField, Min(0.0f)]
+    private float openingTime = 5.0f;
+    [SerializeField]
+    private DoorAnimationType doorAnimationType = DoorAnimationType.None;
+    [SerializeField]
+    private Axis localAxis = Axis.None;
+    [SerializeField]
+    private bool openInSameDirection = false;
+    [SerializeField]
+    private float openingDistance = 6.5f;
+    [SerializeField, Range(-360.0f, 360.0f)]
+    private float openingRotation = 120.0f;
+
+    // Door Origin
     private Vector3 originPositionL;
     private Vector3 originPositionR;
     private Quaternion originRotationL;
     private Quaternion originRotationR;
-    private Coroutine runningCoroutineAnimationL;
-    private Coroutine runningCoroutineAnimationR;
-    [SerializeField] private bool isLocked = false;
-    [SerializeField] private bool isOpen = false;
-
-    [Header("Opening")]
+    
+    [Space(10)]
+    
+    [Header("Opening Animation")]
     [SerializeField] private float openingDuration;
     [SerializeField] private AnimationCurve openingSpeedCurve;
 
-    [Header("Closing")]
+    [Header("Closing Animation")]
     [SerializeField] private float closingDuration;
     [SerializeField] private AnimationCurve closingSpeedCurve;
 
+    // Door Properties
+    public bool InTransition => inTransition;
+    public bool IsAutomatic => isAutomatic;
+    public bool IsClosing => isClosing;
     public bool IsLocked => isLocked;
+    public bool IsOpen => isOpen;
+    public bool IsOpening => isOpening;
 
-    public event Action IsOpening;
+    // Public Door Events
+    public event Action IsBeingOpened;
     public event Action HasBeenOpened;
-    public event Action IsClosing;
+    public event Action IsBeingClosed;
     public event Action HasBeenClosed;
 
+    #region Unity Lifecycle Methods
     private void Awake()
     {
         if (isOpen)
-            HasBeenOpened?.Invoke();
-        else
-            HasBeenClosed?.Invoke();
+            isLocked = false;
+    }
+
+    private void OnEnable()
+    {
+        IsBeingOpened += () => SetDoorStates(false, true, false);
+        IsBeingClosed += () => SetDoorStates(false, false, true);
+        HasBeenOpened += () => SetDoorStates(true, false, false);
+        HasBeenClosed += () => SetDoorStates(false, false, true);
     }
 
     private void Start()
     {
-        if (doorObjL != null)
+        if(leftOrBottomDoor == null && rightOrUpperDoor == null)
         {
-            originPositionL = doorObjL.transform.position;
-            originRotationL = doorObjL.transform.rotation;
+            Debug.LogErrorFormat("<color=red>DoorAnimation</color> component {0} (ID: {1}) <color=red>has no Door assigned!</color>", gameObject.name, gameObject.GetInstanceID());
+            return;
         }
 
-        if (doorObjR != null)
+        if (leftOrBottomDoor != null)
         {
-            originPositionR = doorObjR.transform.position;
-            originRotationR = doorObjR.transform.rotation;
+            originPositionL = leftOrBottomDoor.transform.position;
+            originRotationL = leftOrBottomDoor.transform.rotation;
+        }
+
+        if (rightOrUpperDoor != null)
+        {
+            originPositionR = rightOrUpperDoor.transform.position;
+            originRotationR = rightOrUpperDoor.transform.rotation;
         }
     }
 
-    #region OpenDoor
-    public void OpenDoor()
+    private void OnDisable()
     {
-        if (isLocked)
-            return;
+        IsBeingOpened -= () => SetDoorStates(false, true, false);
+        IsBeingClosed -= () => SetDoorStates(false, false, true);
+        HasBeenOpened -= () => SetDoorStates(true, false, false);
+        HasBeenClosed -= () => SetDoorStates(false, false, true);
+    }
+    #endregion
 
-        StopRunningCoroutines();
+    #region Public Methods
+    public bool TryOpen()
+    {
+        if (IsLocked || IsOpen || IsOpening)
+            return false;
 
+        StopAllCoroutines();
+        StartCoroutine(Open());
+        return true;
+    }
+
+    public bool TryClose()
+    {
+        if (!IsAutomatic && (!IsClosing || IsOpen))
+        {
+            StopAllCoroutines();
+            StartCoroutine(Close());
+            return true;
+        }
+
+        return false;
+    }
+    #endregion
+
+    #region Enumerator Methods
+    private IEnumerator Open()
+    {
         switch (doorAnimationType)
         {
             case DoorAnimationType.Translation:
-                OpenDoorTranslation();
+                OpenByTranslation();
                 break;
             case DoorAnimationType.Rotation:
-                OpenDoorRotation();
+                OpenByRotation();
                 break;
             case DoorAnimationType.TranslationAndRotation:
-                OpenDoorTranslationAndRotation();
+                OpenByTranslationAndRotation();
                 break;
             default:
                 break;
         }
+
+        if (IsAutomatic)
+            StartCoroutine(Close());
+
+        yield return null;
     }
 
-    private void OpenDoorTranslation()
+    private IEnumerator Close()
     {
-        if (doorObjL != null)
+        if (IsAutomatic)
         {
-            var endPosL = axis switch
-            {
-                Axis.X => originPositionL + (-doorObjL.transform.right * openingDistance),
-                Axis.Y => originPositionL + (doorObjL.transform.up * openingDistance),
-                Axis.Z => originPositionL + (doorObjL.transform.forward * openingDistance),
-                Axis.None => originPositionL + (Vector3.one * openingDistance),
-                _ => originPositionL + (-doorObjL.transform.right * openingDistance),
-            };
+            yield return new WaitUntil(() => !InTransition);
 
-            runningCoroutineAnimationL = TransformTransitionSystem.Instance.TransitionPos(doorObjL, endPosL, openingDuration, openingSpeedCurve, IsOpening, HasBeenOpened);
+            yield return new WaitForSeconds(openingTime);
         }
 
-        if (doorObjR != null)
+        switch (doorAnimationType)
         {
-            var endPosR = axis switch
+            case DoorAnimationType.Translation:
+                CloseByTranslation();
+                break;
+            case DoorAnimationType.Rotation:
+                CloseByRotation();
+                break;
+            case DoorAnimationType.TranslationAndRotation:
+                CloseByTranslationAndRotation();
+                break;
+            default:
+                break;
+        }
+
+        yield return null;
+    }
+    #endregion
+
+    #region OpenDoor Methods
+    private void OpenByTranslation()
+    {
+        if (openingDistance <= 0.0001f)
+            Debug.LogErrorFormat("<color=red>Opening Distance</color> of {0} (ID: {1}) <color=red>is too small!</color>", gameObject.name, gameObject.GetInstanceID());
+
+        if (leftOrBottomDoor != null)
+        {
+            float adjustOpeningDirection = openInSameDirection ? 1.0f : -1.0f;
+
+            var endPosL = localAxis switch
             {
-                Axis.X => originPositionR + (doorObjL.transform.right * openingDistance),
-                Axis.Y => originPositionR + (doorObjL.transform.up * openingDistance),
-                Axis.Z => originPositionR + (doorObjL.transform.forward * openingDistance),
+                Axis.X => originPositionL + (adjustOpeningDirection * openingDistance * leftOrBottomDoor.transform.right),
+                Axis.Y => originPositionL + (adjustOpeningDirection * openingDistance * leftOrBottomDoor.transform.up),
+                Axis.Z => originPositionL + (adjustOpeningDirection * openingDistance * leftOrBottomDoor.transform.forward),
+                Axis.None => originPositionL + (adjustOpeningDirection * openingDistance * Vector3.one),
+                _ => originPositionL + (adjustOpeningDirection * openingDistance * leftOrBottomDoor.transform.right),
+            };
+
+            StartCoroutine(TransformTransitionSystem.Instance.TransitionPos(leftOrBottomDoor, endPosL, openingDuration, openingSpeedCurve, IsBeingOpened, HasBeenOpened));
+        }
+
+        if (rightOrUpperDoor != null)
+        {
+            var endPosR = localAxis switch
+            {
+                Axis.X => originPositionR + (leftOrBottomDoor.transform.right * openingDistance),
+                Axis.Y => originPositionR + (leftOrBottomDoor.transform.up * openingDistance),
+                Axis.Z => originPositionR + (leftOrBottomDoor.transform.forward * openingDistance),
                 Axis.None => originPositionR + (Vector3.one * openingDistance),
-                _ => originPositionR + (doorObjL.transform.right * openingDistance),
+                _ => originPositionR + (leftOrBottomDoor.transform.right * openingDistance),
             };
 
-            runningCoroutineAnimationR = TransformTransitionSystem.Instance.TransitionPos(doorObjR, endPosR, openingDuration, openingSpeedCurve, IsOpening, HasBeenOpened);
+            StartCoroutine(TransformTransitionSystem.Instance.TransitionPos(rightOrUpperDoor, endPosR, openingDuration, openingSpeedCurve, IsBeingOpened, HasBeenOpened));
         }
     }
 
-    private void OpenDoorRotation()
+    private void OpenByRotation()
     {
-        if (doorObjL != null)
+        if (openingRotation > -0.0001f && openingRotation < 0.0001f)
+            Debug.LogErrorFormat("<color=red>Opening Rotation</color> of {0} (ID: {1}) <color=red>is too small!</color>", gameObject.name, gameObject.GetInstanceID());
+
+        if (leftOrBottomDoor != null)
         {
-            var endPosL = axis switch
+            float adjustOpeningDirection = openInSameDirection ? 1.0f : -1.0f;
+
+            var endPosL = localAxis switch
             {
-                Axis.X => Quaternion.Euler(originRotationL.eulerAngles + Vector3.right * (-openingRotation)),
-                Axis.Y => Quaternion.Euler(originRotationL.eulerAngles + Vector3.up * (-openingRotation)),
-                Axis.Z => Quaternion.Euler(originRotationL.eulerAngles + Vector3.forward * (-openingRotation)),
-                Axis.None => Quaternion.Euler(originRotationL.eulerAngles + Vector3.one * (-openingRotation)),
-                _ => Quaternion.Euler(originRotationL.eulerAngles + Vector3.up * (-openingRotation)),
+                Axis.X => Quaternion.Euler(originRotationL.eulerAngles + adjustOpeningDirection * openingRotation * leftOrBottomDoor.transform.right),
+                Axis.Y => Quaternion.Euler(originRotationL.eulerAngles + adjustOpeningDirection * openingRotation * leftOrBottomDoor.transform.up),
+                Axis.Z => Quaternion.Euler(originRotationL.eulerAngles + adjustOpeningDirection * openingRotation * leftOrBottomDoor.transform.forward),
+                Axis.None => Quaternion.Euler(originRotationL.eulerAngles + adjustOpeningDirection * openingRotation * Vector3.one),
+                _ => Quaternion.Euler(originRotationL.eulerAngles + adjustOpeningDirection * openingRotation * leftOrBottomDoor.transform.up),
             };
-            runningCoroutineAnimationL = TransformTransitionSystem.Instance.TransitionRot(doorObjL, endPosL, openingDuration, openingSpeedCurve, IsOpening, HasBeenOpened);
+
+            StartCoroutine(TransformTransitionSystem.Instance.TransitionRot(leftOrBottomDoor, endPosL, openingDuration, openingSpeedCurve, IsBeingOpened, HasBeenOpened));
         }
 
-        if (doorObjR != null)
+        if (rightOrUpperDoor != null)
         {
-            var endPosR = axis switch
+            var endPosR = localAxis switch
             {
-                Axis.X => Quaternion.Euler(originRotationR.eulerAngles + Vector3.right * openingRotation),
-                Axis.Y => Quaternion.Euler(originRotationR.eulerAngles + Vector3.up * openingRotation),
-                Axis.Z => Quaternion.Euler(originRotationR.eulerAngles + Vector3.forward * openingRotation),
+                Axis.X => Quaternion.Euler(originRotationR.eulerAngles + rightOrUpperDoor.transform.right * openingRotation),
+                Axis.Y => Quaternion.Euler(originRotationR.eulerAngles + rightOrUpperDoor.transform.up * openingRotation),
+                Axis.Z => Quaternion.Euler(originRotationR.eulerAngles + rightOrUpperDoor.transform.forward * openingRotation),
                 Axis.None => Quaternion.Euler(originRotationR.eulerAngles + Vector3.one * openingRotation),
-                _ => Quaternion.Euler(originRotationR.eulerAngles + Vector3.up * openingRotation),
+                _ => Quaternion.Euler(originRotationR.eulerAngles + rightOrUpperDoor.transform.up * openingRotation),
             };
-            runningCoroutineAnimationR = TransformTransitionSystem.Instance.TransitionRot(doorObjR, endPosR, openingDuration, openingSpeedCurve, IsOpening, HasBeenOpened);
+
+            StartCoroutine(TransformTransitionSystem.Instance.TransitionRot(rightOrUpperDoor, endPosR, openingDuration, openingSpeedCurve, IsBeingOpened, HasBeenOpened));
         }
     }
 
-    private void OpenDoorTranslationAndRotation()
+    private void OpenByTranslationAndRotation()
     {
         throw new NotImplementedException();
     }
     #endregion
 
-    #region CloseDoor
-    public void CloseDoor()
+    #region CloseDoor Methods
+    private void CloseByTranslation()
     {
-        if (isLocked)
-            return;
+        if (leftOrBottomDoor != null)
+            StartCoroutine(TransformTransitionSystem.Instance.TransitionPos(leftOrBottomDoor, originPositionL, closingDuration, closingSpeedCurve, IsBeingClosed, HasBeenClosed));
 
-        StopRunningCoroutines();
-
-        switch (doorAnimationType)
-        {
-            case DoorAnimationType.Translation:
-                CloseDoorTranslation();
-                break;
-            case DoorAnimationType.Rotation:
-                CloseDoorRotation();
-                break;
-            case DoorAnimationType.TranslationAndRotation:
-                CloseDoorTranslationAndRotation();
-                break;
-            default:
-                break;
-        }
+        if (rightOrUpperDoor != null)
+            StartCoroutine(TransformTransitionSystem.Instance.TransitionPos(rightOrUpperDoor, originPositionR, closingDuration, closingSpeedCurve, IsBeingClosed, HasBeenClosed));
     }
 
-    private void CloseDoorTranslation()
-    {
-        if (doorObjL != null)
-            runningCoroutineAnimationL = TransformTransitionSystem.Instance.TransitionPos(doorObjL, originPositionL, closingDuration, closingSpeedCurve, IsClosing, HasBeenClosed);
-
-        if (doorObjR != null)
-            runningCoroutineAnimationR = TransformTransitionSystem.Instance.TransitionPos(doorObjR, originPositionR, closingDuration, closingSpeedCurve, IsClosing, HasBeenClosed);
-    }
-
-    private void CloseDoorRotation()
+    private void CloseByRotation()
     {
 
-        if (doorObjL != null)
-            runningCoroutineAnimationL = TransformTransitionSystem.Instance.TransitionRot(doorObjL, originRotationL, closingDuration, closingSpeedCurve, IsClosing, HasBeenClosed);
+        if (leftOrBottomDoor != null)
+            StartCoroutine(TransformTransitionSystem.Instance.TransitionRot(leftOrBottomDoor, originRotationL, closingDuration, closingSpeedCurve, IsBeingClosed, HasBeenClosed));
 
-        if (doorObjR != null)
-            runningCoroutineAnimationR = TransformTransitionSystem.Instance.TransitionRot(doorObjR, originRotationR, closingDuration, closingSpeedCurve, IsClosing, HasBeenClosed);
+        if (rightOrUpperDoor != null)
+            StartCoroutine(TransformTransitionSystem.Instance.TransitionRot(rightOrUpperDoor, originRotationR, closingDuration, closingSpeedCurve, IsBeingClosed, HasBeenClosed));
     }
 
-    private void CloseDoorTranslationAndRotation()
+    private void CloseByTranslationAndRotation()
     {
         throw new NotImplementedException();
     }
     #endregion
 
-    public void Unlock()
-    {
-        if (isLocked)
-            isLocked = false;
-    }
-
+    #region Lock/Unlock Methods
     public void Lock()
     {
         if (!isLocked)
             isLocked = true;
     }
 
-    private void StopRunningCoroutines()
+    public void Unlock()
     {
-        if (runningCoroutineAnimationL != null || runningCoroutineAnimationR != null)
-        {
-            StopCoroutine(runningCoroutineAnimationL);
-            StopCoroutine(runningCoroutineAnimationR);
-        }
+        if (isLocked)
+            isLocked = false;
+    }
+    #endregion
+
+    private void SetDoorStates(bool isOpen, bool isOpening, bool isClosing)
+    {
+        this.isOpen = isOpen;
+        this.isOpening = isOpening;
+        this.isClosing = isClosing;
+
+        if (isOpening || isClosing)
+            inTransition = true;
+        else
+            inTransition = false;
     }
 }
