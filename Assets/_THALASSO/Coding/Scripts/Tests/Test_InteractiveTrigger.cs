@@ -9,15 +9,21 @@ public class Test_InteractiveTrigger : InteractiveTriggerBase
 
     private MeshRenderer _meshRenderer = default;
 
-    private void Awake() =>
+    protected override void Awake()
+    {
+        base.Awake();
         _meshRenderer = GetComponent<MeshRenderer>();
+    }
 
     private void Start() =>
         _meshRenderer.material.color = _baseColor;
 
     public override void Trigger()
     {
-        base.Trigger();
+        if (!IsActivatable)
+            return;
+
+        _hasBeenTriggered?.Invoke(this);
 
         if (_meshRenderer.material.color == _baseColor)
             _meshRenderer.material.color = Color.red;

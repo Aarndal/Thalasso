@@ -8,6 +8,7 @@ public class DoorColliderTrigger : ColliderTriggerBase
         if (other.TryGetComponent(out Entity _))
             Trigger();
     }
+
     protected virtual void OnTriggerStay(Collider other)
     {
         if (other.TryGetComponent(out Entity entity))

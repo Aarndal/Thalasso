@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class DoorAnimationTrigger : MonoBehaviour
 {
-
     [Header("General")]
     [SerializeField] private GameObject doorObjL;
     [SerializeField] private GameObject doorObjR;
@@ -45,8 +44,8 @@ public class DoorAnimationTrigger : MonoBehaviour
             StopCoroutine(runningCoroutineAnimationL);
             StopCoroutine(runningCoroutineAnimationR);
         }
-        runningCoroutineAnimationL = TransformTransitionSystem.Instance.TransitionPos(doorObjL, endPosL, openingDuration, openingSpeedCurve, null, () => runningCoroutineAnimationL = null);
-        runningCoroutineAnimationR = TransformTransitionSystem.Instance.TransitionPos(doorObjR, endPosR, openingDuration, openingSpeedCurve, null, () => runningCoroutineAnimationR = null);
+        runningCoroutineAnimationL = StartCoroutine(TransformTransitionSystem.Instance.TransitionPos(doorObjL, endPosL, openingDuration, openingSpeedCurve, null, () => runningCoroutineAnimationL = null));
+        runningCoroutineAnimationR = StartCoroutine(TransformTransitionSystem.Instance.TransitionPos(doorObjR, endPosR, openingDuration, openingSpeedCurve, null, () => runningCoroutineAnimationR = null));
     }
     public void CloseDoor()
     {
@@ -59,8 +58,8 @@ public class DoorAnimationTrigger : MonoBehaviour
             StopCoroutine(runningCoroutineAnimationL);
             StopCoroutine(runningCoroutineAnimationR);
         }
-        runningCoroutineAnimationL = TransformTransitionSystem.Instance.TransitionPos(doorObjL, originTransformPositionL, closingDuration, closingSpeedCurve, null, () => runningCoroutineAnimationL = null);
-        runningCoroutineAnimationR = TransformTransitionSystem.Instance.TransitionPos(doorObjR, originTransformPositionR, closingDuration, closingSpeedCurve, null, () => runningCoroutineAnimationR = null);
+        runningCoroutineAnimationL = StartCoroutine(TransformTransitionSystem.Instance.TransitionPos(doorObjL, originTransformPositionL, closingDuration, closingSpeedCurve, null, () => runningCoroutineAnimationL = null));
+        runningCoroutineAnimationR = StartCoroutine(TransformTransitionSystem.Instance.TransitionPos(doorObjR, originTransformPositionR, closingDuration, closingSpeedCurve, null, () => runningCoroutineAnimationR = null));
     }
 
     public void Unlock()

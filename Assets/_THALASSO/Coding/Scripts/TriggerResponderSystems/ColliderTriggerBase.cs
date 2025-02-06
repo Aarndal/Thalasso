@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class ColliderTriggerBase : MonoBehaviour, IAmTriggerable
+public abstract class ColliderTriggerBase : MonoBehaviour, IAmTriggerable
 {
     [SerializeField]
     protected Collider _collider = default;
@@ -23,15 +23,8 @@ public class ColliderTriggerBase : MonoBehaviour, IAmTriggerable
 
     protected virtual void Start() => _collider.isTrigger = true;
 
-    protected virtual void OnTriggerEnter(Collider other)
-    {
-        if (other.TryGetComponent(out Entity _))
-            Trigger();
-    }
+    protected virtual void OnTriggerEnter(Collider other) => Trigger();
     #endregion
 
-    public virtual void Trigger()
-    {
-        _hasBeenTriggered?.Invoke(this);
-    }
+    public abstract void Trigger();
 }

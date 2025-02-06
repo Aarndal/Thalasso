@@ -138,10 +138,10 @@ public class MemoryPuzzleLogic : SolvableObjectBase
 
         Vector3 newPos = originPos + Vector3.down * buttonVisualFeedbackTravelDistance;
 
-        TransformTransitionSystem.Instance.TransitionPos(button, newPos, buttonVisualFeedbackTravelDuration);
+        StartCoroutine(TransformTransitionSystem.Instance.TransitionPos(button, newPos, buttonVisualFeedbackTravelDuration));
         yield return new WaitForSeconds(buttonVisualFeedbackTravelDuration + 0.2f);
 
-        TransformTransitionSystem.Instance.TransitionPos(button, originPos, buttonVisualFeedbackTravelDuration);
+        StartCoroutine(TransformTransitionSystem.Instance.TransitionPos(button, originPos, buttonVisualFeedbackTravelDuration));
 
     }
 
