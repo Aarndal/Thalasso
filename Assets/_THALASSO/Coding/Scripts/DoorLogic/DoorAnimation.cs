@@ -13,9 +13,10 @@ public class DoorAnimation : MonoBehaviour
 {
     [Header("General")]
     [SerializeField] private DoorAnimationType doorAnimationType;
-    [SerializeField] private Axis axis;
+    [SerializeField] private Axis localAxis;
     [SerializeField] private GameObject doorObjL;
     [SerializeField] private GameObject doorObjR;
+    [SerializeField] private bool areOpeningInSameDirection = false;
     [SerializeField] private float openingDistance;
     [SerializeField] private float openingRotation;
     private Vector3 originPositionL;
@@ -93,13 +94,15 @@ public class DoorAnimation : MonoBehaviour
     {
         if (doorObjL != null)
         {
-            var endPosL = axis switch
+            float adjustOpeningDirection = areOpeningInSameDirection ? 1.0f : -1.0f;
+
+            var endPosL = localAxis switch
             {
-                Axis.X => originPositionL + (-doorObjL.transform.right * openingDistance),
-                Axis.Y => originPositionL + (doorObjL.transform.up * openingDistance),
-                Axis.Z => originPositionL + (doorObjL.transform.forward * openingDistance),
-                Axis.None => originPositionL + (Vector3.one * openingDistance),
-                _ => originPositionL + (-doorObjL.transform.right * openingDistance),
+                Axis.X => originPositionL + (doorObjL.transform.right * openingDistance * adjustOpeningDirection),
+                Axis.Y => originPositionL + (doorObjL.transform.up * openingDistance * adjustOpeningDirection),
+                Axis.Z => originPositionL + (doorObjL.transform.forward * openingDistance * adjustOpeningDirection),
+                Axis.None => originPositionL + (Vector3.one * openingDistance * adjustOpeningDirection),
+                _ => originPositionL + (-doorObjL.transform.right * openingDistance * adjustOpeningDirection),
             };
 
             runningCoroutineAnimationL = TransformTransitionSystem.Instance.TransitionPos(doorObjL, endPosL, openingDuration, openingSpeedCurve, IsOpening, HasBeenOpened);
@@ -107,7 +110,7 @@ public class DoorAnimation : MonoBehaviour
 
         if (doorObjR != null)
         {
-            var endPosR = axis switch
+            var endPosR = localAxis switch
             {
                 Axis.X => originPositionR + (doorObjL.transform.right * openingDistance),
                 Axis.Y => originPositionR + (doorObjL.transform.up * openingDistance),
@@ -124,26 +127,28 @@ public class DoorAnimation : MonoBehaviour
     {
         if (doorObjL != null)
         {
-            var endPosL = axis switch
+            float adjustOpeningDirection = areOpeningInSameDirection ? 1.0f : -1.0f;
+
+            var endPosL = localAxis switch
             {
-                Axis.X => Quaternion.Euler(originRotationL.eulerAngles + Vector3.right * (-openingRotation)),
-                Axis.Y => Quaternion.Euler(originRotationL.eulerAngles + Vector3.up * (-openingRotation)),
-                Axis.Z => Quaternion.Euler(originRotationL.eulerAngles + Vector3.forward * (-openingRotation)),
-                Axis.None => Quaternion.Euler(originRotationL.eulerAngles + Vector3.one * (-openingRotation)),
-                _ => Quaternion.Euler(originRotationL.eulerAngles + Vector3.up * (-openingRotation)),
+                Axis.X => Quaternion.Euler(originRotationL.eulerAngles + doorObjL.transform.right * openingRotation * adjustOpeningDirection),
+                Axis.Y => Quaternion.Euler(originRotationL.eulerAngles + doorObjL.transform.up * openingRotation * adjustOpeningDirection),
+                Axis.Z => Quaternion.Euler(originRotationL.eulerAngles + doorObjL.transform.forward * openingRotation * adjustOpeningDirection),
+                Axis.None => Quaternion.Euler(originRotationL.eulerAngles + Vector3.one * openingRotation * adjustOpeningDirection),
+                _ => Quaternion.Euler(originRotationL.eulerAngles + doorObjL.transform.up * openingRotation * adjustOpeningDirection),
             };
             runningCoroutineAnimationL = TransformTransitionSystem.Instance.TransitionRot(doorObjL, endPosL, openingDuration, openingSpeedCurve, IsOpening, HasBeenOpened);
         }
 
         if (doorObjR != null)
         {
-            var endPosR = axis switch
+            var endPosR = localAxis switch
             {
-                Axis.X => Quaternion.Euler(originRotationR.eulerAngles + Vector3.right * openingRotation),
-                Axis.Y => Quaternion.Euler(originRotationR.eulerAngles + Vector3.up * openingRotation),
-                Axis.Z => Quaternion.Euler(originRotationR.eulerAngles + Vector3.forward * openingRotation),
+                Axis.X => Quaternion.Euler(originRotationR.eulerAngles + doorObjR.transform.right * openingRotation),
+                Axis.Y => Quaternion.Euler(originRotationR.eulerAngles + doorObjR.transform.up * openingRotation),
+                Axis.Z => Quaternion.Euler(originRotationR.eulerAngles + doorObjR.transform.forward * openingRotation),
                 Axis.None => Quaternion.Euler(originRotationR.eulerAngles + Vector3.one * openingRotation),
-                _ => Quaternion.Euler(originRotationR.eulerAngles + Vector3.up * openingRotation),
+                _ => Quaternion.Euler(originRotationR.eulerAngles + doorObjR.transform.up * openingRotation),
             };
             runningCoroutineAnimationR = TransformTransitionSystem.Instance.TransitionRot(doorObjR, endPosR, openingDuration, openingSpeedCurve, IsOpening, HasBeenOpened);
         }

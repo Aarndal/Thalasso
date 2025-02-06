@@ -84,9 +84,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorAnimationType: 0
-  axis: 1
+  localAxis: 1
   doorObjL: {fileID: 6604848265184170634}
   doorObjR: {fileID: 2327819255135644714}
+  areOpeningInSameDirection: 0
   openingDistance: 0.65
   openingRotation: 0
   isLocked: 0

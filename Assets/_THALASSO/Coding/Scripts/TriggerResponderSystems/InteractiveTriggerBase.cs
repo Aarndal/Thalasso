@@ -4,11 +4,13 @@ using UnityEngine;
 public abstract class InteractiveTriggerBase : MonoBehaviour, IAmTriggerable, IAmInteractive
 {
     [SerializeField]
-    protected bool _isActivatable;
+    private bool _isActivatable;
+    [SerializeField, TextArea]
+    private string _text;
 
     public bool IsActivatable => _isActivatable;
 
-    public event Action<IAmTriggerable> CannotBeTriggered;
+    public event Action<IAmTriggerable, string> CannotBeTriggered;
     public event Action<IAmTriggerable> HasBeenTriggered
     {
         add
@@ -27,7 +29,7 @@ public abstract class InteractiveTriggerBase : MonoBehaviour, IAmTriggerable, IA
     {
         if (!IsActivatable)
         {
-            CannotBeTriggered?.Invoke(this);
+            CannotBeTriggered?.Invoke(this, _text);
             return;
         }
 
