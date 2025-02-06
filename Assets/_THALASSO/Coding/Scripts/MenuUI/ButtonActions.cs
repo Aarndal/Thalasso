@@ -102,6 +102,7 @@ public class ButtonActions : MonoBehaviour
         {
             _input.SwitchCurrentActionMapTo("UI"); // Switch to UI ActionMap and disable any other Action Map
         }
+
         if (useFade)
         {
             StartCoroutine(LoadSceneWithFade(sceneId));
