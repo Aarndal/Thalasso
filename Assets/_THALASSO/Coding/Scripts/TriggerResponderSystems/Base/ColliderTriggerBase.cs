@@ -4,8 +4,21 @@ using UnityEngine;
 public abstract class ColliderTriggerBase : MonoBehaviour, IAmTriggerable
 {
     [SerializeField]
+    protected bool _isTriggerable = true;
+    [SerializeField]
     protected Collider _collider = default;
 
+    public bool IsTriggerable => _isTriggerable;
+
+    public event Action<GameObject, string> CannotBeTriggered
+    {
+        add
+        {
+            _cannotBeTriggered -= value;
+            _cannotBeTriggered += value;
+        }
+        remove => _cannotBeTriggered -= value;
+    }
     public event Action<IAmTriggerable> HasBeenTriggered
     {
         add
@@ -16,6 +29,7 @@ public abstract class ColliderTriggerBase : MonoBehaviour, IAmTriggerable
         remove => _hasBeenTriggered -= value;
     }
 
+    protected Action<GameObject, string> _cannotBeTriggered;
     protected Action<IAmTriggerable> _hasBeenTriggered;
 
     #region Unity Lifecycle Methods

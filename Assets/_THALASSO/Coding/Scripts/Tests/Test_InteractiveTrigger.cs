@@ -20,7 +20,7 @@ public class Test_InteractiveTrigger : InteractiveTriggerBase
 
     public override void Trigger()
     {
-        if (!IsActivatable)
+        if (!IsTriggerable)
             return;
 
         _hasBeenTriggered?.Invoke(this);

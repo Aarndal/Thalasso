@@ -1,17 +1,9 @@
-﻿using ProgressionTracking;
 using UnityEngine;
 
-public class ProgressableInteractiveTrigger : InteractiveTriggerBase
+public class InteractiveDoorTrigger : InteractiveTriggerBase
 {
-    [SerializeField]
-    private SO_ProgressionTracker _progressionTracker = default;
     [SerializeField, TextArea]
     protected string _messageText = "";
-
-    protected void Start()
-    {
-        _isTriggerable = _progressionTracker.IsCompleted;
-    }
 
     public override void Trigger()
     {
