@@ -22,7 +22,7 @@ public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
     private Vector3 originTransformPosition;
     private Quaternion originTransformRotation;
     private GameObject transform;
-    private CinemachineCamera cinemachineVirtualCamera;
+    private CinemachineCamera cinemachineCamera;
     private bool inAnimation;
 
     private bool isActivatable = true;
@@ -44,7 +44,7 @@ public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
 
     private void Start()
     {
-        cinemachineVirtualCamera = FindAnyObjectByType<CinemachineCamera>();
+        cinemachineCamera = FindAnyObjectByType<CinemachineCamera>();
     }
 
     public void Interact(Transform transform)
@@ -59,7 +59,7 @@ public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
             TransformTransitionSystem.Instance.TransitionPosRot(Camera.main.gameObject, targetCamera, transitionduration, animationSpeedCurve, () =>
             {
                 inAnimation = true;
-                cinemachineVirtualCamera.enabled = false;
+                cinemachineCamera.enabled = false;
             }, () =>
             {
                 inAnimation = false;
@@ -86,7 +86,7 @@ public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
             }, () =>
             {
                 inAnimation = false;
-                cinemachineVirtualCamera.enabled = true;
+                cinemachineCamera.enabled = true;
                 isfocused = false;
             });
             
