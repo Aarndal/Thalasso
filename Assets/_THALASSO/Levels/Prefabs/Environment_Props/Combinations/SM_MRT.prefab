@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &225963151152119111
 Transform:
@@ -239,6 +239,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Button_Eckig (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2406184153707351070, guid: 87e6ace32748fe2428a777ed45d896b2, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 6314795241511201897, guid: 87e6ace32748fe2428a777ed45d896b2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.203
@@ -300,6 +304,10 @@ PrefabInstance:
     - target: {fileID: 2406184153707351070, guid: 87e6ace32748fe2428a777ed45d896b2, type: 3}
       propertyPath: m_Name
       value: SM_Button_Eckig (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2406184153707351070, guid: 87e6ace32748fe2428a777ed45d896b2, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 6314795241511201897, guid: 87e6ace32748fe2428a777ed45d896b2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -425,6 +433,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Button_Eckig
       objectReference: {fileID: 0}
+    - target: {fileID: 2406184153707351070, guid: 87e6ace32748fe2428a777ed45d896b2, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 6314795241511201897, guid: 87e6ace32748fe2428a777ed45d896b2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.424
@@ -483,9 +495,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 225963151152119111}
     m_Modifications:
+    - target: {fileID: 467209712528168209, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_Name
       value: SM_Button_Rund_V1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5913912492543154770, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_LocalPosition.x
