@@ -240,7 +240,7 @@ MonoBehaviour:
     ParentPath: SoundBanks\Default Work Unit
     guid: 120307a5affdda4f9c2c157df7e55198
     GuidInternal: 
-    m_lastTime: -8584633610221950092
+    m_lastTime: -8584626683130729154
     List:
     - name: Enviroment
       guid: 4ccb99699ec7c34ab35455a4ec799272
@@ -358,8 +358,8 @@ MonoBehaviour:
         guid: d67ca875e72f2049a0a5616880cc3c3f
       Path: Events\Default Work Unit\Music\AmbienceBed
       maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxDuration: 0
+      minDuration: 0
     - name: Chase_Music
       guid: 742c5d442d967546bfb250fb2f943ddf
       id: 3824731861
@@ -378,8 +378,8 @@ MonoBehaviour:
         guid: 742c5d442d967546bfb250fb2f943ddf
       Path: Events\Default Work Unit\Music\Chase_Music
       maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxDuration: 0
+      minDuration: 0
     - name: Door_Closing
       guid: 192f67e6cf8db145ae3ad50dddb560ce
       id: 1591781701
@@ -398,8 +398,8 @@ MonoBehaviour:
         guid: 192f67e6cf8db145ae3ad50dddb560ce
       Path: Events\Default Work Unit\PlayerSounds\Door_Closing
       maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxDuration: 3.0933332
+      minDuration: 3.0933332
     - name: Door_Opening
       guid: 91e93c347dacc04b8bbb9a25099a3401
       id: 2589897592
@@ -418,8 +418,8 @@ MonoBehaviour:
         guid: 91e93c347dacc04b8bbb9a25099a3401
       Path: Events\Default Work Unit\PlayerSounds\Door_Opening
       maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxDuration: 1.552
+      minDuration: 1.552
     - name: First_Time_Monster
       guid: f6d62baffbf8b7478cd2370535495d49
       id: 3639762312
@@ -438,8 +438,8 @@ MonoBehaviour:
         guid: f6d62baffbf8b7478cd2370535495d49
       Path: Events\Default Work Unit\Music\First_Time_Monster
       maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxDuration: 6.857146
+      minDuration: 6.857146
     - name: First_Time_Station
       guid: 4d70ee331b78cf4abeadf675ce49be65
       id: 3937195198
@@ -458,8 +458,8 @@ MonoBehaviour:
         guid: 4d70ee331b78cf4abeadf675ce49be65
       Path: Events\Default Work Unit\Music\First_Time_Station
       maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxDuration: 13.714292
+      minDuration: 13.714292
     - name: Last_Chase_Music
       guid: 5af86b0448834947919792dd4117dcf1
       id: 2540848410
@@ -478,8 +478,8 @@ MonoBehaviour:
         guid: 5af86b0448834947919792dd4117dcf1
       Path: Events\Default Work Unit\Music\Last_Chase_Music
       maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxDuration: 0
+      minDuration: 0
     - name: Music
       guid: 7d2ce51831979a4095f5ef0061d54c3b
       id: 3991942870
@@ -515,8 +515,8 @@ MonoBehaviour:
         guid: 9535f4e52441134bb64bf6b39f19f673
       Path: Events\Default Work Unit\PlayerSounds\PlayerFoot_Run
       maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxDuration: 0.81866664
+      minDuration: 0.604
     - name: PlayerFoot_Walk
       guid: d89b7d260f96d3469d767294b02d398d
       id: 744081578
@@ -535,8 +535,8 @@ MonoBehaviour:
         guid: d89b7d260f96d3469d767294b02d398d
       Path: Events\Default Work Unit\PlayerSounds\PlayerFoot_Walk
       maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxDuration: 0.82516664
+      minDuration: 0.604
     - name: PlayerSounds
       guid: 1e79cc6510d6214d8453cc6ec06f3599
       id: 1327972334
@@ -572,8 +572,8 @@ MonoBehaviour:
         guid: ce8c73ed0e4fa04e8108a34a66524703
       Path: Events\Default Work Unit\Music\Room_Music
       maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxDuration: 0
+      minDuration: 0
   RtpcWwu:
   - PhysicalPath: Game Parameters\Default Work Unit.wwu
     PathAndIcons:
@@ -956,7 +956,7 @@ MonoBehaviour:
     m_lastTime: -8584642281314775808
     List: []
   ExpandedFileSystemItemIds: 
-  ExpandedWaapiItemIds: 
+  ExpandedWaapiItemIds: 0500000006000000080000000d0000000e0000000f000000
   AutoSyncSelection: 0
   autoPopulateEnabled: 1
   currentDataSource: 0

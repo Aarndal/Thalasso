@@ -11,6 +11,9 @@ public class PCAnimation : Entity
     [Space(5)]
 
     [SerializeField]
+    private AK.Wwise.Event _footstepEvent = default;
+
+    [SerializeField]
     private List<AnimationClip> _animationClips = new();
 
     [Header("Normalized Transition Durations")]
@@ -29,7 +32,7 @@ public class PCAnimation : Entity
     private bool _isJumpTriggered = false;
     private bool _isSprintTriggered = false;
 
-    public bool inCutscene = true;
+    public bool inCutscene = false;
 
     public Dictionary<int, string> AnimationStates => _animationStates;
 
@@ -97,6 +100,12 @@ public class PCAnimation : Entity
         if (_animationClips.Count > 0)
             for (int i = 0; i < _animationClips.Count; i++)
                 _animationStates.Add(Animator.StringToHash(_animationClips[i].name), _animationClips[i].name);
+    }
+
+    protected override void OnAnimationEvenTriggered(AnimationEvent eventArgs)
+    {
+        if(eventArgs.stringParameter == "Walk")
+            _footstepEvent?.Post(gameObject);
     }
 
     private bool OnTransitionCheck()
