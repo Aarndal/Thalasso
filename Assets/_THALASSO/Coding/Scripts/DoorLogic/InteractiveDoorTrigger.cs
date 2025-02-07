@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class InteractiveDoorTrigger : InteractiveTriggerBase
+public class InteractiveDoorTrigger : InteractiveTrigger
 {
     [SerializeField, TextArea]
     protected string _messageText = "";

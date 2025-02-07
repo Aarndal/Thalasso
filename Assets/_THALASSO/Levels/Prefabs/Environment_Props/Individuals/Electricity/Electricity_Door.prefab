@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8569196708161077078}
   - component: {fileID: 8957932959069752843}
   - component: {fileID: 3797268141521932193}
-  - component: {fileID: 2503739481711561775}
+  - component: {fileID: 6562034637499148932}
   m_Layer: 20
   m_Name: Electricity_Door
   m_TagString: Untagged
@@ -109,7 +109,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.57, y: 0.02, z: 0.88}
   m_Center: {x: 0.28499997, y: -0.01, z: 0}
---- !u!114 &2503739481711561775
+--- !u!114 &6562034637499148932
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,7 +118,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 7150429223131693082}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8518850bf1fb3bc4aa9423c5f91c416f, type: 3}
+  m_Script: {fileID: 11500000, guid: bd72c0c59656fbe4ea926bebfd6f969b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _doorAnimation: {fileID: 0}
+  _isTriggerable: 1
+  _triggerMessage: 

@@ -46,17 +46,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbd8fce770ce89e48bd986870c727186, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftOrBottomDoor: {fileID: 0}
+  leftOrBottomDoor: {fileID: 3713178691943926599}
   rightOrUpperDoor: {fileID: 0}
   isOpen: 0
-  isLocked: 1
-  isAutomatic: 1
-  openingTime: 5
-  doorAnimationType: 1
-  localAxis: 0
+  isLocked: 0
+  isAutomatic: 0
+  openingTime: 0
+  doorAnimationType: 2
+  localAxis: 4
   openInSameDirection: 0
   openingDistance: 0
-  openingRotation: -120
+  openingRotation: 120
   openingDuration: 1
   openingSpeedCurve:
     serializedVersion: 2
@@ -165,13 +165,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7150429223131693082, guid: f53440108cdee6e469af8fa4616f73f0, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2503739481711561775, guid: f53440108cdee6e469af8fa4616f73f0, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f53440108cdee6e469af8fa4616f73f0, type: 3}
+--- !u!1 &3713178691943926599 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7150429223131693082, guid: f53440108cdee6e469af8fa4616f73f0, type: 3}
+  m_PrefabInstance: {fileID: 5817719598451542877}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5094957430698895487 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1587622151035495202, guid: f53440108cdee6e469af8fa4616f73f0, type: 3}

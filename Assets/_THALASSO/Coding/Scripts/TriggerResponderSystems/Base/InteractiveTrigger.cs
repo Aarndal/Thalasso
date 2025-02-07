@@ -1,10 +1,12 @@
 using System;
 using UnityEngine;
 
-public abstract class InteractiveTriggerBase : MonoBehaviour, IAmTriggerable, IAmInteractive
+public class InteractiveTrigger : MonoBehaviour, IAmTriggerable, IAmInteractive
 {
     [SerializeField]
     protected bool _isTriggerable = true;
+    [SerializeField, TextArea]
+    protected string _triggerMessage = "";
 
     public bool IsTriggerable => _isTriggerable;
 
@@ -38,5 +40,14 @@ public abstract class InteractiveTriggerBase : MonoBehaviour, IAmTriggerable, IA
 
     public virtual void Interact(Transform transform) => Trigger();
 
-    public abstract void Trigger();
+    public virtual void Trigger()
+    {
+        if (!IsTriggerable)
+        {
+            _cannotBeTriggered?.Invoke(gameObject, _triggerMessage);
+            return;
+        }
+
+        _hasBeenTriggered?.Invoke(this);
+    }
 }

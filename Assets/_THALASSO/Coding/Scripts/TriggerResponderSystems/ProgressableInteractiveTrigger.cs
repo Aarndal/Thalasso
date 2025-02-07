@@ -1,26 +1,15 @@
 ﻿using ProgressionTracking;
 using UnityEngine;
 
-public class ProgressableInteractiveTrigger : InteractiveTriggerBase
+public class ProgressableInteractiveTrigger : InteractiveTrigger
 {
     [SerializeField]
-    private SO_ProgressionTracker _progressionTracker = default;
-    [SerializeField, TextArea]
-    protected string _messageText = "";
+    protected SO_ProgressionTracker _progressionTracker = default;
+
+    public new bool IsTriggerable => _isTriggerable = _progressionTracker.IsCompleted;
 
     protected void Start()
     {
         _isTriggerable = _progressionTracker.IsCompleted;
-    }
-
-    public override void Trigger()
-    {
-        if (!IsTriggerable)
-        {
-            _cannotBeTriggered?.Invoke(gameObject, _messageText);
-            return;
-        }
-
-        _hasBeenTriggered?.Invoke(this);
     }
 }
