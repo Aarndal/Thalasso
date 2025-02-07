@@ -15,7 +15,7 @@ public class StartCutscene : MonoBehaviour
     }
     public void EndCutscene()
     {
-        FindAnyObjectByType<PCAnimation>().inCutscene = false;
+        FindAnyObjectByType<PCAnimation>()._inCutscene = false;
         cinemachineBrain.enabled = true;
         cinemachineBrain.gameObject.GetComponent<Animator>().enabled = false;
         _input.SwitchCurrentActionMapTo("Player");

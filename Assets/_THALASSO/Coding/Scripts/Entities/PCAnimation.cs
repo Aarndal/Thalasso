@@ -29,12 +29,13 @@ public class PCAnimation : Entity
     private bool _isJumpTriggered = false;
     private bool _isSprintTriggered = false;
 
-    public bool inCutscene = true;
+    public bool _inCutscene = true;
 
     public Dictionary<int, string> AnimationStates => _animationStates;
 
     private event Func<bool> TransitionCheck;
 
+    #region Unity Lifecycle Methods
     protected override void Awake()
     {
         base.Awake();
@@ -98,10 +99,11 @@ public class PCAnimation : Entity
             for (int i = 0; i < _animationClips.Count; i++)
                 _animationStates.Add(Animator.StringToHash(_animationClips[i].name), _animationClips[i].name);
     }
+    #endregion
 
     private bool OnTransitionCheck()
     {
-        if (inCutscene)
+        if (_inCutscene)
             return false;
 
         if (_isGrounded && !_isCurrentlyMoving)
@@ -119,6 +121,7 @@ public class PCAnimation : Entity
         return false;
     }
 
+    #region Condition Change Event Methods
     private void OnGroundedStateChanged(object[] args)
     {
         if (args[0] is bool isGrounded && isGrounded != _isGrounded)
@@ -156,6 +159,7 @@ public class PCAnimation : Entity
             TransitionCheck?.Invoke();
         }
     }
+    #endregion
 
     public bool SetAnimationState(int layerIndex, string animationState, float normalizedTransitionDuration = 0.0f, float normalizedTimeOffset = 0.0f, float normalizedTransitionTime = 0.0f)
     {
