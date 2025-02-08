@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4466904009011381815}
+  - component: {fileID: 4989310094783604695}
   - component: {fileID: 72796491558293311}
   m_Layer: 0
   m_Name: SM_Electricity
@@ -34,6 +35,21 @@ Transform:
   - {fileID: 6477743169869413022}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4989310094783604695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9097386060529620431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17968903f72a8274ba27278efea47a9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _triggers:
+  - _monoBehaviourInstance: {fileID: 841529481812926937}
+  _doorAnimation: {fileID: 72796491558293311}
 --- !u!114 &72796491558293311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,6 +189,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f53440108cdee6e469af8fa4616f73f0, type: 3}
+--- !u!114 &841529481812926937 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6562034637499148932, guid: f53440108cdee6e469af8fa4616f73f0, type: 3}
+  m_PrefabInstance: {fileID: 5817719598451542877}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3713178691943926599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd72c0c59656fbe4ea926bebfd6f969b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3713178691943926599 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7150429223131693082, guid: f53440108cdee6e469af8fa4616f73f0, type: 3}

@@ -2008,7 +2008,7 @@ MonoBehaviour:
   _ignoredLayerMasks:
     serializedVersion: 2
     m_Bits: 54
-  _maxTargetsToSearch: 10
+  _maxTargetsToSearch: 50
   _sphereCastRadius: 0.2
   _sphereCastDistance: 1.6
   _targetThreshold: 0.9
@@ -2682,6 +2682,7 @@ MonoBehaviour:
   _idleTransitionDuration: 0.1
   _walkTransitionDuration: 0.05
   _runTransitionDuration: 0.07
+  _inCutscene: 1
 --- !u!114 &7080901479591120677
 MonoBehaviour:
   m_ObjectHideFlags: 0

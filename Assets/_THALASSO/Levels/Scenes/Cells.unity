@@ -5973,20 +5973,58 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2611142090156394672, guid: 6cafbdc66007702479265f4cce9a8e1b, type: 3}
+      propertyPath: isLocked
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2771182048826141610, guid: 6cafbdc66007702479265f4cce9a8e1b, type: 3}
       propertyPath: m_Name
       value: Outer_Door
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8861648116531926516, guid: 6cafbdc66007702479265f4cce9a8e1b, type: 3}
+      propertyPath: _triggers.Array.data[1]._monoBehaviourInstance
+      value: 
+      objectReference: {fileID: 1954509887}
+    m_RemovedComponents:
+    - {fileID: 3432760953013467701, guid: 6cafbdc66007702479265f4cce9a8e1b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2470625211961263278, guid: 6cafbdc66007702479265f4cce9a8e1b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1954509887}
   m_SourcePrefab: {fileID: 100100000, guid: 6cafbdc66007702479265f4cce9a8e1b, type: 3}
 --- !u!4 &1954509884 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2048561956328797334, guid: 6cafbdc66007702479265f4cce9a8e1b, type: 3}
   m_PrefabInstance: {fileID: 1954509883}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1954509885 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2470625211961263278, guid: 6cafbdc66007702479265f4cce9a8e1b, type: 3}
+  m_PrefabInstance: {fileID: 1954509883}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1954509886 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 7509662496363356636, guid: 6cafbdc66007702479265f4cce9a8e1b, type: 3}
+  m_PrefabInstance: {fileID: 1954509883}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1954509887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1954509885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 046e836fba0ff5d4c994ea8a96c7414c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isTriggerable: 0
+  _collider: {fileID: 1954509886}
+  _progressionTracker: {fileID: 11400000, guid: 89803b6ece5f2424782a7f1907d062e6, type: 2}
+  _triggerMessage: 
 --- !u!1001 &1975936413
 PrefabInstance:
   m_ObjectHideFlags: 0

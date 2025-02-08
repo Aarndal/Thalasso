@@ -23,6 +23,9 @@ public class InteractiveDiscoBall : MonoBehaviour, IAmInteractive, IAmMovable
 
     private void Awake()
     {
+        if (LayerMask.LayerToName(gameObject.layer) != "InteractiveObject" && LayerMask.NameToLayer("InteractiveObject") == 20)
+            gameObject.layer = LayerMask.NameToLayer("InteractiveObject");
+
         _rigidbody = GetComponent<Rigidbody>();
         this.GetComponent<MeshRenderer>().material.color = UnityEngine.Random.ColorHSV(0.0f, 1.0f, 0.75f, 1.0f, 0.5f, 1.0f);
     }
