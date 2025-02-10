@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
 [CreateAssetMenu(fileName = "NewGameInputReader", menuName = "Scriptable Objects/GameInputReader")]
-public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, GameInput.IUIActions
+public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, GameInput.IUIActions, GameInput.ICutsceneActions
 {
     // Player Actions
     public event Action<Vector2> MoveInputHasChanged;
@@ -17,6 +17,9 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
 
     // UI Actions
     // ...
+
+    // Cutscene Actions
+    public event Action SkipIsTriggered;
 
     [SerializeField]
     private InputActionMap _defaultActionMap;
@@ -104,6 +107,7 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
 
             _gameInput.Player.SetCallbacks(this);
             _gameInput.UI.SetCallbacks(this);
+            _gameInput.Cutscene.SetCallbacks(this);
 
             _defaultActionMap = _actionMaps[0];
         }
@@ -286,6 +290,12 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
     public void OnZoom(InputAction.CallbackContext context)
     {
         //throw new NotImplementedException();
+    }
+
+    public void OnSkip(InputAction.CallbackContext context)
+    {
+        if (SkipIsTriggered is not null && context.performed)
+            SkipIsTriggered.Invoke();
     }
     #endregion
 
