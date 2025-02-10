@@ -12,7 +12,6 @@ public class StartCutscene : MonoBehaviour
     private GameObject startCutsceneCanvas;
 
     private CinemachineBrain cinemachineBrain;
-    private PCAnimation pCAnimation;
 
     private void OnEnable()
     {
@@ -45,34 +44,25 @@ public class StartCutscene : MonoBehaviour
     }
     private IEnumerator PerformCutsceneSkipWithFade()
     {
-        Debug.Log("StartSkip");
         yield return FadeOut();
 
-        Debug.Log("StartProcessing");
         ProcessCutsceneSkip();
         OnCutsceneEnd();
-        Debug.Log("EndProcessing");
 
         yield return FadeIn();
-        Debug.Log("EndSkip");
     }
 
     private void ProcessCutsceneSkip()
     {
-        Debug.Log("StartProcessing");
         Animator eyeAnimator = startCutsceneCanvas.GetComponentInChildren<Animator>();
-        GameObject skipInfoText = startCutsceneCanvas.GetComponentInChildren<TextMeshProUGUI>().gameObject;
 
-        if (eyeAnimator == null || skipInfoText == null)
+        if (eyeAnimator == null)
             return;
 
         AnimatorStateInfo stateInfo = eyeAnimator.GetCurrentAnimatorStateInfo(0);
         eyeAnimator.Play(stateInfo.fullPathHash, -1, 1f);
         eyeAnimator.Update(0);
         eyeAnimator.enabled = false;
-
-        skipInfoText.SetActive(false);
-
     }
 
     public void OnCutsceneEnd()
@@ -84,20 +74,24 @@ public class StartCutscene : MonoBehaviour
         cinemachineBrain.enabled = true;
         cinemachineBrain.gameObject.GetComponent<Animator>().enabled = false;
         _input.SwitchCurrentActionMapTo("Player");
+
+        GameObject skipInfoText = startCutsceneCanvas.GetComponentInChildren<TextMeshProUGUI>().gameObject;
+        skipInfoText.SetActive(false);
+
+        startCutsceneCanvas.SetActive(false);
+        this.enabled = false;
     }
 
 
     #region SmoothAnimation
     private IEnumerator FadeOut()
     {
-        Debug.Log("StartFadeOut");
         if (fadeImage != null)
         {
             fadeImage.gameObject.SetActive(true);
             float t = 0;
             while (t < fadeDuration)
             {
-                Debug.Log("DuringFadeOut");
                 t += Time.deltaTime;
                 fadeImage.color = new Color(0, 0, 0, t / fadeDuration);
                 yield return null;
@@ -105,18 +99,15 @@ public class StartCutscene : MonoBehaviour
             fadeImage.color = new Color(0, 0, 0, 1);
 
         }
-        Debug.Log("EndFadeOut");
     }
 
     private IEnumerator FadeIn()
     {
-        Debug.Log("StartFadeIn");
         if (fadeImage != null)
         {
             float t = fadeDuration;
             while (t > 0)
             {
-                Debug.Log("DuringFadeIn");
                 t -= Time.deltaTime;
                 fadeImage.color = new Color(0, 0, 0, t / fadeDuration);
                 yield return null;
@@ -124,7 +115,6 @@ public class StartCutscene : MonoBehaviour
             fadeImage.color = new Color(0, 0, 0, 0);
             fadeImage.gameObject.SetActive(false);
         }
-        Debug.Log("EndFadeIn");
     }
     #endregion
 }
