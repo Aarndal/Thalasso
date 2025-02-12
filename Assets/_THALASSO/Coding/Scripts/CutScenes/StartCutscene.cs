@@ -78,7 +78,6 @@ public class StartCutscene : MonoBehaviour
         GameObject skipInfoText = startCutsceneCanvas.GetComponentInChildren<TextMeshProUGUI>().gameObject;
         skipInfoText.SetActive(false);
 
-        startCutsceneCanvas.SetActive(false);
         this.enabled = false;
     }
 
@@ -97,7 +96,6 @@ public class StartCutscene : MonoBehaviour
                 yield return null;
             }
             fadeImage.color = new Color(0, 0, 0, 1);
-
         }
     }
 

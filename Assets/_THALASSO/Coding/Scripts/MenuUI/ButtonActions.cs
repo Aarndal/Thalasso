@@ -15,7 +15,6 @@ public class ButtonActions : MonoBehaviour
 
     [HideInInspector] public GameObject pauseMenuToggle;
 
-    private InputActionMap _previousActionMap;
 
     private void Awake()
     {
@@ -30,7 +29,6 @@ public class ButtonActions : MonoBehaviour
 
     private void Start()
     {
-        _previousActionMap = _input.CurrentActionMap;
 
         if (fadeImage != null && useFade)
         {
@@ -73,13 +71,12 @@ public class ButtonActions : MonoBehaviour
         if (_input.IsPauseActive)
         {
             pauseMenuToggle.SetActive(true);
-            _previousActionMap = _input.CurrentActionMap;
             _input.SwitchCurrentActionMapTo("UI"); // Switch to UI ActionMap and disable any other Action Map.
         }
         else
         {
             pauseMenuToggle.SetActive(false);
-            _input.SwitchCurrentActionMapTo(_previousActionMap.name); // Switch to previous ActionMap before Pause and disable any other Action Map.
+            _input.SwitchCurrentActionMapTo(_input.PreviousActionMap.name); // Switch to previous ActionMap before Pause and disable any other Action Map.
         }
     }
 
@@ -100,6 +97,7 @@ public class ButtonActions : MonoBehaviour
         }
         else
         {
+            _input.IsPauseActive = false;
             _input.SwitchCurrentActionMapTo("UI"); // Switch to UI ActionMap and disable any other Action Map
         }
 

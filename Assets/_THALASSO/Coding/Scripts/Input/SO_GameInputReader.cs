@@ -33,6 +33,7 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
     private GameInput _gameInput = default;
     private ReadOnlyArray<InputActionMap> _actionMaps;
     private InputActionMap _currentActionMap;
+    private InputActionMap _previousActionMap;
 
     // Debug Member Values
     private bool _isMoveTriggered = false;
@@ -46,6 +47,7 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
     public ReadOnlyArray<InputControlScheme> ControlSchemes { get => _gameInput.controlSchemes; }
     public readonly Dictionary<int, InputActionMap> ActionMaps = new();
     public InputActionMap CurrentActionMap { get => _currentActionMap; }
+    public InputActionMap PreviousActionMap { get => _previousActionMap; }
     public bool IsXLookInputInverted { get => _invertXLookInput; private set => _invertXLookInput = value; }
     public bool IsYLookInputInverted { get => _invertYLookInput; private set => _invertYLookInput = value; }
     public bool IsMoveTriggered
@@ -155,6 +157,8 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
             return false;
         }
 
+        _previousActionMap = _currentActionMap;
+
         foreach (var actionMap in _actionMaps)
         {
             if (actionMap.name == actionMapName && _currentActionMap.name != actionMapName)
@@ -162,6 +166,7 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
                 _currentActionMap.Disable();
                 actionMap.Enable();
                 _currentActionMap = actionMap;
+                Debug.Log(_currentActionMap);
                 return true;
             }
         }
