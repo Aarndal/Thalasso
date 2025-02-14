@@ -144,34 +144,34 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
             SetCursorSettings(false, CursorLockMode.Locked);
     }
 
-    public bool SwitchCurrentActionMapTo(string actionMapName)
+    public bool SwitchCurrentActionMapTo(string newActionMapName)
     {
-        if (actionMapName == "UI")
+        if (newActionMapName == "UI")
             SetCursorSettings(true, CursorLockMode.Confined);
         else
             SetCursorSettings(false, CursorLockMode.Locked);
 
-        if (actionMapName == _currentActionMap.name)
+        _previousActionMap = _currentActionMap;
+
+        if (newActionMapName == _currentActionMap.name)
         {
-            Debug.LogWarningFormat("Action map with name <color=yellow>'{0}'</color> in <color=cyan>'{1}'</color> is already active!", actionMapName, _gameInput.asset.name);
+            Debug.LogWarningFormat("Action map with name <color=yellow>'{0}'</color> in <color=cyan>'{1}'</color> is already active!", newActionMapName, _gameInput.asset.name);
             return false;
         }
 
-        _previousActionMap = _currentActionMap;
 
-        foreach (var actionMap in _actionMaps)
+        foreach (var newActionMap in _actionMaps)
         {
-            if (actionMap.name == actionMapName && _currentActionMap.name != actionMapName)
+            if (newActionMap.name == newActionMapName && _currentActionMap.name != newActionMapName)
             {
                 _currentActionMap.Disable();
-                actionMap.Enable();
-                _currentActionMap = actionMap;
-                Debug.Log(_currentActionMap);
+                newActionMap.Enable();
+                _currentActionMap = newActionMap;
                 return true;
             }
         }
 
-        Debug.LogErrorFormat("Cannot find action map with name <color=red>'{0}'</color> in <color=cyan>'{1}'</color>.", actionMapName, _gameInput.asset.name);
+        Debug.LogErrorFormat("Cannot find action map with name <color=red>'{0}'</color> in <color=cyan>'{1}'</color>.", newActionMapName, _gameInput.asset.name);
         return false;
     }
 
