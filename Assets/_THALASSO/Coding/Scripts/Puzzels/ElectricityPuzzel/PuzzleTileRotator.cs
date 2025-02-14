@@ -37,7 +37,7 @@ public class PuzzleTileRotator : MonoBehaviour
         isRotating = false;
 
         curRotation += _rotationAngle;
-        if (curRotation > 360 || curRotation < -360)
+        if (curRotation >= 360 || curRotation <= -360)
             curRotation = 0;
 
         tileWasUpdated.Invoke(this.gameObject);
