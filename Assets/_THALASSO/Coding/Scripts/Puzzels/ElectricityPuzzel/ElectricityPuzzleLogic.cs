@@ -11,6 +11,7 @@ public class ElectricityPuzzleLogic : SolvableObjectBase
     [SerializeField] private GameObject[] tileFieldInput;
     [SerializeField] private GameObject[] differentTileTypes;
     [SerializeField] private ElectricityPuzzelTileTypeConnections differentTileTypeConnections;
+    [SerializeField] private ElectricityPuzzlePrefab[] layoutPrefabs;
 
     [SerializeField] private GameObject doorLockLid;
     [SerializeField] private Transform doorLockLidRotationPoint;
@@ -22,6 +23,7 @@ public class ElectricityPuzzleLogic : SolvableObjectBase
     private GameObject buttonUICanvas;
     private int failBuffer = 0;
     private System.Random rnd = new();
+    private ElectricityPuzzlePrefab ativeLayoutPrefab;
 
     private GameObject[,] tileField = new GameObject[5, 3];
     private Button[] tileFieldButtonsInput;
@@ -38,14 +40,15 @@ public class ElectricityPuzzleLogic : SolvableObjectBase
 
     private void Start()
     {
+        RandomizeActiveLayoutPrefab();
         SetupTileInput();
 
         startTile = tileField[0, 0];
         endTile = tileField[4, 2];
 
-        GenerateNewLayout();
         OnFieldGotUpdate(tileField[0, 0]);
     }
+
 
     private void OnDestroy()
     {
@@ -66,6 +69,11 @@ public class ElectricityPuzzleLogic : SolvableObjectBase
     public void StartPuzzle()
     {
         StartCoroutine(TransformTransitionSystem.Instance.TransitionRot(doorLockLid, doorLockLidRotationPoint.rotation, transitionduration, animationSpeedCurve, null, null));
+    }
+
+    private void RandomizeActiveLayoutPrefab()
+    {
+        ativeLayoutPrefab = layoutPrefabs[rnd.Next(layoutPrefabs.Length)];
     }
 
     private void SetupTileInput()
@@ -97,6 +105,7 @@ public class ElectricityPuzzleLogic : SolvableObjectBase
                 if (index < tileFieldInput.Length)
                 {
                     tileField[row, col] = tileFieldInput[index];
+                    SetNewTileType(tileField[row, col], ativeLayoutPrefab.TileTypeOrder[index]);
                     if (tileFieldInput[index] != null)
                     {
                         if (tileFieldInput[index].TryGetComponent<PuzzleTileRotator>(out var rotator))
@@ -117,24 +126,32 @@ public class ElectricityPuzzleLogic : SolvableObjectBase
             }
         }
     }
+    private void SetNewTileType(GameObject _tileObject, int _tileTypeIndice)
+    {
 
-    private void GenerateNewLayout()
+        GameObject newTileType = differentTileTypes[_tileTypeIndice];
+
+        _tileObject.GetComponent<MeshFilter>().mesh = newTileType.GetComponent<MeshFilter>().sharedMesh;
+        _tileObject.name = newTileType.name;
+    }
+
+    #region OldLogicWithBugs
+    private void GenerateNewLayoutOld()
     {
         connectiongTiles.Clear();
         connectiongTiles.Add(ObjToPos(startTile));
         failBuffer = 0;
 
-        ChooseNextTile(startTile);
-        BuildPathWithTiles();
-        CompleteRestOfTiles();
+        ChooseNextTileOld(startTile);
+        BuildPathWithTilesOld();
+        CompleteRestOfTilesOld();
     }
 
-
-    private void ChooseNextTile(GameObject curTile)
+    private void ChooseNextTileOld(GameObject curTile)
     {
         if (connectiongTiles.Count == 0 || failBuffer > 50)
         {
-            GenerateNewLayout();
+            GenerateNewLayoutOld();
             return;
         }
 
@@ -144,12 +161,12 @@ public class ElectricityPuzzleLogic : SolvableObjectBase
         {
             if (curTile == startTile)
             {
-                GenerateNewLayout();
+                GenerateNewLayoutOld();
                 return;
             }
             failBuffer++;
             connectiongTiles.RemoveAt(connectiongTiles.Count - 1);
-            ChooseNextTile(PosToObj(connectiongTiles[connectiongTiles.Count - 1]));
+            ChooseNextTileOld(PosToObj(connectiongTiles[connectiongTiles.Count - 1]));
             return;
         }
 
@@ -161,10 +178,10 @@ public class ElectricityPuzzleLogic : SolvableObjectBase
             return;
         }
 
-        ChooseNextTile(newTile);
+        ChooseNextTileOld(newTile);
     }
 
-    private void BuildPathWithTiles()
+    private void BuildPathWithTilesOld()
     {
         for (int i = 0; i < connectiongTiles.Count; i++)
         {
@@ -185,11 +202,11 @@ public class ElectricityPuzzleLogic : SolvableObjectBase
                 neededDirection.Add(GetConnectionDirection(PosToObj(connectiongTiles[i]), PosToObj(connectiongTiles[i - 1])));
             }
 
-            ChooseTileBasedOnRequirements(PosToObj(connectiongTiles[i]), neededDirection.ToArray());
+            ChooseTileBasedOnRequirementsOld(PosToObj(connectiongTiles[i]), neededDirection.ToArray());
         }
     }
 
-    private void ChooseTileBasedOnRequirements(GameObject _tileObject, Directions[] _requiredDirections)
+    private void ChooseTileBasedOnRequirementsOld(GameObject _tileObject, Directions[] _requiredDirections)
     {
         int directionOneValue = (int)_requiredDirections[0];
         int directionTwoValue = (int)_requiredDirections[1];
@@ -208,23 +225,23 @@ public class ElectricityPuzzleLogic : SolvableObjectBase
         {
             case 1:
                 {
-                    SetNewTileType(_tileObject, new int[] { 2, 3 });
+                    SetNewTileTypeOld(_tileObject, new int[] { 2, 3 });
                     break;
                 }
             case 2:
                 {
-                    SetNewTileType(_tileObject, new int[] { 1, 4 });
+                    SetNewTileTypeOld(_tileObject, new int[] { 1, 4 });
                     break;
                 }
             case 3:
                 {
-                    SetNewTileType(_tileObject, new int[] { 0 });
+                    SetNewTileTypeOld(_tileObject, new int[] { 0 });
                     break;
                 }
         }
     }
 
-    private void SetNewTileType(GameObject _tileObject, int[] _tileTypeIndices)
+    private void SetNewTileTypeOld(GameObject _tileObject, int[] _tileTypeIndices)
     {
         int randomSelection = rnd.Next(_tileTypeIndices.Length);
 
@@ -234,7 +251,7 @@ public class ElectricityPuzzleLogic : SolvableObjectBase
         _tileObject.name = newTileType.name;
     }
 
-    private void CompleteRestOfTiles()
+    private void CompleteRestOfTilesOld()
     {
         for (int row = 0; row < tileField.GetLength(0); row++)
         {
@@ -253,6 +270,7 @@ public class ElectricityPuzzleLogic : SolvableObjectBase
             }
         }
     }
+#endregion
 
     public void OnFieldGotUpdate(GameObject _updatedTile)
     {
