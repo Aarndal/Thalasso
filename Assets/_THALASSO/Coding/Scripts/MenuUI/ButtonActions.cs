@@ -95,6 +95,10 @@ public class ButtonActions : MonoBehaviour
         {
             _input.SwitchCurrentActionMapTo("Player"); // Switch to Player ActionMap and disable any other Action Map
         }
+        else if (sceneId == 2) //Credits
+        {
+            _input.SwitchCurrentActionMapTo("Cutscene"); // Switch to UI ActionMap and disable any other Action Map
+        }
         else
         {
             _input.IsPauseActive = false;
