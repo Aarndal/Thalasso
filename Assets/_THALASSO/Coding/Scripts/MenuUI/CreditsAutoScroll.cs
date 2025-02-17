@@ -3,10 +3,13 @@ using UnityEngine.UI;
 
 public class CreditsAutoScroll : MonoBehaviour
 {
-    [SerializeField] private float scrollSpeed = 0.1f;
+    [SerializeField] private float scrollDuration = 20f;
+    [SerializeField] private AnimationCurve scrollCurve;
+    [SerializeField] private float timeToSwitchAtEnd = 1.5f;
     [SerializeField] private SO_GameInputReader _input;
     private ButtonActions buttonActions;
     private ScrollRect scrollRect;
+    private float elapsedTime = 0f;
 
     private void Start()
     {
@@ -27,6 +30,17 @@ public class CreditsAutoScroll : MonoBehaviour
 
     void Update()
     {
-        scrollRect.verticalNormalizedPosition -= scrollSpeed * Time.deltaTime;
+        elapsedTime += Time.deltaTime;
+        if (elapsedTime < scrollDuration)
+        {
+            
+            float t = elapsedTime / scrollDuration;
+            float curveValue = scrollCurve.Evaluate(t);
+            scrollRect.verticalNormalizedPosition = Mathf.Lerp(1, 0, curveValue);
+        }
+        else if( elapsedTime > scrollDuration + 1)
+        {
+            OnSkipCutScene();
+        }
     }
 }
