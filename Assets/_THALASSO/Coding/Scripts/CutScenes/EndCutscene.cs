@@ -1,3 +1,4 @@
+using ProgressionTracking;
 using System.Collections;
 using TMPro;
 using Unity.Cinemachine;
@@ -6,6 +7,7 @@ using UnityEngine;
 public class EndCutscene : MonoBehaviour
 {
     [SerializeField] private SO_GameInputReader _input;
+    [SerializeField] private SO_SolvableData progressInfoObject;
     [SerializeField] private Transform cutscneeCamTransform;
     [SerializeField] private DoorAnimation escapePodDoor;
     [SerializeField] private float camTransitionDurations = 1f;
@@ -24,10 +26,22 @@ public class EndCutscene : MonoBehaviour
 
         if (playerBody == null)
             playerBody = GameObject.FindGameObjectWithTag("PlayerBody");
+
+        progressInfoObject.ValueChanged += CheckProgressionUpdate;
     }
+
+    private void CheckProgressionUpdate(uint _id, bool _isSolved)
+    {
+        if(_isSolved)
+        {
+            GetComponent<Animator>().enabled = true;
+        }
+    }
+
     private void OnDisable()
     {
         _input.SkipIsTriggered -= OnSkipCutScene;
+        progressInfoObject.ValueChanged -= CheckProgressionUpdate;
     }
     private void Start()
     {
