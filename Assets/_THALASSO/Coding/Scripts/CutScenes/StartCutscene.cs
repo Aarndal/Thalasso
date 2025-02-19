@@ -9,17 +9,17 @@ public class StartCutscene : MonoBehaviour
     [SerializeField] private SO_GameInputReader _input;
     [SerializeField] private Image fadeImage;
     [SerializeField] private float fadeDuration = 1f;
-    private GameObject startCutsceneCanvas;
+    private GameObject cutsceneCanvas;
 
     private CinemachineBrain cinemachineBrain;
 
     private void OnEnable()
     {
-        if (startCutsceneCanvas == null)
-            startCutsceneCanvas = GameObject.Find("StartCutsceneCanvas");
+        if (cutsceneCanvas == null)
+            cutsceneCanvas = GameObject.Find("CutsceneCanvas");
 
-        if (fadeImage == null && startCutsceneCanvas != null)
-            fadeImage = startCutsceneCanvas.GetComponentInChildren<Image>();
+        if (fadeImage == null && cutsceneCanvas != null)
+            fadeImage = cutsceneCanvas.GetComponentInChildren<Image>();
 
         _input.SkipIsTriggered += OnSkipCutScene;
     }
@@ -54,7 +54,7 @@ public class StartCutscene : MonoBehaviour
 
     private void ProcessCutsceneSkip()
     {
-        Animator eyeAnimator = startCutsceneCanvas.GetComponentInChildren<Animator>();
+        Animator eyeAnimator = cutsceneCanvas.GetComponentInChildren<Animator>();
 
         if (eyeAnimator == null)
             return;
@@ -75,7 +75,7 @@ public class StartCutscene : MonoBehaviour
         cinemachineBrain.gameObject.GetComponent<Animator>().enabled = false;
         _input.SwitchCurrentActionMapTo("Player");
 
-        GameObject skipInfoText = startCutsceneCanvas.GetComponentInChildren<TextMeshProUGUI>().gameObject;
+        GameObject skipInfoText = cutsceneCanvas.GetComponentInChildren<TextMeshProUGUI>().gameObject;
         skipInfoText.SetActive(false);
 
         this.enabled = false;
