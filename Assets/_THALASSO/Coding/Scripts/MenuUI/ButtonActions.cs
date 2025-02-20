@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -18,8 +19,16 @@ public class ButtonActions : MonoBehaviour
 
     private void Awake()
     {
-        if (SceneManager.GetActiveScene().buildIndex == 0)
-            _input.SwitchCurrentActionMapTo("UI"); // Switch to UI ActionMap and disable any other Action Map
+        int curSceneId = SceneManager.GetActiveScene().buildIndex;
+
+        if (curSceneId == 0) //mainGame
+        {
+            _input.SwitchCurrentActionMapTo("UI"); 
+        }
+        else if (curSceneId == 2) //Credits
+        {
+            _input.SwitchCurrentActionMapTo("Cutscene"); 
+        }
     }
 
     private void OnEnable()
@@ -91,11 +100,7 @@ public class ButtonActions : MonoBehaviour
     #region SceneLoadingButtonActions
     public void LoadScene(int sceneId)
     {
-        if (sceneId == 3) //mainGame
-        {
-            _input.SwitchCurrentActionMapTo("Player"); // Switch to Player ActionMap and disable any other Action Map
-        }
-        else if (sceneId == 2) //Credits
+        if (sceneId == 2) //Credits
         {
             _input.SwitchCurrentActionMapTo("Cutscene"); // Switch to UI ActionMap and disable any other Action Map
         }

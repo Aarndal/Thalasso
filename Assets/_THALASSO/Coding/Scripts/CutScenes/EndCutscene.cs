@@ -12,17 +12,17 @@ public class EndCutscene : MonoBehaviour
     [SerializeField] private DoorAnimation escapePodDoor;
     [SerializeField] private float camTransitionDurations = 1f;
     private GameObject playerBody;
-    private GameObject endCutsceneCanvas;
+    private GameObject cutsceneCanvas;
     private ButtonActions buttonActions;
     private CinemachineCamera cinemachineCamera;
 
     private void OnEnable()
     {
-        if (endCutsceneCanvas == null)
-            endCutsceneCanvas = GameObject.Find("EndCutsceneCanvas");
+        if (cutsceneCanvas == null)
+            cutsceneCanvas = GameObject.Find("CutsceneCanvas");
 
         if (buttonActions == null)
-            buttonActions = endCutsceneCanvas.GetComponent<ButtonActions>();
+            buttonActions = cutsceneCanvas.GetComponent<ButtonActions>();
 
         if (playerBody == null)
             playerBody = GameObject.FindGameObjectWithTag("PlayerBody");
@@ -54,6 +54,12 @@ public class EndCutscene : MonoBehaviour
         StartCoroutine(TransformTransitionSystem.Instance.TransitionPosRot(Camera.main.gameObject, cutscneeCamTransform, camTransitionDurations, null, 
             () =>
             {
+                PCAnimation pCAnimation = FindAnyObjectByType<PCAnimation>();
+                pCAnimation._inCutscene = false;
+
+                GameObject skipInfoText = cutsceneCanvas.GetComponentInChildren<TextMeshProUGUI>().gameObject;
+                skipInfoText.SetActive(true);
+
                 playerBody.SetActive(false);
                 _input.SwitchCurrentActionMapTo("Cutscene");
                 cinemachineCamera.enabled = false;

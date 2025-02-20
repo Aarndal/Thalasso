@@ -208,6 +208,7 @@ GameObject:
   - component: {fileID: 9082369004904279641}
   - component: {fileID: 281541194984934361}
   - component: {fileID: 173883180693996390}
+  - component: {fileID: 3858863287513763546}
   m_Layer: 5
   m_Name: StartCutsceneCanvas
   m_TagString: Untagged
@@ -300,6 +301,23 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &3858863287513763546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4462108285470819433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6483677002d91ac48b4e3e8bcb10ad50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _input: {fileID: 11400000, guid: bcec874ef13692e4d84d8d005895f237, type: 2}
+  useFade: 1
+  fadeImage: {fileID: 303713052259414075}
+  fadeDuration: 0.5
+  pauseMenuToggle: {fileID: 0}
 --- !u!1 &7153969959098409307
 GameObject:
   m_ObjectHideFlags: 0
