@@ -316,69 +316,44 @@ public class ElectricityPuzzleLogic : SolvableObjectBase
                 DeactivateTile(_updatedTile);
             }
         }
-        else if (_updatedTile == endTile)
-        {
-            GameObject previousTile = PosToObj(activeTiles.Last());
-            if ((!activeTiles.Contains(ObjToPos(_updatedTile)) && _updatedTile == nextTile) || previousTile == nextTile)
-            {
-                if (OriginHasConnectionToTarget(_updatedTile, previousTile))
-                {
-
-                    nextTile = GetNextTileInCircuit(_updatedTile, relativeDirections, previousTile);
-
-                    activeTiles.Add(ObjToPos(_updatedTile));
-                    _updatedTile.GetComponent<MeshRenderer>().material.color = Color.green;                 //temp visuals
-
-
-                    if (nextTile != null)
-                        ProcessTileFieldUpdate(nextTile);
-
-                    if (relativeDirections.Contains(Directions.D))
-                    {
-                        Solve();
-                    }
-                }
-            }
-            else if (activeTiles.Contains(ObjToPos(_updatedTile)) && _updatedTile == nextTile)
-            {
-                nextTile = null;
-            }
-            else
-            {
-                DeactivateTile(_updatedTile);
-            }
-        }
         else
         {
             GameObject previousTile = PosToObj(activeTiles.Last());
-            if ((!activeTiles.Contains(ObjToPos(_updatedTile)) && _updatedTile == nextTile) || previousTile == nextTile)
+            if ((!activeTiles.Contains(ObjToPos(_updatedTile)) && _updatedTile == nextTile) || previousTile == _updatedTile)
             {
+                if (previousTile == _updatedTile)
+                    previousTile = PosToObj(activeTiles[activeTiles.Count - 2]);
+
                 if (OriginHasConnectionToTarget(_updatedTile, previousTile))
                 {
+                    if (!activeTiles.Contains(ObjToPos(_updatedTile)))
+                    {
+                        activeTiles.Add(ObjToPos(_updatedTile));
+                        _updatedTile.GetComponent<MeshRenderer>().material.color = Color.green;                 //temp visuals
+                    }
+
 
                     nextTile = GetNextTileInCircuit(_updatedTile, relativeDirections, previousTile);
-
-                    activeTiles.Add(ObjToPos(_updatedTile));
-                    _updatedTile.GetComponent<MeshRenderer>().material.color = Color.green;                 //temp visuals
-
 
                     if (nextTile != null)
                         ProcessTileFieldUpdate(nextTile);
 
-                    if (relativeDirections.Contains(Directions.D))
+                    if (relativeDirections.Contains(Directions.D) && _updatedTile == endTile)
                     {
                         Solve();
                     }
+
+                    return;
                 }
             }
             else if (activeTiles.Contains(ObjToPos(_updatedTile)) && _updatedTile == nextTile)
             {
                 nextTile = null;
+                return;
             }
-            else
-            {
-                DeactivateTile(_updatedTile);
-            }
+
+            DeactivateTile(_updatedTile);
+
         }
 
 
@@ -386,20 +361,22 @@ public class ElectricityPuzzleLogic : SolvableObjectBase
 
     private void DeactivateTile(GameObject _tileToDeactivate)
     {
-        if(_tileToDeactivate == null)
+        if (_tileToDeactivate == null)
         {
             return;
         }
         if (activeTiles.Contains(ObjToPos(_tileToDeactivate)))
         {
-            _tileToDeactivate.GetComponent<MeshRenderer>().material.color = Color.red;
             int index = activeTiles.IndexOf(ObjToPos(_tileToDeactivate));
-            activeTiles.RemoveAt(index);
-
-            if(index + 1 < activeTiles.Count)
+            if (index + 1 < activeTiles.Count)
             {
                 DeactivateTile(PosToObj(activeTiles[index + 1]));
             }
+
+            _tileToDeactivate.GetComponent<MeshRenderer>().material.color = Color.red;
+            activeTiles.RemoveAt(index);
+
+            nextTile = _tileToDeactivate;
         }
     }
 
