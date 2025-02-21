@@ -107,6 +107,10 @@ public class ElectricityPuzzleLogic : SolvableObjectBase
                     {
                         if (tileFieldInput[index].TryGetComponent<PuzzleTileRotator>(out var rotator))
                         {
+                            for (int i = 0; i < rnd.Next(5); i++)
+                            {
+                                rotator.InstantRotateForSetup();
+                            }
                             tileFieldButtonsInput[index].onClick.AddListener(rotator.OnRotateClick);
                         }
                         else
