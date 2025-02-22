@@ -15,6 +15,7 @@ public class EndCutscene : MonoBehaviour
     private GameObject cutsceneCanvas;
     private ButtonActions buttonActions;
     private CinemachineCamera cinemachineCamera;
+    private GameObject skipInfoText;
 
     private void OnEnable()
     {
@@ -47,6 +48,7 @@ public class EndCutscene : MonoBehaviour
     {
         cutscneeCamTransform.gameObject.SetActive(false);
         cinemachineCamera = FindAnyObjectByType<CinemachineCamera>();
+        skipInfoText = cutsceneCanvas.GetComponentInChildren<TextMeshProUGUI>().gameObject;
     }
     private void TransitionCamForEndcut()
     {
@@ -57,7 +59,6 @@ public class EndCutscene : MonoBehaviour
                 PCAnimation pCAnimation = FindAnyObjectByType<PCAnimation>();
                 pCAnimation._inCutscene = false;
 
-                GameObject skipInfoText = cutsceneCanvas.GetComponentInChildren<TextMeshProUGUI>().gameObject;
                 skipInfoText.SetActive(true);
 
                 playerBody.SetActive(false);
