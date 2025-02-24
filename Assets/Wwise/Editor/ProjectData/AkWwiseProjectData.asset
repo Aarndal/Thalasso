@@ -418,7 +418,7 @@ MonoBehaviour:
     ParentPath: Events\Default Work Unit
     guid: a73c7a02b02f814caa08ff6be5823e65
     GuidInternal: 
-    m_lastTime: -8584611919799402187
+    m_lastTime: -8584611891989696397
     List:
     - name: Ambience_First_Time_Monster
       guid: 9284d8823fc8e6468a7d581d2dd4238e
@@ -480,46 +480,6 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
-    - name: Door_Closing
-      guid: 192f67e6cf8db145ae3ad50dddb560ce
-      id: 1591781701
-      PathAndIcons:
-      - ElementName: Events
-        ObjectType: 5
-        guid: 00000000000000000000000000000000
-      - ElementName: Default Work Unit
-        ObjectType: 12
-        guid: a73c7a02b02f814caa08ff6be5823e65
-      - ElementName: PlayerSounds
-        ObjectType: 4
-        guid: 1e79cc6510d6214d8453cc6ec06f3599
-      - ElementName: Door_Closing
-        ObjectType: 3
-        guid: 192f67e6cf8db145ae3ad50dddb560ce
-      Path: Events\Default Work Unit\PlayerSounds\Door_Closing
-      maxAttenuation: 0
-      maxDuration: 0
-      minDuration: 0
-    - name: Door_Opening
-      guid: 91e93c347dacc04b8bbb9a25099a3401
-      id: 2589897592
-      PathAndIcons:
-      - ElementName: Events
-        ObjectType: 5
-        guid: 00000000000000000000000000000000
-      - ElementName: Default Work Unit
-        ObjectType: 12
-        guid: a73c7a02b02f814caa08ff6be5823e65
-      - ElementName: PlayerSounds
-        ObjectType: 4
-        guid: 1e79cc6510d6214d8453cc6ec06f3599
-      - ElementName: Door_Opening
-        ObjectType: 3
-        guid: 91e93c347dacc04b8bbb9a25099a3401
-      Path: Events\Default Work Unit\PlayerSounds\Door_Opening
-      maxAttenuation: 0
-      maxDuration: 0
-      minDuration: 0
     - name: DoorOpen
       guid: 6ba5f69d5250094288205d926f45f22c
       id: 1404805401
@@ -538,8 +498,8 @@ MonoBehaviour:
         guid: 6ba5f69d5250094288205d926f45f22c
       Path: Events\Default Work Unit\Enviroment\DoorOpen
       maxAttenuation: 0
-      maxDuration: 2.6106668
-      minDuration: 2.6106668
+      maxDuration: -1
+      minDuration: -1
     - name: Enviroment
       guid: f7853a6c27cd924fadd820903c35b2a6
       id: 3909959462
@@ -1053,7 +1013,7 @@ MonoBehaviour:
     m_lastTime: -8584635260294775808
     List: []
   ExpandedFileSystemItemIds: 
-  ExpandedWaapiItemIds: 02000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000150000001600000018000000190000001a0000001b0000001d000000230000003b0000003d2b0000
+  ExpandedWaapiItemIds: 02000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f0000001000000015000000160000001700000018000000190000001a0000001b0000001d00000023000000240000003b0000003d2b0000
   AutoSyncSelection: 0
   autoPopulateEnabled: 1
   currentDataSource: 0
