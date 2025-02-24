@@ -2,7 +2,7 @@ using UnityEngine;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(MeshRenderer), typeof(MeshFilter))]
-public class Test_InteractiveTrigger : InteractiveTriggerBase
+public class Test_InteractiveTrigger : InteractiveTrigger
 {
     [SerializeField]
     private Color _baseColor = Color.white;

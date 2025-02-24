@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7525239786081344418
 Transform:
@@ -46,7 +46,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3147350042673536162
 Transform:
@@ -84,7 +84,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8428112782792265817
 Transform:
@@ -155,7 +155,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6237739294989242223
 Transform:
@@ -192,7 +192,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3558482567092888406
 Transform:
@@ -229,7 +229,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2191715483634190868
 Transform:
@@ -263,7 +263,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7597896300923040892
 Transform:
@@ -322,7 +322,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6474759807420126266
 Transform:
@@ -397,7 +397,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Electricity (2)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 72796491558293311, guid: 2b5bfe09de18a3e40831b09eb03cac67, type: 3}
+    - {fileID: 4989310094783604695, guid: 2b5bfe09de18a3e40831b09eb03cac67, type: 3}
     m_RemovedGameObjects:
     - {fileID: 3713178691943926599, guid: 2b5bfe09de18a3e40831b09eb03cac67, type: 3}
     m_AddedGameObjects: []
@@ -642,6 +644,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Lever_V1 (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 4159867058722875864, guid: 8db57e90ea75f054780f20fdd96cbafb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 6682801798577748208, guid: 8db57e90ea75f054780f20fdd96cbafb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8313872222803426436, guid: 8db57e90ea75f054780f20fdd96cbafb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 9085021091761611668, guid: 8db57e90ea75f054780f20fdd96cbafb, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.12280035
@@ -703,6 +717,18 @@ PrefabInstance:
     - target: {fileID: 4159867058722875864, guid: 8db57e90ea75f054780f20fdd96cbafb, type: 3}
       propertyPath: m_Name
       value: SM_Lever_V1 (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4159867058722875864, guid: 8db57e90ea75f054780f20fdd96cbafb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 6682801798577748208, guid: 8db57e90ea75f054780f20fdd96cbafb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8313872222803426436, guid: 8db57e90ea75f054780f20fdd96cbafb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 9085021091761611668, guid: 8db57e90ea75f054780f20fdd96cbafb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -962,9 +988,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
       objectReference: {fileID: 0}
+    - target: {fileID: 1775939035802936871, guid: 5b78eb8c142dad64bb68760651bbb9a5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 5805580080285229244, guid: 5b78eb8c142dad64bb68760651bbb9a5, type: 3}
       propertyPath: m_Name
       value: SM_Button_Rund_V2 (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5805580080285229244, guid: 5b78eb8c142dad64bb68760651bbb9a5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -984,9 +1018,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7597896300923040892}
     m_Modifications:
+    - target: {fileID: 467209712528168209, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_Name
       value: SM_Button_Rund_V1 (87)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5913912492543154770, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_LocalScale.x
@@ -1110,9 +1152,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
       objectReference: {fileID: 0}
+    - target: {fileID: 1775939035802936871, guid: 5b78eb8c142dad64bb68760651bbb9a5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 5805580080285229244, guid: 5b78eb8c142dad64bb68760651bbb9a5, type: 3}
       propertyPath: m_Name
       value: SM_Button_Rund_V2 (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5805580080285229244, guid: 5b78eb8c142dad64bb68760651bbb9a5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1184,9 +1234,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
       objectReference: {fileID: 0}
+    - target: {fileID: 1775939035802936871, guid: 5b78eb8c142dad64bb68760651bbb9a5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 5805580080285229244, guid: 5b78eb8c142dad64bb68760651bbb9a5, type: 3}
       propertyPath: m_Name
       value: SM_Button_Rund_V2 (16)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5805580080285229244, guid: 5b78eb8c142dad64bb68760651bbb9a5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1206,9 +1264,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7597896300923040892}
     m_Modifications:
+    - target: {fileID: 467209712528168209, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_Name
       value: SM_Button_Rund_V1 (85)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5913912492543154770, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_LocalScale.x
@@ -1280,9 +1346,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7597896300923040892}
     m_Modifications:
+    - target: {fileID: 467209712528168209, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_Name
       value: SM_Button_Rund_V1 (49)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5913912492543154770, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_LocalScale.x
@@ -1354,9 +1428,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7597896300923040892}
     m_Modifications:
+    - target: {fileID: 467209712528168209, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_Name
       value: SM_Button_Rund_V1 (90)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5913912492543154770, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_LocalScale.x
@@ -1484,6 +1566,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Button_Rund_V3 (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 3095916701537995238, guid: aa79e6a27701f0e428c42859fd7e2d67, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 6377213408792627328, guid: aa79e6a27701f0e428c42859fd7e2d67, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1502,9 +1592,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7597896300923040892}
     m_Modifications:
+    - target: {fileID: 467209712528168209, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_Name
       value: SM_Button_Rund_V1 (92)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5913912492543154770, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_LocalScale.x
@@ -1850,9 +1948,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
       objectReference: {fileID: 0}
+    - target: {fileID: 1775939035802936871, guid: 5b78eb8c142dad64bb68760651bbb9a5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 5805580080285229244, guid: 5b78eb8c142dad64bb68760651bbb9a5, type: 3}
       propertyPath: m_Name
       value: SM_Button_Rund_V2 (17)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5805580080285229244, guid: 5b78eb8c142dad64bb68760651bbb9a5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1924,9 +2030,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
       objectReference: {fileID: 0}
+    - target: {fileID: 1775939035802936871, guid: 5b78eb8c142dad64bb68760651bbb9a5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 5805580080285229244, guid: 5b78eb8c142dad64bb68760651bbb9a5, type: 3}
       propertyPath: m_Name
       value: SM_Button_Rund_V2 (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5805580080285229244, guid: 5b78eb8c142dad64bb68760651bbb9a5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1949,6 +2063,10 @@ PrefabInstance:
     - target: {fileID: 2406184153707351070, guid: 87e6ace32748fe2428a777ed45d896b2, type: 3}
       propertyPath: m_Name
       value: SM_Button_Eckig (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2406184153707351070, guid: 87e6ace32748fe2428a777ed45d896b2, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 6314795241511201897, guid: 87e6ace32748fe2428a777ed45d896b2, type: 3}
       propertyPath: m_LocalScale.x
@@ -2020,9 +2138,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7597896300923040892}
     m_Modifications:
+    - target: {fileID: 467209712528168209, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_Name
       value: SM_Button_Rund_V1 (58)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5913912492543154770, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_LocalScale.x
@@ -2168,9 +2294,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7597896300923040892}
     m_Modifications:
+    - target: {fileID: 467209712528168209, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_Name
       value: SM_Button_Rund_V1 (95)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5913912492543154770, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_LocalScale.x
@@ -2390,9 +2524,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7597896300923040892}
     m_Modifications:
+    - target: {fileID: 467209712528168209, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_Name
       value: SM_Button_Rund_V1 (94)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5913912492543154770, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_LocalScale.x
@@ -2464,9 +2606,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7597896300923040892}
     m_Modifications:
+    - target: {fileID: 467209712528168209, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_Name
       value: SM_Button_Rund_V1 (86)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5913912492543154770, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_LocalScale.x
@@ -2542,6 +2692,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Button_Eckig (17)
       objectReference: {fileID: 0}
+    - target: {fileID: 2406184153707351070, guid: 87e6ace32748fe2428a777ed45d896b2, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 6314795241511201897, guid: 87e6ace32748fe2428a777ed45d896b2, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.7500001
@@ -2615,6 +2769,10 @@ PrefabInstance:
     - target: {fileID: 2406184153707351070, guid: 87e6ace32748fe2428a777ed45d896b2, type: 3}
       propertyPath: m_Name
       value: SM_Button_Eckig (16)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2406184153707351070, guid: 87e6ace32748fe2428a777ed45d896b2, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 6314795241511201897, guid: 87e6ace32748fe2428a777ed45d896b2, type: 3}
       propertyPath: m_LocalScale.x
@@ -2742,6 +2900,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Button_Rund_V3 (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 3095916701537995238, guid: aa79e6a27701f0e428c42859fd7e2d67, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 6377213408792627328, guid: aa79e6a27701f0e428c42859fd7e2d67, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2834,9 +3000,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7597896300923040892}
     m_Modifications:
+    - target: {fileID: 467209712528168209, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_Name
       value: SM_Button_Rund_V1 (91)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5913912492543154770, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_LocalScale.x
@@ -2982,9 +3156,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7597896300923040892}
     m_Modifications:
+    - target: {fileID: 467209712528168209, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_Name
       value: SM_Button_Rund_V1 (50)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5913912492543154770, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_LocalScale.x
@@ -3056,9 +3238,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7597896300923040892}
     m_Modifications:
+    - target: {fileID: 467209712528168209, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_Name
       value: SM_Button_Rund_V1 (55)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5913912492543154770, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_LocalScale.x
@@ -3130,9 +3320,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7597896300923040892}
     m_Modifications:
+    - target: {fileID: 467209712528168209, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_Name
       value: SM_Button_Rund_V1 (54)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5913912492543154770, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_LocalScale.x
@@ -3208,6 +3406,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Lever_V1 (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 4159867058722875864, guid: 8db57e90ea75f054780f20fdd96cbafb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 6682801798577748208, guid: 8db57e90ea75f054780f20fdd96cbafb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8313872222803426436, guid: 8db57e90ea75f054780f20fdd96cbafb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 9085021091761611668, guid: 8db57e90ea75f054780f20fdd96cbafb, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.12280035
@@ -3266,9 +3476,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7597896300923040892}
     m_Modifications:
+    - target: {fileID: 467209712528168209, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_Name
       value: SM_Button_Rund_V1 (46)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5913912492543154770, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_LocalScale.x
@@ -3710,9 +3928,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7597896300923040892}
     m_Modifications:
+    - target: {fileID: 467209712528168209, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_Name
       value: SM_Button_Rund_V1 (59)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5913912492543154770, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_LocalScale.x
@@ -3858,9 +4084,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7597896300923040892}
     m_Modifications:
+    - target: {fileID: 467209712528168209, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_Name
       value: SM_Button_Rund_V1 (93)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5913912492543154770, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_LocalScale.x
@@ -3936,6 +4170,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Lever_V1 (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 4159867058722875864, guid: 8db57e90ea75f054780f20fdd96cbafb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 6682801798577748208, guid: 8db57e90ea75f054780f20fdd96cbafb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8313872222803426436, guid: 8db57e90ea75f054780f20fdd96cbafb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 9085021091761611668, guid: 8db57e90ea75f054780f20fdd96cbafb, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.12280035
@@ -3994,9 +4240,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7597896300923040892}
     m_Modifications:
+    - target: {fileID: 467209712528168209, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_Name
       value: SM_Button_Rund_V1 (60)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5913912492543154770, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_LocalScale.x
@@ -4342,9 +4596,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
       objectReference: {fileID: 0}
+    - target: {fileID: 1775939035802936871, guid: 5b78eb8c142dad64bb68760651bbb9a5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 5805580080285229244, guid: 5b78eb8c142dad64bb68760651bbb9a5, type: 3}
       propertyPath: m_Name
       value: SM_Button_Rund_V2 (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5805580080285229244, guid: 5b78eb8c142dad64bb68760651bbb9a5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4364,9 +4626,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7597896300923040892}
     m_Modifications:
+    - target: {fileID: 467209712528168209, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_Name
       value: SM_Button_Rund_V1 (48)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5913912492543154770, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_LocalScale.x
@@ -4438,9 +4708,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7597896300923040892}
     m_Modifications:
+    - target: {fileID: 467209712528168209, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_Name
       value: SM_Button_Rund_V1 (45)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5913912492543154770, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_LocalScale.x
@@ -4660,9 +4938,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7597896300923040892}
     m_Modifications:
+    - target: {fileID: 467209712528168209, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_Name
       value: SM_Button_Rund_V1 (52)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5913912492543154770, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_LocalScale.x
@@ -4738,6 +5024,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Button_Eckig (15)
       objectReference: {fileID: 0}
+    - target: {fileID: 2406184153707351070, guid: 87e6ace32748fe2428a777ed45d896b2, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 6314795241511201897, guid: 87e6ace32748fe2428a777ed45d896b2, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.7500001
@@ -4808,9 +5098,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7597896300923040892}
     m_Modifications:
+    - target: {fileID: 467209712528168209, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_Name
       value: SM_Button_Rund_V1 (56)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5913912492543154770, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_LocalScale.x
@@ -4956,9 +5254,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7597896300923040892}
     m_Modifications:
+    - target: {fileID: 467209712528168209, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_Name
       value: SM_Button_Rund_V1 (47)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5913912492543154770, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_LocalScale.x
@@ -5034,6 +5340,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Lever_V1 (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 4159867058722875864, guid: 8db57e90ea75f054780f20fdd96cbafb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 6682801798577748208, guid: 8db57e90ea75f054780f20fdd96cbafb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8313872222803426436, guid: 8db57e90ea75f054780f20fdd96cbafb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 9085021091761611668, guid: 8db57e90ea75f054780f20fdd96cbafb, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.12280035
@@ -5092,9 +5410,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7597896300923040892}
     m_Modifications:
+    - target: {fileID: 467209712528168209, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_Name
       value: SM_Button_Rund_V1 (51)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5913912492543154770, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_LocalScale.x
@@ -5518,6 +5844,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Button_Rund_V3 (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 3095916701537995238, guid: aa79e6a27701f0e428c42859fd7e2d67, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 6377213408792627328, guid: aa79e6a27701f0e428c42859fd7e2d67, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5536,9 +5870,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7597896300923040892}
     m_Modifications:
+    - target: {fileID: 467209712528168209, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_Name
       value: SM_Button_Rund_V1 (89)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5913912492543154770, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_LocalScale.x
@@ -5762,6 +6104,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Button_Eckig (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 2406184153707351070, guid: 87e6ace32748fe2428a777ed45d896b2, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 6314795241511201897, guid: 87e6ace32748fe2428a777ed45d896b2, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.7500001
@@ -5835,6 +6181,18 @@ PrefabInstance:
     - target: {fileID: 4159867058722875864, guid: 8db57e90ea75f054780f20fdd96cbafb, type: 3}
       propertyPath: m_Name
       value: SM_Lever_V1 (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4159867058722875864, guid: 8db57e90ea75f054780f20fdd96cbafb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 6682801798577748208, guid: 8db57e90ea75f054780f20fdd96cbafb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8313872222803426436, guid: 8db57e90ea75f054780f20fdd96cbafb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 9085021091761611668, guid: 8db57e90ea75f054780f20fdd96cbafb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5971,6 +6329,10 @@ PrefabInstance:
     - target: {fileID: 2406184153707351070, guid: 87e6ace32748fe2428a777ed45d896b2, type: 3}
       propertyPath: m_Name
       value: SM_Button_Eckig (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2406184153707351070, guid: 87e6ace32748fe2428a777ed45d896b2, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 6314795241511201897, guid: 87e6ace32748fe2428a777ed45d896b2, type: 3}
       propertyPath: m_LocalScale.x
@@ -6264,9 +6626,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7597896300923040892}
     m_Modifications:
+    - target: {fileID: 467209712528168209, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_Name
       value: SM_Button_Rund_V1 (84)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5913912492543154770, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_LocalScale.x
@@ -6486,9 +6856,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7597896300923040892}
     m_Modifications:
+    - target: {fileID: 467209712528168209, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_Name
       value: SM_Button_Rund_V1 (53)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5913912492543154770, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_LocalScale.x
@@ -6708,9 +7086,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7597896300923040892}
     m_Modifications:
+    - target: {fileID: 467209712528168209, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_Name
       value: SM_Button_Rund_V1 (88)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5913912492543154770, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_LocalScale.x
@@ -6782,9 +7168,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7597896300923040892}
     m_Modifications:
+    - target: {fileID: 467209712528168209, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_Name
       value: SM_Button_Rund_V1 (57)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4249229333994898027, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5913912492543154770, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
       propertyPath: m_LocalScale.x

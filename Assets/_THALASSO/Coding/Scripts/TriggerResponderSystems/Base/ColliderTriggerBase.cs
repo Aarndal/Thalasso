@@ -4,11 +4,12 @@ using UnityEngine;
 public abstract class ColliderTriggerBase : MonoBehaviour, IAmTriggerable
 {
     [SerializeField]
-    protected bool _isTriggerable = true;
-    [SerializeField]
     protected Collider _collider = default;
 
-    public bool IsTriggerable => _isTriggerable;
+    [SerializeField]
+    protected bool _isTriggerable = true;
+    public bool IsTriggerable => CheckTriggerable();
+
 
     public event Action<GameObject, string> CannotBeTriggered
     {
@@ -41,4 +42,6 @@ public abstract class ColliderTriggerBase : MonoBehaviour, IAmTriggerable
     #endregion
 
     public abstract void Trigger();
+
+    protected virtual bool CheckTriggerable() => _isTriggerable;
 }

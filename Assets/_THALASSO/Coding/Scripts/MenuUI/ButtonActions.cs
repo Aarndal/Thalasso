@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -15,12 +16,19 @@ public class ButtonActions : MonoBehaviour
 
     [HideInInspector] public GameObject pauseMenuToggle;
 
-    private InputActionMap _previousActionMap;
 
     private void Awake()
     {
-        if (SceneManager.GetActiveScene().buildIndex == 0)
-            _input.SwitchCurrentActionMapTo("UI"); // Switch to UI ActionMap and disable any other Action Map
+        int curSceneId = SceneManager.GetActiveScene().buildIndex;
+
+        if (curSceneId == 0) //mainGame
+        {
+            _input.SwitchCurrentActionMapTo("UI"); 
+        }
+        else if (curSceneId == 2) //Credits
+        {
+            _input.SwitchCurrentActionMapTo("Cutscene"); 
+        }
     }
 
     private void OnEnable()
@@ -30,7 +38,6 @@ public class ButtonActions : MonoBehaviour
 
     private void Start()
     {
-        _previousActionMap = _input.CurrentActionMap;
 
         if (fadeImage != null && useFade)
         {
@@ -73,13 +80,12 @@ public class ButtonActions : MonoBehaviour
         if (_input.IsPauseActive)
         {
             pauseMenuToggle.SetActive(true);
-            _previousActionMap = _input.CurrentActionMap;
             _input.SwitchCurrentActionMapTo("UI"); // Switch to UI ActionMap and disable any other Action Map.
         }
         else
         {
             pauseMenuToggle.SetActive(false);
-            _input.SwitchCurrentActionMapTo(_previousActionMap.name); // Switch to previous ActionMap before Pause and disable any other Action Map.
+            _input.SwitchCurrentActionMapTo(_input.PreviousActionMap.name); // Switch to previous ActionMap before Pause and disable any other Action Map.
         }
     }
 
@@ -94,12 +100,13 @@ public class ButtonActions : MonoBehaviour
     #region SceneLoadingButtonActions
     public void LoadScene(int sceneId)
     {
-        if (sceneId == 3) //mainGame
+        if (sceneId == 2) //Credits
         {
-            _input.SwitchCurrentActionMapTo("Player"); // Switch to Player ActionMap and disable any other Action Map
+            _input.SwitchCurrentActionMapTo("Cutscene"); // Switch to UI ActionMap and disable any other Action Map
         }
         else
         {
+            _input.IsPauseActive = false;
             _input.SwitchCurrentActionMapTo("UI"); // Switch to UI ActionMap and disable any other Action Map
         }
 

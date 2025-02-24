@@ -43,7 +43,7 @@ public class DoorAnimation : MonoBehaviour
     private bool openInSameDirection = false;
     [SerializeField]
     private float openingDistance = 6.5f;
-    [SerializeField, Range(-360.0f, 360.0f)]
+    [SerializeField, Range(-180.0f, 180.0f)]
     private float openingRotation = 120.0f;
 
     // Door Origin

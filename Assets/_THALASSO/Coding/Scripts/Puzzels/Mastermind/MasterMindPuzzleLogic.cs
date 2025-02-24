@@ -59,6 +59,11 @@ public class MasterMindPuzzleLogic : SolvableObjectBase
             code[i] = availableNumbers[randomIndex];
             availableNumbers.RemoveAt(randomIndex);
         }
+
+        foreach (var item in code)
+        {
+            Debug.Log(item);
+        }
     }
 
     private void GetUIReference(GameObject reference, int ID)
@@ -86,7 +91,7 @@ public class MasterMindPuzzleLogic : SolvableObjectBase
         }
     }
 
-    private bool CheckInput()
+    private void CheckInput()
     {
         for (int i = 0; i < inputCode.Length; i++)
         {
@@ -97,18 +102,15 @@ public class MasterMindPuzzleLogic : SolvableObjectBase
             else if (code.Contains(inputCode[i]))
             {
                 outputText[i].color = Color.yellow;
-                return false;
             }
             else
             {
                 outputText[i].color = Color.white;
-                return false;
             }
         }
 
         Debug.LogFormat("<color=green>{0} solved!</color>", name);
         Solve();
-        return true;
     }
 
     public override bool Solve() => IsSolved = true;

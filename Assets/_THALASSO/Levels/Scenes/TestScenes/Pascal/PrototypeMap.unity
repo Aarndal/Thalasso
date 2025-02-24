@@ -119,6 +119,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &342708542
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 342708544}
+  - component: {fileID: 342708543}
+  m_Layer: 0
+  m_Name: TransitionSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &342708543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 342708542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e98ac1bd94a50fe409d0822ba2906858, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &342708544
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 342708542}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 81.31417, y: -4.721723, z: -22.346453}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &597438823
 GameObject:
   m_ObjectHideFlags: 0
@@ -1027,221 +1071,6 @@ MonoBehaviour:
       version: 1
     _data:
       data: []
-  - _sourceObject: {fileID: 0}
-    _sourceField: inputButtons,6
-    DEPRECATED_fromObject:
-      scene:
-        editorAssetGUID: 
-        name: 
-        _path: 
-      fullPath: 
-      componentName: 
-      componentIndex: 0
-      editorLocalId: 0
-      editorPrefabRelativePath: 
-      version: 0
-    _toObject:
-      scene:
-        editorAssetGUID: 11928495a7662b149a9b040b7cacf157
-        name: MemoryPuzzleUI
-        _path: Assets/_THALASSO/Levels/Scenes/TestScenes/Pascal/MemoryPuzzleUI.unity
-      fullPath: /PuzzleButtonUI/Buttons/Button (6)
-      componentName: UnityEngine.UI.Button, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      componentIndex: 0
-      editorLocalId: 425652734
-      editorPrefabRelativePath: 
-      version: 1
-    _data:
-      data: []
-  - _sourceObject: {fileID: 0}
-    _sourceField: inputButtons,5
-    DEPRECATED_fromObject:
-      scene:
-        editorAssetGUID: 
-        name: 
-        _path: 
-      fullPath: 
-      componentName: 
-      componentIndex: 0
-      editorLocalId: 0
-      editorPrefabRelativePath: 
-      version: 0
-    _toObject:
-      scene:
-        editorAssetGUID: 11928495a7662b149a9b040b7cacf157
-        name: MemoryPuzzleUI
-        _path: Assets/_THALASSO/Levels/Scenes/TestScenes/Pascal/MemoryPuzzleUI.unity
-      fullPath: /PuzzleButtonUI/Buttons/Button (5)
-      componentName: UnityEngine.UI.Button, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      componentIndex: 0
-      editorLocalId: 1341935898
-      editorPrefabRelativePath: 
-      version: 1
-    _data:
-      data: []
-  - _sourceObject: {fileID: 0}
-    _sourceField: inputButtons,4
-    DEPRECATED_fromObject:
-      scene:
-        editorAssetGUID: 
-        name: 
-        _path: 
-      fullPath: 
-      componentName: 
-      componentIndex: 0
-      editorLocalId: 0
-      editorPrefabRelativePath: 
-      version: 0
-    _toObject:
-      scene:
-        editorAssetGUID: 11928495a7662b149a9b040b7cacf157
-        name: MemoryPuzzleUI
-        _path: Assets/_THALASSO/Levels/Scenes/TestScenes/Pascal/MemoryPuzzleUI.unity
-      fullPath: /PuzzleButtonUI/Buttons/Button (4)
-      componentName: UnityEngine.UI.Button, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      componentIndex: 0
-      editorLocalId: 1821199234
-      editorPrefabRelativePath: 
-      version: 1
-    _data:
-      data: []
-  - _sourceObject: {fileID: 0}
-    _sourceField: inputButtons,3
-    DEPRECATED_fromObject:
-      scene:
-        editorAssetGUID: 
-        name: 
-        _path: 
-      fullPath: 
-      componentName: 
-      componentIndex: 0
-      editorLocalId: 0
-      editorPrefabRelativePath: 
-      version: 0
-    _toObject:
-      scene:
-        editorAssetGUID: 11928495a7662b149a9b040b7cacf157
-        name: MemoryPuzzleUI
-        _path: Assets/_THALASSO/Levels/Scenes/TestScenes/Pascal/MemoryPuzzleUI.unity
-      fullPath: /PuzzleButtonUI/Buttons/Button (3)
-      componentName: UnityEngine.UI.Button, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      componentIndex: 0
-      editorLocalId: 368492005
-      editorPrefabRelativePath: 
-      version: 1
-    _data:
-      data: []
-  - _sourceObject: {fileID: 0}
-    _sourceField: inputButtons,2
-    DEPRECATED_fromObject:
-      scene:
-        editorAssetGUID: 
-        name: 
-        _path: 
-      fullPath: 
-      componentName: 
-      componentIndex: 0
-      editorLocalId: 0
-      editorPrefabRelativePath: 
-      version: 0
-    _toObject:
-      scene:
-        editorAssetGUID: 11928495a7662b149a9b040b7cacf157
-        name: MemoryPuzzleUI
-        _path: Assets/_THALASSO/Levels/Scenes/TestScenes/Pascal/MemoryPuzzleUI.unity
-      fullPath: /PuzzleButtonUI/Buttons/Button (2)
-      componentName: UnityEngine.UI.Button, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      componentIndex: 0
-      editorLocalId: 1999754461
-      editorPrefabRelativePath: 
-      version: 1
-    _data:
-      data: []
-  - _sourceObject: {fileID: 0}
-    _sourceField: inputButtons,1
-    DEPRECATED_fromObject:
-      scene:
-        editorAssetGUID: 
-        name: 
-        _path: 
-      fullPath: 
-      componentName: 
-      componentIndex: 0
-      editorLocalId: 0
-      editorPrefabRelativePath: 
-      version: 0
-    _toObject:
-      scene:
-        editorAssetGUID: 11928495a7662b149a9b040b7cacf157
-        name: MemoryPuzzleUI
-        _path: Assets/_THALASSO/Levels/Scenes/TestScenes/Pascal/MemoryPuzzleUI.unity
-      fullPath: /PuzzleButtonUI/Buttons/Button (1)
-      componentName: UnityEngine.UI.Button, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      componentIndex: 0
-      editorLocalId: 213135249
-      editorPrefabRelativePath: 
-      version: 1
-    _data:
-      data: []
-  - _sourceObject: {fileID: 0}
-    _sourceField: inputButtons,0
-    DEPRECATED_fromObject:
-      scene:
-        editorAssetGUID: 
-        name: 
-        _path: 
-      fullPath: 
-      componentName: 
-      componentIndex: 0
-      editorLocalId: 0
-      editorPrefabRelativePath: 
-      version: 0
-    _toObject:
-      scene:
-        editorAssetGUID: 11928495a7662b149a9b040b7cacf157
-        name: MemoryPuzzleUI
-        _path: Assets/_THALASSO/Levels/Scenes/TestScenes/Pascal/MemoryPuzzleUI.unity
-      fullPath: /PuzzleButtonUI/Buttons/Button
-      componentName: UnityEngine.UI.Button, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      componentIndex: 0
-      editorLocalId: 174302420
-      editorPrefabRelativePath: 
-      version: 1
-    _data:
-      data: []
-  - _sourceObject: {fileID: 0}
-    _sourceField: buttonUICanvas
-    DEPRECATED_fromObject:
-      scene:
-        editorAssetGUID: 
-        name: 
-        _path: 
-      fullPath: 
-      componentName: 
-      componentIndex: 0
-      editorLocalId: 0
-      editorPrefabRelativePath: 
-      version: 0
-    _toObject:
-      scene:
-        editorAssetGUID: 11928495a7662b149a9b040b7cacf157
-        name: MemoryPuzzleUI
-        _path: Assets/_THALASSO/Levels/Scenes/TestScenes/Pascal/MemoryPuzzleUI.unity
-      fullPath: /PuzzleButtonUI
-      componentName: 
-      componentIndex: 0
-      editorLocalId: 1257652939
-      editorPrefabRelativePath: 
-      version: 1
-    _data:
-      data: []
   _realSceneRootsForPostBuild: []
   _mergedScenes: []
 --- !u!114 &2074060933
@@ -1268,6 +1097,12 @@ MonoBehaviour:
       editorAssetGUID: 7b96a24fb5b467b49ba29123be5c8750
       name: ElectricityPuzzleUI
       _path: Assets/_THALASSO/Levels/Scenes/TestScenes/Pascal/ElectricityPuzzleUI.unity
+    loadInEditor: 1
+    loadMethod: 1
+  - scene:
+      editorAssetGUID: 6a80ebbcbb3bad546af2ef543871c33e
+      name: Exterior
+      _path: Assets/_THALASSO/Levels/Scenes/Exterior.unity
     loadInEditor: 1
     loadMethod: 1
   _isMainScene: 0
@@ -1298,7 +1133,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4462108285470819433, guid: f79d266730aa65345ae7d8873db9447e, type: 3}
       propertyPath: m_Name
-      value: StartCutsceneCanvas
+      value: CutsceneCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 5297163209692684050, guid: f79d266730aa65345ae7d8873db9447e, type: 3}
       propertyPath: m_Pivot.x
@@ -1397,3 +1232,4 @@ SceneRoots:
   - {fileID: 1958960546}
   - {fileID: 1720168751}
   - {fileID: 8089078536446111435}
+  - {fileID: 342708544}

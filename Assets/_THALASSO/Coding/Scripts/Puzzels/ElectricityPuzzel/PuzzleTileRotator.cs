@@ -19,6 +19,16 @@ public class PuzzleTileRotator : MonoBehaviour
         }
     }
 
+    public void InstantRotateForSetup()
+    {
+        transform.Rotate(transform.up * (-60), Space.World);
+        isRotating = false;
+
+        curRotation += -60;
+        if (curRotation >= 360 || curRotation <= -360)
+            curRotation = 0;
+    }
+
     private IEnumerator RotateOverTime(int _rotationAngle, float _duration)
     {
         isRotating = true;
@@ -37,7 +47,7 @@ public class PuzzleTileRotator : MonoBehaviour
         isRotating = false;
 
         curRotation += _rotationAngle;
-        if (curRotation > 360 || curRotation < -360)
+        if (curRotation >= 360 || curRotation <= -360)
             curRotation = 0;
 
         tileWasUpdated.Invoke(this.gameObject);
