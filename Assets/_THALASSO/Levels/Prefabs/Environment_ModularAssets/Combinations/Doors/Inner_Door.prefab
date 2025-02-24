@@ -66,8 +66,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43542f91b9652f946b4a6d398ab10d4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isTriggerable: 1
   _collider: {fileID: 2958318385274516595}
+  _isTriggerable: 1
 --- !u!1 &5290908049569090389
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,8 +134,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43542f91b9652f946b4a6d398ab10d4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isTriggerable: 1
   _collider: {fileID: 2054046157745969239}
+  _isTriggerable: 1
 --- !u!1 &7909537651477913594
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,6 +147,7 @@ GameObject:
   - component: {fileID: 8322930308589532108}
   - component: {fileID: 552371037571386709}
   - component: {fileID: 7744877337771004822}
+  - component: {fileID: 7709637085742139260}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -282,6 +283,35 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _openDoorSound:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: f10c64e3fc24c524ca035fbcc3a601a3, type: 2}
+--- !u!114 &7709637085742139260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7909537651477913594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 034d28fa1a0fbad4a8e8cef542c97588, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: f7e1664c
+  useOtherObject: 0
+  data:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: e39c6a93ec2d9ec42aa5a0586ff6f20a, type: 2}
+  decodeBank: 0
+  overrideLoadSetting: 0
+  loadAsynchronous: 0
+  saveDecodedBank: 0
+  unloadTriggerList: 958ca0ea
+  bankNameInternal: 
+  valueGuidInternal: 
 --- !u!1 &8097574005474314998
 GameObject:
   m_ObjectHideFlags: 0

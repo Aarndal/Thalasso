@@ -24,7 +24,7 @@ MonoBehaviour:
     ParentPath: Virtual Acoustics\Default Work Unit
     guid: 69643fcfe635b145a0d467506ee14401
     GuidInternal: 
-    m_lastTime: -8584642281314775808
+    m_lastTime: -8584635260294775808
     List: []
   AuxBusWwu:
   - PhysicalPath: Master-Mixer Hierarchy\Default Work Unit.wwu
@@ -38,7 +38,7 @@ MonoBehaviour:
     ParentPath: Master-Mixer Hierarchy\Default Work Unit
     guid: e859a97a12de8f4f9f8b1ba45dc16a06
     GuidInternal: 
-    m_lastTime: -8584633667975597762
+    m_lastTime: -8584621635814775808
     List:
     - name: Electronics_Room
       guid: ff3039f3c7bdaa4a8be83fc4c1f3b28b
@@ -100,9 +100,9 @@ MonoBehaviour:
         ObjectType: 1
         guid: 472f765a94fa8644a6756b10ff14d24a
       Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\SFX\Hallways
-    - name: Laboratory
+    - name: Laboratory1
       guid: e85d95025687ec43942d2b9f4f4c2f36
-      id: 766371778
+      id: 2864961111
       PathAndIcons:
       - ElementName: Master-Mixer Hierarchy
         ObjectType: 5
@@ -116,10 +116,30 @@ MonoBehaviour:
       - ElementName: SFX
         ObjectType: 2
         guid: 5bae258e210e48488aa0c1df6f23f289
-      - ElementName: Laboratory
+      - ElementName: Laboratory1
         ObjectType: 1
         guid: e85d95025687ec43942d2b9f4f4c2f36
-      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\SFX\Laboratory
+      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\SFX\Laboratory1
+    - name: Laboratory2
+      guid: 5dd8108bef5abf429394e632575a5251
+      id: 2864961108
+      PathAndIcons:
+      - ElementName: Master-Mixer Hierarchy
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: e859a97a12de8f4f9f8b1ba45dc16a06
+      - ElementName: Master Audio Bus
+        ObjectType: 2
+        guid: d8a41415a61d2a41a17e75ca0c2149f3
+      - ElementName: SFX
+        ObjectType: 2
+        guid: 5bae258e210e48488aa0c1df6f23f289
+      - ElementName: Laboratory2
+        ObjectType: 1
+        guid: 5dd8108bef5abf429394e632575a5251
+      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\SFX\Laboratory2
     - name: Master Audio Bus
       guid: d8a41415a61d2a41a17e75ca0c2149f3
       id: 3803692087
@@ -171,6 +191,46 @@ MonoBehaviour:
         ObjectType: 1
         guid: 01f45cd45f74f74fb5f9362ddef0b5e0
       Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\SFX\Observation_Deck
+    - name: Outside_Security_Room
+      guid: 3c99a52bd664914daef0a61016c659b3
+      id: 2844374603
+      PathAndIcons:
+      - ElementName: Master-Mixer Hierarchy
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: e859a97a12de8f4f9f8b1ba45dc16a06
+      - ElementName: Master Audio Bus
+        ObjectType: 2
+        guid: d8a41415a61d2a41a17e75ca0c2149f3
+      - ElementName: SFX
+        ObjectType: 2
+        guid: 5bae258e210e48488aa0c1df6f23f289
+      - ElementName: Outside_Security_Room
+        ObjectType: 1
+        guid: 3c99a52bd664914daef0a61016c659b3
+      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\SFX\Outside_Security_Room
+    - name: Outside_Starting_Room
+      guid: 8d812e5cc57a1b4ba76f2f50d31ea4f3
+      id: 3239831741
+      PathAndIcons:
+      - ElementName: Master-Mixer Hierarchy
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: e859a97a12de8f4f9f8b1ba45dc16a06
+      - ElementName: Master Audio Bus
+        ObjectType: 2
+        guid: d8a41415a61d2a41a17e75ca0c2149f3
+      - ElementName: SFX
+        ObjectType: 2
+        guid: 5bae258e210e48488aa0c1df6f23f289
+      - ElementName: Outside_Starting_Room
+        ObjectType: 1
+        guid: 8d812e5cc57a1b4ba76f2f50d31ea4f3
+      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\SFX\Outside_Starting_Room
     - name: Security_Room
       guid: 44e01494c0c46f45962d6bdf517d0657
       id: 3965376459
@@ -208,6 +268,26 @@ MonoBehaviour:
         ObjectType: 2
         guid: 5bae258e210e48488aa0c1df6f23f289
       Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\SFX
+    - name: Small_Office
+      guid: 6d09bf9d72cd5643a70ff9781233bb7f
+      id: 3078522397
+      PathAndIcons:
+      - ElementName: Master-Mixer Hierarchy
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: e859a97a12de8f4f9f8b1ba45dc16a06
+      - ElementName: Master Audio Bus
+        ObjectType: 2
+        guid: d8a41415a61d2a41a17e75ca0c2149f3
+      - ElementName: SFX
+        ObjectType: 2
+        guid: 5bae258e210e48488aa0c1df6f23f289
+      - ElementName: Small_Office
+        ObjectType: 1
+        guid: 6d09bf9d72cd5643a70ff9781233bb7f
+      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\SFX\Small_Office
     - name: Starting_Room
       guid: b602ee8a7b1e514aacc06b9a4c095347
       id: 65866301
@@ -240,7 +320,7 @@ MonoBehaviour:
     ParentPath: SoundBanks\Default Work Unit
     guid: 120307a5affdda4f9c2c157df7e55198
     GuidInternal: 
-    m_lastTime: -8584626683130729154
+    m_lastTime: -8584611918587594280
     List:
     - name: Enviroment
       guid: 4ccb99699ec7c34ab35455a4ec799272
@@ -338,11 +418,11 @@ MonoBehaviour:
     ParentPath: Events\Default Work Unit
     guid: a73c7a02b02f814caa08ff6be5823e65
     GuidInternal: 
-    m_lastTime: -8584627412548999836
+    m_lastTime: -8584611919799402187
     List:
-    - name: AmbienceBed
-      guid: d67ca875e72f2049a0a5616880cc3c3f
-      id: 881214142
+    - name: Ambience_First_Time_Monster
+      guid: 9284d8823fc8e6468a7d581d2dd4238e
+      id: 54455057
       PathAndIcons:
       - ElementName: Events
         ObjectType: 5
@@ -353,10 +433,30 @@ MonoBehaviour:
       - ElementName: Music
         ObjectType: 4
         guid: 7d2ce51831979a4095f5ef0061d54c3b
-      - ElementName: AmbienceBed
+      - ElementName: Ambience_First_Time_Monster
         ObjectType: 3
-        guid: d67ca875e72f2049a0a5616880cc3c3f
-      Path: Events\Default Work Unit\Music\AmbienceBed
+        guid: 9284d8823fc8e6468a7d581d2dd4238e
+      Path: Events\Default Work Unit\Music\Ambience_First_Time_Monster
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Ambience_First_Time_Station
+      guid: b918ab708f88e44cab808d3d4d1a52f6
+      id: 3784509915
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: a73c7a02b02f814caa08ff6be5823e65
+      - ElementName: Music
+        ObjectType: 4
+        guid: 7d2ce51831979a4095f5ef0061d54c3b
+      - ElementName: Ambience_First_Time_Station
+        ObjectType: 3
+        guid: b918ab708f88e44cab808d3d4d1a52f6
+      Path: Events\Default Work Unit\Music\Ambience_First_Time_Station
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
@@ -398,8 +498,8 @@ MonoBehaviour:
         guid: 192f67e6cf8db145ae3ad50dddb560ce
       Path: Events\Default Work Unit\PlayerSounds\Door_Closing
       maxAttenuation: 0
-      maxDuration: 3.0933332
-      minDuration: 3.0933332
+      maxDuration: 0
+      minDuration: 0
     - name: Door_Opening
       guid: 91e93c347dacc04b8bbb9a25099a3401
       id: 2589897592
@@ -418,11 +518,11 @@ MonoBehaviour:
         guid: 91e93c347dacc04b8bbb9a25099a3401
       Path: Events\Default Work Unit\PlayerSounds\Door_Opening
       maxAttenuation: 0
-      maxDuration: 1.552
-      minDuration: 1.552
-    - name: First_Time_Monster
-      guid: f6d62baffbf8b7478cd2370535495d49
-      id: 3639762312
+      maxDuration: 0
+      minDuration: 0
+    - name: DoorOpen
+      guid: 6ba5f69d5250094288205d926f45f22c
+      id: 1404805401
       PathAndIcons:
       - ElementName: Events
         ObjectType: 5
@@ -430,19 +530,19 @@ MonoBehaviour:
       - ElementName: Default Work Unit
         ObjectType: 12
         guid: a73c7a02b02f814caa08ff6be5823e65
-      - ElementName: Music
+      - ElementName: Enviroment
         ObjectType: 4
-        guid: 7d2ce51831979a4095f5ef0061d54c3b
-      - ElementName: First_Time_Monster
+        guid: f7853a6c27cd924fadd820903c35b2a6
+      - ElementName: DoorOpen
         ObjectType: 3
-        guid: f6d62baffbf8b7478cd2370535495d49
-      Path: Events\Default Work Unit\Music\First_Time_Monster
+        guid: 6ba5f69d5250094288205d926f45f22c
+      Path: Events\Default Work Unit\Enviroment\DoorOpen
       maxAttenuation: 0
-      maxDuration: 6.857146
-      minDuration: 6.857146
-    - name: First_Time_Station
-      guid: 4d70ee331b78cf4abeadf675ce49be65
-      id: 3937195198
+      maxDuration: 2.6106668
+      minDuration: 2.6106668
+    - name: Enviroment
+      guid: f7853a6c27cd924fadd820903c35b2a6
+      id: 3909959462
       PathAndIcons:
       - ElementName: Events
         ObjectType: 5
@@ -450,16 +550,13 @@ MonoBehaviour:
       - ElementName: Default Work Unit
         ObjectType: 12
         guid: a73c7a02b02f814caa08ff6be5823e65
-      - ElementName: Music
+      - ElementName: Enviroment
         ObjectType: 4
-        guid: 7d2ce51831979a4095f5ef0061d54c3b
-      - ElementName: First_Time_Station
-        ObjectType: 3
-        guid: 4d70ee331b78cf4abeadf675ce49be65
-      Path: Events\Default Work Unit\Music\First_Time_Station
+        guid: f7853a6c27cd924fadd820903c35b2a6
+      Path: Events\Default Work Unit\Enviroment
       maxAttenuation: 0
-      maxDuration: 13.714292
-      minDuration: 13.714292
+      maxDuration: -1
+      minDuration: -1
     - name: Last_Chase_Music
       guid: 5af86b0448834947919792dd4117dcf1
       id: 2540848410
@@ -586,7 +683,7 @@ MonoBehaviour:
     ParentPath: Game Parameters\Default Work Unit
     guid: b2cd9fe1606ecb4c9d9f6e3458c75fbe
     GuidInternal: 
-    m_lastTime: -8584642281314775808
+    m_lastTime: -8584635260294775808
     List: []
   StateWwu:
   - PhysicalPath: States\Default Work Unit.wwu
@@ -762,7 +859,7 @@ MonoBehaviour:
     ParentPath: Switches\Default Work Unit
     guid: 7efb8b82d304a74188c2d0309d757ff4
     GuidInternal: 
-    m_lastTime: -8584633527958670056
+    m_lastTime: -8584633225674775808
     List:
     - name: Footsteps_Material
       guid: 4d355412d47fe246b833edaf6951d735
@@ -825,7 +922,7 @@ MonoBehaviour:
     ParentPath: Switches\Music
     guid: 652c8a33c7907848bd83ece500481f31
     GuidInternal: 
-    m_lastTime: -8584627412543955320
+    m_lastTime: -8584611920407402434
     List:
     - name: Rooms
       guid: 93092362676ce24f8d05ad5cee6aec0f
@@ -953,10 +1050,10 @@ MonoBehaviour:
     ParentPath: Triggers\Default Work Unit
     guid: 7bedf07b770b9e479379177f34598bb9
     GuidInternal: 
-    m_lastTime: -8584642281314775808
+    m_lastTime: -8584635260294775808
     List: []
   ExpandedFileSystemItemIds: 
-  ExpandedWaapiItemIds: 0500000006000000080000000d0000000e0000000f000000
+  ExpandedWaapiItemIds: 02000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000150000001600000018000000190000001a0000001b0000001d000000230000003b0000003d2b0000
   AutoSyncSelection: 0
   autoPopulateEnabled: 1
   currentDataSource: 0
