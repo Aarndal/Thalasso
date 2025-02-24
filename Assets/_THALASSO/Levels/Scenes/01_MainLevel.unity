@@ -439,6 +439,12 @@ MonoBehaviour:
       _path: Assets/_THALASSO/Levels/Scenes/AustinsScene.unity
     loadInEditor: 1
     loadMethod: 1
+  - scene:
+      editorAssetGUID: 76a20f49347d08e448dbaed6dd3b7dcb
+      name: CamFahrtenScene
+      _path: Assets/_THALASSO/Levels/Scenes/TestScenes/Pascal/CamFahrten/CamFahrtenScene.unity
+    loadInEditor: 1
+    loadMethod: 1
   _isMainScene: 0
   _version: 1
   _thisScenePath: Assets/_THALASSO/Levels/Scenes/01_MainLevel.unity
@@ -757,6 +763,10 @@ PrefabInstance:
     - target: {fileID: 4829465317767684519, guid: 7f1a256885e70b5458a41dc6482233d5, type: 3}
       propertyPath: m_Name
       value: PlayerCharacter
+      objectReference: {fileID: 0}
+    - target: {fileID: 4829465317767684519, guid: 7f1a256885e70b5458a41dc6482233d5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5526890881078507483, guid: 7f1a256885e70b5458a41dc6482233d5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1348,11 +1358,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cameras
       objectReference: {fileID: 0}
+    - target: {fileID: 6531619286678820560, guid: 28b8030160a05364597927f760ba1486, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6648870256644327031, guid: 28b8030160a05364597927f760ba1486, type: 3}
       propertyPath: Target.TrackingTarget
       value: 
       objectReference: {fileID: 192681793}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4322288881728698617, guid: 28b8030160a05364597927f760ba1486, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

@@ -3082,6 +3082,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7744877337771004822, guid: 261c627b89849bc42931d070738be608, type: 3}
+      propertyPath: isOpen
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7744877337771004822, guid: 261c627b89849bc42931d070738be608, type: 3}
+      propertyPath: isLocked
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8097574005474314998, guid: 261c627b89849bc42931d070738be608, type: 3}
       propertyPath: m_Name
       value: Inner_Door (2)
@@ -6657,6 +6665,34 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 6144558130316258282, guid: 0f5d813a16a1e464dac44e1b8dd72275, type: 3}
+    - target: {fileID: 603496917885852219, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.3093872
+      objectReference: {fileID: 0}
+    - target: {fileID: 603496917885852219, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.75015104
+      objectReference: {fileID: 0}
+    - target: {fileID: 603496917885852219, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -7.3409014
+      objectReference: {fileID: 0}
+    - target: {fileID: 603496917885852219, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.6803375
+      objectReference: {fileID: 0}
+    - target: {fileID: 603496917885852219, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.13501248
+      objectReference: {fileID: 0}
+    - target: {fileID: 603496917885852219, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.70657855
+      objectReference: {fileID: 0}
+    - target: {fileID: 603496917885852219, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.14021192
+      objectReference: {fileID: 0}
     - target: {fileID: 1732256068995673940, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
       propertyPath: m_Name
       value: SM_DoorLock_Riddle
@@ -6689,6 +6725,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 6144558130316258282, guid: 0f5d813a16a1e464dac44e1b8dd72275, type: 3}
+    - target: {fileID: 4799825691338962477, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5338322487217866221, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -6721,6 +6761,22 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 6144558130316258282, guid: 0f5d813a16a1e464dac44e1b8dd72275, type: 3}
+    - target: {fileID: 7630269912768350015, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
+      propertyPath: field of view
+      value: 60.000004
+      objectReference: {fileID: 0}
+    - target: {fileID: 7630269912768350015, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
+      propertyPath: far clip plane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7630269912768350015, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
+      propertyPath: near clip plane
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7630269912768350015, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
+      propertyPath: orthographic size
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7944695797942398543, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
       propertyPath: m_Mesh
       value: 
