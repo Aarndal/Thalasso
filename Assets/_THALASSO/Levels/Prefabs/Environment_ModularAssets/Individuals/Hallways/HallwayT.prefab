@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3615770365949305238}
   - component: {fileID: 5276860212011104802}
   - component: {fileID: -1191173524532759172}
+  - component: {fileID: 8213302704268790957}
   m_Layer: 0
   m_Name: HallwayT
   m_TagString: Untagged
@@ -115,6 +116,24 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -4340576521162609250, guid: 950d2a9a69230d742b89bc84cb9cbbf4, type: 3}
+--- !u!114 &8213302704268790957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1694189735379532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e191ea7d50ac124468894a088222114b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _soundMaterial:
+    idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 9af64c217f9d52c49b486e289c49605a, type: 2}
 --- !u!1001 &363768151090784166
 PrefabInstance:
   m_ObjectHideFlags: 0

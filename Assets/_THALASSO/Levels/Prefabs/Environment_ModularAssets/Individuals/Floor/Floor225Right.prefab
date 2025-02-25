@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7569423121866441791}
   - component: {fileID: 3257968601766244429}
   - component: {fileID: 833295369101242546}
+  - component: {fileID: 6206652194131284311}
   m_Layer: 0
   m_Name: Floor225Right
   m_TagString: Untagged
@@ -109,3 +110,21 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 3816628121252208341, guid: 950d2a9a69230d742b89bc84cb9cbbf4, type: 3}
+--- !u!114 &6206652194131284311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6335835230490135045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e191ea7d50ac124468894a088222114b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _soundMaterial:
+    idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 9af64c217f9d52c49b486e289c49605a, type: 2}

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4588425733166152557}
   - component: {fileID: 7204178198454769547}
   - component: {fileID: -1844100553346659940}
+  - component: {fileID: 7331143266084091697}
   m_Layer: 0
   m_Name: Ramp
   m_TagString: Untagged
@@ -110,6 +111,24 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 7533499418074922463, guid: 950d2a9a69230d742b89bc84cb9cbbf4, type: 3}
+--- !u!114 &7331143266084091697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2273287318374681712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e191ea7d50ac124468894a088222114b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _soundMaterial:
+    idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: f1d57542e2129d947a80a4722415ddd3, type: 2}
 --- !u!1 &3995384995943583018
 GameObject:
   m_ObjectHideFlags: 0
@@ -130,7 +149,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4273598016656808290
 Transform:
   m_ObjectHideFlags: 0

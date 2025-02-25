@@ -10,6 +10,7 @@ public class PCAnimation : Entity
 
     [Space(5)]
 
+    [Header("Wwise Events")]
     [SerializeField]
     private AK.Wwise.Event _footstepEvent = default;
 
@@ -56,6 +57,7 @@ public class PCAnimation : Entity
         base.OnEnable();
 
         GlobalEventBus.Register(GlobalEvents.Player.GroundedStateChanged, OnGroundedStateChanged);
+        GlobalEventBus.Register(GlobalEvents.Player.GroundSoundMaterialChanged, OnGroundSoundMaterialChanged);
 
         _input.MoveInputHasChanged += OnMoveInputHasChanged;
         _input.SprintIsTriggered += OnSprintIsTriggered;
@@ -63,6 +65,7 @@ public class PCAnimation : Entity
 
         TransitionCheck += OnTransitionCheck;
     }
+
 
     protected override void Start()
     {
@@ -82,6 +85,7 @@ public class PCAnimation : Entity
         base.OnDisable();
 
         GlobalEventBus.Deregister(GlobalEvents.Player.GroundedStateChanged, OnGroundedStateChanged);
+        GlobalEventBus.Deregister(GlobalEvents.Player.GroundSoundMaterialChanged, OnGroundSoundMaterialChanged);
 
         _input.MoveInputHasChanged -= OnMoveInputHasChanged;
         _input.SprintIsTriggered -= OnSprintIsTriggered;
@@ -137,6 +141,14 @@ public class PCAnimation : Entity
         {
             _isGrounded = isGrounded;
             TransitionCheck?.Invoke();
+        }
+    }
+
+    private void OnGroundSoundMaterialChanged(object[] args)
+    {
+        if (args[0] is AK.Wwise.Switch currentSoundMaterial)
+        {
+            currentSoundMaterial.SetValue(gameObject);
         }
     }
 
