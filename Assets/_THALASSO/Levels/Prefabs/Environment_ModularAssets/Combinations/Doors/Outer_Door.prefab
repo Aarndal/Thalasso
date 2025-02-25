@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7785805863263121352}
   - component: {fileID: 7509662496363356636}
   - component: {fileID: 3432760953013467701}
+  - component: {fileID: 4586084245505174841}
   m_Layer: 0
   m_Name: ColliderTriggerBack
   m_TagString: Untagged
@@ -68,6 +69,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _collider: {fileID: 7509662496363356636}
   _isTriggerable: 1
+--- !u!114 &4586084245505174841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2470625211961263278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2eec03a4f24e5d40b33c35c84fe4f81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _onEnterSwitchTo:
+    idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  _onStaySwitchTo:
+    idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  _onExitSwitchTo:
+    idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
 --- !u!1 &2771182048826141610
 GameObject:
   m_ObjectHideFlags: 0
@@ -113,6 +144,7 @@ GameObject:
   - component: {fileID: 5692133607971531663}
   - component: {fileID: 2544771488748894461}
   - component: {fileID: 1695011895074704890}
+  - component: {fileID: 6592199928811843825}
   m_Layer: 0
   m_Name: ColliderTriggerFront
   m_TagString: Untagged
@@ -170,6 +202,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _collider: {fileID: 2544771488748894461}
   _isTriggerable: 1
+--- !u!114 &6592199928811843825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4794819652620142905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2eec03a4f24e5d40b33c35c84fe4f81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _onEnterSwitchTo:
+    idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  _onStaySwitchTo:
+    idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  _onExitSwitchTo:
+    idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
 --- !u!1 &6772429897685578390
 GameObject:
   m_ObjectHideFlags: 0
