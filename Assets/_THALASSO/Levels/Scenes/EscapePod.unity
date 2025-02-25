@@ -830,7 +830,7 @@ GameObject:
   - component: {fileID: 1523622333}
   - component: {fileID: 1523622332}
   m_Layer: 0
-  m_Name: Ambience
+  m_Name: Ambience_EscapePod
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -872,8 +872,8 @@ MonoBehaviour:
   priority: 0
   auxBusIdInternal: 0
   valueGuidInternal: 
---- !u!65 &1523622333
-BoxCollider:
+--- !u!136 &1523622333
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -890,8 +890,10 @@ BoxCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 6, y: 5, z: 12}
+  serializedVersion: 2
+  m_Radius: 3
+  m_Height: 12
+  m_Direction: 2
   m_Center: {x: 0, y: 2.5, z: 0}
 --- !u!1 &1989140903
 GameObject:

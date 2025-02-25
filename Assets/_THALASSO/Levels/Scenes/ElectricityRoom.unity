@@ -4542,59 +4542,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _version: 2
-  _crossSceneReferences:
-  - _sourceObject: {fileID: 1875633912}
-    _sourceField: triggerObject
-    DEPRECATED_fromObject:
-      scene:
-        editorAssetGUID: 
-        name: 
-        _path: 
-      fullPath: 
-      componentName: 
-      componentIndex: 0
-      editorLocalId: 0
-      editorPrefabRelativePath: 
-      version: 0
-    _toObject:
-      scene:
-        editorAssetGUID: 325ed5290f0c66d4ea38b3f8ac854207
-        name: 01_MainLevel
-        _path: Assets/_THALASSO/Levels/Scenes/01_MainLevel.unity
-      fullPath: /PlayerCharacter
-      componentName: 
-      componentIndex: 0
-      editorLocalId: 601804939
-      editorPrefabRelativePath: 
-      version: 1
-    _data:
-      data: []
-  - _sourceObject: {fileID: 1875633909}
-    _sourceField: triggerObject
-    DEPRECATED_fromObject:
-      scene:
-        editorAssetGUID: 
-        name: 
-        _path: 
-      fullPath: 
-      componentName: 
-      componentIndex: 0
-      editorLocalId: 0
-      editorPrefabRelativePath: 
-      version: 0
-    _toObject:
-      scene:
-        editorAssetGUID: 325ed5290f0c66d4ea38b3f8ac854207
-        name: 01_MainLevel
-        _path: Assets/_THALASSO/Levels/Scenes/01_MainLevel.unity
-      fullPath: /PlayerCharacter
-      componentName: 
-      componentIndex: 0
-      editorLocalId: 601804939
-      editorPrefabRelativePath: 
-      version: 1
-    _data:
-      data: []
+  _crossSceneReferences: []
   _realSceneRootsForPostBuild: []
   _mergedScenes: []
 --- !u!114 &1344535696
@@ -5429,7 +5377,7 @@ GameObject:
   - component: {fileID: 1563763496}
   - component: {fileID: 1563763497}
   m_Layer: 0
-  m_Name: Ambience
+  m_Name: Ambience_ElectricityRoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6315,12 +6263,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1875633908}
   - component: {fileID: 1875633911}
-  - component: {fileID: 1875633910}
-  - component: {fileID: 1875633909}
-  - component: {fileID: 1875633913}
   - component: {fileID: 1875633912}
   m_Layer: 0
-  m_Name: BGM
+  m_Name: BGM_ElectricityRoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6341,43 +6286,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 957959222}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1875633909
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1875633907}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d7dcc06b5ac0604f82f45e31e03ff46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerObject: {fileID: 0}
---- !u!114 &1875633910
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1875633907}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60e2a68d011f1a44ab937048ed8b1136, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerList: f7f422d6
-  useOtherObject: 1
-  data:
-    idInternal: 0
-    valueGuidInternal: 
-    groupIdInternal: 0
-    groupGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 36bd40c8978c8a54484ba37162626ec9, type: 2}
-  valueIdInternal: 0
-  groupIdInternal: 0
-  valueGuidInternal: 
-  groupGuidInternal: 
 --- !u!65 &1875633911
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6408,34 +6316,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 1875633907}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4230e4c25805bc4096de28de285be10, type: 3}
+  m_Script: {fileID: 11500000, guid: a2eec03a4f24e5d40b33c35c84fe4f81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerObject: {fileID: 0}
---- !u!114 &1875633913
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1875633907}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60e2a68d011f1a44ab937048ed8b1136, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerList: 3f2ff36a
-  useOtherObject: 1
-  data:
+  _onEnterSwitchTo:
+    idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 36bd40c8978c8a54484ba37162626ec9, type: 2}
+  _onStaySwitchTo:
+    idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  _onExitSwitchTo:
     idInternal: 0
     valueGuidInternal: 
     groupIdInternal: 0
     groupGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: 64fcc9fc54970e0488580f09d176e4d6, type: 2}
-  valueIdInternal: 0
-  groupIdInternal: 0
-  valueGuidInternal: 
-  groupGuidInternal: 
 --- !u!1001 &1879221973
 PrefabInstance:
   m_ObjectHideFlags: 0

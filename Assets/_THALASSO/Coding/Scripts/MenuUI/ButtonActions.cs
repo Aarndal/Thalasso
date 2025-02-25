@@ -5,38 +5,43 @@ using UnityEngine.UI;
 
 public class ButtonActions : MonoBehaviour
 {
-    [SerializeField]
-    private SO_GameInputReader _input = default;
+    [HideInInspector] public GameObject pauseMenuToggle;
 
+    [Header("References")]
+    [SerializeField] private SO_GameInputReader input = default;
+
+    [Header("Fade Settings")]
     [SerializeField] private bool useFade = true;
     [SerializeField] private Image fadeImage;
     [SerializeField] private float fadeDuration = 0.5f;
 
-    [HideInInspector] public GameObject pauseMenuToggle;
-
+    [Header("Audio Settings")]
+    [SerializeField] private AK.Wwise.Event enterMainMenuSound;
+    [SerializeField] private AK.Wwise.Event exitMainMenuSound;
+    [SerializeField] private AK.Wwise.Event enterPauseMenuSound;
+    [SerializeField] private AK.Wwise.Event exitPauseMenuSound;
 
     private void Awake()
     {
         int curSceneId = SceneManager.GetActiveScene().buildIndex;
 
-        if (curSceneId == 0) //mainGame
+        if (curSceneId == 0) //MainMenu
         {
-            _input.SwitchCurrentActionMapTo("UI"); 
+            input.SwitchCurrentActionMapTo("UI");
         }
         else if (curSceneId == 2) //Credits
         {
-            _input.SwitchCurrentActionMapTo("Cutscene"); 
+            input.SwitchCurrentActionMapTo("Cutscene");
         }
     }
 
     private void OnEnable()
     {
-        _input.PauseIsPerformed += OnPauseIsPerformed;
+        input.PauseIsPerformed += OnPauseIsPerformed;
     }
 
     private void Start()
     {
-
         if (fadeImage != null && useFade)
         {
             fadeImage.gameObject.SetActive(true);
@@ -55,7 +60,7 @@ public class ButtonActions : MonoBehaviour
     }
     private void OnDisable()
     {
-        _input.PauseIsPerformed -= OnPauseIsPerformed;
+        input.PauseIsPerformed -= OnPauseIsPerformed;
     }
 
     #region NormalUIButtonActions
@@ -75,21 +80,23 @@ public class ButtonActions : MonoBehaviour
         if (pauseMenuToggle == null)
             return;
 
-        if (_input.IsPauseActive)
+        if (input.IsPauseActive)
         {
+            enterPauseMenuSound.Post(gameObject);
             pauseMenuToggle.SetActive(true);
-            _input.SwitchCurrentActionMapTo("UI"); // Switch to UI ActionMap and disable any other Action Map.
+            input.SwitchCurrentActionMapTo("UI"); // Switch to UI ActionMap and disable any other Action Map.
         }
         else
         {
+            exitPauseMenuSound.Post(gameObject);
             pauseMenuToggle.SetActive(false);
-            _input.SwitchCurrentActionMapTo(_input.PreviousActionMap.name); // Switch to previous ActionMap before Pause and disable any other Action Map.
+            input.SwitchCurrentActionMapTo(input.PreviousActionMap.name); // Switch to previous ActionMap before Pause and disable any other Action Map.
         }
     }
 
     public void ResumeGame()
     {
-        _input.IsPauseActive = false;
+        input.IsPauseActive = false;
 
         TogglePause();
     }
@@ -100,12 +107,18 @@ public class ButtonActions : MonoBehaviour
     {
         if (sceneId == 2) //Credits
         {
-            _input.SwitchCurrentActionMapTo("Cutscene"); // Switch to UI ActionMap and disable any other Action Map
+            input.SwitchCurrentActionMapTo("Cutscene"); // Switch to UI ActionMap and disable any other Action Map
         }
         else
         {
-            _input.IsPauseActive = false;
-            _input.SwitchCurrentActionMapTo("UI"); // Switch to UI ActionMap and disable any other Action Map
+            if (sceneId == 0)
+                enterMainMenuSound.Post(gameObject);
+
+            if (sceneId == 3)
+                exitMainMenuSound.Post(gameObject);
+
+            input.IsPauseActive = false;
+            input.SwitchCurrentActionMapTo("UI"); // Switch to UI ActionMap and disable any other Action Map
         }
 
         if (useFade)
