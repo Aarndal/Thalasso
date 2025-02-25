@@ -12,7 +12,9 @@ public class PCAnimation : Entity
 
     [Header("Wwise Events")]
     [SerializeField]
-    private AK.Wwise.Event _footstepEvent = default;
+    private AK.Wwise.Event _walkEvent = default;
+    [SerializeField]
+    private AK.Wwise.Event _runEvent = default;
 
     [SerializeField]
     private List<AnimationClip> _animationClips = new();
@@ -111,7 +113,10 @@ public class PCAnimation : Entity
     protected override void OnAnimationEvenTriggered(AnimationEvent eventArgs)
     {
         if(eventArgs.stringParameter == "Walk")
-            _footstepEvent?.Post(gameObject);
+            _walkEvent?.Post(gameObject);
+
+        if (eventArgs.stringParameter == "Run")
+            _runEvent?.Post(gameObject);
     }
 
     private bool OnTransitionCheck()

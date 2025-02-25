@@ -320,7 +320,7 @@ MonoBehaviour:
     ParentPath: SoundBanks\Default Work Unit
     guid: 120307a5affdda4f9c2c157df7e55198
     GuidInternal: 
-    m_lastTime: -8584611918587594280
+    m_lastTime: -8584611234780430419
     List:
     - name: Enviroment
       guid: 4ccb99699ec7c34ab35455a4ec799272
@@ -418,7 +418,7 @@ MonoBehaviour:
     ParentPath: Events\Default Work Unit
     guid: a73c7a02b02f814caa08ff6be5823e65
     GuidInternal: 
-    m_lastTime: -8584611891989696397
+    m_lastTime: -8584611150341295297
     List:
     - name: Ambience_First_Time_Monster
       guid: 9284d8823fc8e6468a7d581d2dd4238e
@@ -497,6 +497,26 @@ MonoBehaviour:
         ObjectType: 3
         guid: 6ba5f69d5250094288205d926f45f22c
       Path: Events\Default Work Unit\Enviroment\DoorOpen
+      maxAttenuation: 50
+      maxDuration: 2.6106668
+      minDuration: 2.6106668
+    - name: End_Credits
+      guid: 57771e8076b8f64a9f41ca652c09fb62
+      id: 3797583859
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: a73c7a02b02f814caa08ff6be5823e65
+      - ElementName: Music
+        ObjectType: 4
+        guid: 7d2ce51831979a4095f5ef0061d54c3b
+      - ElementName: End_Credits
+        ObjectType: 3
+        guid: 57771e8076b8f64a9f41ca652c09fb62
+      Path: Events\Default Work Unit\Music\End_Credits
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -537,6 +557,123 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
+    - name: Main_Menu_In
+      guid: 4b4230c85b7262498456d3f64fe02130
+      id: 580468006
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: a73c7a02b02f814caa08ff6be5823e65
+      - ElementName: Menu Sounds
+        ObjectType: 4
+        guid: d5763613872ef2498e0e8389e0436448
+      - ElementName: Main_Menu_In
+        ObjectType: 3
+        guid: 4b4230c85b7262498456d3f64fe02130
+      Path: Events\Default Work Unit\Menu Sounds\Main_Menu_In
+      maxAttenuation: 0
+      maxDuration: 1.6664166
+      minDuration: 1.6664166
+    - name: Main_Menu_Music
+      guid: 602b47f21ed7e64baced9d1f35a08734
+      id: 3399698792
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: a73c7a02b02f814caa08ff6be5823e65
+      - ElementName: Music
+        ObjectType: 4
+        guid: 7d2ce51831979a4095f5ef0061d54c3b
+      - ElementName: Main_Menu_Music
+        ObjectType: 3
+        guid: 602b47f21ed7e64baced9d1f35a08734
+      Path: Events\Default Work Unit\Music\Main_Menu_Music
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Main_Menu_Out
+      guid: f3f22cf989a36047bfd9b724c8c1c785
+      id: 3091888041
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: a73c7a02b02f814caa08ff6be5823e65
+      - ElementName: Menu Sounds
+        ObjectType: 4
+        guid: d5763613872ef2498e0e8389e0436448
+      - ElementName: Main_Menu_Out
+        ObjectType: 3
+        guid: f3f22cf989a36047bfd9b724c8c1c785
+      Path: Events\Default Work Unit\Menu Sounds\Main_Menu_Out
+      maxAttenuation: 0
+      maxDuration: 0.5933333
+      minDuration: 0.5933333
+    - name: Menu Sounds
+      guid: d5763613872ef2498e0e8389e0436448
+      id: 1842939884
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: a73c7a02b02f814caa08ff6be5823e65
+      - ElementName: Menu Sounds
+        ObjectType: 4
+        guid: d5763613872ef2498e0e8389e0436448
+      Path: Events\Default Work Unit\Menu Sounds
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Menu_Back_Button
+      guid: de1597ceeb47c54ca5118d7699dd15b2
+      id: 2351299877
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: a73c7a02b02f814caa08ff6be5823e65
+      - ElementName: Menu Sounds
+        ObjectType: 4
+        guid: d5763613872ef2498e0e8389e0436448
+      - ElementName: Menu_Back_Button
+        ObjectType: 3
+        guid: de1597ceeb47c54ca5118d7699dd15b2
+      Path: Events\Default Work Unit\Menu Sounds\Menu_Back_Button
+      maxAttenuation: 0
+      maxDuration: 0.30300647
+      minDuration: 0.2608239
+    - name: Menu_Button_Press
+      guid: 1dd9e9747eb2304c8436b5c6231d3522
+      id: 952003163
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: a73c7a02b02f814caa08ff6be5823e65
+      - ElementName: Menu Sounds
+        ObjectType: 4
+        guid: d5763613872ef2498e0e8389e0436448
+      - ElementName: Menu_Button_Press
+        ObjectType: 3
+        guid: 1dd9e9747eb2304c8436b5c6231d3522
+      Path: Events\Default Work Unit\Menu Sounds\Menu_Button_Press
+      maxAttenuation: 0
+      maxDuration: 1.8704894
+      minDuration: 0.4080316
     - name: Music
       guid: 7d2ce51831979a4095f5ef0061d54c3b
       id: 3991942870
@@ -554,6 +691,46 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
+    - name: Pause_Menu_In
+      guid: 0d706117bf48234a9bdf7dd669800093
+      id: 3382955325
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: a73c7a02b02f814caa08ff6be5823e65
+      - ElementName: Menu Sounds
+        ObjectType: 4
+        guid: d5763613872ef2498e0e8389e0436448
+      - ElementName: Pause_Menu_In
+        ObjectType: 3
+        guid: 0d706117bf48234a9bdf7dd669800093
+      Path: Events\Default Work Unit\Menu Sounds\Pause_Menu_In
+      maxAttenuation: 0
+      maxDuration: 0.42666668
+      minDuration: 0.42666668
+    - name: Pause_Menu_Out
+      guid: 013f3b44ac13e54fb3bc3bf774fcc39c
+      id: 2397763428
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: a73c7a02b02f814caa08ff6be5823e65
+      - ElementName: Menu Sounds
+        ObjectType: 4
+        guid: d5763613872ef2498e0e8389e0436448
+      - ElementName: Pause_Menu_Out
+        ObjectType: 3
+        guid: 013f3b44ac13e54fb3bc3bf774fcc39c
+      Path: Events\Default Work Unit\Menu Sounds\Pause_Menu_Out
+      maxAttenuation: 0
+      maxDuration: 0.84933335
+      minDuration: 0.84933335
     - name: PlayerFoot_Run
       guid: 9535f4e52441134bb64bf6b39f19f673
       id: 4265836956
@@ -572,7 +749,7 @@ MonoBehaviour:
         guid: 9535f4e52441134bb64bf6b39f19f673
       Path: Events\Default Work Unit\PlayerSounds\PlayerFoot_Run
       maxAttenuation: 0
-      maxDuration: 0.81866664
+      maxDuration: 0.877017
       minDuration: 0.604
     - name: PlayerFoot_Walk
       guid: d89b7d260f96d3469d767294b02d398d
@@ -592,7 +769,7 @@ MonoBehaviour:
         guid: d89b7d260f96d3469d767294b02d398d
       Path: Events\Default Work Unit\PlayerSounds\PlayerFoot_Walk
       maxAttenuation: 0
-      maxDuration: 0.82516664
+      maxDuration: 0.9262182
       minDuration: 0.604
     - name: PlayerSounds
       guid: 1e79cc6510d6214d8453cc6ec06f3599
@@ -1013,7 +1190,7 @@ MonoBehaviour:
     m_lastTime: -8584635260294775808
     List: []
   ExpandedFileSystemItemIds: 
-  ExpandedWaapiItemIds: 02000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f0000001000000015000000160000001700000018000000190000001a0000001b0000001d00000023000000240000003b0000003d2b0000
+  ExpandedWaapiItemIds: 020000000300000004000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f0000001000000015000000160000001700000018000000190000001a0000001b0000001c0000001d0000002300000024000000330000003b0000003d2b0000
   AutoSyncSelection: 0
   autoPopulateEnabled: 1
   currentDataSource: 0
