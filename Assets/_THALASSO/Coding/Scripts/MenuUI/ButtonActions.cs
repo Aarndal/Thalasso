@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -149,12 +150,13 @@ public class ButtonActions : MonoBehaviour
             yield return null;
         }
 
-        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(sceneId));
+        //SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(sceneId));
 
     }
     private IEnumerator LoadSceneWithFade(int sceneId)
     {
-        yield return FadeOut();
+        yield return new WaitUntil(() => FadeOut());
+        //SceneManager.LoadSceneAsync(sceneId);
 
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneId);
         asyncOperation.allowSceneActivation = false;
@@ -168,7 +170,7 @@ public class ButtonActions : MonoBehaviour
             yield return null;
         }
 
-        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(sceneId));
+        //SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(sceneId));
     }
 
     public void LoadScenes(int[] sceneIDs)
@@ -181,7 +183,7 @@ public class ButtonActions : MonoBehaviour
     #endregion
 
     #region SmoothAnimation
-    private IEnumerator FadeOut()
+    private bool FadeOut()
     {
         if (fadeImage != null)
         {
@@ -191,10 +193,11 @@ public class ButtonActions : MonoBehaviour
             {
                 t += Time.deltaTime;
                 fadeImage.color = new Color(0, 0, 0, t / fadeDuration);
-                yield return null;
             }
             fadeImage.color = new Color(0, 0, 0, 1);
+            return true;
         }
+        return true;
     }
 
     private IEnumerator FadeIn()
