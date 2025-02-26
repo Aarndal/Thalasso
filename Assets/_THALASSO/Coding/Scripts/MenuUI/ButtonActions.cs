@@ -106,6 +106,9 @@ public class ButtonActions : MonoBehaviour
     #region SceneLoadingButtonActions
     public void LoadScene(int sceneId)
     {
+        if (SceneManager.GetSceneByBuildIndex(sceneId) == SceneManager.GetActiveScene())
+            return;
+
         if (sceneId == 2) //Credits
         {
             input.SwitchCurrentActionMapTo("Cutscene"); // Switch to UI ActionMap and disable any other Action Map
@@ -131,10 +134,10 @@ public class ButtonActions : MonoBehaviour
             StartCoroutine(LoadSceneWithoutFade(sceneId));
         }
     }
-    public void UnloadScene(int sceneId)
-    {
-        SceneManager.UnloadSceneAsync(sceneId);
-    }
+    //public void UnloadScene(int sceneId)
+    //{
+    //    SceneManager.UnloadSceneAsync(sceneId);
+    //}
 
     private IEnumerator LoadSceneWithoutFade(int sceneId)
     {
@@ -173,13 +176,13 @@ public class ButtonActions : MonoBehaviour
         //SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(sceneId));
     }
 
-    public void LoadScenes(int[] sceneIDs)
-    {
-        foreach (int sceneId in sceneIDs)
-        {
-            SceneManager.LoadSceneAsync(sceneId, LoadSceneMode.Additive);
-        }
-    }
+    //public void LoadScenes(int[] sceneIDs)
+    //{
+    //    foreach (int sceneId in sceneIDs)
+    //    {
+    //        SceneManager.LoadSceneAsync(sceneId, LoadSceneMode.Additive);
+    //    }
+    //}
     #endregion
 
     #region SmoothAnimation

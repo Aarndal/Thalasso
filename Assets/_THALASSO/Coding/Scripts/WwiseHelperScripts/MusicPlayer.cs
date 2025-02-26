@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -17,11 +18,22 @@ public class MusicPlayer : MonoBehaviour
     [SerializeField]
     private int[] _scenesToPlayCreditsMusic;
 
+    private int _activeScene = -1;
     private AK.Wwise.Event _activeAKEvent = null;
     private readonly Dictionary<int, AK.Wwise.Event> _sceneMusic = new();
 
+    private static MusicPlayer _instance;
+
     private void Awake()
     {
+        if (_instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        _instance = this;
+
         foreach (var sceneBuildIndex in _scenesToPlayMainMenuMusic)
         {
             _sceneMusic.TryAdd(sceneBuildIndex, _mainMenuMusic);
@@ -36,24 +48,14 @@ public class MusicPlayer : MonoBehaviour
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        //SceneManager.activeSceneChanged += OnActiveSceneChanged;
     }
 
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
-        //SceneManager.activeSceneChanged -= OnActiveSceneChanged;
     }
 
-    //private void OnActiveSceneChanged(Scene currentScene, Scene nextScene)
-    //{
-    //    if (_sceneMusic.Count == 0)
-    //        return;
-
-    //    SwitchSceneMusic(nextScene);
-    //}
-
-    private async void OnSceneLoaded(Scene loadedScene, LoadSceneMode sceneMode)
+    private void OnSceneLoaded(Scene loadedScene, LoadSceneMode sceneMode)
     {
         if (sceneMode == LoadSceneMode.Additive)
             return;
@@ -61,18 +63,17 @@ public class MusicPlayer : MonoBehaviour
         if (_sceneMusic.Count == 0)
             return;
 
-        await SwitchSceneMusic(loadedScene);
+        if (loadedScene.buildIndex == _activeScene)
+            return;
+
+        _activeScene = loadedScene.buildIndex;
+
+        SwitchSceneMusic(loadedScene);
 
     }
 
-    private async Task SwitchSceneMusic(Scene newScene)
+    private void SwitchSceneMusic(Scene newScene)
     {
-        while (!newScene.isLoaded)
-        {
-            await Task.Yield();
-        }
-        Debug.LogError("Loaded Scene: " + newScene.name);
-
         if (_sceneMusic.TryGetValue(newScene.buildIndex, out AK.Wwise.Event akEvent))
         {
             if(_activeAKEvent != akEvent)
