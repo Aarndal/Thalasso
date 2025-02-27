@@ -1,10 +1,14 @@
-using AK.Wwise;
 using UnityEngine;
 
-public class SoundMaterial : MonoBehaviour
+namespace WwiseHelper
 {
-    [SerializeField]
-    private Switch _soundMaterial;
+    public class SoundMaterial : MonoBehaviour
+    {
+#if WWISE_2024_OR_LATER
+        [SerializeField]
+        private AK.Wwise.Switch _soundMaterial;
 
-    public Switch Get() => _soundMaterial;
+        public AK.Wwise.Switch Get() => _soundMaterial;
+#endif
+    }
 }

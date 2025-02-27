@@ -1,18 +1,21 @@
 using UnityEngine;
 
-public class WwiseEventResponder : ResponderBase
+namespace WwiseHelper
 {
-    [SerializeField]
-    private AK.Wwise.Event _akEvent;
-
-    private bool _akEventIsPlaying = false;
-
-    public override void Respond(IAmTriggerable trigger) // Change TransferParameter to Transform
+    public class WwiseEventResponder : ResponderBase
     {
-        if (!_akEventIsPlaying)
+        [SerializeField]
+        private AK.Wwise.Event _akEvent;
+
+        private bool _akEventIsPlaying = false;
+
+        public override void Respond(IAmTriggerable trigger)
         {
-            _akEvent.Post(gameObject);
-            _akEventIsPlaying = true;
+            if (!_akEventIsPlaying)
+            {
+                _akEvent.Post(gameObject);
+                _akEventIsPlaying = true;
+            }
         }
     }
 }

@@ -8,14 +8,6 @@ public class PCAnimation : Entity
     [SerializeField]
     private SO_GameInputReader _input = default;
 
-    [Space(5)]
-
-    [Header("Wwise Events")]
-    [SerializeField]
-    private AK.Wwise.Event _walkEvent = default;
-    [SerializeField]
-    private AK.Wwise.Event _runEvent = default;
-
     [SerializeField]
     private List<AnimationClip> _animationClips = new();
 
@@ -59,7 +51,6 @@ public class PCAnimation : Entity
         base.OnEnable();
 
         GlobalEventBus.Register(GlobalEvents.Player.GroundedStateChanged, OnGroundedStateChanged);
-        GlobalEventBus.Register(GlobalEvents.Player.GroundSoundMaterialChanged, OnGroundSoundMaterialChanged);
 
         _input.MoveInputHasChanged += OnMoveInputHasChanged;
         _input.SprintIsTriggered += OnSprintIsTriggered;
@@ -87,7 +78,6 @@ public class PCAnimation : Entity
         base.OnDisable();
 
         GlobalEventBus.Deregister(GlobalEvents.Player.GroundedStateChanged, OnGroundedStateChanged);
-        GlobalEventBus.Deregister(GlobalEvents.Player.GroundSoundMaterialChanged, OnGroundSoundMaterialChanged);
 
         _input.MoveInputHasChanged -= OnMoveInputHasChanged;
         _input.SprintIsTriggered -= OnSprintIsTriggered;
@@ -110,13 +100,9 @@ public class PCAnimation : Entity
     }
     #endregion
 
-    protected override void OnAnimationEvenTriggered(AnimationEvent eventArgs)
+    protected override void OnAnimationEventTriggered(AnimationEvent eventArgs)
     {
-        if(eventArgs.stringParameter == "Walk")
-            _walkEvent?.Post(gameObject);
 
-        if (eventArgs.stringParameter == "Run")
-            _runEvent?.Post(gameObject);
     }
 
     private bool OnTransitionCheck()
@@ -146,14 +132,6 @@ public class PCAnimation : Entity
         {
             _isGrounded = isGrounded;
             TransitionCheck?.Invoke();
-        }
-    }
-
-    private void OnGroundSoundMaterialChanged(object[] args)
-    {
-        if (args[0] is AK.Wwise.Switch currentSoundMaterial)
-        {
-            currentSoundMaterial.SetValue(gameObject);
         }
     }
 
