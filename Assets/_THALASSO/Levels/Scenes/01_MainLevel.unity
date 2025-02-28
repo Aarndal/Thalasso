@@ -1121,7 +1121,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5526890881078507483, guid: 7f1a256885e70b5458a41dc6482233d5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.5
+      value: -7.3
       objectReference: {fileID: 0}
     - target: {fileID: 5526890881078507483, guid: 7f1a256885e70b5458a41dc6482233d5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1129,7 +1129,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5526890881078507483, guid: 7f1a256885e70b5458a41dc6482233d5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -26.7
+      value: -19.87
       objectReference: {fileID: 0}
     - target: {fileID: 5526890881078507483, guid: 7f1a256885e70b5458a41dc6482233d5, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1578,6 +1578,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3858863287513763546, guid: f79d266730aa65345ae7d8873db9447e, type: 3}
+      propertyPath: input
+      value: 
+      objectReference: {fileID: 11400000, guid: bcec874ef13692e4d84d8d005895f237, type: 2}
+    - target: {fileID: 3858863287513763546, guid: f79d266730aa65345ae7d8873db9447e, type: 3}
+      propertyPath: exitMainMenuSound.WwiseObjectReference
+      value: 
+      objectReference: {fileID: 11400000, guid: fe7e6222e4510e4499b522c98a48fb93, type: 2}
+    - target: {fileID: 3858863287513763546, guid: f79d266730aa65345ae7d8873db9447e, type: 3}
+      propertyPath: enterMainMenuSound.WwiseObjectReference
+      value: 
+      objectReference: {fileID: 11400000, guid: 465a4e41313a4ab4fa6c07339e5d362e, type: 2}
+    - target: {fileID: 3858863287513763546, guid: f79d266730aa65345ae7d8873db9447e, type: 3}
+      propertyPath: exitPauseMenuSound.WwiseObjectReference
+      value: 
+      objectReference: {fileID: 11400000, guid: c5316760c17dfec45a8ffdccd89d9ed4, type: 2}
+    - target: {fileID: 3858863287513763546, guid: f79d266730aa65345ae7d8873db9447e, type: 3}
+      propertyPath: enterPauseMenuSound.WwiseObjectReference
+      value: 
+      objectReference: {fileID: 11400000, guid: a8746f5e7ca75524188f6b913ae60e84, type: 2}
     - target: {fileID: 4462108285470819433, guid: f79d266730aa65345ae7d8873db9447e, type: 3}
       propertyPath: m_Name
       value: CutsceneCanvas
@@ -1947,11 +1967,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4853351898340630964, guid: 28b8030160a05364597927f760ba1486, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -3.8000002
       objectReference: {fileID: 0}
     - target: {fileID: 4853351898340630964, guid: 28b8030160a05364597927f760ba1486, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 30.3
+      value: 37.129997
+      objectReference: {fileID: 0}
+    - target: {fileID: 5872383200745266113, guid: 28b8030160a05364597927f760ba1486, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6531619286678820560, guid: 28b8030160a05364597927f760ba1486, type: 3}
       propertyPath: m_Name
@@ -1963,11 +1987,15 @@ PrefabInstance:
       objectReference: {fileID: 192681793}
     - target: {fileID: 8049120205045296738, guid: 28b8030160a05364597927f760ba1486, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -3.8000002
       objectReference: {fileID: 0}
     - target: {fileID: 8049120205045296738, guid: 28b8030160a05364597927f760ba1486, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 30.3
+      value: 37.129997
+      objectReference: {fileID: 0}
+    - target: {fileID: 8583503319355540152, guid: 28b8030160a05364597927f760ba1486, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

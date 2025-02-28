@@ -1,21 +1,42 @@
+using System;
+using Unity.Cinemachine;
 using UnityEngine;
+
+[Flags]
+public enum TriggerMode
+{
+    None = 0,
+    OnColliderEnter     = 1 << 0,
+    OnColliderStay      = 1 << 1,
+    OnColliderExit      = 1 << 2,
+    OnTriggerEnter      = 1 << 3,
+    OnTriggerStay       = 1 << 4,
+    OnTriggerExit       = 1 << 5,
+}
 
 public sealed class WwiseEventColliderTrigger : ColliderTriggerBase
 {
     [SerializeField]
-    private LayerMask _targetLayerMask = default;
+    private TriggerMode _triggerMode = TriggerMode.None;
+    [SerializeField]
+    private LayerMask _triggeringLayerMask = default;
 
-    [Space(5)]
+    [Space(20)]
 
     [SerializeField]
     private bool _hasLineOfSightCheck = true;
     [SerializeField]
-    private LayerMask _ignoredLayerMasks = default;
+    private CinemachineCamera _cinemachineCamera = default;
     [SerializeField]
-    private float _fieldOfView = 60.0f;
+    private Collider _targetCollider = default;
+    [SerializeField]
+    private LayerMask _ignoredLayerMasks = default;
 
     protected override void OnTriggerEnter(Collider other)
     {
+        if ((_triggerMode & TriggerMode.OnTriggerEnter) == 0)
+            return;
+
         if (IsInTargetLayerMask(other))
         {
             if (!_hasLineOfSightCheck)
@@ -33,6 +54,9 @@ public sealed class WwiseEventColliderTrigger : ColliderTriggerBase
 
     private void OnTriggerStay(Collider other)
     {
+        if ((_triggerMode & TriggerMode.OnTriggerStay) == 0)
+            return;
+
         if (IsInTargetLayerMask(other))
         {
             if (!_hasLineOfSightCheck)
@@ -54,7 +78,7 @@ public sealed class WwiseEventColliderTrigger : ColliderTriggerBase
     {
         LayerMask colliderLayerMask = 1 << collider.gameObject.layer;
 
-        if ((colliderLayerMask & _targetLayerMask) != 0)
+        if ((colliderLayerMask & _triggeringLayerMask) != 0)
             return true;
 
         return false;
@@ -66,19 +90,22 @@ public sealed class WwiseEventColliderTrigger : ColliderTriggerBase
         Ray ray = new()
         {
             origin = collider.transform.position,
-            direction = (gameObject.transform.position - collider.transform.position).normalized,
+            direction = (_targetCollider.transform.position - collider.transform.position).normalized,
         };
+
+        RaycastHit[] hits = new RaycastHit[10];
 
         float cosOfAngleToTarget = Vector3.Dot(collider.transform.forward, ray.direction); // division by magnitudes is not needed because both vectors are normalized => Magnitude = 1
 
-        if (cosOfAngleToTarget >= Mathf.Cos(Mathf.Deg2Rad * _fieldOfView / 2f)) // ">=" because the greater the angle, the smaller the cosine
+        if (cosOfAngleToTarget >= Mathf.Cos(Mathf.Deg2Rad * _cinemachineCamera.Lens.FieldOfView / 2f)) // ">=" because the greater the angle, the smaller the cosine
         {
-            if (Physics.Raycast(ray.origin, ray.direction, out RaycastHit hit, _collider.bounds.max.magnitude, ~_ignoredLayerMasks, QueryTriggerInteraction.Ignore))
+            if (Physics.RaycastNonAlloc(ray, hits, _triggerCollider.bounds.size.z, ~_ignoredLayerMasks, QueryTriggerInteraction.Ignore) > 0)
             {
-                LayerMask hitLayerMask = 1 << hit.collider.gameObject.layer;
-
-                if ((_targetLayerMask & hitLayerMask) != 0)
-                    return true;
+                foreach (var hit in hits)
+                {
+                    if (hit.collider == _targetCollider)
+                        return true;
+                }
             }
         }
 

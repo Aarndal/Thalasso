@@ -2089,9 +2089,7 @@ Transform:
   m_LocalPosition: {x: 9, y: 0, z: 6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2115662694}
-  - {fileID: 1459984992}
+  m_Children: []
   m_Father: {fileID: 240945844}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &647538658
@@ -4044,6 +4042,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _version: 2
   _crossSceneReferences:
+  - _sourceObject: {fileID: 2115662695}
+    _sourceField: _cinemachineCamera
+    DEPRECATED_fromObject:
+      scene:
+        editorAssetGUID: 
+        name: 
+        _path: 
+      fullPath: 
+      componentName: 
+      componentIndex: 0
+      editorLocalId: 0
+      editorPrefabRelativePath: 
+      version: 0
+    _toObject:
+      scene:
+        editorAssetGUID: 325ed5290f0c66d4ea38b3f8ac854207
+        name: 01_MainLevel
+        _path: Assets/_THALASSO/Levels/Scenes/01_MainLevel.unity
+      fullPath: /Cameras/CM_FPSCamera
+      componentName: Unity.Cinemachine.CinemachineCamera, Unity.Cinemachine, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      componentIndex: 0
+      editorLocalId: 967234215
+      editorPrefabRelativePath: CM_FPSCamera
+      version: 1
+    _data:
+      data: []
   - _sourceObject: {fileID: 1686095413}
     _sourceField: triggerObject
     DEPRECATED_fromObject:
@@ -4067,6 +4092,33 @@ MonoBehaviour:
       componentIndex: 0
       editorLocalId: 601804939
       editorPrefabRelativePath: 
+      version: 1
+    _data:
+      data: []
+  - _sourceObject: {fileID: 1459984993}
+    _sourceField: _cinemachineCamera
+    DEPRECATED_fromObject:
+      scene:
+        editorAssetGUID: 
+        name: 
+        _path: 
+      fullPath: 
+      componentName: 
+      componentIndex: 0
+      editorLocalId: 0
+      editorPrefabRelativePath: 
+      version: 0
+    _toObject:
+      scene:
+        editorAssetGUID: 325ed5290f0c66d4ea38b3f8ac854207
+        name: 01_MainLevel
+        _path: Assets/_THALASSO/Levels/Scenes/01_MainLevel.unity
+      fullPath: /Cameras/CM_FPSCamera
+      componentName: Unity.Cinemachine.CinemachineCamera, Unity.Cinemachine, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      componentIndex: 0
+      editorLocalId: 967234215
+      editorPrefabRelativePath: CM_FPSCamera
       version: 1
     _data:
       data: []
@@ -4578,7 +4630,7 @@ GameObject:
   - component: {fileID: 1459984994}
   - component: {fileID: 1459984993}
   m_Layer: 0
-  m_Name: Trigger (1)
+  m_Name: WwiseEventTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4592,12 +4644,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1459984991}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0.70710653, z: -0, w: 0.70710707}
+  m_LocalPosition: {x: 0.29999828, y: 0, z: 0.08000755}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 647538657}
+  m_Father: {fileID: 1587655632}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1459984993
 MonoBehaviour:
@@ -4611,16 +4663,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5d50dc6045755b44b94b909a343902a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _collider: {fileID: 1459984994}
   _isTriggerable: 1
-  _targetLayerMask:
+  _triggerCollider: {fileID: 1459984994}
+  _triggerMode: 24
+  _triggeringLayerMask:
     serializedVersion: 2
     m_Bits: 1024
   _hasLineOfSightCheck: 1
+  _cinemachineCamera: {fileID: 0}
+  _targetCollider: {fileID: 1587655633}
   _ignoredLayerMasks:
     serializedVersion: 2
     m_Bits: 1028
-  _fieldOfView: 60
 --- !u!65 &1459984994
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5386,12 +5440,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 371451032079447602, guid: e0ba752380264824b9d4d244b6646db0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1459984992}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0ba752380264824b9d4d244b6646db0, type: 3}
 --- !u!4 &1587655632 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 371451032079447602, guid: e0ba752380264824b9d4d244b6646db0, type: 3}
+  m_PrefabInstance: {fileID: 1587655631}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &1587655633 stripped
+CapsuleCollider:
+  m_CorrespondingSourceObject: {fileID: 4941988800399156294, guid: e0ba752380264824b9d4d244b6646db0, type: 3}
   m_PrefabInstance: {fileID: 1587655631}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1593762960
@@ -5709,12 +5771,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 371451032079447602, guid: e0ba752380264824b9d4d244b6646db0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2115662694}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0ba752380264824b9d4d244b6646db0, type: 3}
 --- !u!4 &1655147014 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 371451032079447602, guid: e0ba752380264824b9d4d244b6646db0, type: 3}
+  m_PrefabInstance: {fileID: 1655147013}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &1655147016 stripped
+CapsuleCollider:
+  m_CorrespondingSourceObject: {fileID: 4941988800399156294, guid: e0ba752380264824b9d4d244b6646db0, type: 3}
   m_PrefabInstance: {fileID: 1655147013}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1686095411
@@ -7104,7 +7174,7 @@ GameObject:
   - component: {fileID: 2115662696}
   - component: {fileID: 2115662695}
   m_Layer: 0
-  m_Name: Trigger
+  m_Name: WwiseEventTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7118,12 +7188,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2115662693}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.42261827, z: 0, w: 0.9063079}
-  m_LocalPosition: {x: -3.5, y: 0, z: 1}
+  m_LocalRotation: {x: -0, y: -0.3420198, z: -0, w: 0.93969274}
+  m_LocalPosition: {x: 0.15999508, y: 0, z: 0.13000774}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 647538657}
+  m_Father: {fileID: 1655147014}
   m_LocalEulerAnglesHint: {x: 0, y: 50, z: 0}
 --- !u!114 &2115662695
 MonoBehaviour:
@@ -7137,16 +7207,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5d50dc6045755b44b94b909a343902a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _collider: {fileID: 2115662696}
   _isTriggerable: 1
-  _targetLayerMask:
+  _triggerCollider: {fileID: 2115662696}
+  _triggerMode: 24
+  _triggeringLayerMask:
     serializedVersion: 2
     m_Bits: 1024
   _hasLineOfSightCheck: 1
+  _cinemachineCamera: {fileID: 0}
+  _targetCollider: {fileID: 1655147016}
   _ignoredLayerMasks:
     serializedVersion: 2
     m_Bits: 1028
-  _fieldOfView: 60
 --- !u!136 &2115662696
 CapsuleCollider:
   m_ObjectHideFlags: 0

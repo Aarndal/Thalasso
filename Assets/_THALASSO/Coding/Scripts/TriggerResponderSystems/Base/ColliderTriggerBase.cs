@@ -4,10 +4,10 @@ using UnityEngine;
 public abstract class ColliderTriggerBase : MonoBehaviour, IAmTriggerable
 {
     [SerializeField]
-    protected Collider _collider = default;
-
-    [SerializeField]
     protected bool _isTriggerable = true;
+    [SerializeField]
+    protected Collider _triggerCollider = default;
+
     public bool IsTriggerable => CheckTriggerable();
 
 
@@ -34,9 +34,9 @@ public abstract class ColliderTriggerBase : MonoBehaviour, IAmTriggerable
     protected Action<IAmTriggerable> _hasBeenTriggered;
 
     #region Unity Lifecycle Methods
-    protected virtual void Awake() => _collider = _collider != null ? _collider : GetComponent<Collider>();
+    protected virtual void Awake() => _triggerCollider = _triggerCollider != null ? _triggerCollider : GetComponent<Collider>();
 
-    protected virtual void Start() => _collider.isTrigger = true;
+    protected virtual void Start() => _triggerCollider.isTrigger = true;
 
     protected virtual void OnTriggerEnter(Collider other) => Trigger();
     #endregion

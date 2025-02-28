@@ -181,6 +181,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 371451032079447602}
+  - component: {fileID: 4941988800399156294}
   m_Layer: 0
   m_Name: SM_Tank
   m_TagString: Untagged
@@ -206,6 +207,29 @@ Transform:
   - {fileID: 3644928025152966646}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &4941988800399156294
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3831536817682295869}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.1
+  m_Height: 4
+  m_Direction: 1
+  m_Center: {x: 0, y: 2, z: 0}
 --- !u!1 &3929995122742269463
 GameObject:
   m_ObjectHideFlags: 0
