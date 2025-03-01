@@ -8,5 +8,7 @@ public interface IAmTriggerable
     event Action<GameObject, string> CannotBeTriggered;
     event Action<IAmTriggerable> HasBeenTriggered;
 
-    void Trigger();
+    void Trigger(GameObject gameObject);
+
+    bool ChangeIsTriggerable();
 }

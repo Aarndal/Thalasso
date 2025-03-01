@@ -296,12 +296,6 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
     {
         //throw new NotImplementedException();
     }
-
-    public void OnSkip(InputAction.CallbackContext context)
-    {
-        if (SkipIsTriggered is not null && context.performed)
-            SkipIsTriggered.Invoke();
-    }
     #endregion
 
     #region UIActionMap CallbackFunctions
@@ -353,6 +347,14 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
     public void OnTrackedDeviceOrientation(InputAction.CallbackContext context)
     {
         //throw new NotImplementedException();
+    }
+    #endregion
+
+    #region CutsceneActionMap CallbackFunctions
+    public void OnSkip(InputAction.CallbackContext context)
+    {
+        if (SkipIsTriggered is not null && context.performed)
+            SkipIsTriggered.Invoke();
     }
     #endregion
 

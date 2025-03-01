@@ -18,7 +18,7 @@ public abstract class Entity : MonoBehaviour
     protected virtual void OnEnable()
     {
         if (AnimationEventBroadcaster != null)
-            AnimationEventBroadcaster.AnimationEventTriggered += OnAnimationEvenTriggered;
+            AnimationEventBroadcaster.AnimationEventTriggered += OnAnimationEventTriggered;
     }
 
     protected virtual void Start()
@@ -30,8 +30,8 @@ public abstract class Entity : MonoBehaviour
     protected virtual void OnDisable()
     {
         if (AnimationEventBroadcaster != null)
-            AnimationEventBroadcaster.AnimationEventTriggered -= OnAnimationEvenTriggered;
+            AnimationEventBroadcaster.AnimationEventTriggered -= OnAnimationEventTriggered;
     }
 
-    protected virtual void OnAnimationEvenTriggered(AnimationEvent eventArgs) { }
+    protected virtual void OnAnimationEventTriggered(AnimationEvent eventArgs) { }
 }

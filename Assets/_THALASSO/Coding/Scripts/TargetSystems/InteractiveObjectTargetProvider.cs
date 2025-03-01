@@ -7,7 +7,7 @@ public sealed class InteractiveObjectTargetProvider : TargetProvider
 {
     [Header("Variables")]
     [SerializeField]
-    private LayerMask _targetLayerMask;
+    private LayerMask _targetedLayerMasks;
     [SerializeField]
     private LayerMask _ignoredLayerMasks;
     [SerializeField]
@@ -89,7 +89,7 @@ public sealed class InteractiveObjectTargetProvider : TargetProvider
         float sphereCastMaxDistance = _sphereCastDistance;
 
         // Perform a sphere cast to find potential targets on the target layer
-        _numTargetsFound = Physics.SphereCastNonAlloc(sphereCastOrigin, _sphereCastRadius, transform.forward, _hitTargets, sphereCastMaxDistance, _targetLayerMask, QueryTriggerInteraction.Collide);
+        _numTargetsFound = Physics.SphereCastNonAlloc(sphereCastOrigin, _sphereCastRadius, transform.forward, _hitTargets, sphereCastMaxDistance, _targetedLayerMasks, QueryTriggerInteraction.Collide);
 
         if (_numTargetsFound <= 0)
             return null;

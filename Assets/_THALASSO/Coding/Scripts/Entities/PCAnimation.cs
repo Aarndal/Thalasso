@@ -8,8 +8,6 @@ public class PCAnimation : Entity
     [SerializeField]
     private SO_GameInputReader _input = default;
 
-    [Space(5)]
-
     [SerializeField]
     private List<AnimationClip> _animationClips = new();
 
@@ -61,6 +59,7 @@ public class PCAnimation : Entity
         TransitionCheck += OnTransitionCheck;
     }
 
+
     protected override void Start()
     {
         base.Start();
@@ -100,6 +99,11 @@ public class PCAnimation : Entity
                 _animationStates.Add(Animator.StringToHash(_animationClips[i].name), _animationClips[i].name);
     }
     #endregion
+
+    protected override void OnAnimationEventTriggered(AnimationEvent eventArgs)
+    {
+
+    }
 
     private bool OnTransitionCheck()
     {

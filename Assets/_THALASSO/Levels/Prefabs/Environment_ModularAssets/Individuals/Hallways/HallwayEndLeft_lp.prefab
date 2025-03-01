@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6643988510564891028}
   - component: {fileID: 6641957582470582438}
   - component: {fileID: -4628504400120551066}
+  - component: {fileID: 9096661466119358310}
   m_Layer: 0
   m_Name: HallwayEndLeft_lp
   m_TagString: Untagged
@@ -109,3 +110,21 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 7787905982391625851, guid: 950d2a9a69230d742b89bc84cb9cbbf4, type: 3}
+--- !u!114 &9096661466119358310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4792062267024775705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e191ea7d50ac124468894a088222114b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _soundMaterial:
+    idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 9af64c217f9d52c49b486e289c49605a, type: 2}

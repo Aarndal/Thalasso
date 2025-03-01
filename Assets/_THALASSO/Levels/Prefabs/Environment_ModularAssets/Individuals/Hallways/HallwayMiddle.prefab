@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4178447207372136893}
   - component: {fileID: 543202654284428619}
   - component: {fileID: -2139730736634392776}
+  - component: {fileID: 8396101451754816937}
   m_Layer: 0
   m_Name: HallwayMiddle
   m_TagString: Untagged
@@ -109,3 +110,21 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 428906775867487088, guid: 950d2a9a69230d742b89bc84cb9cbbf4, type: 3}
+--- !u!114 &8396101451754816937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6523010780619354077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e191ea7d50ac124468894a088222114b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _soundMaterial:
+    idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 9af64c217f9d52c49b486e289c49605a, type: 2}

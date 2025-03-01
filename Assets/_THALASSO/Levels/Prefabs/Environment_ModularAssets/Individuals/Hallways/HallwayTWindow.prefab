@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6835118098143565335}
   - component: {fileID: 3592352193177892150}
   - component: {fileID: 58167376514467094}
+  - component: {fileID: -2744265663052208323}
   m_Layer: 0
   m_Name: HallwayTWindow
   m_TagString: Untagged
@@ -114,6 +115,24 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 8547842183543356791, guid: 950d2a9a69230d742b89bc84cb9cbbf4, type: 3}
+--- !u!114 &-2744265663052208323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2503154234193347228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e191ea7d50ac124468894a088222114b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _soundMaterial:
+    idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 9af64c217f9d52c49b486e289c49605a, type: 2}
 --- !u!1 &4567991795245407043
 GameObject:
   m_ObjectHideFlags: 0

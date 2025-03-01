@@ -55,12 +55,23 @@ public class DoorAnimation : MonoBehaviour
     [Space(10)]
 
     [Header("Opening Animation")]
-    [SerializeField] private float openingDuration;
-    [SerializeField] private AnimationCurve openingSpeedCurve;
+    [SerializeField]
+    private float openingDuration;
+    [SerializeField]
+    private AnimationCurve openingSpeedCurve;
 
     [Header("Closing Animation")]
-    [SerializeField] private float closingDuration;
-    [SerializeField] private AnimationCurve closingSpeedCurve;
+    [SerializeField]
+    private float closingDuration;
+    [SerializeField]
+    private AnimationCurve closingSpeedCurve;
+
+    [Space(10)]
+
+    [Header("Audio Settings")]
+    [SerializeField]
+    private AK.Wwise.Event _openDoorSound;
+
 
     // Door Properties
     public bool InTransition => inTransition;
@@ -76,7 +87,7 @@ public class DoorAnimation : MonoBehaviour
             if (value != isLocked)
             {
                 isLocked = value;
-                if(isLocked)
+                if (isLocked)
                     isOpen = false;
             }
         }
@@ -91,9 +102,9 @@ public class DoorAnimation : MonoBehaviour
     #region Unity Lifecycle Methods
     private void OnEnable()
     {
-        IsBeingOpened += () => SetDoorStates(false, true, false);
+        IsBeingOpened += () => { SetDoorStates(false, true, false); _openDoorSound.Post(gameObject); };
         IsBeingClosed += () => SetDoorStates(false, false, true);
-        HasBeenOpened += () => SetDoorStates(true, false, false);
+        HasBeenOpened += () => { SetDoorStates(true, false, false); };
         HasBeenClosed += () => SetDoorStates(false, false, true);
     }
 
@@ -123,9 +134,9 @@ public class DoorAnimation : MonoBehaviour
 
     private void OnDisable()
     {
-        IsBeingOpened -= () => SetDoorStates(false, true, false);
+        IsBeingOpened -= () => { SetDoorStates(false, true, false); _openDoorSound.Post(gameObject); };
         IsBeingClosed -= () => SetDoorStates(false, false, true);
-        HasBeenOpened -= () => SetDoorStates(true, false, false);
+        HasBeenOpened -= () => { SetDoorStates(true, false, false); };
         HasBeenClosed -= () => SetDoorStates(false, false, true);
     }
     #endregion

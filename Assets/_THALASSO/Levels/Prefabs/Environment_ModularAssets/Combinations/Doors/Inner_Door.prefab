@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3411902745195106224}
   - component: {fileID: 2958318385274516595}
   - component: {fileID: 2696087798030980035}
+  - component: {fileID: 3191906300776763779}
   m_Layer: 0
   m_Name: ColliderTriggerBack
   m_TagString: Untagged
@@ -67,7 +68,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isTriggerable: 1
-  _collider: {fileID: 2958318385274516595}
+  _isOneTimeTrigger: 0
+  _triggerMode: 24
+  _cannotBeTriggeredMessage: 
+--- !u!114 &3191906300776763779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 874620209774810482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2eec03a4f24e5d40b33c35c84fe4f81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _onEnterSwitchTo:
+    idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  _onStaySwitchTo:
+    idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  _onExitSwitchTo:
+    idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
 --- !u!1 &5290908049569090389
 GameObject:
   m_ObjectHideFlags: 0
@@ -79,6 +112,7 @@ GameObject:
   - component: {fileID: 5663776038803347949}
   - component: {fileID: 2054046157745969239}
   - component: {fileID: 7673189928225668488}
+  - component: {fileID: 9201576028540495816}
   m_Layer: 0
   m_Name: ColliderTriggerFront
   m_TagString: Untagged
@@ -135,7 +169,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isTriggerable: 1
-  _collider: {fileID: 2054046157745969239}
+  _isOneTimeTrigger: 0
+  _triggerMode: 24
+  _cannotBeTriggeredMessage: 
+--- !u!114 &9201576028540495816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5290908049569090389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2eec03a4f24e5d40b33c35c84fe4f81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _onEnterSwitchTo:
+    idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  _onStaySwitchTo:
+    idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  _onExitSwitchTo:
+    idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
 --- !u!1 &7909537651477913594
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,6 +213,7 @@ GameObject:
   - component: {fileID: 8322930308589532108}
   - component: {fileID: 552371037571386709}
   - component: {fileID: 7744877337771004822}
+  - component: {fileID: 7709637085742139260}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -282,6 +349,35 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _openDoorSound:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: f10c64e3fc24c524ca035fbcc3a601a3, type: 2}
+--- !u!114 &7709637085742139260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7909537651477913594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 034d28fa1a0fbad4a8e8cef542c97588, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: f7e1664c
+  useOtherObject: 0
+  data:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: e39c6a93ec2d9ec42aa5a0586ff6f20a, type: 2}
+  decodeBank: 0
+  overrideLoadSetting: 0
+  loadAsynchronous: 0
+  saveDecodedBank: 0
+  unloadTriggerList: 958ca0ea
+  bankNameInternal: 
+  valueGuidInternal: 
 --- !u!1 &8097574005474314998
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,10 +483,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 8322930308589532108}
     m_Modifications:
     - target: {fileID: 2008464321683653367, guid: e99777fd69d325449bc37ef355c262b7, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 2008464321683653367, guid: e99777fd69d325449bc37ef355c262b7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -468,10 +560,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8322930308589532108}
     m_Modifications:
-    - target: {fileID: 540597074276480010, guid: f993ba20bc923264cad28b8123d72056, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.9
-      objectReference: {fileID: 0}
     - target: {fileID: 540597074276480010, guid: f993ba20bc923264cad28b8123d72056, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1

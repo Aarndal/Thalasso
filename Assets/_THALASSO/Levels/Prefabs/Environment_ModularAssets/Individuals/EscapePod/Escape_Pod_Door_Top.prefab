@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 735491450660067264}
   - component: {fileID: 2291064751492820126}
   - component: {fileID: 1098870954363911622}
+  - component: {fileID: 3085919814454385284}
   m_Layer: 0
   m_Name: Escape_Pod_Door_Top
   m_TagString: Untagged
@@ -109,3 +110,21 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 6614441076597315692, guid: 7692f251f1eb6eb449d01cbd8b6666f8, type: 3}
+--- !u!114 &3085919814454385284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1506428875495459061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e191ea7d50ac124468894a088222114b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _soundMaterial:
+    idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: f1d57542e2129d947a80a4722415ddd3, type: 2}

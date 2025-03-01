@@ -1,6 +1,8 @@
+using UnityEngine;
+
 public interface IMakeChecks
 {
     public bool IsActive { get; set; }
 
-    void Check();
+    bool Check(Transform transform);
 }

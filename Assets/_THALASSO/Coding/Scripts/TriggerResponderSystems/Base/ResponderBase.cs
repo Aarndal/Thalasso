@@ -18,7 +18,6 @@ public abstract class ResponderBase : MonoBehaviour, IAmResponsive
         }
     }
 
-
     protected virtual void OnDisable()
     {
         foreach (var trigger in _triggers)

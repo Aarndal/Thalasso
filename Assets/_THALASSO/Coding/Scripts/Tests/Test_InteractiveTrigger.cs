@@ -18,7 +18,7 @@ public class Test_InteractiveTrigger : InteractiveTrigger
     private void Start() =>
         _meshRenderer.material.color = _baseColor;
 
-    public override void Trigger()
+    public override void Trigger(GameObject gameObject)
     {
         if (!IsTriggerable)
             return;

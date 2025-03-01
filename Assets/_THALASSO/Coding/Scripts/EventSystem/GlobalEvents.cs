@@ -17,5 +17,6 @@ public class GlobalEvents
     public class Player // 300 - 499
     {
         public const uint GroundedStateChanged = 300;
+        public const uint GroundSoundMaterialChanged = 301;
     }
 }

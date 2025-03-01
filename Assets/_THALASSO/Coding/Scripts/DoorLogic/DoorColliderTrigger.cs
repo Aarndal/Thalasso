@@ -1,22 +1,16 @@
 ﻿using UnityEngine;
 
 [DisallowMultipleComponent]
-public class DoorColliderTrigger : ColliderTriggerBase
+public class DoorColliderTrigger : ColliderTrigger
 {
-    protected override void OnTriggerEnter(Collider other)
+    protected override bool IsValidTrigger(GameObject triggeringGameObject)
     {
-        if (other.TryGetComponent(out Entity _))
-            Trigger();
-    }
+        if (!triggeringGameObject.TryGetComponent(out Entity entity))
+            return false;
 
-    protected virtual void OnTriggerStay(Collider other)
-    {
-        if (other.TryGetComponent(out Entity entity))
-        {
-            if (!entity.Animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
-                Trigger();
-        }
-    }
+        if (!entity.Animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+            return true;
 
-    public override void Trigger() => _hasBeenTriggered?.Invoke(this);
+        return false;
+    }
 }

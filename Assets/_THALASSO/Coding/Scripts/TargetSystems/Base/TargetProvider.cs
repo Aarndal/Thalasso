@@ -4,9 +4,6 @@ using UnityEngine;
 [Serializable]
 public abstract class TargetProvider : MonoBehaviour
 {
-    public event Action<Transform> NewTargetDetected;
-    public event Action<Transform> TargetLost;
-
     private Transform _target;
 
     public Transform Target
@@ -30,5 +27,8 @@ public abstract class TargetProvider : MonoBehaviour
 
     public bool HasTarget => Target != null && Target.gameObject.activeInHierarchy;
 
+    public event Action<Transform> NewTargetDetected;
+    public event Action<Transform> TargetLost;
+    
     public abstract Transform GetTarget();
 }

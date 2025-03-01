@@ -1,44 +1,48 @@
 using System.Collections;
-using UnityEditor.SearchService;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ButtonActions : MonoBehaviour
 {
-    [SerializeField]
-    private SO_GameInputReader _input = default;
+    [HideInInspector] public GameObject pauseMenuToggle;
 
+    [Header("References")]
+    [SerializeField] private SO_GameInputReader input = default;
+
+    [Header("Fade Settings")]
     [SerializeField] private bool useFade = true;
     [SerializeField] private Image fadeImage;
     [SerializeField] private float fadeDuration = 0.5f;
 
-    [HideInInspector] public GameObject pauseMenuToggle;
-
+    [Header("Audio Settings")]
+    [SerializeField] private AK.Wwise.Event enterMainMenuSound;
+    [SerializeField] private AK.Wwise.Event exitMainMenuSound;
+    [SerializeField] private AK.Wwise.Event enterPauseMenuSound;
+    [SerializeField] private AK.Wwise.Event exitPauseMenuSound;
 
     private void Awake()
     {
         int curSceneId = SceneManager.GetActiveScene().buildIndex;
 
-        if (curSceneId == 0) //mainGame
+        if (curSceneId == 0) //MainMenu
         {
-            _input.SwitchCurrentActionMapTo("UI"); 
+            input.SwitchCurrentActionMapTo("UI");
         }
         else if (curSceneId == 2) //Credits
         {
-            _input.SwitchCurrentActionMapTo("Cutscene"); 
+            input.SwitchCurrentActionMapTo("Cutscene");
         }
     }
 
     private void OnEnable()
     {
-        _input.PauseIsPerformed += OnPauseIsPerformed;
+        input.PauseIsPerformed += OnPauseIsPerformed;
     }
 
     private void Start()
     {
-
         if (fadeImage != null && useFade)
         {
             fadeImage.gameObject.SetActive(true);
@@ -57,7 +61,7 @@ public class ButtonActions : MonoBehaviour
     }
     private void OnDisable()
     {
-        _input.PauseIsPerformed -= OnPauseIsPerformed;
+        input.PauseIsPerformed -= OnPauseIsPerformed;
     }
 
     #region NormalUIButtonActions
@@ -77,21 +81,23 @@ public class ButtonActions : MonoBehaviour
         if (pauseMenuToggle == null)
             return;
 
-        if (_input.IsPauseActive)
+        if (input.IsPauseActive)
         {
+            enterPauseMenuSound.Post(gameObject);
             pauseMenuToggle.SetActive(true);
-            _input.SwitchCurrentActionMapTo("UI"); // Switch to UI ActionMap and disable any other Action Map.
+            input.SwitchCurrentActionMapTo("UI"); // Switch to UI ActionMap and disable any other Action Map.
         }
         else
         {
+            exitPauseMenuSound.Post(gameObject);
             pauseMenuToggle.SetActive(false);
-            _input.SwitchCurrentActionMapTo(_input.PreviousActionMap.name); // Switch to previous ActionMap before Pause and disable any other Action Map.
+            input.SwitchCurrentActionMapTo(input.PreviousActionMap.name); // Switch to previous ActionMap before Pause and disable any other Action Map.
         }
     }
 
     public void ResumeGame()
     {
-        _input.IsPauseActive = false;
+        input.IsPauseActive = false;
 
         TogglePause();
     }
@@ -100,14 +106,23 @@ public class ButtonActions : MonoBehaviour
     #region SceneLoadingButtonActions
     public void LoadScene(int sceneId)
     {
+        if (SceneManager.GetSceneByBuildIndex(sceneId) == SceneManager.GetActiveScene())
+            return;
+
         if (sceneId == 2) //Credits
         {
-            _input.SwitchCurrentActionMapTo("Cutscene"); // Switch to UI ActionMap and disable any other Action Map
+            input.SwitchCurrentActionMapTo("Cutscene"); // Switch to UI ActionMap and disable any other Action Map
         }
         else
         {
-            _input.IsPauseActive = false;
-            _input.SwitchCurrentActionMapTo("UI"); // Switch to UI ActionMap and disable any other Action Map
+            if (sceneId == 0)
+                enterMainMenuSound.Post(gameObject);
+
+            if (sceneId == 3)
+                exitMainMenuSound.Post(gameObject);
+
+            input.IsPauseActive = false;
+            input.SwitchCurrentActionMapTo("UI"); // Switch to UI ActionMap and disable any other Action Map
         }
 
         if (useFade)
@@ -119,10 +134,10 @@ public class ButtonActions : MonoBehaviour
             StartCoroutine(LoadSceneWithoutFade(sceneId));
         }
     }
-    public void UnloadScene(int sceneId)
-    {
-        SceneManager.UnloadSceneAsync(sceneId);
-    }
+    //public void UnloadScene(int sceneId)
+    //{
+    //    SceneManager.UnloadSceneAsync(sceneId);
+    //}
 
     private IEnumerator LoadSceneWithoutFade(int sceneId)
     {
@@ -138,12 +153,13 @@ public class ButtonActions : MonoBehaviour
             yield return null;
         }
 
-        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(sceneId));
+        //SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(sceneId));
 
     }
     private IEnumerator LoadSceneWithFade(int sceneId)
     {
-        yield return FadeOut();
+        yield return new WaitUntil(() => FadeOut());
+        //SceneManager.LoadSceneAsync(sceneId);
 
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneId);
         asyncOperation.allowSceneActivation = false;
@@ -157,20 +173,20 @@ public class ButtonActions : MonoBehaviour
             yield return null;
         }
 
-        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(sceneId));
+        //SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(sceneId));
     }
 
-    public void LoadScenes(int[] sceneIDs)
-    {
-        foreach (int sceneId in sceneIDs)
-        {
-            SceneManager.LoadSceneAsync(sceneId, LoadSceneMode.Additive);
-        }
-    }
+    //public void LoadScenes(int[] sceneIDs)
+    //{
+    //    foreach (int sceneId in sceneIDs)
+    //    {
+    //        SceneManager.LoadSceneAsync(sceneId, LoadSceneMode.Additive);
+    //    }
+    //}
     #endregion
 
     #region SmoothAnimation
-    private IEnumerator FadeOut()
+    private bool FadeOut()
     {
         if (fadeImage != null)
         {
@@ -180,10 +196,11 @@ public class ButtonActions : MonoBehaviour
             {
                 t += Time.deltaTime;
                 fadeImage.color = new Color(0, 0, 0, t / fadeDuration);
-                yield return null;
             }
             fadeImage.color = new Color(0, 0, 0, 1);
+            return true;
         }
+        return true;
     }
 
     private IEnumerator FadeIn()
