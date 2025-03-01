@@ -8,7 +8,15 @@ public class InteractiveTrigger : MonoBehaviour, IAmTriggerable, IAmInteractive
     [SerializeField, TextArea]
     protected string _triggerMessage = "";
 
-    public bool IsTriggerable => CheckTriggerable();
+    public bool IsTriggerable
+    {
+        get => _isTriggerable;
+        protected set
+        {
+            if (value != _isTriggerable)
+                _isTriggerable = value;
+        }
+    }
 
     public event Action<GameObject, string> CannotBeTriggered
     {
@@ -48,5 +56,5 @@ public class InteractiveTrigger : MonoBehaviour, IAmTriggerable, IAmInteractive
             _cannotBeTriggered?.Invoke(gameObject, _triggerMessage);
     }
 
-    protected virtual bool CheckTriggerable() => _isTriggerable;
+    public virtual bool ChangeTriggerable() => IsTriggerable = !IsTriggerable;
 }

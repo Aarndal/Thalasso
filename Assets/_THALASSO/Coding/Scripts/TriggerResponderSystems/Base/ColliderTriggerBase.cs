@@ -8,7 +8,15 @@ public abstract class ColliderTriggerBase : MonoBehaviour, IAmTriggerable
     [SerializeField]
     protected Collider _triggerCollider = default;
 
-    public bool IsTriggerable => CheckTriggerable();
+    public bool IsTriggerable
+    {
+        get => _isTriggerable;
+        protected set
+        {
+            if (value != _isTriggerable)
+                _isTriggerable = value;
+        }
+    }
 
 
     public event Action<GameObject, string> CannotBeTriggered
@@ -43,5 +51,5 @@ public abstract class ColliderTriggerBase : MonoBehaviour, IAmTriggerable
 
     public abstract void Trigger();
 
-    protected virtual bool CheckTriggerable() => _isTriggerable;
+    public virtual bool ChangeTriggerable() => IsTriggerable = !IsTriggerable;
 }

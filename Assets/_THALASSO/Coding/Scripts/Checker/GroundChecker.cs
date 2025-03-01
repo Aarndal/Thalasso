@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class GroundChecker : MonoBehaviour, IMakeChecks
 {
+    [Header("Variables")]
+    [SerializeField]
+    private bool _isActive = true;
     [SerializeField]
     private LayerMask _groundLayerMasks = default;
     [SerializeField]
@@ -19,7 +22,6 @@ public class GroundChecker : MonoBehaviour, IMakeChecks
     private AK.Wwise.Switch _currentSoundMaterial;
 #endif
 
-    private bool _isActive = true;
     private bool _isGrounded = true;
 
     public bool IsActive { get => _isActive; set => _isActive = value; }
@@ -37,7 +39,7 @@ public class GroundChecker : MonoBehaviour, IMakeChecks
     }
 
 #if WWISE_2024_OR_LATER
-    public AK.Wwise.Switch SoundMaterial
+    public AK.Wwise.Switch CurrentSoundMaterial
     {
         get => _currentSoundMaterial;
         private set
@@ -54,15 +56,14 @@ public class GroundChecker : MonoBehaviour, IMakeChecks
     private void Start()
     {
 #if WWISE_2024_OR_LATER
-        SoundMaterial = _defaultSoundMaterial;
+        CurrentSoundMaterial = _defaultSoundMaterial;
 #endif
         GlobalEventBus.Raise(GlobalEvents.Player.GroundedStateChanged, _isGrounded);
     }
 
     private void Update()
     {
-        if (IsActive)
-            Check();
+        Check(transform);
     }
 
     private void OnDrawGizmosSelected()
@@ -71,8 +72,11 @@ public class GroundChecker : MonoBehaviour, IMakeChecks
         Gizmos.DrawWireSphere(transform.position + _groundCheckOffset, _groundCheckRadius);
     }
 
-    public void Check()
+    public bool Check(Transform target)
     {
+        if (!IsActive)
+            return false;
+
         int maxColliders = 10;
         Collider[] hitColliders = new Collider[maxColliders];
 
@@ -83,9 +87,10 @@ public class GroundChecker : MonoBehaviour, IMakeChecks
         {
             if (Physics.Raycast(transform.position + _groundCheckOffset, -transform.up, out RaycastHit hitInfo, _groundCheckRadius, _groundLayerMasks, QueryTriggerInteraction.Ignore))
                 if (hitInfo.collider.TryGetComponent(out SoundMaterial soundMaterial))
-                    SoundMaterial = soundMaterial.Get();
+                    CurrentSoundMaterial = soundMaterial.Get();
         }
 #endif
+        return IsGrounded;
     }
 
 }

@@ -6,48 +6,51 @@ using UnityEngine;
 public enum TriggerMode
 {
     None = 0,
-    OnColliderEnter     = 1 << 0,
-    OnColliderStay      = 1 << 1,
-    OnColliderExit      = 1 << 2,
-    OnTriggerEnter      = 1 << 3,
-    OnTriggerStay       = 1 << 4,
-    OnTriggerExit       = 1 << 5,
+    OnColliderEnter = 1 << 0,
+    OnColliderStay = 1 << 1,
+    OnColliderExit = 1 << 2,
+    OnTriggerEnter = 1 << 3,
+    OnTriggerStay = 1 << 4,
+    OnTriggerExit = 1 << 5,
 }
 
 public sealed class WwiseEventColliderTrigger : ColliderTriggerBase
 {
     [SerializeField]
+    private bool _isOnTimeTrigger = true;
+    [SerializeField]
     private TriggerMode _triggerMode = TriggerMode.None;
     [SerializeField]
     private LayerMask _triggeringLayerMask = default;
+    [SerializeField]
+    private Collider _targetedCollider = default;
 
-    [Space(20)]
+    protected override void Awake()
+    {
+        base.Awake();
+        _targetedCollider.isTrigger = false;
+    }
 
-    [SerializeField]
-    private bool _hasLineOfSightCheck = true;
-    [SerializeField]
-    private CinemachineCamera _cinemachineCamera = default;
-    [SerializeField]
-    private Collider _targetCollider = default;
-    [SerializeField]
-    private LayerMask _ignoredLayerMasks = default;
+    private void OnEnable()
+    {
+        HasBeenTriggered += OnHasBeenTriggered;
+    }
 
     protected override void OnTriggerEnter(Collider other)
     {
         if ((_triggerMode & TriggerMode.OnTriggerEnter) == 0)
             return;
 
-        if (IsInTargetLayerMask(other))
+        if (IsInTargetLayerMask(other.transform))
         {
-            if (!_hasLineOfSightCheck)
-            {
-                Trigger();
-                return;
-            }
+            LineOfSightChecker lineOfSight = other.gameObject.GetComponentInChildren<LineOfSightChecker>();
 
-            if (IsInLineOfSight(other))
+            if (lineOfSight != null)
             {
-                Trigger();
+                if (lineOfSight.Check(_targetedCollider.transform))
+                {
+                    Trigger();
+                }
             }
         }
     }
@@ -57,57 +60,52 @@ public sealed class WwiseEventColliderTrigger : ColliderTriggerBase
         if ((_triggerMode & TriggerMode.OnTriggerStay) == 0)
             return;
 
-        if (IsInTargetLayerMask(other))
+        if (IsInTargetLayerMask(other.transform))
         {
-            if (!_hasLineOfSightCheck)
+            LineOfSightChecker lineOfSight = other.gameObject.GetComponentInChildren<LineOfSightChecker>();
+
+            if (lineOfSight != null)
             {
-                Trigger();
-                return;
-            }
-
-            if (IsInLineOfSight(other))
-            {
-                Trigger();
-            }
-        }
-    }
-
-    public override void Trigger() => _hasBeenTriggered?.Invoke(this);
-
-    private bool IsInTargetLayerMask(Collider collider)
-    {
-        LayerMask colliderLayerMask = 1 << collider.gameObject.layer;
-
-        if ((colliderLayerMask & _triggeringLayerMask) != 0)
-            return true;
-
-        return false;
-    }
-
-
-    private bool IsInLineOfSight(Collider collider)
-    {
-        Ray ray = new()
-        {
-            origin = collider.transform.position,
-            direction = (_targetCollider.transform.position - collider.transform.position).normalized,
-        };
-
-        RaycastHit[] hits = new RaycastHit[10];
-
-        float cosOfAngleToTarget = Vector3.Dot(collider.transform.forward, ray.direction); // division by magnitudes is not needed because both vectors are normalized => Magnitude = 1
-
-        if (cosOfAngleToTarget >= Mathf.Cos(Mathf.Deg2Rad * _cinemachineCamera.Lens.FieldOfView / 2f)) // ">=" because the greater the angle, the smaller the cosine
-        {
-            if (Physics.RaycastNonAlloc(ray, hits, _triggerCollider.bounds.size.z, ~_ignoredLayerMasks, QueryTriggerInteraction.Ignore) > 0)
-            {
-                foreach (var hit in hits)
+                if (lineOfSight.Check(_targetedCollider.transform))
                 {
-                    if (hit.collider == _targetCollider)
-                        return true;
+                    Trigger();
                 }
             }
         }
+    }
+
+    private void OnDisable()
+    {
+        HasBeenTriggered -= OnHasBeenTriggered;
+    }
+
+    public override void Trigger()
+    {
+        if (IsTriggerable)
+            _hasBeenTriggered?.Invoke(this);
+        else
+        {
+            _cannotBeTriggered?.Invoke(gameObject, gameObject.name + " has already been triggered.");
+            gameObject.SetActive(false);
+        }
+    }
+
+    private void OnHasBeenTriggered(IAmTriggerable triggerable) => ChangeTriggerable();
+
+    public override bool ChangeTriggerable()
+    {
+        if (_isOnTimeTrigger)
+            return IsTriggerable = false;
+
+        return IsTriggerable = true;
+    }
+
+    private bool IsInTargetLayerMask(Transform transform)
+    {
+        LayerMask colliderLayerMask = 1 << transform.gameObject.layer;
+
+        if ((colliderLayerMask & _triggeringLayerMask) != 0)
+            return true;
 
         return false;
     }

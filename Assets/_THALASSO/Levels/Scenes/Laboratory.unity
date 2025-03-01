@@ -2107,6 +2107,7 @@ MonoBehaviour:
   _triggers:
   - _monoBehaviourInstance: {fileID: 2115662695}
   - _monoBehaviourInstance: {fileID: 1459984993}
+  _isOneTimeEvent: 1
   _akEvent:
     idInternal: 0
     valueGuidInternal: 
@@ -4042,33 +4043,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _version: 2
   _crossSceneReferences:
-  - _sourceObject: {fileID: 2115662695}
-    _sourceField: _cinemachineCamera
-    DEPRECATED_fromObject:
-      scene:
-        editorAssetGUID: 
-        name: 
-        _path: 
-      fullPath: 
-      componentName: 
-      componentIndex: 0
-      editorLocalId: 0
-      editorPrefabRelativePath: 
-      version: 0
-    _toObject:
-      scene:
-        editorAssetGUID: 325ed5290f0c66d4ea38b3f8ac854207
-        name: 01_MainLevel
-        _path: Assets/_THALASSO/Levels/Scenes/01_MainLevel.unity
-      fullPath: /Cameras/CM_FPSCamera
-      componentName: Unity.Cinemachine.CinemachineCamera, Unity.Cinemachine, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      componentIndex: 0
-      editorLocalId: 967234215
-      editorPrefabRelativePath: CM_FPSCamera
-      version: 1
-    _data:
-      data: []
   - _sourceObject: {fileID: 1686095413}
     _sourceField: triggerObject
     DEPRECATED_fromObject:
@@ -4092,33 +4066,6 @@ MonoBehaviour:
       componentIndex: 0
       editorLocalId: 601804939
       editorPrefabRelativePath: 
-      version: 1
-    _data:
-      data: []
-  - _sourceObject: {fileID: 1459984993}
-    _sourceField: _cinemachineCamera
-    DEPRECATED_fromObject:
-      scene:
-        editorAssetGUID: 
-        name: 
-        _path: 
-      fullPath: 
-      componentName: 
-      componentIndex: 0
-      editorLocalId: 0
-      editorPrefabRelativePath: 
-      version: 0
-    _toObject:
-      scene:
-        editorAssetGUID: 325ed5290f0c66d4ea38b3f8ac854207
-        name: 01_MainLevel
-        _path: Assets/_THALASSO/Levels/Scenes/01_MainLevel.unity
-      fullPath: /Cameras/CM_FPSCamera
-      componentName: Unity.Cinemachine.CinemachineCamera, Unity.Cinemachine, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      componentIndex: 0
-      editorLocalId: 967234215
-      editorPrefabRelativePath: CM_FPSCamera
       version: 1
     _data:
       data: []
@@ -4665,16 +4612,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isTriggerable: 1
   _triggerCollider: {fileID: 1459984994}
+  _isOnTimeTrigger: 1
   _triggerMode: 24
   _triggeringLayerMask:
     serializedVersion: 2
     m_Bits: 1024
-  _hasLineOfSightCheck: 1
-  _cinemachineCamera: {fileID: 0}
-  _targetCollider: {fileID: 1587655633}
-  _ignoredLayerMasks:
-    serializedVersion: 2
-    m_Bits: 1028
+  _targetedCollider: {fileID: 1587655633}
 --- !u!65 &1459984994
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5768,6 +5711,10 @@ PrefabInstance:
     - target: {fileID: 3831536817682295869, guid: e0ba752380264824b9d4d244b6646db0, type: 3}
       propertyPath: m_Name
       value: SM_Tank (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4941988800399156294, guid: e0ba752380264824b9d4d244b6646db0, type: 3}
+      propertyPath: m_Direction
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7209,16 +7156,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isTriggerable: 1
   _triggerCollider: {fileID: 2115662696}
+  _isOnTimeTrigger: 1
   _triggerMode: 24
   _triggeringLayerMask:
     serializedVersion: 2
     m_Bits: 1024
-  _hasLineOfSightCheck: 1
-  _cinemachineCamera: {fileID: 0}
-  _targetCollider: {fileID: 1655147016}
-  _ignoredLayerMasks:
-    serializedVersion: 2
-    m_Bits: 1028
+  _targetedCollider: {fileID: 1655147016}
 --- !u!136 &2115662696
 CapsuleCollider:
   m_ObjectHideFlags: 0

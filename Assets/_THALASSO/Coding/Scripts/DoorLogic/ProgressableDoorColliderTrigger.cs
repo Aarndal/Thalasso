@@ -17,5 +17,5 @@ public class ProgressableDoorColliderTrigger : DoorColliderTrigger
             _cannotBeTriggered?.Invoke(gameObject, _triggerMessage);
     }
 
-    protected override bool CheckTriggerable() => _isTriggerable = _progressionTracker.IsCompleted;
+    public override bool ChangeTriggerable() => IsTriggerable = _progressionTracker.IsCompleted;
 }
