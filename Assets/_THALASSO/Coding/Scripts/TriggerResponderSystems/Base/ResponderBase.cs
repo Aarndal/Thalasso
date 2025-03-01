@@ -33,7 +33,7 @@ public abstract class ResponderBase : MonoBehaviour, IAmResponsive
     private void ValidateTriggers()
     {
         if (_triggers.Count <= 0)
-            Debug.LogWarningFormat("<color=yellow>Responder</color> {0} (ID: {1}) <color=yellow>has no triggers assigned!</color>", gameObject.name, gameObject.GetInstanceID());
+            Debug.LogWarningFormat("<color=yellow>Responder</color> {0} (ID: {1}) <color=yellow>has no triggers assigned!</color>", gameObject.name, GetInstanceID());
     }
 
     protected virtual void OnCannotBeTriggered(GameObject @gameObject, string messageText) { }

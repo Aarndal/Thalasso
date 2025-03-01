@@ -66,12 +66,13 @@ public class DoorAnimation : MonoBehaviour
     [SerializeField]
     private AnimationCurve closingSpeedCurve;
 
+#if WWISE_2024_OR_LATER
     [Space(10)]
 
     [Header("Audio Settings")]
     [SerializeField]
     private AK.Wwise.Event _openDoorSound;
-
+#endif
 
     // Door Properties
     public bool InTransition => inTransition;
@@ -102,7 +103,13 @@ public class DoorAnimation : MonoBehaviour
     #region Unity Lifecycle Methods
     private void OnEnable()
     {
-        IsBeingOpened += () => { SetDoorStates(false, true, false); _openDoorSound.Post(gameObject); };
+        IsBeingOpened += () =>
+        {
+            SetDoorStates(false, true, false);
+#if WWISE_2024_OR_LATER
+            _openDoorSound.Post(gameObject); 
+#endif
+        };
         IsBeingClosed += () => SetDoorStates(false, false, true);
         HasBeenOpened += () => { SetDoorStates(true, false, false); };
         HasBeenClosed += () => SetDoorStates(false, false, true);
@@ -134,7 +141,13 @@ public class DoorAnimation : MonoBehaviour
 
     private void OnDisable()
     {
-        IsBeingOpened -= () => { SetDoorStates(false, true, false); _openDoorSound.Post(gameObject); };
+        IsBeingOpened -= () =>
+        {
+            SetDoorStates(false, true, false);
+#if WWISE_2024_OR_LATER
+            _openDoorSound.Post(gameObject); 
+#endif
+        };
         IsBeingClosed -= () => SetDoorStates(false, false, true);
         HasBeenOpened -= () => { SetDoorStates(true, false, false); };
         HasBeenClosed -= () => SetDoorStates(false, false, true);

@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class ButtonSounds : MonoBehaviour
 {
+#if WWISE_2024_OR_LATER
     [SerializeField]
     private AK.Wwise.Event _buttonPress;
     [SerializeField]
     private AK.Wwise.Event _backButtonPress;
-
     //private AkGameObj _akGameObj;
 
     private void OnEnable()
@@ -26,4 +26,5 @@ public class ButtonSounds : MonoBehaviour
     {
         _backButtonPress.Post(gameObject);
     }
+#endif
 }
