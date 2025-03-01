@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace WwiseHelper
 {
+    [RequireComponent(typeof(AkGameObj))]
     public class WwiseEventResponder : ResponderBase
     {
         [SerializeField]
@@ -15,9 +16,10 @@ namespace WwiseHelper
 
             if (_isOneTimeEvent)
             {
-                foreach (var t in _triggers)
+                foreach (var triggerable in _triggers)
                 {
-                    t.Interface.ChangeTriggerable();
+                    if (triggerable.Interface.IsTriggerable)
+                        triggerable.Interface.ChangeIsTriggerable();
                 }
             }
         }

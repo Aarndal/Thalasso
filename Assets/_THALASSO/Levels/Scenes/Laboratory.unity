@@ -2069,6 +2069,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 647538657}
+  - component: {fileID: 647538659}
   - component: {fileID: 647538658}
   m_Layer: 0
   m_Name: Event_FirstTimeSeeingMonster
@@ -2112,6 +2113,30 @@ MonoBehaviour:
     idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: 0feddf63e5f9c074f9d23b79208370fc, type: 2}
+--- !u!114 &647538659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 647538656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62f370bd38ab0524eb28a985f4b8c87a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_listeners:
+    initialListenerList: []
+    useDefaultListeners: 1
+  isEnvironmentAware: 0
+  isStaticObject: 0
+  usePositionOffsetData: 0
+  m_positionOffsetData:
+    KeepMe: 1
+    positionOffset: {x: 0, y: 0, z: 0}
+  scalingFactor: 1
+  m_posOffsetData: {fileID: 0}
+  listenerMask: 1
 --- !u!1 &658025283
 GameObject:
   m_ObjectHideFlags: 0
@@ -3419,6 +3444,79 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5884555347604950501, guid: 9a51199f73ab8e3469e85605aa0570ab, type: 3}
   m_PrefabInstance: {fileID: 1112764780}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1125273402
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1125273403}
+  - component: {fileID: 1125273405}
+  - component: {fileID: 1125273404}
+  m_Layer: 0
+  m_Name: LayerMaskTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1125273403
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125273402}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1686095412}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1125273404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125273402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7287459c3cbd6ad478146d82b7a95c0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isTriggerable: 1
+  _isOneTimeTrigger: 1
+  _triggerMode: 32
+  _cannotBeTriggeredMessage: 
+  _triggeringLayerMasks:
+    serializedVersion: 2
+    m_Bits: 1024
+--- !u!65 &1125273405
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125273402}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.5, y: 5, z: 0.25}
+  m_Center: {x: 0, y: 2.5, z: 0}
 --- !u!1 &1127231200
 GameObject:
   m_ObjectHideFlags: 0
@@ -4042,33 +4140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _version: 2
-  _crossSceneReferences:
-  - _sourceObject: {fileID: 1686095413}
-    _sourceField: triggerObject
-    DEPRECATED_fromObject:
-      scene:
-        editorAssetGUID: 
-        name: 
-        _path: 
-      fullPath: 
-      componentName: 
-      componentIndex: 0
-      editorLocalId: 0
-      editorPrefabRelativePath: 
-      version: 0
-    _toObject:
-      scene:
-        editorAssetGUID: 325ed5290f0c66d4ea38b3f8ac854207
-        name: 01_MainLevel
-        _path: Assets/_THALASSO/Levels/Scenes/01_MainLevel.unity
-      fullPath: /PlayerCharacter
-      componentName: 
-      componentIndex: 0
-      editorLocalId: 601804939
-      editorPrefabRelativePath: 
-      version: 1
-    _data:
-      data: []
+  _crossSceneReferences: []
   _realSceneRootsForPostBuild: []
   _mergedScenes: []
 --- !u!114 &1344535696
@@ -4577,7 +4649,7 @@ GameObject:
   - component: {fileID: 1459984994}
   - component: {fileID: 1459984993}
   m_Layer: 0
-  m_Name: WwiseEventTrigger
+  m_Name: LineOfSightTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4611,10 +4683,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isTriggerable: 1
-  _triggerCollider: {fileID: 1459984994}
-  _isOnTimeTrigger: 1
+  _isOneTimeTrigger: 1
   _triggerMode: 24
-  _triggeringLayerMask:
+  _cannotBeTriggeredMessage: 
+  _triggeringLayerMasks:
     serializedVersion: 2
     m_Bits: 1024
   _targetedCollider: {fileID: 1587655633}
@@ -5381,7 +5453,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Tank (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4941988800399156294, guid: e0ba752380264824b9d4d244b6646db0, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 371451032079447602, guid: e0ba752380264824b9d4d244b6646db0, type: 3}
@@ -5396,7 +5469,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
 --- !u!136 &1587655633 stripped
 CapsuleCollider:
-  m_CorrespondingSourceObject: {fileID: 4941988800399156294, guid: e0ba752380264824b9d4d244b6646db0, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3215526814903501603, guid: e0ba752380264824b9d4d244b6646db0, type: 3}
   m_PrefabInstance: {fileID: 1587655631}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1593762960
@@ -5729,9 +5802,9 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 371451032079447602, guid: e0ba752380264824b9d4d244b6646db0, type: 3}
   m_PrefabInstance: {fileID: 1655147013}
   m_PrefabAsset: {fileID: 0}
---- !u!136 &1655147016 stripped
+--- !u!136 &1655147015 stripped
 CapsuleCollider:
-  m_CorrespondingSourceObject: {fileID: 4941988800399156294, guid: e0ba752380264824b9d4d244b6646db0, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3215526814903501603, guid: e0ba752380264824b9d4d244b6646db0, type: 3}
   m_PrefabInstance: {fileID: 1655147013}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1686095411
@@ -5743,11 +5816,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1686095412}
-  - component: {fileID: 1686095416}
-  - component: {fileID: 1686095415}
-  - component: {fileID: 1686095414}
-  - component: {fileID: 1686095413}
-  - component: {fileID: 1686095417}
+  - component: {fileID: 1686095418}
+  - component: {fileID: 1686095419}
   m_Layer: 0
   m_Name: Event_FirstTimeStation
   m_TagString: Untagged
@@ -5767,52 +5837,11 @@ Transform:
   m_LocalPosition: {x: 2, y: 0, z: -14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1125273403}
   m_Father: {fileID: 240945844}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1686095413
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1686095411}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d7dcc06b5ac0604f82f45e31e03ff46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerObject: {fileID: 0}
---- !u!114 &1686095414
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1686095411}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fdc3ecc4808e08418a29f4eab21d1fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerList: f7f422d6
-  useOtherObject: 0
-  actionOnEventType: 0
-  curveInterpolation: 4
-  enableActionOnEvent: 0
-  data:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 3436b6dde88750048b5be6993e41f411, type: 2}
-  useCallbacks: 0
-  stopSoundOnDestroy: 1
-  Callbacks: []
-  soundEmitterObject: {fileID: 0}
-  transitionDuration: 0
-  eventIdInternal: 0
-  valueGuidInternal: 
-  m_callbackDataInternal: {fileID: 0}
---- !u!114 &1686095415
+--- !u!114 &1686095418
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5827,37 +5856,16 @@ MonoBehaviour:
   m_listeners:
     initialListenerList: []
     useDefaultListeners: 1
-  isEnvironmentAware: 0
+  isEnvironmentAware: 1
   isStaticObject: 0
   usePositionOffsetData: 0
   m_positionOffsetData:
-    KeepMe: 1
+    KeepMe: 0
     positionOffset: {x: 0, y: 0, z: 0}
   scalingFactor: 1
   m_posOffsetData: {fileID: 0}
   listenerMask: 1
---- !u!65 &1686095416
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1686095411}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 4.5, y: 5, z: 0.25}
-  m_Center: {x: 0, y: 2.5, z: 0}
---- !u!114 &1686095417
+--- !u!114 &1686095419
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5866,10 +5874,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1686095411}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2552d32ed616074b84ab4954829b811, type: 3}
+  m_Script: {fileID: 11500000, guid: 606a08c86fff76e4481420862fde1c01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _trigger: {fileID: 0}
+  _triggers:
+  - _monoBehaviourInstance: {fileID: 1125273404}
+  _isOneTimeEvent: 1
+  _akEvent:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 3436b6dde88750048b5be6993e41f411, type: 2}
 --- !u!1 &1692356884
 GameObject:
   m_ObjectHideFlags: 0
@@ -7121,7 +7135,7 @@ GameObject:
   - component: {fileID: 2115662696}
   - component: {fileID: 2115662695}
   m_Layer: 0
-  m_Name: WwiseEventTrigger
+  m_Name: LineOfSightTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7155,13 +7169,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isTriggerable: 1
-  _triggerCollider: {fileID: 2115662696}
-  _isOnTimeTrigger: 1
+  _isOneTimeTrigger: 1
   _triggerMode: 24
-  _triggeringLayerMask:
+  _cannotBeTriggeredMessage: 
+  _triggeringLayerMasks:
     serializedVersion: 2
     m_Bits: 1024
-  _targetedCollider: {fileID: 1655147016}
+  _targetedCollider: {fileID: 1655147015}
 --- !u!136 &2115662696
 CapsuleCollider:
   m_ObjectHideFlags: 0

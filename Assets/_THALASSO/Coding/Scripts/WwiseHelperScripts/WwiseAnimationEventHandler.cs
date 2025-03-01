@@ -15,7 +15,7 @@ namespace WwiseHelper
 
             if (_animationEventBroadcaster == null)
             {
-                Debug.LogErrorFormat("<color=cyan>{0}</color> missing <color=red>{1} reference</color>!", gameObject.name, _animationEventBroadcaster.name);
+                Debug.LogErrorFormat("<color=cyan>{0}</color> missing <color=red>{1} reference</color>!", gameObject.name, _animationEventBroadcaster);
                 return;
             }
         }

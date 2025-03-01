@@ -67,8 +67,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43542f91b9652f946b4a6d398ab10d4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _collider: {fileID: 2958318385274516595}
   _isTriggerable: 1
+  _isOneTimeTrigger: 0
+  _triggerMode: 24
+  _cannotBeTriggeredMessage: 
 --- !u!114 &3191906300776763779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,8 +168,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43542f91b9652f946b4a6d398ab10d4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _collider: {fileID: 2054046157745969239}
   _isTriggerable: 1
+  _isOneTimeTrigger: 0
+  _triggerMode: 24
+  _cannotBeTriggeredMessage: 
 --- !u!114 &9201576028540495816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -479,10 +483,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 8322930308589532108}
     m_Modifications:
     - target: {fileID: 2008464321683653367, guid: e99777fd69d325449bc37ef355c262b7, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 2008464321683653367, guid: e99777fd69d325449bc37ef355c262b7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -560,10 +560,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8322930308589532108}
     m_Modifications:
-    - target: {fileID: 540597074276480010, guid: f993ba20bc923264cad28b8123d72056, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.9
-      objectReference: {fileID: 0}
     - target: {fileID: 540597074276480010, guid: f993ba20bc923264cad28b8123d72056, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1

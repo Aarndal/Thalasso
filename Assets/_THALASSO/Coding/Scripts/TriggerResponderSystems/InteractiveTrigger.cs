@@ -6,7 +6,7 @@ public class InteractiveTrigger : MonoBehaviour, IAmTriggerable, IAmInteractive
     [SerializeField]
     protected bool _isTriggerable = true;
     [SerializeField, TextArea]
-    protected string _triggerMessage = "";
+    protected string _cannotBeTriggeredMessage = "";
 
     public bool IsTriggerable
     {
@@ -46,15 +46,15 @@ public class InteractiveTrigger : MonoBehaviour, IAmTriggerable, IAmInteractive
             gameObject.layer = LayerMask.NameToLayer("InteractiveObject");
     }
 
-    public virtual void Interact(Transform transform) => Trigger();
+    public virtual void Interact(Transform transform) => Trigger(transform.gameObject);
 
-    public virtual void Trigger()
+    public virtual void Trigger(GameObject gameObject)
     {
         if (IsTriggerable)
             _hasBeenTriggered?.Invoke(this);
         else
-            _cannotBeTriggered?.Invoke(gameObject, _triggerMessage);
+            _cannotBeTriggered?.Invoke(gameObject, _cannotBeTriggeredMessage);
     }
 
-    public virtual bool ChangeTriggerable() => IsTriggerable = !IsTriggerable;
+    public virtual bool ChangeIsTriggerable() => IsTriggerable = !IsTriggerable;
 }
