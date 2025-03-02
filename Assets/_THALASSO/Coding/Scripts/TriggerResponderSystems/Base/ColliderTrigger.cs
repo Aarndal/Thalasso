@@ -73,42 +73,42 @@ public class ColliderTrigger : MonoBehaviour, IAmTriggerable
         }
     }
 
-    protected virtual void OnCollisionEnter(Collision collision)
+    protected void OnCollisionEnter(Collision collision)
     {
         if (!IsTriggerModeSet(TriggerMode.OnCollisionEnter))
             return;
         Trigger(collision.gameObject);
     }
 
-    protected virtual void OnCollisionStay(Collision collision)
+    protected void OnCollisionStay(Collision collision)
     {
         if (!IsTriggerModeSet(TriggerMode.OnCollisionStay))
             return;
         Trigger(collision.gameObject);
     }
 
-    protected virtual void OnCollisionExit(Collision collision)
+    protected void OnCollisionExit(Collision collision)
     {
         if (!IsTriggerModeSet(TriggerMode.OnCollisionExit))
             return;
         Trigger(collision.gameObject);
     }
 
-    protected virtual void OnTriggerEnter(Collider other)
+    protected void OnTriggerEnter(Collider other)
     {
         if (!IsTriggerModeSet(TriggerMode.OnTriggerEnter))
             return;
         Trigger(other.gameObject);
     }
 
-    protected virtual void OnTriggerStay(Collider other)
+    protected void OnTriggerStay(Collider other)
     {
         if (!IsTriggerModeSet(TriggerMode.OnTriggerStay))
             return;
         Trigger(other.gameObject);
     }
 
-    protected virtual void OnTriggerExit(Collider other)
+    protected void OnTriggerExit(Collider other)
     {
         if (!IsTriggerModeSet(TriggerMode.OnTriggerExit))
             return;
