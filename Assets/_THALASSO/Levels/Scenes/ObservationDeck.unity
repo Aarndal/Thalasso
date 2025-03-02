@@ -7663,7 +7663,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1595319343}
   - component: {fileID: 1595319345}
-  - component: {fileID: 1595319344}
   m_Layer: 0
   m_Name: Ambience_ObservationDeckFront
   m_TagString: Untagged
@@ -7686,27 +7685,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 835164329}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1595319344
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1595319342}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2def41128a38834c9d7c6014c5619fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  excludeOthers: 0
-  isDefault: 1
-  data:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: b9772588e76328a4a870f68c43228521, type: 2}
-  priority: 110
-  auxBusIdInternal: 0
-  valueGuidInternal: 
 --- !u!65 &1595319345
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8023,7 +8001,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1724259466}
   - component: {fileID: 1724259468}
-  - component: {fileID: 1724259467}
   m_Layer: 0
   m_Name: Ambience_ObservationDeckBack
   m_TagString: Untagged
@@ -8046,27 +8023,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 835164329}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1724259467
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1724259465}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2def41128a38834c9d7c6014c5619fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  excludeOthers: 0
-  isDefault: 1
-  data:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: b9772588e76328a4a870f68c43228521, type: 2}
-  priority: 110
-  auxBusIdInternal: 0
-  valueGuidInternal: 
 --- !u!65 &1724259468
 BoxCollider:
   m_ObjectHideFlags: 0

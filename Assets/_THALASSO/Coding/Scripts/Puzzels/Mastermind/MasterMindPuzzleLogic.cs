@@ -60,10 +60,10 @@ public class MasterMindPuzzleLogic : SolvableObjectBase
             availableNumbers.RemoveAt(randomIndex);
         }
 
-        foreach (var item in code)
-        {
-            Debug.Log(item);
-        }
+        //foreach (var item in code)
+        //{
+        //    Debug.Log(item);
+        //}
     }
 
     private void GetUIReference(GameObject reference, int ID)

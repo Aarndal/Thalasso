@@ -368,12 +368,6 @@ MonoBehaviour:
   _sceneSetupMode: 0
   _sceneSetup:
   - scene:
-      editorAssetGUID: f0e605d3aa8acb945839dd11bf24bc6c
-      name: 00_Core
-      _path: Assets/_THALASSO/Levels/Scenes/00_Core.unity
-    loadInEditor: 1
-    loadMethod: 1
-  - scene:
       editorAssetGUID: 6a80ebbcbb3bad546af2ef543871c33e
       name: Exterior
       _path: Assets/_THALASSO/Levels/Scenes/Exterior.unity
@@ -437,6 +431,12 @@ MonoBehaviour:
       editorAssetGUID: 0c5166dfdf4ef0245abb0381ff613c4c
       name: PauseMenu
       _path: Assets/_THALASSO/Levels/Scenes/MenuScenes/PauseMenu.unity
+    loadInEditor: 1
+    loadMethod: 1
+  - scene:
+      editorAssetGUID: f0e605d3aa8acb945839dd11bf24bc6c
+      name: 00_Core
+      _path: Assets/_THALASSO/Levels/Scenes/00_Core.unity
     loadInEditor: 1
     loadMethod: 1
   - scene:
@@ -946,9 +946,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 746606181}
-  - component: {fileID: 746606180}
-  - component: {fileID: 746606182}
-  - component: {fileID: 746606183}
   m_Layer: 0
   m_Name: WwiseGlobal
   m_TagString: Untagged
@@ -956,31 +953,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &746606180
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 746606179}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7076f4c030b5a40499749170d7936336, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InitializationSettings: {fileID: 11400000, guid: 74aebaf4af5e78742b1f480ae7b0de98, type: 2}
-  basePath: 
-  language: 
-  defaultPoolSize: 0
-  lowerPoolSize: 0
-  streamingPoolSize: 0
-  memoryCutoffThreshold: 0
-  monitorPoolSize: 0
-  monitorQueuePoolSize: 0
-  callbackManagerBufferSize: 0
-  spatialAudioPoolSize: 0
-  maxSoundPropagationDepth: 0
-  engineLogging: 0
 --- !u!4 &746606181
 Transform:
   m_ObjectHideFlags: 0
@@ -996,56 +968,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &746606182
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 746606179}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 034d28fa1a0fbad4a8e8cef542c97588, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerList: ae8d9d44
-  useOtherObject: 0
-  data:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: e39c6a93ec2d9ec42aa5a0586ff6f20a, type: 2}
-  decodeBank: 0
-  overrideLoadSetting: 0
-  loadAsynchronous: 0
-  saveDecodedBank: 0
-  unloadTriggerList: 958ca0ea
-  bankNameInternal: 
-  valueGuidInternal: 
---- !u!114 &746606183
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 746606179}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 034d28fa1a0fbad4a8e8cef542c97588, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerList: ae8d9d44
-  useOtherObject: 0
-  data:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 094bf1acf3a14874e99961cc090ab754, type: 2}
-  decodeBank: 0
-  overrideLoadSetting: 0
-  loadAsynchronous: 0
-  saveDecodedBank: 0
-  unloadTriggerList: 958ca0ea
-  bankNameInternal: 
-  valueGuidInternal: 
 --- !u!1 &760888595
 GameObject:
   m_ObjectHideFlags: 0
@@ -1096,33 +1018,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3858863287513763546, guid: f79d266730aa65345ae7d8873db9447e, type: 3}
-      propertyPath: input
-      value: 
-      objectReference: {fileID: 11400000, guid: bcec874ef13692e4d84d8d005895f237, type: 2}
-    - target: {fileID: 3858863287513763546, guid: f79d266730aa65345ae7d8873db9447e, type: 3}
-      propertyPath: exitMainMenuSound.WwiseObjectReference
-      value: 
-      objectReference: {fileID: 11400000, guid: fe7e6222e4510e4499b522c98a48fb93, type: 2}
-    - target: {fileID: 3858863287513763546, guid: f79d266730aa65345ae7d8873db9447e, type: 3}
-      propertyPath: enterMainMenuSound.WwiseObjectReference
-      value: 
-      objectReference: {fileID: 11400000, guid: 465a4e41313a4ab4fa6c07339e5d362e, type: 2}
-    - target: {fileID: 3858863287513763546, guid: f79d266730aa65345ae7d8873db9447e, type: 3}
-      propertyPath: exitPauseMenuSound.WwiseObjectReference
-      value: 
-      objectReference: {fileID: 11400000, guid: c5316760c17dfec45a8ffdccd89d9ed4, type: 2}
-    - target: {fileID: 3858863287513763546, guid: f79d266730aa65345ae7d8873db9447e, type: 3}
-      propertyPath: enterPauseMenuSound.WwiseObjectReference
-      value: 
-      objectReference: {fileID: 11400000, guid: a8746f5e7ca75524188f6b913ae60e84, type: 2}
     - target: {fileID: 4462108285470819433, guid: f79d266730aa65345ae7d8873db9447e, type: 3}
       propertyPath: m_Name
       value: CutsceneCanvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 4462108285470819433, guid: f79d266730aa65345ae7d8873db9447e, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5297163209692684050, guid: f79d266730aa65345ae7d8873db9447e, type: 3}
       propertyPath: m_Pivot.x
@@ -1207,10 +1105,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4462108285470819433, guid: f79d266730aa65345ae7d8873db9447e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2055688872}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f79d266730aa65345ae7d8873db9447e, type: 3}
 --- !u!1001 &803064593
 PrefabInstance:
@@ -1446,22 +1341,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1645811315221996323, guid: 28b8030160a05364597927f760ba1486, type: 3}
-      propertyPath: m_FocalLength
-      value: 13.858139
-      objectReference: {fileID: 0}
-    - target: {fileID: 1645811315221996323, guid: 28b8030160a05364597927f760ba1486, type: 3}
-      propertyPath: m_SensorSize.x
-      value: 21.946
-      objectReference: {fileID: 0}
-    - target: {fileID: 1645811315221996323, guid: 28b8030160a05364597927f760ba1486, type: 3}
-      propertyPath: m_SensorSize.y
-      value: 16.002
-      objectReference: {fileID: 0}
-    - target: {fileID: 1645811315221996323, guid: 28b8030160a05364597927f760ba1486, type: 3}
-      propertyPath: m_projectionMatrixMode
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4564152188039754814, guid: 28b8030160a05364597927f760ba1486, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.5
@@ -1502,42 +1381,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4853351898340630964, guid: 28b8030160a05364597927f760ba1486, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.3800001
-      objectReference: {fileID: 0}
-    - target: {fileID: 4853351898340630964, guid: 28b8030160a05364597927f760ba1486, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 23.119999
-      objectReference: {fileID: 0}
-    - target: {fileID: 5872383200745266113, guid: 28b8030160a05364597927f760ba1486, type: 3}
-      propertyPath: m_Layer
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 6531619286678820560, guid: 28b8030160a05364597927f760ba1486, type: 3}
       propertyPath: m_Name
       value: Cameras
       objectReference: {fileID: 0}
     - target: {fileID: 6648870256644327031, guid: 28b8030160a05364597927f760ba1486, type: 3}
-      propertyPath: Lens.ModeOverride
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6648870256644327031, guid: 28b8030160a05364597927f760ba1486, type: 3}
       propertyPath: Target.TrackingTarget
       value: 
       objectReference: {fileID: 192681793}
-    - target: {fileID: 8049120205045296738, guid: 28b8030160a05364597927f760ba1486, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.3800001
-      objectReference: {fileID: 0}
-    - target: {fileID: 8049120205045296738, guid: 28b8030160a05364597927f760ba1486, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 23.119999
-      objectReference: {fileID: 0}
-    - target: {fileID: 8583503319355540152, guid: 28b8030160a05364597927f760ba1486, type: 3}
-      propertyPath: m_Layer
-      value: 2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2904,24 +2755,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1073967584872512916, guid: 6d205cfd75a064f44950909bfa5d545c, type: 3}
   m_PrefabInstance: {fileID: 2043581974}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2055688866 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4462108285470819433, guid: f79d266730aa65345ae7d8873db9447e, type: 3}
-  m_PrefabInstance: {fileID: 792975464}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2055688872
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2055688866}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates: []
 --- !u!1 &2061198898
 GameObject:
   m_ObjectHideFlags: 0

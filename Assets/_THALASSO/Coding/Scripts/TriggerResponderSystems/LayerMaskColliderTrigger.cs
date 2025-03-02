@@ -5,13 +5,13 @@ public class LayerMaskColliderTrigger : ColliderTrigger
     [SerializeField]
     private LayerMask _triggeringLayerMasks = default;
 
-    protected override bool IsValidTrigger(GameObject triggeringGameObject) => IsInTargetLayerMask(triggeringGameObject);
+    protected override bool IsValidTrigger(GameObject triggeringGameObject) => IsInTriggeringLayerMasks(triggeringGameObject);
 
-    protected bool IsInTargetLayerMask(GameObject targetObject)
+    protected bool IsInTriggeringLayerMasks(GameObject triggeringGameObject)
     {
-        LayerMask targetLayerMask = 1 << targetObject.layer;
+        LayerMask layerMask = 1 << triggeringGameObject.layer;
 
-        if ((targetLayerMask & _triggeringLayerMasks) != 0)
+        if ((layerMask & _triggeringLayerMasks) != 0)
             return true;
 
         return false;

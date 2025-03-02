@@ -25,7 +25,7 @@ public sealed class LineOfSightColliderTrigger : LayerMaskColliderTrigger
 
     protected override bool IsValidTrigger(GameObject triggeringGameObject)
     {
-        if (!IsInTargetLayerMask(triggeringGameObject))
+        if (!IsInTriggeringLayerMasks(triggeringGameObject))
             return false;
 
         LineOfSightChecker lineOfSight = triggeringGameObject.GetComponentInChildren<LineOfSightChecker>();
