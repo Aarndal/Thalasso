@@ -73,6 +73,11 @@ public class GroundChecker : MonoBehaviour, IMakeChecks
         GlobalEventBus.Raise(GlobalEvents.Player.GroundedStateChanged, _isGrounded);
     }
 
+    private void Reset()
+    {
+        SetSphereCollider();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         Check(other.transform);

@@ -1279,7 +1279,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1604756113}
-  - component: {fileID: 1604756112}
   m_Layer: 0
   m_Name: WwiseGlobal
   m_TagString: Untagged
@@ -1287,31 +1286,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1604756112
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1604756111}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7076f4c030b5a40499749170d7936336, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InitializationSettings: {fileID: 11400000, guid: 74aebaf4af5e78742b1f480ae7b0de98, type: 2}
-  basePath: 
-  language: 
-  defaultPoolSize: 0
-  lowerPoolSize: 0
-  streamingPoolSize: 0
-  memoryCutoffThreshold: 0
-  monitorPoolSize: 0
-  monitorQueuePoolSize: 0
-  callbackManagerBufferSize: 0
-  spatialAudioPoolSize: 0
-  maxSoundPropagationDepth: 0
-  engineLogging: 0
 --- !u!4 &1604756113
 Transform:
   m_ObjectHideFlags: 0
@@ -1513,16 +1487,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89bb79df48e684d40bb7c9074e7ba31b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mainMenuMusic:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 5b4a23f2b08869a44b92157ea09b12f2, type: 2}
-  _scenesToPlayMainMenuMusic: 0000000001000000
-  _creditsMusic:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 4ebede80ce7cb2b4aadb30f81e63bbc7, type: 2}
-  _scenesToPlayCreditsMusic: 02000000
 --- !u!114 &1698891187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1729,7 +1693,6 @@ GameObject:
   - component: {fileID: 1877016851}
   - component: {fileID: 1877016850}
   - component: {fileID: 1877016849}
-  - component: {fileID: 1877016855}
   - component: {fileID: 1877016853}
   - component: {fileID: 1877016854}
   m_Layer: 5
@@ -1842,22 +1805,6 @@ MonoBehaviour:
   useFade: 1
   fadeImage: {fileID: 6806878750003440995}
   fadeDuration: 0.2
-  enterMainMenuSound:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 465a4e41313a4ab4fa6c07339e5d362e, type: 2}
-  exitMainMenuSound:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: fe7e6222e4510e4499b522c98a48fb93, type: 2}
-  enterPauseMenuSound:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: a8746f5e7ca75524188f6b913ae60e84, type: 2}
-  exitPauseMenuSound:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: c5316760c17dfec45a8ffdccd89d9ed4, type: 2}
 --- !u!114 &1877016854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1870,39 +1817,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f0e97e56673441428483f3f73bb8902, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buttonPress:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 63a1e588cdcf27a43b905e4bd26b1f21, type: 2}
-  _backButtonPress:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: ba0e2bb199bb6fc45978cb56b80621dc, type: 2}
---- !u!114 &1877016855
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1877016848}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 034d28fa1a0fbad4a8e8cef542c97588, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerList: ae8d9d44
-  useOtherObject: 0
-  data:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 3160a012f64ac2545a06ec7c9918e8d7, type: 2}
-  decodeBank: 0
-  overrideLoadSetting: 0
-  loadAsynchronous: 0
-  saveDecodedBank: 0
-  unloadTriggerList: 958ca0ea
-  bankNameInternal: 
-  valueGuidInternal: 
 --- !u!1 &1985784958
 GameObject:
   m_ObjectHideFlags: 0

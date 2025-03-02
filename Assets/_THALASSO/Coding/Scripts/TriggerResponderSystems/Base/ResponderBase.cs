@@ -38,7 +38,7 @@ public abstract class ResponderBase : MonoBehaviour, IAmResponsive
 
     protected virtual void OnCannotBeTriggered(GameObject @gameObject, string messageText) { }
 
-    protected virtual void OnHasBeenTriggered(IAmTriggerable trigger) => Respond(trigger);
+    protected virtual void OnHasBeenTriggered(GameObject @gameObject, IAmTriggerable trigger) => Respond(@gameObject, trigger);
 
-    public abstract void Respond(IAmTriggerable trigger);
+    public abstract void Respond(GameObject @gameObject, IAmTriggerable trigger);
 }

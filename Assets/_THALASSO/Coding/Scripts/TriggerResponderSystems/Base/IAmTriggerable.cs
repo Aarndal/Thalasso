@@ -6,7 +6,7 @@ public interface IAmTriggerable
     bool IsTriggerable { get; }
 
     event Action<GameObject, string> CannotBeTriggered;
-    event Action<IAmTriggerable> HasBeenTriggered;
+    event Action<GameObject, IAmTriggerable> HasBeenTriggered;
 
     void Trigger(GameObject gameObject);
 

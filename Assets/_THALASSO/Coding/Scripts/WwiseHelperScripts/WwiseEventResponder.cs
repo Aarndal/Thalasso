@@ -14,7 +14,7 @@ namespace WwiseHelper
         [SerializeField]
         private AK.Wwise.Event _akEvent;
 #endif
-        public override void Respond(IAmTriggerable trigger)
+        public override void Respond(GameObject @gameObject, IAmTriggerable trigger)
         {
 #if WWISE_2024_OR_LATER
 

@@ -27,7 +27,7 @@ public class InteractiveTrigger : MonoBehaviour, IAmTriggerable, IAmInteractive
         }
         remove => _cannotBeTriggered -= value;
     }
-    public event Action<IAmTriggerable> HasBeenTriggered
+    public event Action<GameObject, IAmTriggerable> HasBeenTriggered
     {
         add
         {
@@ -38,7 +38,7 @@ public class InteractiveTrigger : MonoBehaviour, IAmTriggerable, IAmInteractive
     }
 
     protected Action<GameObject, string> _cannotBeTriggered;
-    protected Action<IAmTriggerable> _hasBeenTriggered;
+    protected Action<GameObject, IAmTriggerable> _hasBeenTriggered;
 
     protected virtual void Awake()
     {
@@ -48,10 +48,10 @@ public class InteractiveTrigger : MonoBehaviour, IAmTriggerable, IAmInteractive
 
     public virtual void Interact(Transform transform) => Trigger(transform.gameObject);
 
-    public virtual void Trigger(GameObject gameObject)
+    public virtual void Trigger(GameObject triggeringGameObject)
     {
         if (IsTriggerable)
-            _hasBeenTriggered?.Invoke(this);
+            _hasBeenTriggered?.Invoke(gameObject, this);
         else
             _cannotBeTriggered?.Invoke(gameObject, _cannotBeTriggeredMessage);
     }

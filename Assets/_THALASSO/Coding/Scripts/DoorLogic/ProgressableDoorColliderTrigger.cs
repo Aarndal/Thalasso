@@ -2,25 +2,21 @@
 using UnityEngine;
 
 [DisallowMultipleComponent]
-public class ProgressableDoorColliderTrigger : DoorColliderTrigger
+public sealed class ProgressableDoorColliderTrigger : DoorColliderTrigger
 {
     [SerializeField]
-    protected SO_ProgressionTracker _progressionTracker = default;
+    private SO_ProgressionTracker _progressionTracker = default;
 
-    private void OnEnable()
+    private void Reset()
     {
-        GlobalEventBus.Register(GlobalEvents.Game.ProgressionCompleted, OnProgressionCompleted);
-    }
+        _triggerableCollider = _triggerableCollider != null ? _triggerableCollider : GetComponent<Collider>();
 
-    private void OnDisable()
-    {
-        GlobalEventBus.Deregister(GlobalEvents.Game.ProgressionCompleted, OnProgressionCompleted);
-    }
+        if (_triggerableCollider != null)
+            _triggerableCollider.isTrigger = true;
 
-    private void OnProgressionCompleted(object[] args)
-    {
-        if (args[0] is uint id && id == _progressionTracker.ID)
-            ChangeIsTriggerable();
+        _isTriggerable = false;
+        _isOneTimeTrigger = false;
+        _triggerMode = TriggerMode.OnTriggerEnter | TriggerMode.OnTriggerStay;
     }
 
     public override bool ChangeIsTriggerable() => IsTriggerable = _progressionTracker.IsCompleted;

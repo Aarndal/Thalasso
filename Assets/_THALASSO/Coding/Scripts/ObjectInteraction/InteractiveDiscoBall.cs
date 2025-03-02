@@ -2,13 +2,14 @@ using System;
 using System.Collections;
 using UnityEngine;
 
+[Serializable]
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Rigidbody), typeof(SphereCollider))]
 public class InteractiveDiscoBall : MonoBehaviour, IAmInteractive, IAmMovable
 {
     [SerializeField]
     private bool _isActivatable = true;
-    [SerializeField]
+    [SerializeField, Range(1f, 100f)]
     private float _kickForce = 10f;
     [SerializeField]
     private float _defaultDiscoTime = 5.0f;
@@ -18,6 +19,23 @@ public class InteractiveDiscoBall : MonoBehaviour, IAmInteractive, IAmMovable
     private float _discoTime = 0.0f;
 
     public bool IsActivatable => _isActivatable;
+    public float KickForce
+    {
+        get => _kickForce;
+        private set
+        {
+            if (value != _kickForce)
+            {
+                if (value >= 100f)
+                    _kickForce = 100f;
+                else if (value <= 1f)
+                    _kickForce = 1f;
+                else
+                    _kickForce = value;
+            }
+        }
+    }
+    public Rigidbody Rigidbody => _rigidbody;
 
     private event Action IsKicked;
 
@@ -27,7 +45,8 @@ public class InteractiveDiscoBall : MonoBehaviour, IAmInteractive, IAmMovable
             gameObject.layer = LayerMask.NameToLayer("InteractiveObject");
 
         _rigidbody = GetComponent<Rigidbody>();
-        this.GetComponent<MeshRenderer>().material.color = UnityEngine.Random.ColorHSV(0.0f, 1.0f, 0.75f, 1.0f, 0.5f, 1.0f);
+
+        gameObject.GetComponent<MeshRenderer>().material.color = UnityEngine.Random.ColorHSV(0.0f, 1.0f, 0.75f, 1.0f, 0.5f, 1.0f);
     }
 
     private void OnEnable() => IsKicked += Move;
@@ -54,6 +73,8 @@ public class InteractiveDiscoBall : MonoBehaviour, IAmInteractive, IAmMovable
 
         StartCoroutine(Disco());
     }
+
+    public void SetKickForece(float kickForce) => KickForce = kickForce;
 
     private IEnumerator Disco()
     {

@@ -21,7 +21,7 @@ public sealed class LineOfSightColliderTrigger : LayerMaskColliderTrigger
         HasBeenTriggered -= OnHasBeenTriggered;
     }
 
-    private void OnHasBeenTriggered(IAmTriggerable triggerable) => ChangeIsTriggerable();
+    private void OnHasBeenTriggered(GameObject @gameObject, IAmTriggerable triggerable) => ChangeIsTriggerable();
 
     protected override bool IsValidTrigger(GameObject triggeringGameObject)
     {

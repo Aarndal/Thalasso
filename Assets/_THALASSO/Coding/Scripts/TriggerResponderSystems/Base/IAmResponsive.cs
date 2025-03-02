@@ -1,4 +1,6 @@
+using UnityEngine;
+
 public interface IAmResponsive
 {
-    void Respond(IAmTriggerable trigger);
+    void Respond(GameObject gameObject, IAmTriggerable trigger);
 }
