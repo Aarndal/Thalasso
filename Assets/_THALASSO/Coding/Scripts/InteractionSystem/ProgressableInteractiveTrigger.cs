@@ -6,11 +6,16 @@ public class ProgressableInteractiveTrigger : InteractiveTrigger
     [SerializeField]
     protected SO_ProgressionTracker _progressionTracker = default;
 
-    public override bool ChangeIsTriggerable() => IsTriggerable = _progressionTracker.IsCompleted;
+    private void Reset()
+    {
+        gameObject.layer = LayerMask.NameToLayer("InteractiveObject");
+    }
 
     public override void Trigger(GameObject triggeringGameObject)
     {
-        ChangeIsTriggerable();
+        if (_progressionTracker.IsCompleted != IsTriggerable)
+            ChangeIsTriggerable();
+
         base.Trigger(triggeringGameObject);
     }
 }

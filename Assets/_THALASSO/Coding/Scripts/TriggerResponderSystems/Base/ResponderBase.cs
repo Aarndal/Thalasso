@@ -14,7 +14,7 @@ public abstract class ResponderBase : MonoBehaviour, IAmResponsive
         foreach (var trigger in _triggers)
         {
             trigger.Interface.CannotBeTriggered += OnCannotBeTriggered;
-            trigger.Interface.HasBeenTriggered += OnHasBeenTriggered;
+            trigger.Interface.IsTriggered += OnHasBeenTriggered;
         }
     }
 
@@ -23,7 +23,7 @@ public abstract class ResponderBase : MonoBehaviour, IAmResponsive
         foreach (var trigger in _triggers)
         {
             trigger.Interface.CannotBeTriggered -= OnCannotBeTriggered;
-            trigger.Interface.HasBeenTriggered -= OnHasBeenTriggered;
+            trigger.Interface.IsTriggered -= OnHasBeenTriggered;
         }
     }
 

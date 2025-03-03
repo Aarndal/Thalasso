@@ -17,17 +17,5 @@ public class Test_InteractiveTrigger : InteractiveTrigger
 
     private void Start() =>
         _meshRenderer.material.color = _baseColor;
-
-    public override void Trigger(GameObject @gameObject)
-    {
-        if (!IsTriggerable)
-            return;
-
-        _hasBeenTriggered?.Invoke(@gameObject, this);
-
-        if (_meshRenderer.material.color == _baseColor)
-            _meshRenderer.material.color = Color.red;
-        else
-            _meshRenderer.material.color = _baseColor;
-    }
+    
 }

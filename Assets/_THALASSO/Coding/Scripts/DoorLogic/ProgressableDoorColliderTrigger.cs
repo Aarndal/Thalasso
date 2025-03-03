@@ -19,11 +19,11 @@ public sealed class ProgressableDoorColliderTrigger : DoorColliderTrigger
         _triggerMode = TriggerMode.OnTriggerEnter | TriggerMode.OnTriggerStay;
     }
 
-    public override bool ChangeIsTriggerable() => IsTriggerable = _progressionTracker.IsCompleted;
-
     public override void Trigger(GameObject triggeringGameObject)
     {
-        ChangeIsTriggerable();
+        if (_progressionTracker.IsCompleted != IsTriggerable)
+            ChangeIsTriggerable();
+
         base.Trigger(triggeringGameObject);
     }
 }
