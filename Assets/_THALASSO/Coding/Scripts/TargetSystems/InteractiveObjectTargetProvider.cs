@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,9 +8,9 @@ public sealed class InteractiveObjectTargetProvider : TargetProvider
 {
     [Header("Variables")]
     [SerializeField]
-    private LayerMask _targetedLayerMasks;
+    private LayerMask _targetedLayerMasks = 1 << 20;
     [SerializeField]
-    private LayerMask _ignoredLayerMasks;
+    private LayerMask _ignoredLayerMasks = 1 << 2;
     [SerializeField]
     private int _maxTargetsToSearch = 5;
     [SerializeField]
@@ -22,40 +23,44 @@ public sealed class InteractiveObjectTargetProvider : TargetProvider
     private CapsuleCollider _capsuleCollider = default;
     private RaycastHit[] _hitTargets;
     private int _numTargetsFound = 0;
-    private List<Transform> _closestTargets;
+    private List<Transform> _closestTargets = new();
+
 
     #region Unity MonoBehaviour Methods
     private void Awake()
     {
-        _capsuleCollider = GetComponent<CapsuleCollider>();
+        _capsuleCollider = _capsuleCollider != null ? _capsuleCollider : GetComponent<CapsuleCollider>();
 
         _hitTargets = new RaycastHit[_maxTargetsToSearch];
-        _closestTargets = new();
+    }
+
+    private void OnEnable()
+    {
+        TargetChanged += OnTargetChanged;
     }
 
     private void Start()
     {
         // Configures CapsuleCollider to match the sphere cast parameters
-        _capsuleCollider.direction = 2;
-        _capsuleCollider.height = _sphereCastDistance + 2 * _sphereCastRadius;
-        _capsuleCollider.radius = _sphereCastRadius;
-        _capsuleCollider.center = Vector3.forward * (_capsuleCollider.height / 2);
-        _capsuleCollider.isTrigger = true;
+        SetCapsulecollider();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent<IAmInteractive>(out _))
+        if (IsInTriggeringLayerMasks(other.gameObject))
             GetTarget();
     }
+
     private void OnTriggerStay(Collider other)
     {
-        if (other.TryGetComponent<IAmInteractive>(out _))
+        if (IsInTriggeringLayerMasks(other.gameObject))
             GetTarget();
     }
+
     private void OnTriggerExit(Collider other)
     {
-        GetTarget();
+        if (IsInTriggeringLayerMasks(other.gameObject))
+            GetTarget();
     }
 
     private void OnDrawGizmos()
@@ -68,18 +73,28 @@ public sealed class InteractiveObjectTargetProvider : TargetProvider
     private void OnValidate()
     {
         // Ensure the CapsuleCollider is correctly configured when changes are made in the inspector
-        if (_capsuleCollider == null)
-            _capsuleCollider = GetComponent<CapsuleCollider>();
+        _capsuleCollider = _capsuleCollider != null ? _capsuleCollider : GetComponent<CapsuleCollider>();
 
-        _capsuleCollider.direction = 2;
-        _capsuleCollider.height = _sphereCastDistance + 2 * _sphereCastRadius;
-        _capsuleCollider.radius = _sphereCastRadius;
-        _capsuleCollider.center = Vector3.forward * (_capsuleCollider.height / 2);
-        _capsuleCollider.isTrigger = true;
+        SetCapsulecollider();
+    }
+
+    private void OnDisable()
+    {
+        TargetChanged -= OnTargetChanged;
     }
     #endregion
 
     public override Transform GetTarget() => Target = GetClosestInteractiveObject();
+
+    private bool IsInTriggeringLayerMasks(GameObject triggeringGameObject)
+    {
+        LayerMask triggeringLayerMask = 1 << triggeringGameObject.layer;
+
+        if ((triggeringLayerMask & _targetedLayerMasks) != 0)
+            return true;
+
+        return false;
+    }
 
     private Transform GetClosestInteractiveObject()
     {
@@ -122,7 +137,7 @@ public sealed class InteractiveObjectTargetProvider : TargetProvider
             cosPhiToTarget = Vector3.Dot(transform.forward.normalized, directionToTarget.normalized);
 
             // Determine the query trigger interaction based on whether the target's collider is a trigger
-            queryTriggerInteraction = (_closestTargets[i].TryGetComponent<Collider>(out Collider collider) && collider.isTrigger) ? QueryTriggerInteraction.Collide : QueryTriggerInteraction.Ignore;
+            queryTriggerInteraction = (_closestTargets[i].TryGetComponent(out Collider collider) && collider.isTrigger) ? QueryTriggerInteraction.Collide : QueryTriggerInteraction.Ignore;
 
             // Perform a raycast to ensure there are no obstacles between the object and the target
             if (Physics.Raycast(sphereCastOrigin, transform.forward, out RaycastHit hitinfo, sphereCastMaxDistance + _sphereCastRadius, ~_ignoredLayerMasks, queryTriggerInteraction) && hitinfo.transform != _closestTargets[i])
@@ -147,5 +162,19 @@ public sealed class InteractiveObjectTargetProvider : TargetProvider
         }
 
         return closestTarget;
+    }
+
+    private void OnTargetChanged(Transform oldTarget, Transform newTarget)
+    {
+        GlobalEventBus.Raise(GlobalEvents.Player.InteractiveTargetChanged, newTarget);
+    }
+
+    private void SetCapsulecollider()
+    {
+        _capsuleCollider.direction = 2;
+        _capsuleCollider.height = _sphereCastDistance + 2 * _sphereCastRadius;
+        _capsuleCollider.radius = _sphereCastRadius;
+        _capsuleCollider.center = Vector3.forward * (_capsuleCollider.height / 2);
+        _capsuleCollider.isTrigger = true;
     }
 }

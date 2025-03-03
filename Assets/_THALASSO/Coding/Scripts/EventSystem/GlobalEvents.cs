@@ -18,5 +18,6 @@ public class GlobalEvents
     {
         public const uint GroundedStateChanged = 300;
         public const uint GroundSoundMaterialChanged = 301;
+        public const uint InteractiveTargetChanged = 302;
     }
 }

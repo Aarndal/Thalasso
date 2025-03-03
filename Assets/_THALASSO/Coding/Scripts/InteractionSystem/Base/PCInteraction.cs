@@ -24,33 +24,33 @@ public class PCInteraction : MonoBehaviour
         if (_targetProvider == null)
             Debug.LogError("TargetProvider is not set in PCInteraction script.");
         //throw new ArgumentNullException(nameof(_targetProvider), "TargetProvider is not set in PCInteraction script.");
-
-        _currentTarget = null;
     }
 
     private void OnEnable()
     {
         _input.InteractIsTriggered += OnInteractIsTriggered;
-        _targetProvider.NewTargetDetected += OnNewTargetDetected;
-        _targetProvider.TargetLost += (o) => _currentTarget = null;
+        _targetProvider.TargetChanged += OnTargetChanged;
     }
 
     private void OnDisable()
     {
-        _targetProvider.TargetLost -= (o) => _currentTarget = null;
-        _targetProvider.NewTargetDetected -= OnNewTargetDetected;
         _input.InteractIsTriggered -= OnInteractIsTriggered;
+        _targetProvider.TargetChanged -= OnTargetChanged;
     }
 
     private void OnInteractIsTriggered(bool isInteractTriggered)
     {
         if (isInteractTriggered && _targetProvider.HasTarget)
-            _currentTarget.Interact(this.transform);
+            _currentTarget.Interact(transform);
     }
 
-    private void OnNewTargetDetected(Transform newTarget)
+    private void OnTargetChanged(Transform oldTarget, Transform newTarget)
     {
-        _currentTarget = newTarget.GetComponent<IAmInteractive>();
+        if(newTarget == null)
+            _currentTarget = null;
+
+        if (newTarget != null)
+            _currentTarget = newTarget.GetComponent<IAmInteractive>();
     }
 
 }
