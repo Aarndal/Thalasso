@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -14,19 +12,18 @@ public class UIInteractionCommand : MonoBehaviour
     [SerializeField]
     private GameObject _interactionButton = default;
     [SerializeField]
+    private UIImageSwitch _imageSwitch = default;
+    [SerializeField]
     private TextMeshProUGUI _text = default;
 
     [SerializeField, Tooltip("In Milliseconds")]
     private int _delayTime = 500;
-    [SerializeField]
-    private Color _defaultColor = Color.white;
     [SerializeField]
     private Color _activatableColor = Color.green;
     [SerializeField]
     private Color _nonActivatableColor = Color.red;
 
     private IAmInteractive _currentInteractiveObject = default;
-    private bool _isChangingColor = false;
 
     #region UnityLifecycleMethods
     private void Awake()
@@ -34,6 +31,7 @@ public class UIInteractionCommand : MonoBehaviour
         if (!_interactionButton.activeInHierarchy)
             _interactionButton.SetActive(true);
 
+        _imageSwitch = _imageSwitch != null ? _imageSwitch : GetComponentInChildren<UIImageSwitch>();
         _text = _text != null ? _text : GetComponentInChildren<TextMeshProUGUI>();
     }
 
@@ -48,18 +46,6 @@ public class UIInteractionCommand : MonoBehaviour
         _input.ActionMapChanged += OnActionMapChanged;
     }
 
-    private void Reset()
-    {
-        _text = _text != null ? _text : GetComponentInChildren<TextMeshProUGUI>();
-
-        _text.color = _defaultColor;
-    }
-
-    private void Start()
-    {
-        _text.color = _defaultColor;
-    }
-
     private void OnDisable()
     {
         GlobalEventBus.Deregister(GlobalEvents.Player.InteractiveTargetChanged, OnInteractiveTargetChanged);
@@ -68,20 +54,6 @@ public class UIInteractionCommand : MonoBehaviour
         _input.ActionMapChanged -= OnActionMapChanged;
     }
     #endregion
-
-    private async void ChangeColorForMilliseconds(UnityEngine.UI.Graphic graphic, Color newColor)
-    {
-        if (_isChangingColor)
-            return;
-
-        _isChangingColor = true;
-        graphic.color = newColor;
-
-        await Task.Delay(_delayTime);
-
-        graphic.color = _defaultColor;
-        _isChangingColor = false;
-    }
 
     private void OnActionMapChanged(InputActionMap previousMap, InputActionMap currentMap)
     {
@@ -94,10 +66,12 @@ public class UIInteractionCommand : MonoBehaviour
     private void OnInteractIsTriggered(bool isTriggered)
     {
         if (isTriggered)
+        {
             if (_currentInteractiveObject.IsActivatable)
-                ChangeColorForMilliseconds(_text, _activatableColor);
+                _imageSwitch.ChangeColorForMilliseconds(_activatableColor, _delayTime);
             else
-                ChangeColorForMilliseconds(_text, _nonActivatableColor);
+                _imageSwitch.ChangeColorForMilliseconds(_nonActivatableColor, _delayTime);
+        }
     }
 
     private void OnInteractiveTargetChanged(object[] args)

@@ -136,7 +136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &83273113
 RectTransform:
   m_ObjectHideFlags: 0
@@ -220,7 +220,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 301631384}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -246,7 +246,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -261,8 +261,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -342,6 +342,7 @@ GameObject:
   - component: {fileID: 469501495}
   - component: {fileID: 469501497}
   - component: {fileID: 469501496}
+  - component: {fileID: 469501498}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -382,14 +383,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.86666673, g: 0.86666673, b: 0.86666673, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0a439d1977a5efa4fb3e852865a844d5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5d52991d1354b3044b25e10ec5774897, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -407,6 +408,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 469501494}
   m_CullTransparentMesh: 1
+--- !u!114 &469501498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 469501494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3764067cdfc3948438d268989464aa5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _defaultImage: {fileID: 21300000, guid: 5d52991d1354b3044b25e10ec5774897, type: 3}
+  _alternateImage: {fileID: 21300000, guid: f9b2559f75d69254d86d966fcc0ffbdf, type: 3}
+  _defaultColor: {r: 0.86666673, g: 0.86666673, b: 0.86666673, a: 1}
 --- !u!1 &497434568
 GameObject:
   m_ObjectHideFlags: 0
@@ -570,9 +586,9 @@ MonoBehaviour:
   _input: {fileID: 11400000, guid: bcec874ef13692e4d84d8d005895f237, type: 2}
   _dot: {fileID: 1772389846}
   _interactionButton: {fileID: 83273112}
+  _imageSwitch: {fileID: 469501498}
   _text: {fileID: 301631386}
   _delayTime: 500
-  _defaultColor: {r: 1, g: 1, b: 1, a: 1}
   _activatableColor: {r: 0.376602, g: 0.8584906, b: 0.376602, a: 1}
   _nonActivatableColor: {r: 0.9339623, g: 0.3039783, b: 0.3039783, a: 1}
 --- !u!1001 &621178532
