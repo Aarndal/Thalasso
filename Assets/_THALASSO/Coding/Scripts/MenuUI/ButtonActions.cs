@@ -31,11 +31,11 @@ public class ButtonActions : MonoBehaviour
 
         if (curSceneId == 0) //MainMenu
         {
-            input.SwitchCurrentActionMapTo("UI");
+            input.SwitchCurrentActionMap("UI");
         }
         else if (curSceneId == 2) //Credits
         {
-            input.SwitchCurrentActionMapTo("Cutscene");
+            input.SwitchCurrentActionMap("Cutscene");
         }
     }
 
@@ -55,7 +55,7 @@ public class ButtonActions : MonoBehaviour
         try
         {
             pauseMenuToggle = transform.Find("Toggle").gameObject;
-            pauseMenuToggle.gameObject.SetActive(false);
+            pauseMenuToggle.SetActive(false);
         }
         catch
         {
@@ -90,7 +90,7 @@ public class ButtonActions : MonoBehaviour
             enterPauseMenuSound.Post(gameObject);
 #endif
             pauseMenuToggle.SetActive(true);
-            input.SwitchCurrentActionMapTo("UI"); // Switch to UI ActionMap and disable any other Action Map.
+            input.SwitchCurrentActionMap("UI"); // Switch to UI ActionMap and disable any other Action Map.
         }
         else
         {
@@ -98,7 +98,7 @@ public class ButtonActions : MonoBehaviour
             exitPauseMenuSound.Post(gameObject);
 #endif
             pauseMenuToggle.SetActive(false);
-            input.SwitchCurrentActionMapTo(input.PreviousActionMap.name); // Switch to previous ActionMap before Pause and disable any other Action Map.
+            input.SwitchCurrentActionMap(input.PreviousActionMap.name); // Switch to previous ActionMap before Pause and disable any other Action Map.
         }
     }
 
@@ -118,7 +118,7 @@ public class ButtonActions : MonoBehaviour
 
         if (sceneId == 2) //Credits
         {
-            input.SwitchCurrentActionMapTo("Cutscene"); // Switch to UI ActionMap and disable any other Action Map
+            input.SwitchCurrentActionMap("Cutscene"); // Switch to UI ActionMap and disable any other Action Map
         }
         else
         {
@@ -131,7 +131,7 @@ public class ButtonActions : MonoBehaviour
 #endif
 
             input.IsPauseActive = false;
-            input.SwitchCurrentActionMapTo("UI"); // Switch to UI ActionMap and disable any other Action Map
+            input.SwitchCurrentActionMap("UI"); // Switch to UI ActionMap and disable any other Action Map
         }
 
         if (useFade)

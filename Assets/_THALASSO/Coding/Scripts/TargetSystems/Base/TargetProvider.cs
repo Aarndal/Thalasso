@@ -15,11 +15,11 @@ public abstract class TargetProvider : MonoBehaviour
             {
                 TargetChanged?.Invoke(_target, value);
 
-                if (value == null)
-                    Debug.LogFormat($"Lost target: {_target.gameObject.name}");
+                //if (value == null)
+                //    Debug.LogFormat($"Lost target: {_target.gameObject.name}");
 
-                if (value != null)
-                    Debug.LogFormat($"New target detected: {value.name}");
+                //if (value != null)
+                //    Debug.LogFormat($"New target detected: {value.gameObject.name}");
 
                 _target = value;
             }

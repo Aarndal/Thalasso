@@ -62,7 +62,7 @@ public class EndCutscene : MonoBehaviour
                 skipInfoText.SetActive(true);
 
                 playerBody.SetActive(false);
-                _input.SwitchCurrentActionMapTo("Cutscene");
+                _input.SwitchCurrentActionMap("Cutscene");
                 cinemachineCamera.enabled = false;
                 escapePodDoor.TryClose();
                 _input.SkipIsTriggered += OnSkipCutScene;

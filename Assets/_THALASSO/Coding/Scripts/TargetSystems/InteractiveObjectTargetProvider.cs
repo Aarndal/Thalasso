@@ -23,8 +23,7 @@ public sealed class InteractiveObjectTargetProvider : TargetProvider
     private CapsuleCollider _capsuleCollider = default;
     private RaycastHit[] _hitTargets;
     private int _numTargetsFound = 0;
-    private List<Transform> _closestTargets = new();
-
+    private readonly List<Transform> _closestTargets = new();
 
     #region Unity MonoBehaviour Methods
     private void Awake()
@@ -166,7 +165,14 @@ public sealed class InteractiveObjectTargetProvider : TargetProvider
 
     private void OnTargetChanged(Transform oldTarget, Transform newTarget)
     {
-        GlobalEventBus.Raise(GlobalEvents.Player.InteractiveTargetChanged, newTarget);
+        object[] data;
+
+        if (newTarget != null)
+            data = new object[] { newTarget, newTarget.GetComponent<IAmInteractive>() };
+        else
+            data = new object[] { null, null };
+
+        GlobalEventBus.Raise(GlobalEvents.Player.InteractiveTargetChanged, data);
     }
 
     private void SetCapsulecollider()

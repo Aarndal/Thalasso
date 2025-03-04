@@ -1,8 +1,9 @@
-using System;
 using UnityEngine;
 
 public class InteractiveTrigger : TriggerBase, IAmInteractive
 {
+    public bool IsActivatable => IsTriggerable;
+
     protected virtual void Awake()
     {
         if (LayerMask.LayerToName(gameObject.layer) != "InteractiveObject" && LayerMask.NameToLayer("InteractiveObject") == 20)
