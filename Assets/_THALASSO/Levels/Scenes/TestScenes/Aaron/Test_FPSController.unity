@@ -1178,8 +1178,10 @@ GameObject:
   - component: {fileID: 733527602}
   - component: {fileID: 733527605}
   - component: {fileID: 733527604}
+  - component: {fileID: 733527607}
   - component: {fileID: 733527603}
-  m_Layer: 0
+  - component: {fileID: 733527606}
+  m_Layer: 20
   m_Name: Test_ProgressionTracking
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1211,7 +1213,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 733527601}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cdd26913c9eaeef49a9855fb35d1c37d, type: 3}
   m_Name: 
@@ -1271,6 +1273,43 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &733527606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 733527601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ced575d34fd157d4eb29616abf76f639, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isTriggerable: 0
+  _isOneTimeTrigger: 0
+  _cannotBeTriggeredMessage: 
+  _progressionTracker: {fileID: 11400000, guid: b9f09e4f92460f84f965d52ff420e87c, type: 2}
+--- !u!65 &733527607
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 733527601}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 0.05}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &775611712
 PrefabInstance:
   m_ObjectHideFlags: 0
