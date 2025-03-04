@@ -3,28 +3,32 @@ using UnityEngine;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Collider))]
-public class SlopeChecker : MonoBehaviour, IMakeChecks
+public class SlopeChecker : MonoBehaviour
 {
+    [SerializeField]
+    private SO_GameInputReader _input = default;
+    [SerializeField]
+    private CapsuleCollider _bodyCollider = default;
+
     [SerializeField]
     private bool _isActive = true;
     [SerializeField]
     private float _maxSlopeAngle = 60f;
     [SerializeField]
-    private int _maxBounces = 5;
-    [SerializeField]
     private float _skinWidth = 0.015f;
     [SerializeField]
-    private Rigidbody _rigidbody = default;
-    [SerializeField]
-    private Collider _bodyCollider = default;
+    private float _slopeSpeedBoost = 5.0f;
     [SerializeField]
     private LayerMask _groundLayerMasks = default;
 
-    private Collider _myCollider = default;
-    private bool _isGrounded = true;
+    private SphereCollider _myCollider = default;
+    private Collider _slopeCollider = default;
+    private RaycastHit[] _hitTargets;
+    private Vector3 _initialMoveDirection;
 
     public bool IsActive { get => _isActive; set => _isActive = value; }
-    public Vector3 Velocity { get; private set; }
+    public Vector3 MoveDirection { get; private set; }
+    public LayerMask TargetedLayerMasks => _groundLayerMasks;
 
     public event Action<bool> SlopeDetected
     {
@@ -33,48 +37,65 @@ public class SlopeChecker : MonoBehaviour, IMakeChecks
             _slopeDetected -= value;
             _slopeDetected += value;
         }
-        remove
-        {
-            _slopeDetected -= value;
-        }
+        remove => _slopeDetected -= value;
     }
 
     private Action<bool> _slopeDetected;
 
     private void Awake()
     {
-        _myCollider = _myCollider != null ? _myCollider : GetComponent<Collider>();
+        _myCollider = _myCollider != null ? _myCollider : GetComponent<SphereCollider>();
+        _hitTargets = new RaycastHit[10];
     }
 
     private void OnEnable()
     {
-        GlobalEventBus.Register(GlobalEvents.Player.GroundedStateChanged, OnGroundedStateChanged);
+        _input.MoveInputHasChanged += OnMoveInputHasChanged;
     }
 
     private void Start()
     {
-        //_collider.bounds.Expand(-2f * _skinWidth);
-
-        _myCollider.bounds.Expand(2f * _skinWidth);
-
         SetCollider(_myCollider);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (!other.isTrigger)
-            _slopeDetected?.Invoke(Check(other.transform));
+        {
+            if (Check(other.transform))
+            {
+                _slopeCollider = other;
+                _slopeDetected?.Invoke(true);
+            }
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (!other.isTrigger && _slopeCollider)
+        {
+            if (Check(other.transform))
+            {
+                _slopeDetected?.Invoke(true);
+            }
+            else
+            {
+                _slopeDetected?.Invoke(false);
+            }
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (!other.isTrigger)
+        if (!other.isTrigger && _slopeCollider)
+        {
             _slopeDetected?.Invoke(false);
+        }
     }
 
     private void OnDisable()
     {
-        GlobalEventBus.Deregister(GlobalEvents.Player.GroundedStateChanged, OnGroundedStateChanged);
+        _input.MoveInputHasChanged -= OnMoveInputHasChanged;
     }
 
     public bool Check(Transform target)
@@ -83,89 +104,144 @@ public class SlopeChecker : MonoBehaviour, IMakeChecks
         {
             LayerMask targetLayerMask = 1 << target.gameObject.layer;
 
-            if ((_groundLayerMasks & targetLayerMask) == 0)
+            if ((TargetedLayerMasks & targetLayerMask) == 0)
                 return false;
 
-            Velocity = CollideAndSlide(_rigidbody.linearVelocity, transform.position + Vector3.up * _skinWidth, 0, false, _rigidbody.linearVelocity);
+            MoveDirection = CollideAndSlide(target, _initialMoveDirection);
 
-            if (Velocity != _rigidbody.linearVelocity)
+            if (MoveDirection != _initialMoveDirection && MoveDirection != Vector3.zero)
                 return true;
         }
         return false;
     }
 
-    private Vector3 CollideAndSlide(Vector3 velocity, Vector3 position, int depth, bool gravityPass, Vector3 initialVelocity)
+    private Vector3 CollideAndSlide(Transform target, Vector3 direction)
     {
-        if (depth >= _maxBounces)
-            return Vector3.zero;
-
-        float distance = velocity.magnitude + _skinWidth;
-
-        if (Physics.SphereCast(position + _rigidbody.transform.forward * _myCollider.bounds.extents.x, _myCollider.bounds.extents.x, velocity.normalized, out RaycastHit hit, distance, _groundLayerMasks, QueryTriggerInteraction.Ignore))
+        if (Physics.SphereCastNonAlloc(transform.position + _skinWidth * 2.0f * Vector3.up, _skinWidth, transform.forward, _hitTargets, (target.position - transform.position).magnitude + _myCollider.radius, _groundLayerMasks, QueryTriggerInteraction.Ignore) > 0)
         {
-            Vector3 snapToSurface = velocity.normalized * (hit.distance - _skinWidth);
+            RaycastHit hit = default;
 
-            if (snapToSurface.sqrMagnitude <= _skinWidth * _skinWidth)
+            foreach (RaycastHit hitTarget in _hitTargets)
             {
-                snapToSurface = Vector3.zero;
-            }
-
-            Vector3 leftoverVelocity = velocity - snapToSurface;
-            float slopeAngle = Vector3.Angle(Vector3.up, hit.normal);
-
-            // normal ground or slope
-            if (slopeAngle <= _maxSlopeAngle)
-            {
-                if (gravityPass)
-                    return snapToSurface;
-
-                leftoverVelocity = Vector3.ProjectOnPlane(leftoverVelocity, hit.normal);
-            }
-            // wall or steep slope
-            else
-            {
-                float scale = 1 - Vector3.Dot(
-                    new Vector3(hit.normal.x, 0, hit.normal.z).normalized,
-                    -new Vector3(initialVelocity.x, 0, initialVelocity.z).normalized);
-
-                if (_isGrounded && !gravityPass)
+                if (hitTarget.transform == target.transform)
                 {
-                    leftoverVelocity = ProjectOnPlaneAndScale(
-                        new Vector3(leftoverVelocity.x, 0, leftoverVelocity.z),
-                        new Vector3(hit.normal.x, 0, hit.normal.z).normalized);
+                    hit = hitTarget;
+                    break;
+                }
+            }
 
-                    leftoverVelocity *= scale;
+            if (hit.transform != null)
+            {
+                Vector3 snapToSurface = direction.normalized * (hit.distance - _skinWidth);
+
+                if (snapToSurface.sqrMagnitude <= _skinWidth * _skinWidth)
+                {
+                    snapToSurface = Vector3.zero;
+                }
+
+                Vector3 differentialVector = direction - snapToSurface;
+
+                Vector3 normal = hit.normal;
+
+                if (Vector3.Dot(target.transform.up, hit.normal) <= -0.001f)
+                    normal *= -1.0f;
+
+                float slopeAngle = Vector3.Angle(Vector3.up, normal);
+
+                // normal ground or slope
+                if (slopeAngle <= _maxSlopeAngle)
+                {
+                    differentialVector = ProjectOnPlaneAndScale(differentialVector, normal);
                 }
                 else
                 {
-                    leftoverVelocity = ProjectOnPlaneAndScale(leftoverVelocity, hit.normal) * scale;
+                    differentialVector = Vector3.zero;
                 }
+                    
+                return snapToSurface + differentialVector;
             }
-
-            return snapToSurface + CollideAndSlide(leftoverVelocity, position + snapToSurface, depth++, gravityPass, initialVelocity);
         }
-
-        return velocity;
+        return direction;
     }
 
-    private void OnGroundedStateChanged(object[] args)
+    //private Vector3 CollideAndSlide(Vector3 velocity, Vector3 position, int depth, bool gravityPass, Vector3 initialVelocity)
+    //{
+    //    if (depth >= _maxBounces)
+    //        return Vector3.zero;
+
+    //    float distance = velocity.magnitude + _skinWidth;
+
+    //    if (Physics.SphereCast(position + _rigidbody.transform.forward * _myCollider.bounds.extents.x, _myCollider.bounds.extents.x, velocity.normalized, out RaycastHit hit, distance, _groundLayerMasks, QueryTriggerInteraction.Ignore))
+    //    {
+    //        Vector3 snapToSurface = velocity.normalized * (hit.distance - _skinWidth);
+
+    //        if (snapToSurface.sqrMagnitude <= _skinWidth * _skinWidth)
+    //        {
+    //            snapToSurface = Vector3.zero;
+    //        }
+
+    //        Vector3 leftoverVelocity = velocity - snapToSurface;
+    //        float slopeAngle = Vector3.Angle(Vector3.up, hit.normal);
+
+    //        // normal ground or slope
+    //        if (slopeAngle <= _maxSlopeAngle)
+    //        {
+    //            if (gravityPass)
+    //                return snapToSurface;
+
+    //            leftoverVelocity = Vector3.ProjectOnPlane(leftoverVelocity, hit.normal);
+    //        }
+    //        // wall or steep slope
+    //        else
+    //        {
+    //            float scale = 1 - Vector3.Dot(
+    //                new Vector3(hit.normal.x, 0, hit.normal.z).normalized,
+    //                -new Vector3(initialVelocity.x, 0, initialVelocity.z).normalized);
+
+    //            if (_isGrounded && !gravityPass)
+    //            {
+    //                leftoverVelocity = ProjectOnPlaneAndScale(
+    //                    new Vector3(leftoverVelocity.x, 0, leftoverVelocity.z),
+    //                    new Vector3(hit.normal.x, 0, hit.normal.z).normalized);
+
+    //                leftoverVelocity *= scale;
+    //            }
+    //            else
+    //            {
+    //                leftoverVelocity = ProjectOnPlaneAndScale(leftoverVelocity, hit.normal) * scale;
+    //            }
+    //        }
+
+    //        return snapToSurface + CollideAndSlide(leftoverVelocity, position + snapToSurface, depth++, gravityPass, initialVelocity);
+    //    }
+
+    //    return velocity;
+    //}
+
+    //private void OnGroundedStateChanged(object[] args)
+    //{
+    //    foreach (var arg in args)
+    //    {
+    //        if (arg is bool isGrounded)
+    //            _isGrounded = isGrounded;
+    //    }
+    //}
+
+    private void OnMoveInputHasChanged(Vector2 moveInput)
     {
-        foreach (var arg in args)
-        {
-            if (arg is bool isGrounded)
-                _isGrounded = isGrounded;
-        }
+        _initialMoveDirection = new Vector3(moveInput.x, 0, moveInput.y);
     }
 
     private Vector3 ProjectOnPlaneAndScale(Vector3 vector, Vector3 planeNormal)
     {
-        float magnitude = vector.magnitude;
+        float magnitude = vector.magnitude * _slopeSpeedBoost;
         vector = Vector3.ProjectOnPlane(vector, planeNormal).normalized;
         return vector *= magnitude;
     }
 
-    private void SetCollider(Collider collider)
+    private void SetCollider(SphereCollider collider)
     {
-        collider.isTrigger = true;
+        collider.center = transform.position + (_bodyCollider.radius + _skinWidth) * Vector3.up;
+        collider.radius = _bodyCollider.radius + _skinWidth;
     }
 }

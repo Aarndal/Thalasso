@@ -67,6 +67,9 @@ public class UIInteractionCommand : MonoBehaviour
     {
         if (isTriggered)
         {
+            if (_currentInteractiveObject == null)
+                return;
+
             if (_currentInteractiveObject.IsActivatable)
                 _imageSwitch.ChangeColorForMilliseconds(_activatableColor, _delayTime);
             else

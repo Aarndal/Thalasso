@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider))]
@@ -45,6 +44,10 @@ public class PCMovement : MonoBehaviour, IAmMovable
         _slopeChecker.SlopeDetected += OnSlopeDetected;
     }
 
+    private void OnSlopeDetected(bool slopeDetected)
+    {
+        _slopeDetected = slopeDetected;
+    }
 
     private void Start()
     {
@@ -81,11 +84,6 @@ public class PCMovement : MonoBehaviour, IAmMovable
             z: moveInput.y);
     }
 
-    private void OnSlopeDetected(bool slopeDetected)
-    {
-        _slopeDetected = slopeDetected;
-    }
-
     private void OnSprintIsTriggered(bool isSprinting)
     {
         _isSprinting = isSprinting;
@@ -108,7 +106,7 @@ public class PCMovement : MonoBehaviour, IAmMovable
         //else if (!input.SprintIsTriggered && Mathf.Abs(playerRigidbody.velocity.x) > walkingSpeed)
         //    playerRigidbody.velocity = new(walkingSpeed * Mathf.Sign(playerRigidbody.velocity.x), playerRigidbody.velocity.y);
 
-        _velocity = _slopeDetected ? _slopeChecker.Velocity : _speedFactor * _moveDirection;
+        _velocity = _speedFactor * (_slopeDetected ? _slopeChecker.MoveDirection :  _moveDirection);
 
         _rigidbody.AddRelativeForce(force: _rigidbody.mass * _velocity / Time.fixedDeltaTime, mode: ForceMode.Force);
     }

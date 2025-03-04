@@ -174,7 +174,7 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
 
         if (newActionMapName == CurrentActionMap.name)
         {
-            Debug.LogWarningFormat("Action map with name <color=yellow>'{0}'</color> in <color=cyan>'{1}'</color> is already active!", newActionMapName, _gameInput.asset.name);
+            _previousActionMap = CurrentActionMap;
             return false;
         }
         else 
