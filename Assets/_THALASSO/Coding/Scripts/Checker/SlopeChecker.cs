@@ -1,7 +1,8 @@
+using System;
 using UnityEngine;
 
 [DisallowMultipleComponent]
-[RequireComponent(typeof(SphereCollider))]
+[RequireComponent(typeof(Collider))]
 public class SlopeChecker : MonoBehaviour, IMakeChecks
 {
     [SerializeField]
@@ -15,19 +16,34 @@ public class SlopeChecker : MonoBehaviour, IMakeChecks
     [SerializeField]
     private Rigidbody _rigidbody = default;
     [SerializeField]
-    private Collider _collider = default;
+    private Collider _bodyCollider = default;
     [SerializeField]
     private LayerMask _groundLayerMasks = default;
 
-    private SphereCollider _mySphereCollider = default;
-    private Bounds _bounds = default;
+    private Collider _myCollider = default;
     private bool _isGrounded = true;
 
     public bool IsActive { get => _isActive; set => _isActive = value; }
+    public Vector3 Velocity { get; private set; }
+
+    public event Action<bool> SlopeDetected
+    {
+        add
+        {
+            _slopeDetected -= value;
+            _slopeDetected += value;
+        }
+        remove
+        {
+            _slopeDetected -= value;
+        }
+    }
+
+    private Action<bool> _slopeDetected;
 
     private void Awake()
     {
-        _mySphereCollider = _mySphereCollider != null ? _mySphereCollider : GetComponent<SphereCollider>();
+        _myCollider = _myCollider != null ? _myCollider : GetComponent<Collider>();
     }
 
     private void OnEnable()
@@ -35,25 +51,25 @@ public class SlopeChecker : MonoBehaviour, IMakeChecks
         GlobalEventBus.Register(GlobalEvents.Player.GroundedStateChanged, OnGroundedStateChanged);
     }
 
-    private void Reset()
-    {
-        _mySphereCollider = _mySphereCollider != null ? _mySphereCollider : GetComponent<SphereCollider>();
-
-        SetSphereCollider(_mySphereCollider);
-    }
-
     private void Start()
     {
         //_collider.bounds.Expand(-2f * _skinWidth);
 
-        _mySphereCollider.radius = _collider.bounds.extents.z + _skinWidth;
+        _myCollider.bounds.Expand(2f * _skinWidth);
 
-        SetSphereCollider(_mySphereCollider);
+        SetCollider(_myCollider);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Check(other.transform);
+        if (!other.isTrigger)
+            _slopeDetected?.Invoke(Check(other.transform));
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (!other.isTrigger)
+            _slopeDetected?.Invoke(false);
     }
 
     private void OnDisable()
@@ -65,15 +81,15 @@ public class SlopeChecker : MonoBehaviour, IMakeChecks
     {
         if (IsActive)
         {
-
             LayerMask targetLayerMask = 1 << target.gameObject.layer;
 
             if ((_groundLayerMasks & targetLayerMask) == 0)
                 return false;
 
-            _rigidbody.AddForce(CollideAndSlide(_rigidbody.linearVelocity, _rigidbody.transform.position, 0, false, _rigidbody.linearVelocity), ForceMode.VelocityChange);
+            Velocity = CollideAndSlide(_rigidbody.linearVelocity, transform.position + Vector3.up * _skinWidth, 0, false, _rigidbody.linearVelocity);
 
-            return true;
+            if (Velocity != _rigidbody.linearVelocity)
+                return true;
         }
         return false;
     }
@@ -85,7 +101,7 @@ public class SlopeChecker : MonoBehaviour, IMakeChecks
 
         float distance = velocity.magnitude + _skinWidth;
 
-        if (Physics.SphereCast(position, _bounds.extents.z, velocity.normalized, out RaycastHit hit, distance, _groundLayerMasks, QueryTriggerInteraction.Ignore))
+        if (Physics.SphereCast(position + _rigidbody.transform.forward * _myCollider.bounds.extents.x, _myCollider.bounds.extents.x, velocity.normalized, out RaycastHit hit, distance, _groundLayerMasks, QueryTriggerInteraction.Ignore))
         {
             Vector3 snapToSurface = velocity.normalized * (hit.distance - _skinWidth);
 
@@ -95,10 +111,10 @@ public class SlopeChecker : MonoBehaviour, IMakeChecks
             }
 
             Vector3 leftoverVelocity = velocity - snapToSurface;
-            float angle = Vector3.Angle(Vector3.up, hit.normal);
+            float slopeAngle = Vector3.Angle(Vector3.up, hit.normal);
 
             // normal ground or slope
-            if (angle <= _maxSlopeAngle)
+            if (slopeAngle <= _maxSlopeAngle)
             {
                 if (gravityPass)
                     return snapToSurface;
@@ -126,7 +142,7 @@ public class SlopeChecker : MonoBehaviour, IMakeChecks
                 }
             }
 
-            return snapToSurface + CollideAndSlide(leftoverVelocity, position + snapToSurface, depth + 1, gravityPass, initialVelocity);
+            return snapToSurface + CollideAndSlide(leftoverVelocity, position + snapToSurface, depth++, gravityPass, initialVelocity);
         }
 
         return velocity;
@@ -148,9 +164,8 @@ public class SlopeChecker : MonoBehaviour, IMakeChecks
         return vector *= magnitude;
     }
 
-    private void SetSphereCollider(SphereCollider collider)
+    private void SetCollider(Collider collider)
     {
         collider.isTrigger = true;
-        collider.center = transform.up * (collider.radius - _skinWidth);
     }
 }

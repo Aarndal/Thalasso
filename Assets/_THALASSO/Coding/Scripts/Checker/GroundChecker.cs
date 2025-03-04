@@ -80,12 +80,14 @@ public class GroundChecker : MonoBehaviour, IMakeChecks
 
     private void OnTriggerEnter(Collider other)
     {
-        Check(other.transform);
+        if (!other.isTrigger)
+            Check(other.transform);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        Check(other.transform);
+        if (!other.isTrigger)
+            Check(other.transform);
     }
 
     private void OnDrawGizmosSelected()
