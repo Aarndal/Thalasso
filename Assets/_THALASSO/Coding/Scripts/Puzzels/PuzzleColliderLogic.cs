@@ -14,7 +14,8 @@ public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
     [SerializeField] private AnimationCurve animationSpeedCurve;
 
     [SerializeField] private bool puzzleAutoStartNeeded = false;
-    [SerializeField] private MonoBehaviour autoStartPuzzleScript;
+    
+    private IAmRiddle autoStartPuzzleScript;
 
     private GameObject buttonUICanvas;
     private bool isfocused = false;
@@ -22,14 +23,17 @@ public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
     private Quaternion originTransformRotation;
     private GameObject transform;
     private CinemachineCamera cinemachineCamera;
-    private bool inAnimation;
+    private bool inAnimation = false;
 
-    private bool isActivatable = true;
+    private readonly bool isActivatable = true;
+
     public bool IsActivatable => isActivatable;
 
     private void Awake()
     {
-        PuzzleUIReferencesSender.puzzleUIReferenceLogger += GetUIReference;
+        autoStartPuzzleScript = autoStartPuzzleScript != null ? autoStartPuzzleScript : GetComponentInChildren<IAmRiddle>();
+
+        PuzzleUIReferencesSender.PuzzleUIReferenceLogger += GetUIReference;
     }
 
     private void GetUIReference(GameObject reference, int ID)
@@ -67,8 +71,8 @@ public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
 
                 if (puzzleAutoStartNeeded && autoStartPuzzleScript != null)
                 {
-                    MethodInfo method = autoStartPuzzleScript.GetType().GetMethod("StartPuzzle");
-                    method?.Invoke(autoStartPuzzleScript, null);
+                    autoStartPuzzleScript.StartPuzzle();
+                    //method?.Invoke(autoStartPuzzleScript, null);
                 }
             }));
 
@@ -88,7 +92,7 @@ public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
                 cinemachineCamera.enabled = true;
                 isfocused = false;
             }));
-            
+
             _input.SwitchCurrentActionMap("Player"); // Switch to Player ActionMap and disable any other Action Map
         }
     }

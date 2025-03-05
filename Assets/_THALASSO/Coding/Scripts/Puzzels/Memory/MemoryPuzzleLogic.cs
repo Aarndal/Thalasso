@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MemoryPuzzleLogic : SolvableObjectBase
+public class MemoryPuzzleLogic : SolvableObjectBase, IAmRiddle
 {
     [SerializeField] private GameObject[] visualButtonOutput;
     [SerializeField] private GameObject[] visualLightOutput;
@@ -30,7 +30,7 @@ public class MemoryPuzzleLogic : SolvableObjectBase
     private Button[] inputButtons;
     private void Awake()
     {
-        PuzzleUIReferencesSender.puzzleUIReferenceLogger += GetUIReference;
+        PuzzleUIReferencesSender.PuzzleUIReferenceLogger += GetUIReference;
     }
 
     private void GetUIReference(GameObject reference, int ID)

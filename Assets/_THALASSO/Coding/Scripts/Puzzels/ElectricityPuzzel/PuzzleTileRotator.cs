@@ -9,7 +9,7 @@ public class PuzzleTileRotator : MonoBehaviour
 
     public int curRotation = 0;
 
-    public static event Action<GameObject> tileWasUpdated;
+    public static event Action<GameObject> TileWasUpdated;
 
     public void OnRotateClick()
     {
@@ -50,6 +50,6 @@ public class PuzzleTileRotator : MonoBehaviour
         if (curRotation >= 360 || curRotation <= -360)
             curRotation = 0;
 
-        tileWasUpdated.Invoke(this.gameObject);
+        TileWasUpdated.Invoke(this.gameObject);
     }
 }

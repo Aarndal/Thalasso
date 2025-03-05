@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ElectricityPuzzleLogic : SolvableObjectBase
+public class ElectricityPuzzleLogic : SolvableObjectBase, IAmRiddle
 {
     [SerializeField] private int puzzleID = 0;
     [SerializeField] private GameObject[] tileFieldInput;
@@ -18,22 +18,40 @@ public class ElectricityPuzzleLogic : SolvableObjectBase
     [SerializeField] private float transitionduration = 0.5f;
     [SerializeField] private AnimationCurve animationSpeedCurve;
 
+#if WWISE_2024_OR_LATER
+    [Header("Wwise Audio Settings")]
+    [SerializeField]
+    private AK.Wwise.Event clickSound;
+    [SerializeField]
+    private AK.Wwise.Event rightSound;
+    [SerializeField]
+    private AK.Wwise.Event wrongSound;
+    [SerializeField]
+    private AK.Wwise.Event completeSound;
+#endif
+
+    private bool isSceneStart = true;
     private GameObject nextTile;
     private GameObject startTile;
     private GameObject endTile;
     private GameObject buttonUICanvas;
-    private System.Random rnd = new();
     private ElectricityPuzzlePrefab ativeLayoutPrefab;
+    private readonly System.Random rnd = new();
 
-    private GameObject[,] tileField = new GameObject[5, 3];
     private Button[] tileFieldButtonsInput;
-    private List<Vector2Int> activeTiles = new();
+    private readonly GameObject[,] tileField = new GameObject[5, 3];
+    private readonly List<Vector2Int> activeTiles = new();
 
     #region Unity Lifecycle Methods
     private void Awake()
     {
-        PuzzleUIReferencesSender.puzzleUIReferenceLogger += GetUIReference;
-        PuzzleTileRotator.tileWasUpdated += ProcessTileFieldUpdate;
+        isSceneStart = true;
+    }
+
+    private void OnEnable()
+    {
+        PuzzleUIReferencesSender.PuzzleUIReferenceLogger += GetUIReference;
+        PuzzleTileRotator.TileWasUpdated += ProcessTileFieldUpdate;
     }
 
     private void Start()
@@ -45,12 +63,14 @@ public class ElectricityPuzzleLogic : SolvableObjectBase
         endTile = tileField[4, 2];
 
         ProcessTileFieldUpdate(tileField[0, 0]);
+
+        isSceneStart = false;
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
-        PuzzleTileRotator.tileWasUpdated -= ProcessTileFieldUpdate;
-        PuzzleUIReferencesSender.puzzleUIReferenceLogger -= GetUIReference;
+        PuzzleTileRotator.TileWasUpdated -= ProcessTileFieldUpdate;
+        PuzzleUIReferencesSender.PuzzleUIReferenceLogger -= GetUIReference;
     }
     #endregion
 
@@ -143,6 +163,11 @@ public class ElectricityPuzzleLogic : SolvableObjectBase
             return;
         }
 
+#if WWISE_2024_OR_LATER
+        if (!isSceneStart)
+            clickSound.Post(gameObject);
+#endif
+
         int updatedTileCurRotation = Math.Abs(_updatedTile.GetComponent<PuzzleTileRotator>().curRotation);
         int rotSteps = GetRotationSteps(updatedTileCurRotation);
         Directions[] typeDirections = GetConnectionsForTileType(_updatedTile);
@@ -156,6 +181,11 @@ public class ElectricityPuzzleLogic : SolvableObjectBase
                 {
                     activeTiles.Add(ObjToPos(_updatedTile));
                     _updatedTile.GetComponent<MeshRenderer>().material.color = Color.green; // temp visuals
+
+#if WWISE_2024_OR_LATER
+                    if (!isSceneStart)
+                        rightSound.Post(gameObject);
+#endif
                 }
 
                 Directions neededDirection = Directions.U;
@@ -195,6 +225,10 @@ public class ElectricityPuzzleLogic : SolvableObjectBase
                 {
                     activeTiles.Add(ObjToPos(_updatedTile));
                     _updatedTile.GetComponent<MeshRenderer>().material.color = Color.green; // temp visuals
+#if WWISE_2024_OR_LATER
+                    if (!isSceneStart)
+                        rightSound.Post(gameObject);
+#endif
                 }
 
                 nextTile = GetNextTileInCircuit(_updatedTile, relativeDirections, previousTile);
@@ -234,6 +268,9 @@ public class ElectricityPuzzleLogic : SolvableObjectBase
             }
 
             _tileToDeactivate.GetComponent<MeshRenderer>().material.color = Color.red;
+#if WWISE_2024_OR_LATER
+            wrongSound.Post(gameObject);
+#endif
             activeTiles.RemoveAt(index);
 
             nextTile = _tileToDeactivate;
@@ -444,6 +481,8 @@ public class ElectricityPuzzleLogic : SolvableObjectBase
     public override bool Solve()
     {
         Debug.Log("Puzzle Gelöst!");
+
+        completeSound.Post(gameObject);
 
         return IsSolved = true;
     }

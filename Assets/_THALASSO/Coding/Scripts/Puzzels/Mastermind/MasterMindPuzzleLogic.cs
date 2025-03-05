@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MasterMindPuzzleLogic : SolvableObjectBase
+public class MasterMindPuzzleLogic : SolvableObjectBase, IAmRiddle
 {
     [SerializeField] private Button[] numButtons;
     [SerializeField] private TextMeshProUGUI[] outputText;
@@ -17,7 +17,7 @@ public class MasterMindPuzzleLogic : SolvableObjectBase
 
     private void Awake()
     {
-        PuzzleUIReferencesSender.puzzleUIReferenceLogger += GetUIReference;
+        PuzzleUIReferencesSender.PuzzleUIReferenceLogger += GetUIReference;
     }
 
     private void Reset()
@@ -46,6 +46,11 @@ public class MasterMindPuzzleLogic : SolvableObjectBase
     private void OnDestroy()
     {
         StopAllCoroutines();
+    }
+
+    public void StartPuzzle()
+    {
+        return;
     }
 
     private void GenerateNewCode()
@@ -114,4 +119,5 @@ public class MasterMindPuzzleLogic : SolvableObjectBase
     }
 
     public override bool Solve() => IsSolved = true;
+
 }

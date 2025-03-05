@@ -320,7 +320,7 @@ MonoBehaviour:
     ParentPath: SoundBanks\Default Work Unit
     guid: 120307a5affdda4f9c2c157df7e55198
     GuidInternal: 
-    m_lastTime: -8584611069795244452
+    m_lastTime: -8584604241038814245
     List:
     - name: Enviroment
       guid: 4ccb99699ec7c34ab35455a4ec799272
@@ -418,11 +418,11 @@ MonoBehaviour:
     ParentPath: Events\Default Work Unit
     guid: a73c7a02b02f814caa08ff6be5823e65
     GuidInternal: 
-    m_lastTime: -8584610334218075032
+    m_lastTime: -8584604244815601774
     List:
-    - name: Ambience_First_Time_Monster
-      guid: 9284d8823fc8e6468a7d581d2dd4238e
-      id: 54455057
+    - name: Austin
+      guid: 3d652c20b33af94096e8621a842a359f
+      id: 204737959
       PathAndIcons:
       - ElementName: Events
         ObjectType: 5
@@ -430,36 +430,16 @@ MonoBehaviour:
       - ElementName: Default Work Unit
         ObjectType: 12
         guid: a73c7a02b02f814caa08ff6be5823e65
-      - ElementName: Music
+      - ElementName: MonsterSounds
         ObjectType: 4
-        guid: 7d2ce51831979a4095f5ef0061d54c3b
-      - ElementName: Ambience_First_Time_Monster
-        ObjectType: 3
-        guid: 9284d8823fc8e6468a7d581d2dd4238e
-      Path: Events\Default Work Unit\Music\Ambience_First_Time_Monster
-      maxAttenuation: 0
-      maxDuration: 0
-      minDuration: 0
-    - name: Ambience_First_Time_Station
-      guid: b918ab708f88e44cab808d3d4d1a52f6
-      id: 3784509915
-      PathAndIcons:
-      - ElementName: Events
-        ObjectType: 5
-        guid: 00000000000000000000000000000000
-      - ElementName: Default Work Unit
-        ObjectType: 12
-        guid: a73c7a02b02f814caa08ff6be5823e65
-      - ElementName: Music
+        guid: 0193a850dc314b4ea489a670b4fe02e5
+      - ElementName: Austin
         ObjectType: 4
-        guid: 7d2ce51831979a4095f5ef0061d54c3b
-      - ElementName: Ambience_First_Time_Station
-        ObjectType: 3
-        guid: b918ab708f88e44cab808d3d4d1a52f6
-      Path: Events\Default Work Unit\Music\Ambience_First_Time_Station
+        guid: 3d652c20b33af94096e8621a842a359f
+      Path: Events\Default Work Unit\MonsterSounds\Austin
       maxAttenuation: 0
-      maxDuration: 0
-      minDuration: 0
+      maxDuration: -1
+      minDuration: -1
     - name: Chase_Music
       guid: 742c5d442d967546bfb250fb2f943ddf
       id: 3824731861
@@ -480,6 +460,118 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
+    - name: CircuitRiddle
+      guid: 92136bdb08f3084084ad8ac6eadf0481
+      id: 2057550820
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: a73c7a02b02f814caa08ff6be5823e65
+      - ElementName: Riddles
+        ObjectType: 4
+        guid: 448350db6f643048984d4f13f7fb7fab
+      - ElementName: CircuitRiddle
+        ObjectType: 4
+        guid: 92136bdb08f3084084ad8ac6eadf0481
+      Path: Events\Default Work Unit\Riddles\CircuitRiddle
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: CircuitRiddle_Click
+      guid: 46a011f9610d704a9205175c906f4e23
+      id: 1065298177
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: a73c7a02b02f814caa08ff6be5823e65
+      - ElementName: Riddles
+        ObjectType: 4
+        guid: 448350db6f643048984d4f13f7fb7fab
+      - ElementName: CircuitRiddle
+        ObjectType: 4
+        guid: 92136bdb08f3084084ad8ac6eadf0481
+      - ElementName: CircuitRiddle_Click
+        ObjectType: 3
+        guid: 46a011f9610d704a9205175c906f4e23
+      Path: Events\Default Work Unit\Riddles\CircuitRiddle\CircuitRiddle_Click
+      maxAttenuation: 0
+      maxDuration: 0.9426086
+      minDuration: 0.40817642
+    - name: CircuitRiddle_Complete
+      guid: 4045a13e98ac544ea10626a2ded0edc8
+      id: 2222894834
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: a73c7a02b02f814caa08ff6be5823e65
+      - ElementName: Riddles
+        ObjectType: 4
+        guid: 448350db6f643048984d4f13f7fb7fab
+      - ElementName: CircuitRiddle
+        ObjectType: 4
+        guid: 92136bdb08f3084084ad8ac6eadf0481
+      - ElementName: CircuitRiddle_Complete
+        ObjectType: 3
+        guid: 4045a13e98ac544ea10626a2ded0edc8
+      Path: Events\Default Work Unit\Riddles\CircuitRiddle\CircuitRiddle_Complete
+      maxAttenuation: 0
+      maxDuration: 3.0976002
+      minDuration: 3.0976002
+    - name: CircuitRiddle_Right
+      guid: 4552b7c124bf21419ab0db6101f1f889
+      id: 4250834603
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: a73c7a02b02f814caa08ff6be5823e65
+      - ElementName: Riddles
+        ObjectType: 4
+        guid: 448350db6f643048984d4f13f7fb7fab
+      - ElementName: CircuitRiddle
+        ObjectType: 4
+        guid: 92136bdb08f3084084ad8ac6eadf0481
+      - ElementName: CircuitRiddle_Right
+        ObjectType: 3
+        guid: 4552b7c124bf21419ab0db6101f1f889
+      Path: Events\Default Work Unit\Riddles\CircuitRiddle\CircuitRiddle_Right
+      maxAttenuation: 0
+      maxDuration: 0.5891656
+      minDuration: 0.36280942
+    - name: CircuitRiddle_Wrong
+      guid: 57f3d86c9626da4181941c94116a0d24
+      id: 1404039910
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: a73c7a02b02f814caa08ff6be5823e65
+      - ElementName: Riddles
+        ObjectType: 4
+        guid: 448350db6f643048984d4f13f7fb7fab
+      - ElementName: CircuitRiddle
+        ObjectType: 4
+        guid: 92136bdb08f3084084ad8ac6eadf0481
+      - ElementName: CircuitRiddle_Wrong
+        ObjectType: 3
+        guid: 57f3d86c9626da4181941c94116a0d24
+      Path: Events\Default Work Unit\Riddles\CircuitRiddle\CircuitRiddle_Wrong
+      maxAttenuation: 0
+      maxDuration: 0.5030244
+      minDuration: 0.27042103
     - name: DoorOpen
       guid: 6ba5f69d5250094288205d926f45f22c
       id: 1404805401
@@ -674,6 +766,23 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: 1.8704894
       minDuration: 0.4080316
+    - name: MonsterSounds
+      guid: 0193a850dc314b4ea489a670b4fe02e5
+      id: 682291357
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: a73c7a02b02f814caa08ff6be5823e65
+      - ElementName: MonsterSounds
+        ObjectType: 4
+        guid: 0193a850dc314b4ea489a670b4fe02e5
+      Path: Events\Default Work Unit\MonsterSounds
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
     - name: Music
       guid: 7d2ce51831979a4095f5ef0061d54c3b
       id: 3991942870
@@ -691,6 +800,46 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
+    - name: Music_Ambience_First_Time_Monster
+      guid: 9284d8823fc8e6468a7d581d2dd4238e
+      id: 1832321273
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: a73c7a02b02f814caa08ff6be5823e65
+      - ElementName: Music
+        ObjectType: 4
+        guid: 7d2ce51831979a4095f5ef0061d54c3b
+      - ElementName: Music_Ambience_First_Time_Monster
+        ObjectType: 3
+        guid: 9284d8823fc8e6468a7d581d2dd4238e
+      Path: Events\Default Work Unit\Music\Music_Ambience_First_Time_Monster
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Music_Ambience_First_Time_Station
+      guid: b918ab708f88e44cab808d3d4d1a52f6
+      id: 3531297571
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: a73c7a02b02f814caa08ff6be5823e65
+      - ElementName: Music
+        ObjectType: 4
+        guid: 7d2ce51831979a4095f5ef0061d54c3b
+      - ElementName: Music_Ambience_First_Time_Station
+        ObjectType: 3
+        guid: b918ab708f88e44cab808d3d4d1a52f6
+      Path: Events\Default Work Unit\Music\Music_Ambience_First_Time_Station
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
     - name: Pause_Menu_In
       guid: 0d706117bf48234a9bdf7dd669800093
       id: 3382955325
@@ -731,6 +880,49 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: 0.84933335
       minDuration: 0.84933335
+    - name: Play_Austin
+      guid: 40eb851379590a40983f18d6e3794cd1
+      id: 3408260292
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: a73c7a02b02f814caa08ff6be5823e65
+      - ElementName: MonsterSounds
+        ObjectType: 4
+        guid: 0193a850dc314b4ea489a670b4fe02e5
+      - ElementName: Austin
+        ObjectType: 4
+        guid: 3d652c20b33af94096e8621a842a359f
+      - ElementName: Play_Austin
+        ObjectType: 3
+        guid: 40eb851379590a40983f18d6e3794cd1
+      Path: Events\Default Work Unit\MonsterSounds\Austin\Play_Austin
+      maxAttenuation: 100
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_Music_Ambience
+      guid: ccbf4be69c29de4dbebd3da213cbe6f2
+      id: 1659166974
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: a73c7a02b02f814caa08ff6be5823e65
+      - ElementName: Music
+        ObjectType: 4
+        guid: 7d2ce51831979a4095f5ef0061d54c3b
+      - ElementName: Play_Music_Ambience
+        ObjectType: 3
+        guid: ccbf4be69c29de4dbebd3da213cbe6f2
+      Path: Events\Default Work Unit\Music\Play_Music_Ambience
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
     - name: PlayerFoot_Run
       guid: 9535f4e52441134bb64bf6b39f19f673
       id: 4265836956
@@ -788,6 +980,23 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
+    - name: Riddles
+      guid: 448350db6f643048984d4f13f7fb7fab
+      id: 1872262486
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: a73c7a02b02f814caa08ff6be5823e65
+      - ElementName: Riddles
+        ObjectType: 4
+        guid: 448350db6f643048984d4f13f7fb7fab
+      Path: Events\Default Work Unit\Riddles
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
     - name: Room_Music
       guid: ce8c73ed0e4fa04e8108a34a66524703
       id: 1808177020
@@ -808,6 +1017,26 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
+    - name: Stop_Music_Ambience
+      guid: 98e50f7b451d8c4f99237ae90806e118
+      id: 398256180
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: a73c7a02b02f814caa08ff6be5823e65
+      - ElementName: Music
+        ObjectType: 4
+        guid: 7d2ce51831979a4095f5ef0061d54c3b
+      - ElementName: Stop_Music_Ambience
+        ObjectType: 3
+        guid: 98e50f7b451d8c4f99237ae90806e118
+      Path: Events\Default Work Unit\Music\Stop_Music_Ambience
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
   RtpcWwu:
   - PhysicalPath: Game Parameters\Default Work Unit.wwu
     PathAndIcons:
@@ -996,7 +1225,7 @@ MonoBehaviour:
     ParentPath: Switches\Default Work Unit
     guid: 7efb8b82d304a74188c2d0309d757ff4
     GuidInternal: 
-    m_lastTime: -8584633225674775808
+    m_lastTime: -8584604255181834199
     List:
     - name: Footsteps_Material
       guid: 4d355412d47fe246b833edaf6951d735
@@ -1013,9 +1242,9 @@ MonoBehaviour:
         guid: 4d355412d47fe246b833edaf6951d735
       Path: Switches\Default Work Unit\Footsteps_Material
       values:
-      - name: Filled
+      - name: Concrete
         guid: 5756b8cf63daf44e8ebdb62d1f206f8e
-        id: 1735970877
+        id: 841620460
         PathAndIcons:
         - ElementName: Switches
           ObjectType: 5
@@ -1026,12 +1255,12 @@ MonoBehaviour:
         - ElementName: Footsteps_Material
           ObjectType: 11
           guid: 4d355412d47fe246b833edaf6951d735
-        - ElementName: Filled
+        - ElementName: Concrete
           ObjectType: 10
           guid: 5756b8cf63daf44e8ebdb62d1f206f8e
-      - name: Hollow
+      - name: Steel
         guid: 1c8cf4c4230c834b9c17cb9dd745b3c7
-        id: 815678804
+        id: 1366287314
         PathAndIcons:
         - ElementName: Switches
           ObjectType: 5
@@ -1042,7 +1271,7 @@ MonoBehaviour:
         - ElementName: Footsteps_Material
           ObjectType: 11
           guid: 4d355412d47fe246b833edaf6951d735
-        - ElementName: Hollow
+        - ElementName: Steel
           ObjectType: 10
           guid: 1c8cf4c4230c834b9c17cb9dd745b3c7
       ValueGuids: []
@@ -1190,7 +1419,7 @@ MonoBehaviour:
     m_lastTime: -8584635260294775808
     List: []
   ExpandedFileSystemItemIds: 
-  ExpandedWaapiItemIds: 0200000003000000050000000600000007000000090000000a0000000b0000000c0000000d0000000e0000000f000000100000001100000015000000160000001700000018000000190000001a0000001b0000001c0000001d0000002300000024000000330000003b0000003d2b0000
+  ExpandedWaapiItemIds: 02000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f0000001000000011000000120000001300000015000000160000001700000018000000190000001a0000001b0000001c0000001d0000001e0000002300000024000000270000002f000000330000003b0000003d2b0000
   AutoSyncSelection: 0
   autoPopulateEnabled: 1
   currentDataSource: 0
