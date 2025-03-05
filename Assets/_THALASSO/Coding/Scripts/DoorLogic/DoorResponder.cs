@@ -26,7 +26,7 @@ public class DoorResponder : ResponderBase
             _doorAnimation.Lock();
     }
 
-    public override void Respond(IAmTriggerable trigger)
+    public override void Respond(GameObject @gameObject, IAmTriggerable trigger)
     {
         if (!trigger.IsTriggerable && !_doorAnimation.IsLocked)
         {

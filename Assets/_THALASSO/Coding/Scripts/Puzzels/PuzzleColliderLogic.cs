@@ -72,7 +72,7 @@ public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
                 }
             }));
 
-            _input.SwitchCurrentActionMapTo("UI"); // Switch to UI ActionMap and disable any other Action Map
+            _input.SwitchCurrentActionMap("UI"); // Switch to UI ActionMap and disable any other Action Map
         }
         else
         {
@@ -89,7 +89,7 @@ public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
                 isfocused = false;
             }));
             
-            _input.SwitchCurrentActionMapTo("Player"); // Switch to Player ActionMap and disable any other Action Map
+            _input.SwitchCurrentActionMap("Player"); // Switch to Player ActionMap and disable any other Action Map
         }
     }
 

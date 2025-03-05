@@ -14,7 +14,7 @@ public abstract class ResponderBase : MonoBehaviour, IAmResponsive
         foreach (var trigger in _triggers)
         {
             trigger.Interface.CannotBeTriggered += OnCannotBeTriggered;
-            trigger.Interface.HasBeenTriggered += OnHasBeenTriggered;
+            trigger.Interface.IsTriggered += OnHasBeenTriggered;
         }
     }
 
@@ -23,7 +23,7 @@ public abstract class ResponderBase : MonoBehaviour, IAmResponsive
         foreach (var trigger in _triggers)
         {
             trigger.Interface.CannotBeTriggered -= OnCannotBeTriggered;
-            trigger.Interface.HasBeenTriggered -= OnHasBeenTriggered;
+            trigger.Interface.IsTriggered -= OnHasBeenTriggered;
         }
     }
 
@@ -33,12 +33,12 @@ public abstract class ResponderBase : MonoBehaviour, IAmResponsive
     private void ValidateTriggers()
     {
         if (_triggers.Count <= 0)
-            Debug.LogWarningFormat("<color=yellow>Responder</color> {0} (ID: {1}) <color=yellow>has no triggers assigned!</color>", gameObject.name, gameObject.GetInstanceID());
+            Debug.LogWarningFormat("<color=yellow>Responder</color> {0} (ID: {1}) <color=yellow>has no triggers assigned!</color>", gameObject.name, GetInstanceID());
     }
 
     protected virtual void OnCannotBeTriggered(GameObject @gameObject, string messageText) { }
 
-    protected virtual void OnHasBeenTriggered(IAmTriggerable trigger) => Respond(trigger);
+    protected virtual void OnHasBeenTriggered(GameObject @gameObject, IAmTriggerable trigger) => Respond(@gameObject, trigger);
 
-    public abstract void Respond(IAmTriggerable trigger);
+    public abstract void Respond(GameObject @gameObject, IAmTriggerable trigger);
 }

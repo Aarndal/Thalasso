@@ -11,21 +11,9 @@ public sealed class LineOfSightColliderTrigger : LayerMaskColliderTrigger
         _targetedCollider.isTrigger = false;
     }
 
-    private void OnEnable()
-    {
-        HasBeenTriggered += OnHasBeenTriggered;
-    }
-
-    private void OnDisable()
-    {
-        HasBeenTriggered -= OnHasBeenTriggered;
-    }
-
-    private void OnHasBeenTriggered(IAmTriggerable triggerable) => ChangeIsTriggerable();
-
     protected override bool IsValidTrigger(GameObject triggeringGameObject)
     {
-        if (!IsInTargetLayerMask(triggeringGameObject))
+        if (!IsInTriggeringLayerMasks(triggeringGameObject))
             return false;
 
         LineOfSightChecker lineOfSight = triggeringGameObject.GetComponentInChildren<LineOfSightChecker>();

@@ -191,7 +191,6 @@ GameObject:
   m_Component:
   - component: {fileID: 44983754}
   - component: {fileID: 44983756}
-  - component: {fileID: 44983755}
   m_Layer: 0
   m_Name: Ambience_CellRoom
   m_TagString: Untagged
@@ -214,27 +213,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 333584787}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &44983755
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 44983753}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2def41128a38834c9d7c6014c5619fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  excludeOthers: 1
-  isDefault: 0
-  data:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 7bbe011663452574abaa8c60f595826f, type: 2}
-  priority: 0
-  auxBusIdInternal: 0
-  valueGuidInternal: 
 --- !u!65 &44983756
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -739,7 +717,6 @@ GameObject:
   m_Component:
   - component: {fileID: 208307562}
   - component: {fileID: 208307564}
-  - component: {fileID: 208307563}
   m_Layer: 0
   m_Name: Ambience_CellRoom (1)
   m_TagString: Untagged
@@ -762,27 +739,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 333584787}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &208307563
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 208307561}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2def41128a38834c9d7c6014c5619fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  excludeOthers: 1
-  isDefault: 0
-  data:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 7bbe011663452574abaa8c60f595826f, type: 2}
-  priority: 0
-  auxBusIdInternal: 0
-  valueGuidInternal: 
 --- !u!65 &208307564
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5406,7 +5362,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1776849408}
   - component: {fileID: 1776849410}
-  - component: {fileID: 1776849409}
   m_Layer: 0
   m_Name: Ambience_Cells
   m_TagString: Untagged
@@ -5429,27 +5384,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 333584787}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1776849409
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1776849407}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2def41128a38834c9d7c6014c5619fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  excludeOthers: 0
-  isDefault: 0
-  data:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: b6fcbbe60bd0dbe40a354dfaf7927f3f, type: 2}
-  priority: 100
-  auxBusIdInternal: 0
-  valueGuidInternal: 
 --- !u!65 &1776849410
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6726,7 +6660,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2142047758}
   - component: {fileID: 2142047760}
-  - component: {fileID: 2142047759}
   m_Layer: 0
   m_Name: Ambience_CellRoom (2)
   m_TagString: Untagged
@@ -6749,27 +6682,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 333584787}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2142047759
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2142047757}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2def41128a38834c9d7c6014c5619fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  excludeOthers: 1
-  isDefault: 0
-  data:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 7bbe011663452574abaa8c60f595826f, type: 2}
-  priority: 0
-  auxBusIdInternal: 0
-  valueGuidInternal: 
 --- !u!65 &2142047760
 BoxCollider:
   m_ObjectHideFlags: 0

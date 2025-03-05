@@ -6,6 +6,8 @@ public class PCMovement : MonoBehaviour, IAmMovable
     [Header("References")]
     [SerializeField]
     private SO_GameInputReader _input = default;
+    [SerializeField]
+    private SlopeChecker _slopeChecker = default;
 
     [Header("Movement Variables")]
     [Tooltip("Movement speed of the player character in m/s.")]
@@ -21,10 +23,11 @@ public class PCMovement : MonoBehaviour, IAmMovable
 
     private Rigidbody _rigidbody = default;
     private Vector3 _moveDirection = Vector3.zero;
-    //private Vector3 _previousMoveDirection = Vector3.zero;
+    private Vector3 _velocity = Vector3.zero;
     private float _speedFactor = 0.0f;
     private bool _isSprinting = false;
     private bool _isGrounded = true;
+    private bool _slopeDetected = false;
 
     #region Unity MonoBehaviour Methods
     private void Awake()
@@ -38,8 +41,13 @@ public class PCMovement : MonoBehaviour, IAmMovable
         GlobalEventBus.Register(GlobalEvents.Player.GroundedStateChanged, OnGroundedStateChanged);
         _input.MoveInputHasChanged += OnMoveInputHasChanged;
         _input.SprintIsTriggered += OnSprintIsTriggered;
+        _slopeChecker.SlopeDetected += OnSlopeDetected;
     }
 
+    private void OnSlopeDetected(bool slopeDetected)
+    {
+        _slopeDetected = slopeDetected;
+    }
 
     private void Start()
     {
@@ -54,9 +62,10 @@ public class PCMovement : MonoBehaviour, IAmMovable
 
     private void OnDisable()
     {
-        _input.SprintIsTriggered -= OnSprintIsTriggered;
-        _input.MoveInputHasChanged -= OnMoveInputHasChanged;
         GlobalEventBus.Deregister(GlobalEvents.Player.GroundedStateChanged, OnGroundedStateChanged);
+        _input.MoveInputHasChanged -= OnMoveInputHasChanged;
+        _input.SprintIsTriggered -= OnSprintIsTriggered;
+        _slopeChecker.SlopeDetected -= OnSlopeDetected;
     }
     #endregion
 
@@ -97,6 +106,8 @@ public class PCMovement : MonoBehaviour, IAmMovable
         //else if (!input.SprintIsTriggered && Mathf.Abs(playerRigidbody.velocity.x) > walkingSpeed)
         //    playerRigidbody.velocity = new(walkingSpeed * Mathf.Sign(playerRigidbody.velocity.x), playerRigidbody.velocity.y);
 
-        _rigidbody.AddRelativeForce(force: _rigidbody.mass * _speedFactor * _moveDirection / Time.fixedDeltaTime, mode: ForceMode.Force);
+        _velocity = _speedFactor * (_slopeDetected ? _slopeChecker.MoveDirection :  _moveDirection);
+
+        _rigidbody.AddRelativeForce(force: _rigidbody.mass * _velocity / Time.fixedDeltaTime, mode: ForceMode.Force);
     }
 }

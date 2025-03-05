@@ -16,11 +16,14 @@ public class ButtonActions : MonoBehaviour
     [SerializeField] private Image fadeImage;
     [SerializeField] private float fadeDuration = 0.5f;
 
+
+#if WWISE_2024_OR_LATER
     [Header("Audio Settings")]
     [SerializeField] private AK.Wwise.Event enterMainMenuSound;
     [SerializeField] private AK.Wwise.Event exitMainMenuSound;
     [SerializeField] private AK.Wwise.Event enterPauseMenuSound;
     [SerializeField] private AK.Wwise.Event exitPauseMenuSound;
+#endif
 
     private void Awake()
     {
@@ -28,11 +31,11 @@ public class ButtonActions : MonoBehaviour
 
         if (curSceneId == 0) //MainMenu
         {
-            input.SwitchCurrentActionMapTo("UI");
+            input.SwitchCurrentActionMap("UI");
         }
         else if (curSceneId == 2) //Credits
         {
-            input.SwitchCurrentActionMapTo("Cutscene");
+            input.SwitchCurrentActionMap("Cutscene");
         }
     }
 
@@ -52,7 +55,7 @@ public class ButtonActions : MonoBehaviour
         try
         {
             pauseMenuToggle = transform.Find("Toggle").gameObject;
-            pauseMenuToggle.gameObject.SetActive(false);
+            pauseMenuToggle.SetActive(false);
         }
         catch
         {
@@ -83,15 +86,19 @@ public class ButtonActions : MonoBehaviour
 
         if (input.IsPauseActive)
         {
+#if WWISE_2024_OR_LATER
             enterPauseMenuSound.Post(gameObject);
+#endif
             pauseMenuToggle.SetActive(true);
-            input.SwitchCurrentActionMapTo("UI"); // Switch to UI ActionMap and disable any other Action Map.
+            input.SwitchCurrentActionMap("UI"); // Switch to UI ActionMap and disable any other Action Map.
         }
         else
         {
+#if WWISE_2024_OR_LATER
             exitPauseMenuSound.Post(gameObject);
+#endif
             pauseMenuToggle.SetActive(false);
-            input.SwitchCurrentActionMapTo(input.PreviousActionMap.name); // Switch to previous ActionMap before Pause and disable any other Action Map.
+            input.SwitchCurrentActionMap(input.PreviousActionMap.name); // Switch to previous ActionMap before Pause and disable any other Action Map.
         }
     }
 
@@ -111,18 +118,20 @@ public class ButtonActions : MonoBehaviour
 
         if (sceneId == 2) //Credits
         {
-            input.SwitchCurrentActionMapTo("Cutscene"); // Switch to UI ActionMap and disable any other Action Map
+            input.SwitchCurrentActionMap("Cutscene"); // Switch to UI ActionMap and disable any other Action Map
         }
         else
         {
+#if WWISE_2024_OR_LATER
             if (sceneId == 0)
                 enterMainMenuSound.Post(gameObject);
 
             if (sceneId == 3)
                 exitMainMenuSound.Post(gameObject);
+#endif
 
             input.IsPauseActive = false;
-            input.SwitchCurrentActionMapTo("UI"); // Switch to UI ActionMap and disable any other Action Map
+            input.SwitchCurrentActionMap("UI"); // Switch to UI ActionMap and disable any other Action Map
         }
 
         if (useFade)

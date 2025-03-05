@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class TriggerSoundSwitch : MonoBehaviour
 {
+#if WWISE_2024_OR_LATER
     [SerializeField]
     private AK.Wwise.Switch _onEnterSwitchTo;
     [SerializeField]
@@ -37,4 +38,5 @@ public class TriggerSoundSwitch : MonoBehaviour
             }
         }
     }
+#endif
 }

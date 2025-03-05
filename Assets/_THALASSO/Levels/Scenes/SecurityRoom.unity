@@ -838,7 +838,6 @@ GameObject:
   m_Component:
   - component: {fileID: 348974237}
   - component: {fileID: 348974239}
-  - component: {fileID: 348974238}
   m_Layer: 0
   m_Name: Ambience_SecurityRoom
   m_TagString: Untagged
@@ -861,27 +860,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 941531564}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &348974238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 348974236}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2def41128a38834c9d7c6014c5619fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  excludeOthers: 0
-  isDefault: 0
-  data:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: cf3578fd5ad8b704a9bfd21e19938749, type: 2}
-  priority: 100
-  auxBusIdInternal: 0
-  valueGuidInternal: 
 --- !u!136 &348974239
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2802,7 +2780,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1146747690}
   - component: {fileID: 1146747692}
-  - component: {fileID: 1146747691}
   m_Layer: 0
   m_Name: Ambience_OutsideSecurityRoom
   m_TagString: Untagged
@@ -2825,27 +2802,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 941531564}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1146747691
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1146747689}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2def41128a38834c9d7c6014c5619fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  excludeOthers: 0
-  isDefault: 1
-  data:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 7fedb0beea6b3554cb8c754e4f3e1d93, type: 2}
-  priority: 200
-  auxBusIdInternal: 0
-  valueGuidInternal: 
 --- !u!65 &1146747692
 BoxCollider:
   m_ObjectHideFlags: 0

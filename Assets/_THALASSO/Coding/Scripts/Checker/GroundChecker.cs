@@ -3,6 +3,7 @@ using WwiseHelper;
 #endif
 using UnityEngine;
 
+[RequireComponent(typeof(SphereCollider))]
 public class GroundChecker : MonoBehaviour, IMakeChecks
 {
     [Header("Variables")]
@@ -23,6 +24,8 @@ public class GroundChecker : MonoBehaviour, IMakeChecks
 #endif
 
     private bool _isGrounded = true;
+    private SphereCollider _sphereCollider = default;
+    private LayerMask _defaultLayerMask = 1 << 2;
 
     public bool IsActive { get => _isActive; set => _isActive = value; }
     public bool IsGrounded
@@ -53,23 +56,52 @@ public class GroundChecker : MonoBehaviour, IMakeChecks
     }
 #endif
 
+    private void Awake()
+    {
+        gameObject.layer = _defaultLayerMask.value;
+        _sphereCollider = _sphereCollider != null ? _sphereCollider : GetComponent<SphereCollider>();
+    }
+
     private void Start()
     {
+        if (_sphereCollider != null)
+            SetSphereCollider();
+
 #if WWISE_2024_OR_LATER
         CurrentSoundMaterial = _defaultSoundMaterial;
 #endif
         GlobalEventBus.Raise(GlobalEvents.Player.GroundedStateChanged, _isGrounded);
     }
 
-    private void Update()
+    private void Reset()
     {
-        Check(transform);
+        SetSphereCollider();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!other.isTrigger)
+            Check(other.transform);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (!other.isTrigger)
+            Check(other.transform);
     }
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position + _groundCheckOffset, _groundCheckRadius);
+    }
+
+    private void OnValidate()
+    {
+        _sphereCollider = _sphereCollider != null ? _sphereCollider : GetComponent<SphereCollider>();
+
+        if (_sphereCollider != null)
+            SetSphereCollider();
     }
 
     public bool Check(Transform target)
@@ -93,4 +125,10 @@ public class GroundChecker : MonoBehaviour, IMakeChecks
         return IsGrounded;
     }
 
+    private void SetSphereCollider()
+    {
+        _sphereCollider.isTrigger = true;
+        _sphereCollider.radius = _groundCheckRadius;
+        _sphereCollider.center = _groundCheckOffset;
+    }
 }

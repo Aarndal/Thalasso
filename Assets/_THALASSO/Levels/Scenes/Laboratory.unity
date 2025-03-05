@@ -820,7 +820,6 @@ GameObject:
   m_Component:
   - component: {fileID: 179567934}
   - component: {fileID: 179567936}
-  - component: {fileID: 179567935}
   m_Layer: 0
   m_Name: Ambience_SmallOffice
   m_TagString: Untagged
@@ -843,27 +842,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 240945844}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &179567935
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 179567933}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2def41128a38834c9d7c6014c5619fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  excludeOthers: 0
-  isDefault: 1
-  data:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 6b0695a0ff2bff94fa88afb28a3a2ae8, type: 2}
-  priority: 0
-  auxBusIdInternal: 0
-  valueGuidInternal: 
 --- !u!65 &179567936
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2069,7 +2047,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 647538657}
-  - component: {fileID: 647538659}
   - component: {fileID: 647538658}
   m_Layer: 0
   m_Name: Event_FirstTimeSeeingMonster
@@ -2106,37 +2083,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _triggers:
-  - _monoBehaviourInstance: {fileID: 2115662695}
-  - _monoBehaviourInstance: {fileID: 1459984993}
-  _isOneTimeEvent: 1
-  _akEvent:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 0feddf63e5f9c074f9d23b79208370fc, type: 2}
---- !u!114 &647538659
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 647538656}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62f370bd38ab0524eb28a985f4b8c87a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_listeners:
-    initialListenerList: []
-    useDefaultListeners: 1
-  isEnvironmentAware: 0
-  isStaticObject: 0
-  usePositionOffsetData: 0
-  m_positionOffsetData:
-    KeepMe: 1
-    positionOffset: {x: 0, y: 0, z: 0}
-  scalingFactor: 1
-  m_posOffsetData: {fileID: 0}
-  listenerMask: 1
+  - _monoBehaviourInstance: {fileID: 1459984995}
+  - _monoBehaviourInstance: {fileID: 2115662697}
 --- !u!1 &658025283
 GameObject:
   m_ObjectHideFlags: 0
@@ -2266,7 +2214,6 @@ GameObject:
   m_Component:
   - component: {fileID: 683252550}
   - component: {fileID: 683252552}
-  - component: {fileID: 683252551}
   m_Layer: 0
   m_Name: Ambience_LabBack
   m_TagString: Untagged
@@ -2289,27 +2236,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 240945844}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &683252551
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 683252549}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2def41128a38834c9d7c6014c5619fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  excludeOthers: 0
-  isDefault: 1
-  data:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: d6a66f9c1b6d75e4da98063df7902a7e, type: 2}
-  priority: 0
-  auxBusIdInternal: 0
-  valueGuidInternal: 
 --- !u!65 &683252552
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3041,7 +2967,6 @@ GameObject:
   m_Component:
   - component: {fileID: 952757452}
   - component: {fileID: 952757454}
-  - component: {fileID: 952757453}
   m_Layer: 0
   m_Name: Ambience_LabFront (1)
   m_TagString: Untagged
@@ -3064,27 +2989,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 240945844}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &952757453
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 952757451}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2def41128a38834c9d7c6014c5619fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  excludeOthers: 0
-  isDefault: 1
-  data:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 1c89178fcd04fa24aa9f598e79c28cd8, type: 2}
-  priority: 0
-  auxBusIdInternal: 0
-  valueGuidInternal: 
 --- !u!65 &952757454
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3193,7 +3097,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1070600747}
   - component: {fileID: 1070600749}
-  - component: {fileID: 1070600748}
   m_Layer: 0
   m_Name: Ambience_LabBack (1)
   m_TagString: Untagged
@@ -3216,27 +3119,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 240945844}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1070600748
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1070600746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2def41128a38834c9d7c6014c5619fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  excludeOthers: 0
-  isDefault: 1
-  data:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: d6a66f9c1b6d75e4da98063df7902a7e, type: 2}
-  priority: 0
-  auxBusIdInternal: 0
-  valueGuidInternal: 
 --- !u!65 &1070600749
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4647,7 +4529,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1459984992}
   - component: {fileID: 1459984994}
-  - component: {fileID: 1459984993}
+  - component: {fileID: 1459984995}
   m_Layer: 0
   m_Name: LineOfSightTrigger
   m_TagString: Untagged
@@ -4670,26 +4552,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1587655632}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1459984993
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1459984991}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5d50dc6045755b44b94b909a343902a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _isTriggerable: 1
-  _isOneTimeTrigger: 1
-  _triggerMode: 24
-  _cannotBeTriggeredMessage: 
-  _triggeringLayerMasks:
-    serializedVersion: 2
-    m_Bits: 1024
-  _targetedCollider: {fileID: 1587655633}
 --- !u!65 &1459984994
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4711,6 +4573,26 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 6, y: 3, z: 18}
   m_Center: {x: 0, y: 1.5, z: -9}
+--- !u!114 &1459984995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1459984991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5d50dc6045755b44b94b909a343902a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isTriggerable: 1
+  _isOneTimeTrigger: 1
+  _triggerMode: 24
+  _cannotBeTriggeredMessage: 
+  _triggeringLayerMasks:
+    serializedVersion: 2
+    m_Bits: 1024
+  _targetedCollider: {fileID: 1587655633}
 --- !u!1001 &1478010295
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5816,7 +5698,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1686095412}
-  - component: {fileID: 1686095418}
   - component: {fileID: 1686095419}
   m_Layer: 0
   m_Name: Event_FirstTimeStation
@@ -5841,30 +5722,6 @@ Transform:
   - {fileID: 1125273403}
   m_Father: {fileID: 240945844}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1686095418
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1686095411}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62f370bd38ab0524eb28a985f4b8c87a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_listeners:
-    initialListenerList: []
-    useDefaultListeners: 1
-  isEnvironmentAware: 1
-  isStaticObject: 0
-  usePositionOffsetData: 0
-  m_positionOffsetData:
-    KeepMe: 0
-    positionOffset: {x: 0, y: 0, z: 0}
-  scalingFactor: 1
-  m_posOffsetData: {fileID: 0}
-  listenerMask: 1
 --- !u!114 &1686095419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5879,11 +5736,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _triggers:
   - _monoBehaviourInstance: {fileID: 1125273404}
-  _isOneTimeEvent: 1
-  _akEvent:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 3436b6dde88750048b5be6993e41f411, type: 2}
 --- !u!1 &1692356884
 GameObject:
   m_ObjectHideFlags: 0
@@ -5894,7 +5746,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1692356885}
   - component: {fileID: 1692356887}
-  - component: {fileID: 1692356886}
   m_Layer: 0
   m_Name: Ambience_LabFront
   m_TagString: Untagged
@@ -5917,27 +5768,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 240945844}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1692356886
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1692356884}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2def41128a38834c9d7c6014c5619fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  excludeOthers: 0
-  isDefault: 1
-  data:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 1c89178fcd04fa24aa9f598e79c28cd8, type: 2}
-  priority: 0
-  auxBusIdInternal: 0
-  valueGuidInternal: 
 --- !u!65 &1692356887
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7133,7 +6963,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2115662694}
   - component: {fileID: 2115662696}
-  - component: {fileID: 2115662695}
+  - component: {fileID: 2115662697}
   m_Layer: 0
   m_Name: LineOfSightTrigger
   m_TagString: Untagged
@@ -7156,26 +6986,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1655147014}
   m_LocalEulerAnglesHint: {x: 0, y: 50, z: 0}
---- !u!114 &2115662695
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2115662693}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5d50dc6045755b44b94b909a343902a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _isTriggerable: 1
-  _isOneTimeTrigger: 1
-  _triggerMode: 24
-  _cannotBeTriggeredMessage: 
-  _triggeringLayerMasks:
-    serializedVersion: 2
-    m_Bits: 1024
-  _targetedCollider: {fileID: 1655147015}
 --- !u!136 &2115662696
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -7199,6 +7009,26 @@ CapsuleCollider:
   m_Height: 10
   m_Direction: 2
   m_Center: {x: 0, y: 1.5, z: -5}
+--- !u!114 &2115662697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2115662693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5d50dc6045755b44b94b909a343902a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isTriggerable: 1
+  _isOneTimeTrigger: 1
+  _triggerMode: 24
+  _cannotBeTriggeredMessage: 
+  _triggeringLayerMasks:
+    serializedVersion: 2
+    m_Bits: 1024
+  _targetedCollider: {fileID: 1655147015}
 --- !u!1 &2138311759
 GameObject:
   m_ObjectHideFlags: 0

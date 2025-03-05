@@ -28,6 +28,9 @@ public class Test_InteractiveSolvableObject : SolvableObjectBase, IAmInteractive
 
     public void Interact(Transform transform)
     {
+        if (IsSolved)
+            IsActivatable = false;
+
         if (!IsActivatable)
             return;
 
@@ -41,7 +44,6 @@ public class Test_InteractiveSolvableObject : SolvableObjectBase, IAmInteractive
         if (_meshRenderer.material.color == _baseColor)
         {
             _meshRenderer.material.color = Color.green;
-            IsActivatable = false;
             return true;
         }
 

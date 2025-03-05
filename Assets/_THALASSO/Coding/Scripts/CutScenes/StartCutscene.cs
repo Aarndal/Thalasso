@@ -32,7 +32,7 @@ public class StartCutscene : MonoBehaviour
     private void Start()
     {
         cinemachineBrain = Object.FindFirstObjectByType<CinemachineBrain>();
-        _input.SwitchCurrentActionMapTo("Cutscene");
+        _input.SwitchCurrentActionMap("Cutscene");
         cinemachineBrain.enabled = false;
 
         fadeImage.gameObject.SetActive(false);
@@ -73,7 +73,7 @@ public class StartCutscene : MonoBehaviour
 
         cinemachineBrain.enabled = true;
         cinemachineBrain.gameObject.GetComponent<Animator>().enabled = false;
-        _input.SwitchCurrentActionMapTo("Player");
+        _input.SwitchCurrentActionMap("Player");
 
         GameObject skipInfoText = cutsceneCanvas.GetComponentInChildren<TextMeshProUGUI>().gameObject;
         skipInfoText.SetActive(false);

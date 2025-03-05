@@ -11,24 +11,24 @@ public abstract class TargetProvider : MonoBehaviour
         get => _target;
         protected set
         {
-            if (_target != value && value == null)
+            if (_target != value)
             {
-                TargetLost?.Invoke(_target);
+                TargetChanged?.Invoke(_target, value);
+
+                //if (value == null)
+                //    Debug.LogFormat($"Lost target: {_target.gameObject.name}");
+
+                //if (value != null)
+                //    Debug.LogFormat($"New target detected: {value.gameObject.name}");
+
                 _target = value;
-            }
-            if (_target != value && value != null)
-            {
-                _target = value;
-                NewTargetDetected?.Invoke(_target);
-                Debug.Log($"New target detected: {_target.name}");
             }
         }
     }
 
     public bool HasTarget => Target != null && Target.gameObject.activeInHierarchy;
 
-    public event Action<Transform> NewTargetDetected;
-    public event Action<Transform> TargetLost;
-    
+    public event Action<Transform, Transform> TargetChanged;
+
     public abstract Transform GetTarget();
 }

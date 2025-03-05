@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class MusicPlayer : MonoBehaviour
 {
+#if WWISE_2024_OR_LATER
     [SerializeField]
     private AK.Wwise.Event _mainMenuMusic = default;
     [SerializeField]
@@ -85,4 +86,5 @@ public class MusicPlayer : MonoBehaviour
 
         _activeAKEvent?.Stop(gameObject);
     }
+#endif
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
@@ -7,6 +8,8 @@ using UnityEngine.InputSystem.Utilities;
 [CreateAssetMenu(fileName = "NewGameInputReader", menuName = "Scriptable Objects/GameInputReader")]
 public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, GameInput.IUIActions, GameInput.ICutsceneActions
 {
+    public event Action<InputActionMap, InputActionMap> ActionMapChanged;
+
     // Player Actions
     public event Action<Vector2> MoveInputHasChanged;
     public event Action<Vector2, bool> LookInputHasChanged;
@@ -34,6 +37,7 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
     private ReadOnlyArray<InputActionMap> _actionMaps;
     private InputActionMap _currentActionMap;
     private InputActionMap _previousActionMap;
+    private InputDevice _currentInputDevice;
 
     // Debug Member Values
     private bool _isMoveTriggered = false;
@@ -43,10 +47,28 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
     private bool _isJumpTriggered = false;
     private bool _isInteractTriggered = false;
 
-    // Properties
-    public ReadOnlyArray<InputControlScheme> ControlSchemes { get => _gameInput.controlSchemes; }
-    public readonly Dictionary<int, InputActionMap> ActionMaps = new();
-    public InputActionMap CurrentActionMap { get => _currentActionMap; }
+    #region Properties
+    public readonly Dictionary<string, InputActionMap> ActionMaps = new();
+    public InputDevice CurrentInputDevice { get => _currentInputDevice; }
+    public InputActionMap CurrentActionMap 
+    { 
+        get => _currentActionMap;
+        private set 
+        {
+            if (_currentActionMap != value)
+            {
+                _previousActionMap = _currentActionMap;
+                _currentActionMap = value;
+
+                ActionMapChanged?.Invoke(_previousActionMap, _currentActionMap);
+
+                if (_currentActionMap.name == "UI")
+                    SetCursorSettings(true, CursorLockMode.Confined);
+                else
+                    SetCursorSettings(false, CursorLockMode.Locked);
+            }
+        }
+    }
     public InputActionMap PreviousActionMap { get => _previousActionMap; }
     public bool IsXLookInputInverted { get => _invertXLookInput; private set => _invertXLookInput = value; }
     public bool IsYLookInputInverted { get => _invertYLookInput; private set => _invertYLookInput = value; }
@@ -70,7 +92,8 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
             {
                 _isJumpTriggered = value;
                 JumpIsTriggered?.Invoke(_isJumpTriggered);
-            };
+            }
+            ;
         }
     }
     public bool IsPauseActive { get; set; }
@@ -83,7 +106,8 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
             {
                 _isSprintTriggered = value;
                 SprintIsTriggered?.Invoke(_isSprintTriggered);
-            };
+            }
+            ;
         }
     }
     public bool IsInteractTriggered
@@ -98,6 +122,7 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
             }
         }
     }
+    #endregion
 
     #region Unity Lifecycle Methods
     private void OnEnable()
@@ -114,11 +139,11 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
             _defaultActionMap = _actionMaps[0];
         }
 
-        if (ActionMaps.Count > 0 && ActionMaps.Count != _actionMaps.Count)
+        if (ActionMaps.Count > 0 || ActionMaps.Count != _actionMaps.Count)
         {
             ActionMaps.Clear();
             for (int i = 0; i < _actionMaps.Count; i++)
-                ActionMaps.Add(i, _actionMaps[i]);
+                ActionMaps.Add(_actionMaps[i].name, _actionMaps[i]);
         }
 
         EnableDefaultActionMap();
@@ -136,75 +161,42 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
     public void EnableDefaultActionMap()
     {
         _defaultActionMap.Enable();
-        _currentActionMap = _defaultActionMap;
-
-        if (_currentActionMap.name == "UI")
-            SetCursorSettings(true, CursorLockMode.Confined);
-        else
-            SetCursorSettings(false, CursorLockMode.Locked);
+        CurrentActionMap = _defaultActionMap;
     }
 
-    public bool SwitchCurrentActionMapTo(string newActionMapName)
+    public bool SwitchCurrentActionMap(string newActionMapName)
     {
-        if (newActionMapName == "UI")
-            SetCursorSettings(true, CursorLockMode.Confined);
-        else
-            SetCursorSettings(false, CursorLockMode.Locked);
-
-        _previousActionMap = _currentActionMap;
-
-        if (newActionMapName == _currentActionMap.name)
+        if (!ActionMaps.TryGetValue(newActionMapName, out InputActionMap newActionMap))
         {
-            Debug.LogWarningFormat("Action map with name <color=yellow>'{0}'</color> in <color=cyan>'{1}'</color> is already active!", newActionMapName, _gameInput.asset.name);
+            Debug.LogErrorFormat("Cannot find action map with name <color=red>'{0}'</color> in <color=cyan>'{1}'</color>.", newActionMapName, _gameInput.asset.name);
             return false;
         }
 
-
-        foreach (var newActionMap in _actionMaps)
+        if (newActionMapName == CurrentActionMap.name)
         {
-            if (newActionMap.name == newActionMapName && _currentActionMap.name != newActionMapName)
-            {
-                _currentActionMap.Disable();
-                newActionMap.Enable();
-                _currentActionMap = newActionMap;
-                return true;
-            }
+            _previousActionMap = CurrentActionMap;
+            return false;
         }
-
-        Debug.LogErrorFormat("Cannot find action map with name <color=red>'{0}'</color> in <color=cyan>'{1}'</color>.", newActionMapName, _gameInput.asset.name);
-        return false;
+        else 
+        {
+            CurrentActionMap.Disable();
+            newActionMap.Enable();
+            CurrentActionMap = newActionMap;
+            return true;
+        }
     }
-
-    //public void SwitchCurrentActionMap(Guid actionMapID)
-    //{
-    //    bool transitionSuccessful = false;
-
-    //    foreach (var actionMap in _actionMaps)
-    //    {
-    //        if (actionMap.id == actionMapID && _currentActionMap.id != actionMapID)
-    //        {
-    //            _currentActionMap.Disable();
-    //            actionMap.Enable();
-    //            _currentActionMap = actionMap;
-    //            transitionSuccessful = true;
-    //            break;
-    //        }
-    //    }
-
-    //    if (!transitionSuccessful)
-    //        Debug.LogErrorFormat("Cannot find action map with Guid <color=red>'{0}'</color> in <color=cyan>'{1}'</color>.", actionMapID, _gameInput.asset.name);
-    //}
 
     public void DisableAllActionMaps()
     {
-        foreach (var actionMap in _actionMaps)
-            actionMap.Disable();
+        ActionMaps.Values.ToList().ForEach(actionMap => actionMap.Disable());
     }
     #endregion
 
     #region PlayerActionMap CallbackFunctions
     public void OnMove(InputAction.CallbackContext context)
     {
+        _currentInputDevice = GetCurrentInputDevice(context);
+
         if (MoveInputHasChanged is not null && context.phase == InputActionPhase.Performed)
         {
             _moveInput = context.ReadValue<Vector2>();
@@ -222,6 +214,8 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
 
     public void OnLook(InputAction.CallbackContext context)
     {
+        _currentInputDevice = GetCurrentInputDevice(context);
+
         if (LookInputHasChanged is not null && context.phase == InputActionPhase.Performed)
         {
             _lookInput = context.ReadValue<Vector2>();
@@ -285,6 +279,8 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
 
     public void OnPause(InputAction.CallbackContext context)
     {
+        _currentInputDevice = GetCurrentInputDevice(context);
+
         if (PauseIsPerformed is not null && context.phase == InputActionPhase.Performed)
         {
             IsPauseActive = !IsPauseActive;
@@ -358,7 +354,17 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
     }
     #endregion
 
-    private bool IsDeviceMouse(InputAction.CallbackContext context) => context.control.device.name == "Mouse";
+    private bool IsDeviceMouse(InputAction.CallbackContext context) => GetCurrentInputDevice(context) == Mouse.current;
+
+    private InputDevice GetCurrentInputDevice(InputAction.CallbackContext context)
+    {
+        return context.control.device;
+    }
+
+    private InputControl GetInputControl(InputAction.CallbackContext context)
+    {
+        return context.control;
+    }
 
     public bool SetCursorSettings(bool isCursorVisible, CursorLockMode cursorLockMode)
     {

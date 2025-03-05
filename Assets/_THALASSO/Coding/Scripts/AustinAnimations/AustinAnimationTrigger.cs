@@ -57,5 +57,4 @@ public class AustinAnimationTrigger : MonoBehaviour
         triggerCollider.enabled = true;
     }
 
-
 }
