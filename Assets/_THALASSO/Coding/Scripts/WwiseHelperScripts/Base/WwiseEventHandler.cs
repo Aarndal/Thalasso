@@ -6,20 +6,20 @@ namespace WwiseHelper
     public abstract class WwiseEventHandler : MonoBehaviour
     {
 #if WWISE_2024_OR_LATER
-        [Header("Wwise Events")]
-        [SerializeField]
-        protected bool areEnvironmentAware = true;
-        [SerializeField]
-        protected AK.Wwise.Event[] _wwiseEvents;
-
         [Header("References")]
         [SerializeField]
         protected AkGameObj _akGameObject = default;
 
+        [Header("Wwise Events")]
+        [SerializeField]
+        protected bool areEnvironmentAware = false;
+        [SerializeField]
+        protected AK.Wwise.Event[] _wwiseEvents;
+
         protected AkRoomAwareObject _akRoomAwareObject = default;
         protected Rigidbody _rigidbody = default;
 
-        protected readonly Dictionary<string, AK.Wwise.Event> _audioEvents = new();
+        public readonly Dictionary<string, AK.Wwise.Event> AudioEvents = new();
 #endif
 
         protected virtual void Awake()
@@ -27,11 +27,11 @@ namespace WwiseHelper
 #if WWISE_2024_OR_LATER
             if (_wwiseEvents != null || _wwiseEvents.Length == 0)
             {
-                foreach (var @event in _wwiseEvents)
+                foreach (var wwiseEvent in _wwiseEvents)
                 {
-                    if (!_audioEvents.TryAdd(@event.Name, @event))
+                    if (!AudioEvents.TryAdd(wwiseEvent.Name, wwiseEvent))
                     {
-                        Debug.LogErrorFormat("Wwise Event color=cyan>{0}</color> <color=red>is defined multiple times</color> in <color=cyan>{1}</color> WwiseEventAnimationEventResponder component!", @event.Name, gameObject.name);
+                        Debug.LogErrorFormat("Wwise Event color=cyan>{0}</color> <color=red>is defined multiple times</color> in <color=cyan>{1}</color> WwiseEventAnimationEventResponder component!", wwiseEvent.Name, gameObject.name);
                     }
                 }
             }
@@ -68,6 +68,8 @@ namespace WwiseHelper
                 {
                     _akGameObject = gameObject.AddComponent<AkGameObj>();
                 }
+
+                _akGameObject.isEnvironmentAware = false;
             }
 #endif
         }

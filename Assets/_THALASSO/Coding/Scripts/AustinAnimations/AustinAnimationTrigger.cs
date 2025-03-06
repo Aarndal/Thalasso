@@ -6,7 +6,7 @@ public class AustinAnimationTrigger : MonoBehaviour
 {
     #region References
     private AustinAnimationManager manager;
-    private void Awake()
+    private void OnEnable()
     {
         AustinAnimationManager.SendReference += SaveManagerReference;
     }

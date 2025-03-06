@@ -1,5 +1,4 @@
 using System;
-using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Splines;
 
@@ -10,36 +9,49 @@ public class AustinAnimationManager : MonoBehaviour
     private SplineAnimate splineAnimator;
     private Animator animator;
 
-    private GameObject austinBody;
+    private void Awake()
+    {
+        animator = GetComponentInChildren<Animator>();
+        splineAnimator = animator.gameObject.GetComponent<SplineAnimate>();
+    }
+
+    private void OnEnable()
+    {
+        splineAnimator.Updated += OnSplineAnimationUpdated;
+        splineAnimator.Completed += OnSplineAnimationCompleted;
+
+        animator.gameObject.SetActive(false);
+    }
 
     private void Start()
     {
         SendReference?.Invoke(this);
-        splineAnimator = GetComponent<SplineAnimate>();
-        animator = GetComponent<Animator>();
-        austinBody = transform.GetChild(0).gameObject;
-        austinBody.SetActive(false);
+    }
+
+    private void OnDisable()
+    {
+        splineAnimator.Updated -= OnSplineAnimationUpdated;
+        splineAnimator.Completed -= OnSplineAnimationCompleted;
     }
 
     internal void AnimationWasTriggered(SplineContainer _splineContainer, float _playbackSpeed, float _startOffset)
     {
+        animator.gameObject.SetActive(true);
+        
         splineAnimator.Container = _splineContainer;
         splineAnimator.MaxSpeed = _playbackSpeed;
         splineAnimator.StartOffset = _startOffset;
 
         splineAnimator.Restart(true);
 
-
-        splineAnimator.Updated += OnAnimationUpdate;
-        splineAnimator.Completed += OnAnimationCompleted;
-
-        austinBody.SetActive(true);
+        //splineAnimator.Updated += OnAnimationUpdate;
+        //splineAnimator.Completed += OnAnimationCompleted;
     }
 
     Vector3 lastPosition = Vector3.zero;
-    private void OnAnimationUpdate(Vector3 _pos, Quaternion _rot)
+    private void OnSplineAnimationUpdated(Vector3 _pos, Quaternion _rot)
     {
-        if(lastPosition == Vector3.zero)
+        if (lastPosition == Vector3.zero)
             lastPosition = _pos;
 
         float curSpeed = Vector3.Distance(lastPosition, _pos) * 3;
@@ -47,9 +59,10 @@ public class AustinAnimationManager : MonoBehaviour
         lastPosition = _pos;
     }
 
-    private void OnAnimationCompleted()
+    private void OnSplineAnimationCompleted()
     {
-        austinBody.SetActive(false);
-        splineAnimator.Completed -= OnAnimationCompleted;
+        //splineAnimator.Completed -= OnAnimationCompleted;
+
+        animator.gameObject.SetActive(false);
     }
 }

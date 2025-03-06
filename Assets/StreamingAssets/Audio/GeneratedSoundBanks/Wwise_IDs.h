@@ -13,13 +13,24 @@ namespace AK
 {
     namespace EVENTS
     {
-        static const AkUniqueID AMBIENCEBED = 881214142U;
         static const AkUniqueID CHASE_MUSIC = 3824731861U;
-        static const AkUniqueID DOOR_CLOSING = 1591781701U;
-        static const AkUniqueID DOOR_OPENING = 2589897592U;
-        static const AkUniqueID FIRST_TIME_MONSTER = 3639762312U;
-        static const AkUniqueID FIRST_TIME_STATION = 3937195198U;
+        static const AkUniqueID CIRCUITRIDDLE_CLICK = 1065298177U;
+        static const AkUniqueID CIRCUITRIDDLE_COMPLETE = 2222894834U;
+        static const AkUniqueID CIRCUITRIDDLE_RIGHT = 4250834603U;
+        static const AkUniqueID CIRCUITRIDDLE_WRONG = 1404039910U;
+        static const AkUniqueID DOOROPEN = 1404805401U;
+        static const AkUniqueID END_CREDITS = 3797583859U;
         static const AkUniqueID LAST_CHASE_MUSIC = 2540848410U;
+        static const AkUniqueID MAIN_MENU_IN = 580468006U;
+        static const AkUniqueID MAIN_MENU_MUSIC = 3399698792U;
+        static const AkUniqueID MAIN_MENU_OUT = 3091888041U;
+        static const AkUniqueID MENU_BACK_BUTTON = 2351299877U;
+        static const AkUniqueID MENU_BUTTON_PRESS = 952003163U;
+        static const AkUniqueID MUSIC_AMBIENCE_FIRST_TIME_MONSTER = 1832321273U;
+        static const AkUniqueID MUSIC_AMBIENCE_FIRST_TIME_STATION = 3531297571U;
+        static const AkUniqueID PAUSE_MENU_IN = 3382955325U;
+        static const AkUniqueID PAUSE_MENU_OUT = 2397763428U;
+        static const AkUniqueID PLAY_AUSTIN = 3408260292U;
         static const AkUniqueID PLAYERFOOT_RUN = 4265836956U;
         static const AkUniqueID PLAYERFOOT_WALK = 744081578U;
         static const AkUniqueID ROOM_MUSIC = 1808177020U;
@@ -62,8 +73,8 @@ namespace AK
 
             namespace SWITCH
             {
-                static const AkUniqueID FILLED = 1735970877U;
-                static const AkUniqueID HOLLOW = 815678804U;
+                static const AkUniqueID CONCRETE = 841620460U;
+                static const AkUniqueID STEEL = 1366287314U;
             } // namespace SWITCH
         } // namespace FOOTSTEPS_MATERIAL
 
@@ -107,9 +118,13 @@ namespace AK
         static const AkUniqueID ELECTRONICS_ROOM = 2572679272U;
         static const AkUniqueID ESCAPE_POD = 1804753788U;
         static const AkUniqueID HALLWAYS = 4053971408U;
-        static const AkUniqueID LABORATORY = 766371778U;
+        static const AkUniqueID LABORATORY1 = 2864961111U;
+        static const AkUniqueID LABORATORY2 = 2864961108U;
         static const AkUniqueID OBSERVATION_DECK = 3464770571U;
+        static const AkUniqueID OUTSIDE_SECURITY_ROOM = 2844374603U;
+        static const AkUniqueID OUTSIDE_STARTING_ROOM = 3239831741U;
         static const AkUniqueID SECURITY_ROOM = 3965376459U;
+        static const AkUniqueID SMALL_OFFICE = 3078522397U;
         static const AkUniqueID STARTING_ROOM = 65866301U;
     } // namespace AUX_BUSSES
 

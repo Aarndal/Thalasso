@@ -43,9 +43,9 @@ namespace WwiseHelper
         private void OnAnimationEventTriggered(AnimationEvent eventArgs)
         {
 #if WWISE_2024_OR_LATER
-            if (_audioEvents.ContainsKey(eventArgs.stringParameter))
+            if (AudioEvents.ContainsKey(eventArgs.stringParameter))
             {
-                _audioEvents[eventArgs.stringParameter].Post(_akGameObject.gameObject);
+                AudioEvents[eventArgs.stringParameter].Post(_akGameObject.gameObject);
             }
 #endif
         }
