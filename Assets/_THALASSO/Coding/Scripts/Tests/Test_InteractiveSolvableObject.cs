@@ -1,8 +1,6 @@
 ﻿using ProgressionTracking;
-using System;
 using UnityEngine;
 
-[Serializable]
 public class Test_InteractiveSolvableObject : SolvableObjectBase, IAmInteractive
 {
     [SerializeField]
@@ -16,7 +14,15 @@ public class Test_InteractiveSolvableObject : SolvableObjectBase, IAmInteractive
 
     private void Awake()
     {
+        if (gameObject.layer != (int)Layers.InteractiveObject)
+            gameObject.layer = (int)Layers.InteractiveObject;
+
         _meshRenderer = GetComponent<MeshRenderer>();
+    }
+
+    private void Reset()
+    {
+        gameObject.layer = (int)Layers.InteractiveObject;
     }
 
     private void Start()
