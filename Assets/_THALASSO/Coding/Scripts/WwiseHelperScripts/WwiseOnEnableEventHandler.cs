@@ -47,6 +47,7 @@ namespace WwiseHelper
                 {
                     ambientComponent.triggerList.Clear();
                     ambientComponent.triggerList.Add(AkTriggerHandler.START_TRIGGER_ID);
+
                     ambientComponent.MultiPositionType = _akMultiPositionType;
                 }
         }

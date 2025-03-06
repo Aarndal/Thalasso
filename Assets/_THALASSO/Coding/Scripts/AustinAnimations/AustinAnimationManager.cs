@@ -43,9 +43,6 @@ public class AustinAnimationManager : MonoBehaviour
         splineAnimator.StartOffset = _startOffset;
 
         splineAnimator.Restart(true);
-
-        //splineAnimator.Updated += OnAnimationUpdate;
-        //splineAnimator.Completed += OnAnimationCompleted;
     }
 
     Vector3 lastPosition = Vector3.zero;
@@ -61,8 +58,6 @@ public class AustinAnimationManager : MonoBehaviour
 
     private void OnSplineAnimationCompleted()
     {
-        //splineAnimator.Completed -= OnAnimationCompleted;
-
         animator.gameObject.SetActive(false);
     }
 }

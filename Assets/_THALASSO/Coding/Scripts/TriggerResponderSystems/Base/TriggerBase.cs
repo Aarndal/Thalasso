@@ -52,12 +52,12 @@ public abstract class TriggerBase : MonoBehaviour, IAmTriggerable
     #endregion
 
     #region Unity Lifecycle Methods
-    protected void OnEnable()
+    protected virtual void Awake()
     {
         IsTriggered += OnIsTriggered;
     }
     
-    protected void OnDisable()
+    protected virtual void OnDestroy()
     {
         IsTriggered -= OnIsTriggered;
     }
@@ -82,7 +82,7 @@ public abstract class TriggerBase : MonoBehaviour, IAmTriggerable
             _cannotBeTriggered?.Invoke(gameObject, _cannotBeTriggeredMessage);
     }
 
-    protected virtual bool IsValidTrigger(GameObject triggeringGameObject) => true;
+    protected abstract bool IsValidTrigger(GameObject triggeringGameObject);
 
     protected virtual void OnIsTriggered(GameObject @object, IAmTriggerable triggerable)
     {

@@ -1,30 +1,58 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Collider))]
-public class ColliderTrigger : TriggerBase
+public class UnityCallbackTrigger : TriggerBase
 {
     [SerializeField]
     protected TriggerMode _triggerMode = TriggerMode.None;
 
-    protected Collider _triggerableCollider;
+    protected Collider _triggerableCollider = default;
 
     public Collider Collider => _triggerableCollider;
 
     #region Unity Lifecycle Methods
-    protected virtual void Awake()
+    protected override void Awake()
     {
-        _triggerableCollider = _triggerableCollider != null ? _triggerableCollider : GetComponent<Collider>();
+        base.Awake();
+
+        if (IsTriggerModeSet(TriggerMode.Awake))
+            Trigger(gameObject);
+
+        if ((_triggerMode & TriggerMode.OnTrigger & TriggerMode.OnCollision) != 0)
+        {
+            if (!TryGetComponent(out _triggerableCollider))
+                Debug.LogErrorFormat("{0} has no Collider component attached, but its TriggerMode requires one!", gameObject.name);
+        }
+    }
+
+    protected virtual void OnEnable()
+    {
+        if (IsTriggerModeSet(TriggerMode.OnEnable))
+            Trigger(gameObject);
     }
 
     private void Reset()
     {
-        _triggerableCollider = _triggerableCollider != null ? _triggerableCollider : GetComponent<Collider>();
-
-        if (_triggerableCollider != null)
-            _triggerableCollider.isTrigger = true;
-
         _isTriggerable = true;
         _isOneTimeTrigger = false;
+    }
+
+    protected virtual void Start()
+    {
+        if (IsTriggerModeSet(TriggerMode.Start))
+            Trigger(gameObject);
+
+        if (_triggerableCollider != null)
+        {
+            if ((_triggerMode & TriggerMode.OnTrigger) != 0)
+            {
+                _triggerableCollider.isTrigger = true;
+            }
+
+            if ((_triggerMode & TriggerMode.OnCollision) != 0)
+            {
+                _triggerableCollider.isTrigger = false;
+            }
+        }
     }
 
     #region Collision CallbackFunctions
@@ -71,6 +99,20 @@ public class ColliderTrigger : TriggerBase
     }
     #endregion
 
+    protected virtual void OnDisable()
+    {
+        if (IsTriggerModeSet(TriggerMode.OnDisable))
+            Trigger(gameObject);
+    }
+
+    protected override void OnDestroy()
+    {
+        if (IsTriggerModeSet(TriggerMode.OnDestroy))
+            Trigger(gameObject);
+
+        base.OnDestroy();
+    }
+
     #endregion
 
     public bool IsTriggerModeSet(TriggerMode triggerMode)
@@ -79,4 +121,6 @@ public class ColliderTrigger : TriggerBase
             return true;
         return false;
     }
+
+    protected override bool IsValidTrigger(GameObject triggeringGameObject) => true;
 }

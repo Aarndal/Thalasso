@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [DisallowMultipleComponent]
-public class DoorColliderTrigger : ColliderTrigger
+public class DoorColliderTrigger : UnityCallbackTrigger
 {
     private void Reset()
     {

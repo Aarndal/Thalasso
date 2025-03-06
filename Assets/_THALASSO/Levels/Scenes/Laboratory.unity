@@ -2108,9 +2108,11 @@ MonoBehaviour:
   _triggers:
   - _monoBehaviourInstance: {fileID: 1459984995}
   - _monoBehaviourInstance: {fileID: 2115662697}
-  _isOneTimeEvent: 1
-  _akEvent:
-    idInternal: 0
+  _akGameObject: {fileID: 0}
+  _areOneTimeEvents: 1
+  _areEnvironmentAware: 0
+  _wwiseEvents:
+  - idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: 0feddf63e5f9c074f9d23b79208370fc, type: 2}
 --- !u!114 &647538659
@@ -5855,9 +5857,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _triggers:
   - _monoBehaviourInstance: {fileID: 1125273404}
-  _isOneTimeEvent: 1
-  _akEvent:
-    idInternal: 0
+  _akGameObject: {fileID: 0}
+  _areOneTimeEvents: 1
+  _areEnvironmentAware: 0
+  _wwiseEvents:
+  - idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: 3436b6dde88750048b5be6993e41f411, type: 2}
 --- !u!114 &1686095420

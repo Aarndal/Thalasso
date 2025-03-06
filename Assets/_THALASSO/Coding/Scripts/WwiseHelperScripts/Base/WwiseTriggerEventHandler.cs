@@ -1,16 +1,7 @@
-using UnityEngine;
-
-public class WwiseTriggerEventHandler : MonoBehaviour
+namespace WwiseHelper
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class WwiseTriggerEventHandler : WwiseEventHandler
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

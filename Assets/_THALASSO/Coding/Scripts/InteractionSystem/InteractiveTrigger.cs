@@ -7,8 +7,10 @@ public class InteractiveTrigger : TriggerBase, IAmInteractive
 
     public bool IsActivatable => IsTriggerable;
 
-    protected virtual void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         if (gameObject.layer != (int)Layers.InteractiveObject)
             gameObject.layer = (int)Layers.InteractiveObject;
 
@@ -21,4 +23,6 @@ public class InteractiveTrigger : TriggerBase, IAmInteractive
     }
 
     public virtual void Interact(Transform transform) => Trigger(transform.gameObject);
+
+    protected override bool IsValidTrigger(GameObject triggeringGameObject) => true;
 }
