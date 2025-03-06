@@ -8,7 +8,7 @@ public class ProgressableInteractiveTrigger : InteractiveTrigger
 
     private void Reset()
     {
-        gameObject.layer = LayerMask.NameToLayer("InteractiveObject");
+        gameObject.layer = (int)Layers.InteractiveObject;
     }
 
     public override void Trigger(GameObject triggeringGameObject)

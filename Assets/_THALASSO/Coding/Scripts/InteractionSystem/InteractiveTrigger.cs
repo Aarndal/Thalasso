@@ -9,15 +9,15 @@ public class InteractiveTrigger : TriggerBase, IAmInteractive
 
     protected virtual void Awake()
     {
-        if (LayerMask.LayerToName(gameObject.layer) != "InteractiveObject" && LayerMask.NameToLayer("InteractiveObject") == 20)
-            gameObject.layer = LayerMask.NameToLayer("InteractiveObject");
+        if (gameObject.layer != (int)Layers.InteractiveObject)
+            gameObject.layer = (int)Layers.InteractiveObject;
 
         _interactiveCollider = _interactiveCollider != null ? _interactiveCollider : GetComponent < Collider>();
     }
 
     private void Reset()
     {
-        gameObject.layer = LayerMask.NameToLayer("InteractiveObject");
+        gameObject.layer = (int)Layers.InteractiveObject;
     }
 
     public virtual void Interact(Transform transform) => Trigger(transform.gameObject);

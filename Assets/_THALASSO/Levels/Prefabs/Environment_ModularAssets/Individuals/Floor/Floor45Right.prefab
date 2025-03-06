@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8225338470686776699}
   - component: {fileID: 8227465405251341265}
   - component: {fileID: 3538149787149419297}
-  - component: {fileID: -2544571057447277073}
+  - component: {fileID: -275418203905911508}
   - component: {fileID: 8535517094386971522}
   m_Layer: 0
   m_Name: Floor45Right
@@ -88,7 +88,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &-2544571057447277073
+--- !u!64 &-275418203905911508
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -122,9 +122,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e191ea7d50ac124468894a088222114b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _soundMaterial:
-    idInternal: 0
-    valueGuidInternal: 
-    groupIdInternal: 0
-    groupGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 9af64c217f9d52c49b486e289c49605a, type: 2}
