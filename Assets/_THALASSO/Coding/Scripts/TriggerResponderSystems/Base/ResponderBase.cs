@@ -16,20 +16,20 @@ public abstract class ResponderBase : MonoBehaviour, IAmResponsive
         foreach (var trigger in _triggers)
         {
             trigger.Interface.CannotBeTriggered += OnCannotBeTriggered;
-            trigger.Interface.IsTriggered += OnHasBeenTriggered;
+            trigger.Interface.IsTriggered += OnIsTriggered;
         }
     }
+    
+    protected virtual void OnValidate() => ValidateTriggers();
 
     protected virtual void OnDisable()
     {
         foreach (var trigger in _triggers)
         {
             trigger.Interface.CannotBeTriggered -= OnCannotBeTriggered;
-            trigger.Interface.IsTriggered -= OnHasBeenTriggered;
+            trigger.Interface.IsTriggered -= OnIsTriggered;
         }
     }
-
-    protected virtual void OnValidate() => ValidateTriggers();
     #endregion
 
     private void ValidateTriggers()
@@ -40,7 +40,7 @@ public abstract class ResponderBase : MonoBehaviour, IAmResponsive
 
     protected virtual void OnCannotBeTriggered(GameObject @gameObject, string messageText) { }
 
-    protected virtual void OnHasBeenTriggered(GameObject triggeringObject, TriggerState triggerState) => Respond(triggeringObject, triggerState);
+    protected virtual void OnIsTriggered(GameObject triggeringObject, TriggerState triggerState) => Respond(triggeringObject, triggerState);
 
     public abstract void Respond(GameObject triggeringObject, TriggerState triggerState);
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 public class InteractiveTrigger : TriggerBase, IAmInteractive
 {
     [SerializeField]
-    protected TriggerState _currentTriggerState = TriggerState.TurnOff;
+    protected TriggerState _sendTriggerState = TriggerState.Switch;
 
     private Collider _interactiveCollider = default;
 
@@ -27,8 +27,7 @@ public class InteractiveTrigger : TriggerBase, IAmInteractive
 
     public virtual void Interact(Transform transform)
     {
-        _currentTriggerState = _currentTriggerState == TriggerState.TurnOn ? TriggerState.TurnOff : TriggerState.TurnOn;
-        Trigger(transform.gameObject, _currentTriggerState);
+        Trigger(transform.gameObject, _sendTriggerState);
     }
 
     public override void Trigger(GameObject triggeringGameObject, TriggerState triggerState)
@@ -37,7 +36,7 @@ public class InteractiveTrigger : TriggerBase, IAmInteractive
             return;
 
         if (IsTriggerable)
-            _isTriggered?.Invoke(gameObject, triggerState);
+            _isTriggered?.Invoke(triggeringGameObject, triggerState);
         else
             _cannotBeTriggered?.Invoke(gameObject, _cannotBeTriggeredMessage);
     }

@@ -1,4 +1,3 @@
-using System.Reflection;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -31,7 +30,7 @@ public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
 
     private void Awake()
     {
-        autoStartPuzzleScript = autoStartPuzzleScript != null ? autoStartPuzzleScript : GetComponentInChildren<IAmRiddle>();
+        autoStartPuzzleScript ??= GetComponentInChildren<IAmRiddle>();
 
         PuzzleUIReferencesSender.PuzzleUIReferenceLogger += GetUIReference;
     }

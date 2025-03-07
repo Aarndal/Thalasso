@@ -21,8 +21,8 @@ public class MasterMindPuzzleLogic : SolvableObjectBase, IAmRiddle
     [SerializeField]
     private AK.Wwise.Event correctInput = default;
 
-    private int[] code = new int[4];
-    private int[] inputCode = new int[4];
+    private readonly int[] code = new int[4];
+    private readonly int[] inputCode = new int[4];
 
     private void Awake()
     {
@@ -47,9 +47,12 @@ public class MasterMindPuzzleLogic : SolvableObjectBase, IAmRiddle
             int buttonIndex = i + 1;
             numButtons[i].onClick.AddListener(() => NumButtonInput(buttonIndex));
         }
-        numButtons[9].onClick.AddListener(() => CheckInput());
+        numButtons[9].onClick.AddListener(() => Solve());
         numButtons[10].onClick.AddListener(() => NumButtonInput(0));
         numButtons[11].onClick.AddListener(() => Reset());
+#if WWISE_2024_OR_LATER
+        numButtons[11].onClick.AddListener(() => buttonPress.Post(akGameObject.gameObject));
+#endif
     }
 
     private void OnDestroy()
@@ -64,8 +67,8 @@ public class MasterMindPuzzleLogic : SolvableObjectBase, IAmRiddle
 
     private void GenerateNewCode()
     {
-        System.Random rnd = new System.Random();
-        List<int> availableNumbers = new List<int>() { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+        System.Random rnd = new();
+        List<int> availableNumbers = new() { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
         for (int i = 0; i < code.Length; i++)
         {
@@ -96,8 +99,9 @@ public class MasterMindPuzzleLogic : SolvableObjectBase, IAmRiddle
     int inputIndex = 0;
     public void NumButtonInput(int _num)
     {
+#if WWISE_2024_OR_LATER
         buttonPress.Post(akGameObject.gameObject);
-
+#endif
         if (inputIndex <= 3)
         {
             inputCode[inputIndex] = _num;
@@ -106,7 +110,7 @@ public class MasterMindPuzzleLogic : SolvableObjectBase, IAmRiddle
         }
     }
 
-    private void CheckInput()
+    public override bool Solve()
     {
         for (int i = 0; i < inputCode.Length; i++)
         {
@@ -128,18 +132,17 @@ public class MasterMindPuzzleLogic : SolvableObjectBase, IAmRiddle
         {
             if (outputText[i].color != Color.green)
             {
+#if WWISE_2024_OR_LATER
                 wrongInput.Post(akGameObject.gameObject);
-                return;
+#endif
+                return false;
             }
         }
 
         Debug.LogFormat("<color=green>{0} solved!</color>", name);
-        Solve();
-    }
-
-    public override bool Solve()
-    {
+#if WWISE_2024_OR_LATER
         correctInput.Post(akGameObject.gameObject);
+#endif
         return IsSolved = true;
     }
 }

@@ -1,5 +1,5 @@
 ﻿
-public enum TriggerState : int
+public enum TriggerState : int // Maybe change to ResponderState ?
 {
     None = -1,
     TurnOff = 0,

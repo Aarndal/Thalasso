@@ -9,20 +9,23 @@ namespace WwiseHelper
     public class WwiseEventResponder : ResponderBase
     {
 #if WWISE_2024_OR_LATER
-        [Header("References")]
+        [Header("Wwise Event Settings")]
         [SerializeField]
-        protected AkGameObj _akGameObject = default;
-
-        [Header("Wwise Events")]
-        [SerializeField]
-        private bool _areOneTimeEvents = true;
+        private bool _areOneTimeEvents = false;
         [SerializeField]
         protected bool _areEnvironmentAware = false;
         [SerializeField]
-        protected TriggerState _triggerState = default;
+        protected bool _playOnOtherObject = false; // ToDo: Implement so that a WwiseEvent can be posted to the triggeringObject.
+        [SerializeField]
+        protected TriggerState _startState = TriggerState.TurnOff;
+
+        [Header("Wwise Events")]
         [SerializeField]
         protected AK.Wwise.Event[] _wwiseEvents;
 
+        protected TriggerState _currentTriggerState = TriggerState.None;
+        
+        protected AkGameObj _akGameObject = default;
         protected AkRoomAwareObject _akRoomAwareObject = default;
         protected Rigidbody _rigidbody = default;
 
@@ -31,6 +34,8 @@ namespace WwiseHelper
         protected override void Awake()
         {
             base.Awake();
+
+            _currentTriggerState = _startState;
 
             if (_wwiseEvents != null || _wwiseEvents.Length == 0)
             {
@@ -82,22 +87,27 @@ namespace WwiseHelper
 
         public override void Respond(GameObject triggeringObject, TriggerState triggerState)
         {
-            if (triggerState != _triggerState)
+            if (triggerState == TriggerState.None)
             {
-                //AkUnitySoundEngine.StopAll(_akGameObject.gameObject);
-
-                foreach (var audioEvent in AudioEvents.Values)
-                {
-                    audioEvent.Stop(_akGameObject.gameObject);
-                }
+                Debug.LogFormat("No valid TriggerState set for Trigger activated by {0}", triggeringObject);
+                return;
             }
 
-            if (triggerState == _triggerState)
+            if (triggerState == TriggerState.Switch)
             {
-                foreach (var audioEvent in AudioEvents.Values)
-                {
-                    audioEvent.Post(_akGameObject.gameObject);
-                }
+                triggerState = _currentTriggerState == TriggerState.TurnOff ? TriggerState.TurnOn : TriggerState.TurnOff;
+            }
+
+            if (triggerState == TriggerState.TurnOn)
+            {
+                _currentTriggerState = TriggerState.TurnOn;
+                TriggerIsTurnedOn();
+            }
+
+            if (triggerState == TriggerState.TurnOff)
+            {
+                _currentTriggerState = TriggerState.TurnOff;
+                TriggerIsTurnedOff();
             }
 
             if (_areOneTimeEvents)
@@ -109,6 +119,23 @@ namespace WwiseHelper
                 }
             }
 #endif
+        }
+
+        protected void TriggerIsTurnedOff()
+        {
+            foreach (var audioEvent in AudioEvents.Values)
+            {
+                audioEvent.Stop(_akGameObject.gameObject);
+            }
+            //AkUnitySoundEngine.StopAll(_akGameObject.gameObject);
+        }
+
+        protected void TriggerIsTurnedOn()
+        {
+            foreach (var audioEvent in AudioEvents.Values)
+            {
+                audioEvent.Post(_akGameObject.gameObject);
+            }
         }
     }
 }
