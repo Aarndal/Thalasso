@@ -23,11 +23,13 @@ public class ElectricityPuzzleLogic : SolvableObjectBase, IAmRiddle
     [SerializeField]
     private AK.Wwise.Event clickSound;
     [SerializeField]
-    private AK.Wwise.Event rightSound;
+    private AK.Wwise.Event correctSound;
     [SerializeField]
     private AK.Wwise.Event wrongSound;
     [SerializeField]
     private AK.Wwise.Event completeSound;
+    [SerializeField]
+    private AK.Wwise.Event openDoorSound;
 #endif
 
     private bool isSceneStart = true;
@@ -85,7 +87,7 @@ public class ElectricityPuzzleLogic : SolvableObjectBase, IAmRiddle
 
     public void StartPuzzle()
     {
-        StartCoroutine(TransformTransitionSystem.Instance.TransitionRot(doorLockLid, doorLockLidRotationPoint.rotation, transitionduration, animationSpeedCurve, null, null));
+        StartCoroutine(TransformTransitionSystem.Instance.TransitionRot(doorLockLid, doorLockLidRotationPoint.rotation, transitionduration, animationSpeedCurve, null, () => openDoorSound.Post(gameObject)));
     }
 
     private void RandomizeActiveLayoutPrefab()
@@ -184,7 +186,7 @@ public class ElectricityPuzzleLogic : SolvableObjectBase, IAmRiddle
 
 #if WWISE_2024_OR_LATER
                     if (!isSceneStart)
-                        rightSound.Post(gameObject);
+                        correctSound.Post(gameObject);
 #endif
                 }
 
@@ -227,7 +229,7 @@ public class ElectricityPuzzleLogic : SolvableObjectBase, IAmRiddle
                     _updatedTile.GetComponent<MeshRenderer>().material.color = Color.green; // temp visuals
 #if WWISE_2024_OR_LATER
                     if (!isSceneStart)
-                        rightSound.Post(gameObject);
+                        correctSound.Post(gameObject);
 #endif
                 }
 

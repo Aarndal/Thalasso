@@ -11,9 +11,18 @@ public class MasterMindPuzzleLogic : SolvableObjectBase, IAmRiddle
     [SerializeField] private TextMeshProUGUI[] outputText;
     [SerializeField] private int puzzleID = 1;
 
+    [Header("WWise Events")]
+    [SerializeField]
+    private AkGameObj akGameObject = default;
+    [SerializeField]
+    private AK.Wwise.Event buttonPress = default;
+    [SerializeField]
+    private AK.Wwise.Event wrongInput = default;
+    [SerializeField]
+    private AK.Wwise.Event correctInput = default;
+
     private int[] code = new int[4];
     private int[] inputCode = new int[4];
-
 
     private void Awake()
     {
@@ -87,6 +96,7 @@ public class MasterMindPuzzleLogic : SolvableObjectBase, IAmRiddle
     int inputIndex = 0;
     public void NumButtonInput(int _num)
     {
+        buttonPress.Post(akGameObject.gameObject);
 
         if (inputIndex <= 3)
         {
@@ -114,10 +124,22 @@ public class MasterMindPuzzleLogic : SolvableObjectBase, IAmRiddle
             }
         }
 
+        for (int i = 0; i < inputCode.Length; i++)
+        {
+            if (outputText[i].color != Color.green)
+            {
+                wrongInput.Post(akGameObject.gameObject);
+                return;
+            }
+        }
+
         Debug.LogFormat("<color=green>{0} solved!</color>", name);
         Solve();
     }
 
-    public override bool Solve() => IsSolved = true;
-
+    public override bool Solve()
+    {
+        correctInput.Post(akGameObject.gameObject);
+        return IsSolved = true;
+    }
 }

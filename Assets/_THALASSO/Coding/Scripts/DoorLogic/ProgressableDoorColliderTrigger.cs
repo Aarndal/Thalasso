@@ -16,7 +16,7 @@ public sealed class ProgressableDoorColliderTrigger : DoorColliderTrigger
 
         _isTriggerable = false;
         _isOneTimeTrigger = false;
-        _triggerSettings.TryAdd(TriggerState.On, (TriggerMode.OnTriggerEnter | TriggerMode.OnTriggerStay));
+        _triggerSettings.TryAdd(TriggerState.TurnOn, (TriggerMode.OnTriggerEnter | TriggerMode.OnTriggerStay));
     }
 
     public override void Trigger(GameObject triggeringGameObject, TriggerState triggerState)

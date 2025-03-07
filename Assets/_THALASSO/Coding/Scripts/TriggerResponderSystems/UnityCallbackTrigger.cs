@@ -1,5 +1,6 @@
 using ProjectTools;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class UnityCallbackTrigger : TriggerBase
@@ -18,14 +19,18 @@ public class UnityCallbackTrigger : TriggerBase
 
         TryToTrigger(gameObject, TriggerMode.Awake);
 
-        foreach (var triggerMode in _triggerSettings.Values)
+        // Checks whether a Collider component is needed and is attached in the applicable case.
+        if (_triggerSettings.Any((o) => (o.Value & TriggerMode.OnTrigger & TriggerMode.OnCollision) != 0))
         {
-            if ((triggerMode & TriggerMode.OnTrigger & TriggerMode.OnCollision) != 0)
-            {
-                if (!TryGetComponent(out _triggerableCollider))
-                    Debug.LogErrorFormat("{0} has no Collider component attached, but its TriggerMode requires one!", gameObject.name);
-                break;
-            }
+            if (!TryGetComponent(out _triggerableCollider))
+                Debug.LogErrorFormat("{0} has no Collider component attached, but its TriggerMode requires one!", gameObject.name);
+        }
+
+        // Checks if correct TriggerModes are set or if there is a contradiction concerning the Collider component.
+        if (_triggerSettings.Any((o) => (o.Value & TriggerMode.OnCollision) != 0) &&
+        _triggerSettings.Any((o) => (o.Value & TriggerMode.OnTrigger) != 0))
+        {
+            Debug.LogErrorFormat("{0} has contradictory statements. A {1} can have either OnTrigger or OnCollision TriggerModes, not both!", gameObject.name, name);
         }
     }
 
@@ -40,21 +45,27 @@ public class UnityCallbackTrigger : TriggerBase
         _isOneTimeTrigger = false;
     }
 
+    private void OnValidate()
+    {
+        // Checks if correct TriggerModes are set or if there is a contradiction concerning the Collider component.
+        if (_triggerSettings.Any((o) => (o.Value & TriggerMode.OnCollision) != 0) &&
+        _triggerSettings.Any((o) => (o.Value & TriggerMode.OnTrigger) != 0))
+        {
+            Debug.LogErrorFormat("{0} has contradictory statements. A {1} can have either OnTrigger or OnCollision TriggerModes, not both!", gameObject.name, name);
+        }
+    }
+
     protected virtual void Start()
     {
         TryToTrigger(gameObject, TriggerMode.Start);
 
         if (_triggerableCollider != null)
         {
-            //if ((_triggerMode & TriggerMode.OnTrigger) != 0)
-            //{
-            //    _triggerableCollider.isTrigger = true;
-            //}
+            if (_triggerSettings.Any((o) => (o.Value & TriggerMode.OnCollision) != 0))
+                _triggerableCollider.isTrigger = false;
 
-            //if ((_triggerMode & TriggerMode.OnCollision) != 0)
-            //{
-            //    _triggerableCollider.isTrigger = false;
-            //}
+            if (_triggerSettings.Any((o) => (o.Value & TriggerMode.OnTrigger) != 0))
+                _triggerableCollider.isTrigger = true;
         }
     }
 
@@ -110,6 +121,12 @@ public class UnityCallbackTrigger : TriggerBase
 
     #endregion
 
+    /// <summary>
+    /// Executes Trigger method if TriggerMode is set in TriggerSettings.
+    /// </summary>
+    /// <param name="triggeringGameObject">The object that tries to execute the Trigger.</param>
+    /// <param name="triggerMode">The TriggerMode that is checked for execution.</param>
+    /// <returns>Returns true, if Trigger method was exectued at least once.</returns>
     protected bool TryToTrigger(GameObject triggeringGameObject, TriggerMode triggerMode)
     {
         HashSet<TriggerState> triggerStates = new();

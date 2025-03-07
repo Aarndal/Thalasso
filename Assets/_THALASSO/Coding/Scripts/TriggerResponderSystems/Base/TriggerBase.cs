@@ -77,7 +77,7 @@ public abstract class TriggerBase : MonoBehaviour, IAmTriggerable
 
     protected virtual void OnIsTriggered(GameObject triggeringObject, TriggerState triggerState)
     {
-        if (_isOneTimeTrigger && triggerState != TriggerState.Pending)
+        if (_isOneTimeTrigger)
         {
             IsTriggerable = false;
             _hasBeenTriggered = true;

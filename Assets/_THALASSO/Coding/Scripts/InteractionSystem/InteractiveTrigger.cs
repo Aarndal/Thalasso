@@ -4,7 +4,7 @@ using UnityEngine;
 public class InteractiveTrigger : TriggerBase, IAmInteractive
 {
     [SerializeField]
-    protected TriggerState _currentTriggerState = TriggerState.Off;
+    protected TriggerState _currentTriggerState = TriggerState.TurnOff;
 
     private Collider _interactiveCollider = default;
 
@@ -27,7 +27,7 @@ public class InteractiveTrigger : TriggerBase, IAmInteractive
 
     public virtual void Interact(Transform transform)
     {
-        _currentTriggerState = _currentTriggerState == TriggerState.On ? TriggerState.Off : TriggerState.On;
+        _currentTriggerState = _currentTriggerState == TriggerState.TurnOn ? TriggerState.TurnOff : TriggerState.TurnOn;
         Trigger(transform.gameObject, _currentTriggerState);
     }
 

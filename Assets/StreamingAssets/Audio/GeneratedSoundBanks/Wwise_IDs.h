@@ -24,6 +24,9 @@ namespace AK
         static const AkUniqueID MAIN_MENU_IN = 580468006U;
         static const AkUniqueID MAIN_MENU_MUSIC = 3399698792U;
         static const AkUniqueID MAIN_MENU_OUT = 3091888041U;
+        static const AkUniqueID MASTERMINDBUTTONPRESS = 847120340U;
+        static const AkUniqueID MASTERMINDCORRECT = 3511230007U;
+        static const AkUniqueID MASTERMINDWRONG = 2240061350U;
         static const AkUniqueID MENU_BACK_BUTTON = 2351299877U;
         static const AkUniqueID MENU_BUTTON_PRESS = 952003163U;
         static const AkUniqueID MUSIC_AMBIENCE_FIRST_TIME_MONSTER = 1832321273U;
@@ -34,6 +37,7 @@ namespace AK
         static const AkUniqueID PLAYERFOOT_RUN = 4265836956U;
         static const AkUniqueID PLAYERFOOT_WALK = 744081578U;
         static const AkUniqueID ROOM_MUSIC = 1808177020U;
+        static const AkUniqueID SMALLDOOROPEN = 3144899822U;
     } // namespace EVENTS
 
     namespace STATES

@@ -320,7 +320,7 @@ MonoBehaviour:
     ParentPath: SoundBanks\Default Work Unit
     guid: 120307a5affdda4f9c2c157df7e55198
     GuidInternal: 
-    m_lastTime: -8584604241038814245
+    m_lastTime: -8584602435139110038
     List:
     - name: Enviroment
       guid: 4ccb99699ec7c34ab35455a4ec799272
@@ -418,7 +418,7 @@ MonoBehaviour:
     ParentPath: Events\Default Work Unit
     guid: a73c7a02b02f814caa08ff6be5823e65
     GuidInternal: 
-    m_lastTime: -8584604244815601774
+    m_lastTime: -8584602445336516769
     List:
     - name: Austin
       guid: 3d652c20b33af94096e8621a842a359f
@@ -570,8 +570,8 @@ MonoBehaviour:
         guid: 57f3d86c9626da4181941c94116a0d24
       Path: Events\Default Work Unit\Riddles\CircuitRiddle\CircuitRiddle_Wrong
       maxAttenuation: 0
-      maxDuration: 0.5030244
-      minDuration: 0.27042103
+      maxDuration: 1.1145884
+      minDuration: 0.7147663
     - name: DoorOpen
       guid: 6ba5f69d5250094288205d926f45f22c
       id: 1404805401
@@ -709,6 +709,95 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: 0.5933333
       minDuration: 0.5933333
+    - name: MastermindButtonPress
+      guid: b1906b74acd7c4438347589fb987d89d
+      id: 847120340
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: a73c7a02b02f814caa08ff6be5823e65
+      - ElementName: Riddles
+        ObjectType: 4
+        guid: 448350db6f643048984d4f13f7fb7fab
+      - ElementName: MastermindRiddle
+        ObjectType: 4
+        guid: 1b5507e7a004a94dad6bb48614920f79
+      - ElementName: MastermindButtonPress
+        ObjectType: 3
+        guid: b1906b74acd7c4438347589fb987d89d
+      Path: Events\Default Work Unit\Riddles\MastermindRiddle\MastermindButtonPress
+      maxAttenuation: 0
+      maxDuration: 1.2
+      minDuration: 0.6
+    - name: MastermindCorrect
+      guid: 91eb183301535749ad9036eb9cc72b21
+      id: 3511230007
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: a73c7a02b02f814caa08ff6be5823e65
+      - ElementName: Riddles
+        ObjectType: 4
+        guid: 448350db6f643048984d4f13f7fb7fab
+      - ElementName: MastermindRiddle
+        ObjectType: 4
+        guid: 1b5507e7a004a94dad6bb48614920f79
+      - ElementName: MastermindCorrect
+        ObjectType: 3
+        guid: 91eb183301535749ad9036eb9cc72b21
+      Path: Events\Default Work Unit\Riddles\MastermindRiddle\MastermindCorrect
+      maxAttenuation: 0
+      maxDuration: 1.2
+      minDuration: 1.2
+    - name: MastermindRiddle
+      guid: 1b5507e7a004a94dad6bb48614920f79
+      id: 2668375601
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: a73c7a02b02f814caa08ff6be5823e65
+      - ElementName: Riddles
+        ObjectType: 4
+        guid: 448350db6f643048984d4f13f7fb7fab
+      - ElementName: MastermindRiddle
+        ObjectType: 4
+        guid: 1b5507e7a004a94dad6bb48614920f79
+      Path: Events\Default Work Unit\Riddles\MastermindRiddle
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: MastermindWrong
+      guid: 0920fbde6d4f8243bcbd4b31c99d9166
+      id: 2240061350
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: a73c7a02b02f814caa08ff6be5823e65
+      - ElementName: Riddles
+        ObjectType: 4
+        guid: 448350db6f643048984d4f13f7fb7fab
+      - ElementName: MastermindRiddle
+        ObjectType: 4
+        guid: 1b5507e7a004a94dad6bb48614920f79
+      - ElementName: MastermindWrong
+        ObjectType: 3
+        guid: 0920fbde6d4f8243bcbd4b31c99d9166
+      Path: Events\Default Work Unit\Riddles\MastermindRiddle\MastermindWrong
+      maxAttenuation: 0
+      maxDuration: 0.3438914
+      minDuration: 0.3438914
     - name: Menu Sounds
       guid: d5763613872ef2498e0e8389e0436448
       id: 1842939884
@@ -1017,6 +1106,46 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
+    - name: SmallDoorClose
+      guid: 4a1354aeab45bf46a5e32ce281fec0ce
+      id: 128376010
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: a73c7a02b02f814caa08ff6be5823e65
+      - ElementName: Enviroment
+        ObjectType: 4
+        guid: f7853a6c27cd924fadd820903c35b2a6
+      - ElementName: SmallDoorClose
+        ObjectType: 3
+        guid: 4a1354aeab45bf46a5e32ce281fec0ce
+      Path: Events\Default Work Unit\Enviroment\SmallDoorClose
+      maxAttenuation: 50
+      maxDuration: 0.49882087
+      minDuration: 0.49882087
+    - name: SmallDoorOpen
+      guid: 364492245a79894d95bea17625cacab3
+      id: 3144899822
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: a73c7a02b02f814caa08ff6be5823e65
+      - ElementName: Enviroment
+        ObjectType: 4
+        guid: f7853a6c27cd924fadd820903c35b2a6
+      - ElementName: SmallDoorOpen
+        ObjectType: 3
+        guid: 364492245a79894d95bea17625cacab3
+      Path: Events\Default Work Unit\Enviroment\SmallDoorOpen
+      maxAttenuation: 50
+      maxDuration: 0.8936726
+      minDuration: 0.8936726
     - name: Stop_Music_Ambience
       guid: 98e50f7b451d8c4f99237ae90806e118
       id: 398256180
@@ -1419,7 +1548,7 @@ MonoBehaviour:
     m_lastTime: -8584635260294775808
     List: []
   ExpandedFileSystemItemIds: 
-  ExpandedWaapiItemIds: 02000000030000000400000005000000060000000700000008000000090000000a0000000b0000000e0000000f00000010000000110000001200000027000000280000002c0000002f000000
+  ExpandedWaapiItemIds: 02000000030000000400000005000000060000000700000008000000090000000a0000000b0000000d0000000e0000000f000000100000001100000012000000130000002600000027000000280000002c0000002f0000003c00000080620200
   AutoSyncSelection: 0
   autoPopulateEnabled: 1
   currentDataSource: 0

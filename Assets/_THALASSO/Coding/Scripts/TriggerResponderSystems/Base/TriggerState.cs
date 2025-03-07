@@ -1,8 +1,8 @@
 ﻿
-public enum TriggerState
+public enum TriggerState : int
 {
     None = -1,
-    Off = 0,
-    On = 1,
-    Pending = 2,
+    TurnOff = 0,
+    TurnOn = 1,
+    Switch = 2,
 }

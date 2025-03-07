@@ -2595,6 +2595,7 @@ GameObject:
   - component: {fileID: 7115855804941130645}
   - component: {fileID: 1796546054052878204}
   - component: {fileID: 4131238592232167067}
+  - component: {fileID: 2036464196522517458}
   - component: {fileID: 8551591524037566717}
   - component: {fileID: 2210585923915962435}
   - component: {fileID: 7080901479591120677}
@@ -2725,7 +2726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 034d28fa1a0fbad4a8e8cef542c97588, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerList: f7e1664c
+  triggerList: ae8d9d44
   useOtherObject: 0
   data:
     idInternal: 0
@@ -2750,7 +2751,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 034d28fa1a0fbad4a8e8cef542c97588, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerList: f7e1664c
+  triggerList: ae8d9d44
   useOtherObject: 0
   data:
     idInternal: 0
@@ -2763,6 +2764,35 @@ MonoBehaviour:
   unloadTriggerList: 958ca0ea
   bankNameInternal: 
   valueGuidInternal: 
+--- !u!114 &2036464196522517458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4829465317767684519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fdc3ecc4808e08418a29f4eab21d1fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: f7e1664c
+  useOtherObject: 0
+  actionOnEventType: 0
+  curveInterpolation: 4
+  enableActionOnEvent: 0
+  data:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 07c6156d9f865144993171de9bb00275, type: 2}
+  useCallbacks: 0
+  stopSoundOnDestroy: 1
+  Callbacks: []
+  soundEmitterObject: {fileID: 0}
+  transitionDuration: 0
+  eventIdInternal: 0
+  valueGuidInternal: 
+  m_callbackDataInternal: {fileID: 0}
 --- !u!114 &8551591524037566717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2775,6 +2805,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 427036bbf1f0e2544b9ea56073b72233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _akGameObject: {fileID: 2877815694149023805}
   areEnvironmentAware: 1
   _wwiseEvents:
   - idInternal: 0
@@ -2783,7 +2814,6 @@ MonoBehaviour:
   - idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: 8f4cdb224558c3e4c9231396c69ea7ff, type: 2}
-  _akGameObject: {fileID: 2877815694149023805}
   _animationEventBroadcaster: {fileID: 611012666410614468}
 --- !u!114 &2210585923915962435
 MonoBehaviour:

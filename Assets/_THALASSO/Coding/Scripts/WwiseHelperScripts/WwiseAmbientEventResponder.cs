@@ -3,8 +3,9 @@ using UnityEngine;
 
 namespace WwiseHelper
 {
-    public class WwiseOnEnableEventHandler : WwiseEventHandler
+    public class WwiseAmbientEventResponder : WwiseEventResponder
     {
+#if WWISE_2024_OR_LATER
         [SerializeField]
         private AkMultiPositionType _akMultiPositionType = AkMultiPositionType.MultiPositionType_SingleSource;
 
@@ -43,6 +44,7 @@ namespace WwiseHelper
             }
 
             if (AmbientComponents.Count > 0)
+            {
                 foreach (var ambientComponent in AmbientComponents.Values)
                 {
                     ambientComponent.triggerList.Clear();
@@ -50,12 +52,8 @@ namespace WwiseHelper
 
                     ambientComponent.MultiPositionType = _akMultiPositionType;
                 }
+            }
         }
-
-        private void OnDisable()
-        {
-            foreach (var ambientComponent in AmbientComponents.Values)
-                ambientComponent.data.Stop(_akGameObject.gameObject);
-        }
+#endif
     }
 }

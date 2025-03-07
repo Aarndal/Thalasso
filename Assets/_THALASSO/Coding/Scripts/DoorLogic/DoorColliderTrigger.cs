@@ -13,7 +13,7 @@ public class DoorColliderTrigger : UnityCallbackTrigger
         _isTriggerable = true;
         _isOneTimeTrigger = false;
 
-        _triggerSettings.TryAdd(TriggerState.On, (TriggerMode.OnTriggerEnter | TriggerMode.OnTriggerStay));
+        _triggerSettings.TryAdd(TriggerState.TurnOn, (TriggerMode.OnTriggerEnter | TriggerMode.OnTriggerStay));
     }
 
     protected override bool IsValidTrigger(GameObject triggeringGameObject)

@@ -6446,6 +6446,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 965732668}
     m_Modifications:
+    - target: {fileID: 683628913608228779, guid: e62e1d1190e76434eb8bf3f9eac846af, type: 3}
+      propertyPath: isEnvironmentAware
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 683628913608228779, guid: e62e1d1190e76434eb8bf3f9eac846af, type: 3}
+      propertyPath: m_positionOffsetData.KeepMe
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5639881543899322830, guid: e62e1d1190e76434eb8bf3f9eac846af, type: 3}
       propertyPath: m_Name
       value: SM_Electricity_V3 (5)

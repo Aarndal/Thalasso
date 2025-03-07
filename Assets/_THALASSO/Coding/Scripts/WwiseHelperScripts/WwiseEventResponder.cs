@@ -19,6 +19,8 @@ namespace WwiseHelper
         [SerializeField]
         protected bool _areEnvironmentAware = false;
         [SerializeField]
+        protected TriggerState _triggerState = default;
+        [SerializeField]
         protected AK.Wwise.Event[] _wwiseEvents;
 
         protected AkRoomAwareObject _akRoomAwareObject = default;
@@ -80,10 +82,17 @@ namespace WwiseHelper
 
         public override void Respond(GameObject triggeringObject, TriggerState triggerState)
         {
-            if (triggerState == TriggerState.Off)
-                AkUnitySoundEngine.StopAll(_akGameObject.gameObject);
+            if (triggerState != _triggerState)
+            {
+                //AkUnitySoundEngine.StopAll(_akGameObject.gameObject);
 
-            if (triggerState == TriggerState.None || triggerState == TriggerState.On)
+                foreach (var audioEvent in AudioEvents.Values)
+                {
+                    audioEvent.Stop(_akGameObject.gameObject);
+                }
+            }
+
+            if (triggerState == _triggerState)
             {
                 foreach (var audioEvent in AudioEvents.Values)
                 {

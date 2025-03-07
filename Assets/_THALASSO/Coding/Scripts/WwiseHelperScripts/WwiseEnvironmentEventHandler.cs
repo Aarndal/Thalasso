@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
+#if WWISE_2024_OR_LATER
 using static AkEnvironment;
+#endif
 
 namespace WwiseHelper
 {
