@@ -16,14 +16,14 @@ public sealed class ProgressableDoorColliderTrigger : DoorColliderTrigger
 
         _isTriggerable = false;
         _isOneTimeTrigger = false;
-        _triggerMode = TriggerMode.OnTriggerEnter | TriggerMode.OnTriggerStay;
+        _triggerSettings.TryAdd(TriggerState.On, (TriggerMode.OnTriggerEnter | TriggerMode.OnTriggerStay));
     }
 
-    public override void Trigger(GameObject triggeringGameObject)
+    public override void Trigger(GameObject triggeringGameObject, TriggerState triggerState)
     {
         if (_progressionTracker.IsCompleted != IsTriggerable)
             ChangeIsTriggerable();
 
-        base.Trigger(triggeringGameObject);
+        base.Trigger(triggeringGameObject, triggerState);
     }
 }

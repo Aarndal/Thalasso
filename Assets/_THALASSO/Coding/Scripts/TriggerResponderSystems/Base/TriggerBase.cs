@@ -14,7 +14,7 @@ public abstract class TriggerBase : MonoBehaviour, IAmTriggerable
     protected bool _hasBeenTriggered;
 
     protected Action<GameObject, string> _cannotBeTriggered;
-    protected Action<GameObject, IAmTriggerable> _isTriggered;
+    protected Action<GameObject, TriggerState> _isTriggered;
 
     #region Properties
     public bool IsOneTimeTrigger => _isOneTimeTrigger;
@@ -40,7 +40,7 @@ public abstract class TriggerBase : MonoBehaviour, IAmTriggerable
         }
         remove => _cannotBeTriggered -= value;
     }
-    public event Action<GameObject, IAmTriggerable> IsTriggered
+    public event Action<GameObject, TriggerState> IsTriggered
     {
         add
         {
@@ -71,22 +71,13 @@ public abstract class TriggerBase : MonoBehaviour, IAmTriggerable
         IsTriggerable = !IsTriggerable;
     }
 
-    public virtual void Trigger(GameObject triggeringGameObject)
-    {
-        if (!IsValidTrigger(triggeringGameObject))
-            return;
-
-        if (IsTriggerable)
-            _isTriggered?.Invoke(gameObject, this);
-        else
-            _cannotBeTriggered?.Invoke(gameObject, _cannotBeTriggeredMessage);
-    }
+    public abstract void Trigger(GameObject @gameObject, TriggerState triggerState);
 
     protected abstract bool IsValidTrigger(GameObject triggeringGameObject);
 
-    protected virtual void OnIsTriggered(GameObject @object, IAmTriggerable triggerable)
+    protected virtual void OnIsTriggered(GameObject triggeringObject, TriggerState triggerState)
     {
-        if (_isOneTimeTrigger)
+        if (_isOneTimeTrigger && triggerState != TriggerState.Pending)
         {
             IsTriggerable = false;
             _hasBeenTriggered = true;

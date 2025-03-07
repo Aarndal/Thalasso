@@ -1,9 +1,11 @@
+using ProjectTools;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class UnityCallbackTrigger : TriggerBase
 {
     [SerializeField]
-    protected TriggerMode _triggerMode = TriggerMode.None;
+    protected SerializableDictionary<TriggerState, TriggerMode> _triggerSettings = default;
 
     protected Collider _triggerableCollider = default;
 
@@ -14,20 +16,22 @@ public class UnityCallbackTrigger : TriggerBase
     {
         base.Awake();
 
-        if (IsTriggerModeSet(TriggerMode.Awake))
-            Trigger(gameObject);
+        TryToTrigger(gameObject, TriggerMode.Awake);
 
-        if ((_triggerMode & TriggerMode.OnTrigger & TriggerMode.OnCollision) != 0)
+        foreach (var triggerMode in _triggerSettings.Values)
         {
-            if (!TryGetComponent(out _triggerableCollider))
-                Debug.LogErrorFormat("{0} has no Collider component attached, but its TriggerMode requires one!", gameObject.name);
+            if ((triggerMode & TriggerMode.OnTrigger & TriggerMode.OnCollision) != 0)
+            {
+                if (!TryGetComponent(out _triggerableCollider))
+                    Debug.LogErrorFormat("{0} has no Collider component attached, but its TriggerMode requires one!", gameObject.name);
+                break;
+            }
         }
     }
 
     protected virtual void OnEnable()
     {
-        if (IsTriggerModeSet(TriggerMode.OnEnable))
-            Trigger(gameObject);
+        TryToTrigger(gameObject, TriggerMode.OnEnable);
     }
 
     private void Reset()
@@ -38,88 +42,99 @@ public class UnityCallbackTrigger : TriggerBase
 
     protected virtual void Start()
     {
-        if (IsTriggerModeSet(TriggerMode.Start))
-            Trigger(gameObject);
+        TryToTrigger(gameObject, TriggerMode.Start);
 
         if (_triggerableCollider != null)
         {
-            if ((_triggerMode & TriggerMode.OnTrigger) != 0)
-            {
-                _triggerableCollider.isTrigger = true;
-            }
+            //if ((_triggerMode & TriggerMode.OnTrigger) != 0)
+            //{
+            //    _triggerableCollider.isTrigger = true;
+            //}
 
-            if ((_triggerMode & TriggerMode.OnCollision) != 0)
-            {
-                _triggerableCollider.isTrigger = false;
-            }
+            //if ((_triggerMode & TriggerMode.OnCollision) != 0)
+            //{
+            //    _triggerableCollider.isTrigger = false;
+            //}
         }
     }
 
     #region Collision CallbackFunctions
     protected void OnCollisionEnter(Collision collision)
     {
-        if (!IsTriggerModeSet(TriggerMode.OnCollisionEnter))
+        if (!TryToTrigger(collision.gameObject, TriggerMode.OnCollisionEnter))
             return;
-        Trigger(collision.gameObject);
     }
 
     protected void OnCollisionStay(Collision collision)
     {
-        if (!IsTriggerModeSet(TriggerMode.OnCollisionStay))
+        if (!TryToTrigger(collision.gameObject, TriggerMode.OnCollisionStay))
             return;
-        Trigger(collision.gameObject);
     }
 
     protected void OnCollisionExit(Collision collision)
     {
-        if (!IsTriggerModeSet(TriggerMode.OnCollisionExit))
+        if (!TryToTrigger(collision.gameObject, TriggerMode.OnCollisionExit))
             return;
-        Trigger(collision.gameObject);
     }
 
     protected void OnTriggerEnter(Collider other)
     {
-        if (!IsTriggerModeSet(TriggerMode.OnTriggerEnter))
+        if (!TryToTrigger(other.gameObject, TriggerMode.OnTriggerEnter))
             return;
-        Trigger(other.gameObject);
     }
 
     protected void OnTriggerStay(Collider other)
     {
-        if (!IsTriggerModeSet(TriggerMode.OnTriggerStay))
+        if (!TryToTrigger(other.gameObject, TriggerMode.OnTriggerStay))
             return;
-        Trigger(other.gameObject);
     }
 
     protected void OnTriggerExit(Collider other)
     {
-        if (!IsTriggerModeSet(TriggerMode.OnTriggerExit))
+        if (!TryToTrigger(other.gameObject, TriggerMode.OnTriggerExit))
             return;
-        Trigger(other.gameObject);
     }
     #endregion
 
     protected virtual void OnDisable()
     {
-        if (IsTriggerModeSet(TriggerMode.OnDisable))
-            Trigger(gameObject);
+        TryToTrigger(gameObject, TriggerMode.OnDisable);
     }
 
     protected override void OnDestroy()
     {
-        if (IsTriggerModeSet(TriggerMode.OnDestroy))
-            Trigger(gameObject);
+        TryToTrigger(gameObject, TriggerMode.OnDestroy);
 
         base.OnDestroy();
     }
 
     #endregion
 
-    public bool IsTriggerModeSet(TriggerMode triggerMode)
+    protected bool TryToTrigger(GameObject triggeringGameObject, TriggerMode triggerMode)
     {
-        if ((_triggerMode & triggerMode) != 0)
-            return true;
-        return false;
+        HashSet<TriggerState> triggerStates = new();
+
+        foreach (var triggerSetting in _triggerSettings)
+        {
+            if ((triggerSetting.Value & triggerMode) != 0)
+            {
+                triggerStates.Add(triggerSetting.Key);
+                Trigger(triggeringGameObject, triggerSetting.Key);
+            }
+        }
+
+        return triggerStates.Count > 0;
+    }
+
+    public override void Trigger(GameObject triggeringGameObject, TriggerState triggerState)
+    {
+        if (!IsValidTrigger(triggeringGameObject))
+            return;
+
+        if (IsTriggerable)
+            _isTriggered?.Invoke(gameObject, triggerState);
+        else
+            _cannotBeTriggered?.Invoke(gameObject, _cannotBeTriggeredMessage);
     }
 
     protected override bool IsValidTrigger(GameObject triggeringGameObject) => true;

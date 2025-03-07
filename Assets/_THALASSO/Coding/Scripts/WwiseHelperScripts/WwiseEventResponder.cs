@@ -78,11 +78,17 @@ namespace WwiseHelper
             }
         }
 
-        public override void Respond(GameObject @gameObject, IAmTriggerable trigger)
+        public override void Respond(GameObject triggeringObject, TriggerState triggerState)
         {
-            foreach (var audioEvent in AudioEvents.Values)
+            if (triggerState == TriggerState.Off)
+                AkUnitySoundEngine.StopAll(_akGameObject.gameObject);
+
+            if (triggerState == TriggerState.None || triggerState == TriggerState.On)
             {
-                audioEvent.Post(gameObject);
+                foreach (var audioEvent in AudioEvents.Values)
+                {
+                    audioEvent.Post(_akGameObject.gameObject);
+                }
             }
 
             if (_areOneTimeEvents)

@@ -23,7 +23,7 @@ public class Test_Responder : ResponderBase
         _discoTime = _defaultDiscoTime;
     }
 
-    public override void Respond(GameObject @gameObject, IAmTriggerable trigger)
+    public override void Respond(GameObject @gameObject, TriggerState triggerState)
     {
         if(_discoTime < _defaultDiscoTime)
             return;

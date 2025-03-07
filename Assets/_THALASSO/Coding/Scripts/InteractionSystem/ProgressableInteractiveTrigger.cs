@@ -11,11 +11,11 @@ public class ProgressableInteractiveTrigger : InteractiveTrigger
         gameObject.layer = (int)Layers.InteractiveObject;
     }
 
-    public override void Trigger(GameObject triggeringGameObject)
+    public override void Trigger(GameObject triggeringGameObject, TriggerState triggerState)
     {
         if (_progressionTracker.IsCompleted != IsTriggerable)
             ChangeIsTriggerable();
 
-        base.Trigger(triggeringGameObject);
+        base.Trigger(triggeringGameObject, triggerState);
     }
 }

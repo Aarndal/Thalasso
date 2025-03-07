@@ -2,5 +2,5 @@ using UnityEngine;
 
 public interface IAmResponsive
 {
-    void Respond(GameObject gameObject, IAmTriggerable trigger);
+    void Respond(GameObject triggeringObject, TriggerState triggerState);
 }
