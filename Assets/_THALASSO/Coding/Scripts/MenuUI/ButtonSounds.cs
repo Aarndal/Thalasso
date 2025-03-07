@@ -7,25 +7,25 @@ public class ButtonSounds : MonoBehaviour
     private AK.Wwise.Event _buttonPress;
     [SerializeField]
     private AK.Wwise.Event _backButtonPress;
-    
-    private AkGameObj _akGameObj;
 
-    private void OnEnable()
+    private AkGameObj _akGameObject;
+
+    private void Awake()
     {
-        if (_akGameObj == null)
-        {
-            _akGameObj = GetComponentInParent<AkGameObj>();
-        }
+        _akGameObject = _akGameObject != null ? _akGameObject : GetComponentInParent<AkGameObj>();
+
+        if (_akGameObject == null)
+            _akGameObject = gameObject.AddComponent<AkGameObj>();
     }
 
     public void PlayButtonSound()
     {
-        _buttonPress.Post(_akGameObj.gameObject);
+        _buttonPress.Post(_akGameObject.gameObject);
     }
 
     public void PlayBackButtonSound()
     {
-        _backButtonPress.Post(_akGameObj.gameObject);
+        _backButtonPress.Post(_akGameObject.gameObject);
     }
 #endif
 }

@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public class TriggerSoundSwitch : MonoBehaviour
+[RequireComponent(typeof(Collider))]
+public class WwiseSwitchTrigger : MonoBehaviour
 {
 #if WWISE_2024_OR_LATER
     [SerializeField]

@@ -635,7 +635,8 @@ MonoBehaviour:
   _isTriggerable: 1
   _isOneTimeTrigger: 0
   _cannotBeTriggeredMessage: 
-  _baseColor: {r: 1, g: 1, b: 1, a: 1}
+  _sendTriggerState: 1
+  _baseColor: {r: 0.29896042, g: 0.3983782, b: 0.79622644, a: 1}
 --- !u!33 &390572995
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -927,13 +928,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 448204569}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79bf43de51ba4a44ab844add5187a2c0, type: 3}
+  m_Script: {fileID: 11500000, guid: 7287459c3cbd6ad478146d82b7a95c0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _isTriggerable: 1
   _isOneTimeTrigger: 0
   _cannotBeTriggeredMessage: 
-  _triggerMode: 8
+  _triggerSettings:
+    dictionaryList:
+    - Key: 1
+      Value: 8
+      index: 0
+      isKeyDuplicated: 0
+  _triggeringLayerMasks:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!1 &472897968
 GameObject:
   m_ObjectHideFlags: 0
@@ -1213,6 +1222,7 @@ MonoBehaviour:
   _isTriggerable: 0
   _isOneTimeTrigger: 0
   _cannotBeTriggeredMessage: 
+  _sendTriggerState: 2
   _progressionTracker: {fileID: 11400000, guid: b9f09e4f92460f84f965d52ff420e87c, type: 2}
 --- !u!65 &733527607
 BoxCollider:
@@ -1471,6 +1481,63 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 832575517}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &865372187
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 865372189}
+  - component: {fileID: 865372188}
+  m_Layer: 0
+  m_Name: WwiseGlobal
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &865372188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 865372187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7076f4c030b5a40499749170d7936336, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitializationSettings: {fileID: 11400000, guid: 74aebaf4af5e78742b1f480ae7b0de98, type: 2}
+  basePath: 
+  language: 
+  defaultPoolSize: 0
+  lowerPoolSize: 0
+  streamingPoolSize: 0
+  memoryCutoffThreshold: 0
+  monitorPoolSize: 0
+  monitorQueuePoolSize: 0
+  callbackManagerBufferSize: 0
+  spatialAudioPoolSize: 0
+  maxSoundPropagationDepth: 0
+  engineLogging: 0
+--- !u!4 &865372189
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 865372187}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -2142,6 +2209,7 @@ MonoBehaviour:
   _isTriggerable: 1
   _isOneTimeTrigger: 0
   _cannotBeTriggeredMessage: 
+  _sendTriggerState: 2
   _baseColor: {r: 0, g: 0.17254902, b: 1, a: 1}
 --- !u!1 &1305977412
 GameObject:
@@ -2731,37 +2799,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2048561956328797334, guid: 6cafbdc66007702479265f4cce9a8e1b, type: 3}
   m_PrefabInstance: {fileID: 1486424308}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1619986832
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1619986834}
-  m_Layer: 0
-  m_Name: WwiseGlobal
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1619986834
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1619986832}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1647368889
 GameObject:
   m_ObjectHideFlags: 0
@@ -7734,4 +7771,4 @@ SceneRoots:
   - {fileID: 832575519}
   - {fileID: 7483690675023043624}
   - {fileID: 6548084043922459030}
-  - {fileID: 1619986834}
+  - {fileID: 865372189}

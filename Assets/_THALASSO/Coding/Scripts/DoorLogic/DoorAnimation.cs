@@ -3,14 +3,9 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Animations;
 
-public enum DoorAnimationType
-{
-    None,
-    Translation,
-    Rotation,
-    TranslationAndRotation
-}
-
+#if WWISE_2024_OR_LATER
+[RequireComponent(typeof(AkGameObj))]
+#endif
 public class DoorAnimation : MonoBehaviour
 {
     [Header("References")]
@@ -69,9 +64,11 @@ public class DoorAnimation : MonoBehaviour
 #if WWISE_2024_OR_LATER
     [Space(10)]
 
-    [Header("Audio Settings")]
+    [Header("Wwise Events")]
     [SerializeField]
-    private AK.Wwise.Event _openDoorSound;
+    private AK.Wwise.Event _openDoorSound = default;
+    [SerializeField]
+    private AK.Wwise.Event _closeDoorSound = default;
 #endif
 
     // Door Properties
@@ -110,7 +107,13 @@ public class DoorAnimation : MonoBehaviour
             _openDoorSound.Post(gameObject); 
 #endif
         };
-        IsBeingClosed += () => SetDoorStates(false, false, true);
+        IsBeingClosed += () =>
+        {
+            SetDoorStates(false, false, true);
+#if WWISE_2024_OR_LATER
+            _closeDoorSound.Post(gameObject);
+#endif
+        };
         HasBeenOpened += () => { SetDoorStates(true, false, false); };
         HasBeenClosed += () => SetDoorStates(false, false, true);
     }

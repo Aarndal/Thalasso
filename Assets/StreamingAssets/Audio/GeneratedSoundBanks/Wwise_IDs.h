@@ -37,6 +37,7 @@ namespace AK
         static const AkUniqueID PLAYERFOOT_RUN = 4265836956U;
         static const AkUniqueID PLAYERFOOT_WALK = 744081578U;
         static const AkUniqueID ROOM_MUSIC = 1808177020U;
+        static const AkUniqueID SMALLDOORCLOSE = 128376010U;
         static const AkUniqueID SMALLDOOROPEN = 3144899822U;
     } // namespace EVENTS
 

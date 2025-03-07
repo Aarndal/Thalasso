@@ -852,6 +852,8 @@ GameObject:
   - component: {fileID: 7743987303622105835}
   - component: {fileID: 3368664111933129847}
   - component: {fileID: 899270163310579272}
+  - component: {fileID: 8377214913334182027}
+  - component: {fileID: 5988454630091275698}
   m_Layer: 20
   m_Name: MasterMindRiddle
   m_TagString: Untagged
@@ -875,7 +877,7 @@ Transform:
   - {fileID: 241133270311807455}
   - {fileID: 3051701266846580301}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: -90}
 --- !u!114 &7743987303622105835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -927,7 +929,6 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   puzzleAutoStartNeeded: 0
-  autoStartPuzzleScript: {fileID: 0}
 --- !u!114 &3368664111933129847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -960,6 +961,19 @@ MonoBehaviour:
   - {fileID: 5019588970743687686}
   - {fileID: 6006630938430407532}
   puzzleID: 1
+  akGameObject: {fileID: 8377214913334182027}
+  buttonPress:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 3b1241872763ac64a88ec6aab655b8dc, type: 2}
+  wrongInput:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 99395416838adc949bc6683dd73277ad, type: 2}
+  correctInput:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: ef3fb4953a3def24199b43df4ce1b394, type: 2}
 --- !u!65 &899270163310579272
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -981,3 +995,52 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.1, y: 0.6, z: 0.3}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8377214913334182027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7893829541931618026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62f370bd38ab0524eb28a985f4b8c87a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_listeners:
+    initialListenerList: []
+    useDefaultListeners: 1
+  isEnvironmentAware: 0
+  isStaticObject: 0
+  usePositionOffsetData: 0
+  m_positionOffsetData:
+    KeepMe: 1
+    positionOffset: {x: 0, y: 0, z: 0}
+  scalingFactor: 1
+  m_posOffsetData: {fileID: 0}
+  listenerMask: 1
+--- !u!114 &5988454630091275698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7893829541931618026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 034d28fa1a0fbad4a8e8cef542c97588, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: ae8d9d44
+  useOtherObject: 0
+  data:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: ab531647f5c07644988b6a657d4bb7e1, type: 2}
+  decodeBank: 0
+  overrideLoadSetting: 0
+  loadAsynchronous: 0
+  saveDecodedBank: 0
+  unloadTriggerList: 958ca0ea
+  bankNameInternal: 
+  valueGuidInternal: 

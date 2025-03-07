@@ -17,6 +17,7 @@ public class MusicPlayer : MonoBehaviour
     [SerializeField]
     private int[] _scenesToPlayCreditsMusic;
 
+    private AkGameObj _akGameObject = default;
     private int _activeScene = -1;
     private AK.Wwise.Event _activeAKEvent = null;
     private readonly Dictionary<int, AK.Wwise.Event> _sceneMusic = new();
@@ -33,6 +34,8 @@ public class MusicPlayer : MonoBehaviour
 
         _instance = this;
 
+        DontDestroyOnLoad(this.gameObject);
+
         foreach (var sceneBuildIndex in _scenesToPlayMainMenuMusic)
         {
             _sceneMusic.TryAdd(sceneBuildIndex, _mainMenuMusic);
@@ -42,14 +45,18 @@ public class MusicPlayer : MonoBehaviour
         {
             _sceneMusic.TryAdd(sceneBuildIndex, _creditsMusic);
         }
-    }
 
-    private void OnEnable()
-    {
+        _akGameObject = _akGameObject != null ? _akGameObject : GetComponentInParent<AkGameObj>();
+
+        if (_akGameObject == null)
+            _akGameObject = gameObject.AddComponent<AkGameObj>();
+
+        SwitchSceneMusic(SceneManager.GetActiveScene());
+
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
@@ -68,23 +75,22 @@ public class MusicPlayer : MonoBehaviour
         _activeScene = loadedScene.buildIndex;
 
         SwitchSceneMusic(loadedScene);
-
     }
 
     private void SwitchSceneMusic(Scene newScene)
     {
         if (_sceneMusic.TryGetValue(newScene.buildIndex, out AK.Wwise.Event akEvent))
         {
-            if(_activeAKEvent != akEvent)
+            if (_activeAKEvent != akEvent)
             {
-                _activeAKEvent?.Stop(gameObject);
-                akEvent.Post(gameObject);
+                _activeAKEvent?.Stop(_akGameObject.gameObject);
+                akEvent.Post(_akGameObject.gameObject);
                 _activeAKEvent = akEvent;
             }
             return;
         }
 
-        _activeAKEvent?.Stop(gameObject);
+        _activeAKEvent?.Stop(_akGameObject.gameObject);
     }
 #endif
 }
