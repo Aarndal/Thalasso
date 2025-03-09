@@ -1,6 +1,6 @@
 ﻿using System;
 
-internal interface INotifyValueChanged<T>
+public interface INotifyValueChanged<T>
 {
     uint ID { get; }
 

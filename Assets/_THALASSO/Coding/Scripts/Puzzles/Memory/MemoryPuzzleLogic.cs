@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MemoryPuzzleLogic : SolvableObjectBase, IAmRiddle
+public class MemoryPuzzleLogic : SolvableObject, IAmPuzzle
 {
     [SerializeField] private GameObject[] visualButtonOutput;
     [SerializeField] private GameObject[] visualLightOutput;

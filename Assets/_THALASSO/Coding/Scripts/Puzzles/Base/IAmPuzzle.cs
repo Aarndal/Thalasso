@@ -1,5 +1,5 @@
 ﻿
-public interface IAmRiddle
+public interface IAmPuzzle
 {
     void StartPuzzle();
 }

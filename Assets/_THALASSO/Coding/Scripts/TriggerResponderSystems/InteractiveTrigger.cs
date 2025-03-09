@@ -1,10 +1,11 @@
 using UnityEngine;
 
+[DisallowMultipleComponent]
 [RequireComponent(typeof(Collider))]
-public class InteractiveTrigger : TriggerBase, IAmInteractive
+public class InteractiveTrigger : Trigger, IAmInteractive
 {
     [SerializeField]
-    protected TriggerState _sendTriggerState = TriggerState.Switch;
+    protected ResponderState _triggeringResponderState = ResponderState.Switch;
 
     private Collider _interactiveCollider = default;
 
@@ -23,20 +24,21 @@ public class InteractiveTrigger : TriggerBase, IAmInteractive
     private void Reset()
     {
         gameObject.layer = (int)Layers.InteractiveObject;
+        _triggeringResponderState = ResponderState.Switch;
     }
 
     public virtual void Interact(Transform transform)
     {
-        Trigger(transform.gameObject, _sendTriggerState);
+        ActivateTrigger(transform.gameObject, _triggeringResponderState);
     }
 
-    public override void Trigger(GameObject triggeringGameObject, TriggerState triggerState)
+    public override void ActivateTrigger(GameObject triggeringGameObject, ResponderState responderState)
     {
         if (!IsValidTrigger(triggeringGameObject))
             return;
 
         if (IsTriggerable)
-            _isTriggered?.Invoke(triggeringGameObject, triggerState);
+            _isTriggered?.Invoke(triggeringGameObject, responderState);
         else
             _cannotBeTriggered?.Invoke(gameObject, _cannotBeTriggeredMessage);
     }

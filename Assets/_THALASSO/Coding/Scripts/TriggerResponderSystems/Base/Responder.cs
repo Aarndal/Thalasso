@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public abstract class ResponderBase : MonoBehaviour, IAmResponsive
+public abstract class Responder : MonoBehaviour, IAmResponsive
 {
     [SerializeField]
     protected List<MySerializableInterface<IAmTriggerable>> _triggers = new();
@@ -15,12 +15,10 @@ public abstract class ResponderBase : MonoBehaviour, IAmResponsive
     {
         foreach (var trigger in _triggers)
         {
-            trigger.Interface.CannotBeTriggered += OnCannotBeTriggered;
             trigger.Interface.IsTriggered += OnIsTriggered;
+            trigger.Interface.CannotBeTriggered += OnCannotBeTriggered;
         }
     }
-    
-    protected virtual void OnValidate() => ValidateTriggers();
 
     protected virtual void OnDisable()
     {
@@ -32,15 +30,19 @@ public abstract class ResponderBase : MonoBehaviour, IAmResponsive
     }
     #endregion
 
-    private void ValidateTriggers()
-    {
-        if (_triggers.Count <= 0)
-            Debug.LogWarningFormat("<color=yellow>Responder</color> {0} (ID: {1}) <color=yellow>has no triggers assigned!</color>", gameObject.name, GetInstanceID());
-    }
+    public abstract void Respond(GameObject triggeringObject, ResponderState responderState);
 
     protected virtual void OnCannotBeTriggered(GameObject @gameObject, string messageText) { }
 
-    protected virtual void OnIsTriggered(GameObject triggeringObject, TriggerState triggerState) => Respond(triggeringObject, triggerState);
+    protected virtual void OnIsTriggered(GameObject triggeringObject, ResponderState responderState) => Respond(triggeringObject, responderState);
 
-    public abstract void Respond(GameObject triggeringObject, TriggerState triggerState);
+    protected bool ValidateTriggers()
+    {
+        if (_triggers.Count <= 0)
+        {
+            Debug.LogErrorFormat("<color=yellow>Responder</color> {0} (ID: {1}) <color=yellow>has no triggers assigned!</color>", gameObject.name, GetInstanceID());
+            return false;
+        }
+        return true;
+    }
 }

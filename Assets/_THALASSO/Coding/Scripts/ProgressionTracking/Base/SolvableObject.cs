@@ -4,7 +4,7 @@ using UnityEngine;
 namespace ProgressionTracking
 {
     [Serializable]
-    public abstract class SolvableObjectBase : MonoBehaviour, IAmSolvable
+    public abstract class SolvableObject : MonoBehaviour, IAmSolvable
     {
         [SerializeField]
         protected SO_SolvableData _solvableData;

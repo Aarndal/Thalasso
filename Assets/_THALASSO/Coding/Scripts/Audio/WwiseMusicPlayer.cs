@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MusicPlayer : MonoBehaviour
+public class WwiseMusicPlayer : MonoBehaviour
 {
 #if WWISE_2024_OR_LATER
     [SerializeField]
@@ -22,7 +22,7 @@ public class MusicPlayer : MonoBehaviour
     private AK.Wwise.Event _activeAKEvent = null;
     private readonly Dictionary<int, AK.Wwise.Event> _sceneMusic = new();
 
-    private static MusicPlayer _instance;
+    private static WwiseMusicPlayer _instance;
 
     private void Awake()
     {

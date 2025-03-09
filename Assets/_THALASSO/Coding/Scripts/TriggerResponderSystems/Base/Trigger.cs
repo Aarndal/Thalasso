@@ -2,19 +2,19 @@
 using UnityEngine;
 
 [Serializable]
-public abstract class TriggerBase : MonoBehaviour, IAmTriggerable
+public abstract class Trigger : MonoBehaviour, IAmTriggerable
 {
     [SerializeField]
     protected bool _isTriggerable = true;
     [SerializeField]
     protected bool _isOneTimeTrigger = false;
-    [SerializeField]
+    [SerializeField, TextArea]
     protected string _cannotBeTriggeredMessage = "";
 
     protected bool _hasBeenTriggered;
 
     protected Action<GameObject, string> _cannotBeTriggered;
-    protected Action<GameObject, TriggerState> _isTriggered;
+    protected Action<GameObject, ResponderState> _isTriggered;
 
     #region Properties
     public bool IsOneTimeTrigger => _isOneTimeTrigger;
@@ -40,7 +40,7 @@ public abstract class TriggerBase : MonoBehaviour, IAmTriggerable
         }
         remove => _cannotBeTriggered -= value;
     }
-    public event Action<GameObject, TriggerState> IsTriggered
+    public event Action<GameObject, ResponderState> IsTriggered
     {
         add
         {
@@ -62,8 +62,10 @@ public abstract class TriggerBase : MonoBehaviour, IAmTriggerable
         IsTriggered -= OnIsTriggered;
     }
     #endregion
+   
+    public abstract void ActivateTrigger(GameObject @gameObject, ResponderState triggerState);
 
-    public void ChangeIsTriggerable()
+    public void SwitchIsTriggerable()
     {
         if (_isOneTimeTrigger && _hasBeenTriggered)
             return;
@@ -71,11 +73,9 @@ public abstract class TriggerBase : MonoBehaviour, IAmTriggerable
         IsTriggerable = !IsTriggerable;
     }
 
-    public abstract void Trigger(GameObject @gameObject, TriggerState triggerState);
-
     protected abstract bool IsValidTrigger(GameObject triggeringGameObject);
 
-    protected virtual void OnIsTriggered(GameObject triggeringObject, TriggerState triggerState)
+    protected void OnIsTriggered(GameObject @gameObject, ResponderState responderState)
     {
         if (_isOneTimeTrigger)
         {

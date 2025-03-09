@@ -14,7 +14,7 @@ public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
 
     [SerializeField] private bool puzzleAutoStartNeeded = false;
     
-    private IAmRiddle autoStartPuzzleScript;
+    private IAmPuzzle autoStartPuzzleScript;
 
     private GameObject buttonUICanvas;
     private bool isfocused = false;
@@ -30,7 +30,7 @@ public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
 
     private void Awake()
     {
-        autoStartPuzzleScript ??= GetComponentInChildren<IAmRiddle>();
+        autoStartPuzzleScript ??= GetComponentInChildren<IAmPuzzle>();
 
         PuzzleUIReferencesSender.PuzzleUIReferenceLogger += GetUIReference;
     }

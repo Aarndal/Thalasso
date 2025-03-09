@@ -1,19 +1,18 @@
 ﻿using UnityEngine;
 
-[DisallowMultipleComponent]
-public class DoorColliderTrigger : UnityCallbackTrigger
+public class DoorColliderTrigger : ColliderTrigger
 {
     private void Reset()
     {
-        _triggerableCollider = _triggerableCollider != null ? _triggerableCollider : GetComponent<Collider>();
+        _collider = _collider != null ? _collider : GetComponent<Collider>();
         
-        if (_triggerableCollider != null)
-            _triggerableCollider.isTrigger = true;
+        if (_collider != null)
+            _collider.isTrigger = true;
         
         _isTriggerable = true;
         _isOneTimeTrigger = false;
 
-        _triggerSettings.TryAdd(TriggerState.TurnOn, (TriggerMode.OnTriggerEnter | TriggerMode.OnTriggerStay));
+        _triggerSettings.TryAdd(ResponderState.TurnOn, (TriggerMode.OnTriggerEnter | TriggerMode.OnTriggerStay));
     }
 
     protected override bool IsValidTrigger(GameObject triggeringGameObject)

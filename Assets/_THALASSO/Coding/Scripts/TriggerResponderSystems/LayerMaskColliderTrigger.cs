@@ -1,7 +1,6 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Collider))]
-public class LayerMaskColliderTrigger : UnityCallbackTrigger
+public class LayerMaskColliderTrigger : ColliderTrigger
 {
     [SerializeField]
     private LayerMask _triggeringLayerMasks = default;

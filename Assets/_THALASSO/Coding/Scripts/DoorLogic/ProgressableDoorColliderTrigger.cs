@@ -1,7 +1,6 @@
 ﻿using ProgressionTracking;
 using UnityEngine;
 
-[DisallowMultipleComponent]
 public sealed class ProgressableDoorColliderTrigger : DoorColliderTrigger
 {
     [SerializeField]
@@ -9,21 +8,21 @@ public sealed class ProgressableDoorColliderTrigger : DoorColliderTrigger
 
     private void Reset()
     {
-        _triggerableCollider = _triggerableCollider != null ? _triggerableCollider : GetComponent<Collider>();
+        _collider = _collider != null ? _collider : GetComponent<Collider>();
 
-        if (_triggerableCollider != null)
-            _triggerableCollider.isTrigger = true;
+        if (_collider != null)
+            _collider.isTrigger = true;
 
         _isTriggerable = false;
         _isOneTimeTrigger = false;
-        _triggerSettings.TryAdd(TriggerState.TurnOn, (TriggerMode.OnTriggerEnter | TriggerMode.OnTriggerStay));
+        _triggerSettings.TryAdd(ResponderState.TurnOn, (TriggerMode.OnTriggerEnter | TriggerMode.OnTriggerStay));
     }
 
-    public override void Trigger(GameObject triggeringGameObject, TriggerState triggerState)
+    public override void ActivateTrigger(GameObject triggeringGameObject, ResponderState triggerState)
     {
         if (_progressionTracker.IsCompleted != IsTriggerable)
-            ChangeIsTriggerable();
+            SwitchIsTriggerable();
 
-        base.Trigger(triggeringGameObject, triggerState);
+        base.ActivateTrigger(triggeringGameObject, triggerState);
     }
 }

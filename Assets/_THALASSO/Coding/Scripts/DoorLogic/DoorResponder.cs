@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class DoorResponder : ResponderBase
+public class DoorResponder : Responder
 {
     [SerializeField]
     private DoorAnimation _doorAnimation = default;
@@ -26,7 +26,7 @@ public class DoorResponder : ResponderBase
             _doorAnimation.Lock();
     }
 
-    public override void Respond(GameObject @gameObject, TriggerState triggerState)
+    public override void Respond(GameObject @gameObject, ResponderState triggerState)
     {
         if (_triggers.TrueForAll(o => !o.Interface.IsTriggerable) && !_doorAnimation.IsLocked)
         {

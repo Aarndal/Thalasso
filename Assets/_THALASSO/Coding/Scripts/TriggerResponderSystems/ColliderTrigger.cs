@@ -5,36 +5,31 @@ using UnityEngine;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Collider))]
-public class ColliderTrigger : TriggerBase
+public class ColliderTrigger : Trigger
 {
     [SerializeField]
-    protected SerializableDictionary<TriggerState, TriggerMode> _triggerSettings = default;
+    protected SerializableDictionary<ResponderState, TriggerMode> _triggerSettings = default;
 
-    protected Collider _triggerableCollider = default;
+    protected Collider _collider = default;
 
-    public Collider Collider => _triggerableCollider;
+    public Collider Collider => _collider;
+    public Dictionary<ResponderState, TriggerMode> TriggerSettings => _triggerSettings;
 
     #region Unity Lifecycle Methods
     protected override void Awake()
     {
         base.Awake();
 
-        _triggerableCollider = _triggerableCollider != null ? _triggerableCollider : GetComponent<Collider>();
-
-        // Checks if the correct TriggerModes are set to interact with a Collider.
-        if (_triggerSettings.Any((o) => (o.Value & (TriggerMode.OnTrigger | TriggerMode.OnCollision)) == 0))
+        ValidateSettings();
+        
+        if (_collider == null)
         {
-            Debug.LogErrorFormat("{0} has no TriggerMode set to interact with its Collider!", gameObject.name);
-        }
-
-        // Checks if correct TriggerModes are set or if there is a contradiction concerning the Collider component.
-        if (_triggerSettings.Any((o) => (o.Value & TriggerMode.OnCollision) != 0) &&
-        _triggerSettings.Any((o) => (o.Value & TriggerMode.OnTrigger) != 0))
-        {
-            Debug.LogErrorFormat("{0} has contradictory statements. A {1} can have either OnTrigger or OnCollision TriggerModes, not both!", gameObject.name, name);
+            if (!TryGetComponent(out _collider))
+            {
+                _collider = gameObject.AddComponent<Collider>();
+            }
         }
     }
-
 
     private void Reset()
     {
@@ -45,8 +40,9 @@ public class ColliderTrigger : TriggerBase
     private void OnValidate()
     {
         // Checks if correct TriggerModes are set or if there is a contradiction concerning the Collider component.
-        if (_triggerSettings.Any((o) => (o.Value & TriggerMode.OnCollision) != 0) &&
-        _triggerSettings.Any((o) => (o.Value & TriggerMode.OnTrigger) != 0))
+        if (TriggerSettings.Any((o) => (o.Value & TriggerMode.OnCollision) != 0)
+            &&
+            TriggerSettings.Any((o) => (o.Value & TriggerMode.OnTrigger) != 0))
         {
             Debug.LogErrorFormat("{0} has contradictory statements. A {1} can have either OnTrigger or OnCollision TriggerModes, not both!", gameObject.name, name);
         }
@@ -54,50 +50,50 @@ public class ColliderTrigger : TriggerBase
 
     protected virtual void Start()
     {
-        if (_triggerableCollider != null)
+        if (_collider != null)
         {
-            if (_triggerSettings.Any((o) => (o.Value & TriggerMode.OnCollision) != 0))
-                _triggerableCollider.isTrigger = false;
+            if (TriggerSettings.Any((o) => (o.Value & TriggerMode.OnCollision) != 0))
+                _collider.isTrigger = false;
 
-            if (_triggerSettings.Any((o) => (o.Value & TriggerMode.OnTrigger) != 0))
-                _triggerableCollider.isTrigger = true;
+            if (TriggerSettings.Any((o) => (o.Value & TriggerMode.OnTrigger) != 0))
+                _collider.isTrigger = true;
         }
     }
 
-    #region Collision CallbackFunctions
-    protected void OnCollisionEnter(Collision collision)
-    {
-        if (!TryToTrigger(collision.gameObject, TriggerMode.OnCollisionEnter))
-            return;
-    }
-
-    protected void OnCollisionStay(Collision collision)
-    {
-        if (!TryToTrigger(collision.gameObject, TriggerMode.OnCollisionStay))
-            return;
-    }
-
-    protected void OnCollisionExit(Collision collision)
-    {
-        if (!TryToTrigger(collision.gameObject, TriggerMode.OnCollisionExit))
-            return;
-    }
-
+    #region Collider CallbackFunctions
     protected void OnTriggerEnter(Collider other)
     {
-        if (!TryToTrigger(other.gameObject, TriggerMode.OnTriggerEnter))
+        if (!TryToActivateTrigger(other.gameObject, TriggerMode.OnTriggerEnter))
             return;
     }
 
     protected void OnTriggerStay(Collider other)
     {
-        if (!TryToTrigger(other.gameObject, TriggerMode.OnTriggerStay))
+        if (!TryToActivateTrigger(other.gameObject, TriggerMode.OnTriggerStay))
             return;
     }
 
     protected void OnTriggerExit(Collider other)
     {
-        if (!TryToTrigger(other.gameObject, TriggerMode.OnTriggerExit))
+        if (!TryToActivateTrigger(other.gameObject, TriggerMode.OnTriggerExit))
+            return;
+    }
+
+    protected void OnCollisionEnter(Collision collision)
+    {
+        if (!TryToActivateTrigger(collision.gameObject, TriggerMode.OnCollisionEnter))
+            return;
+    }
+
+    protected void OnCollisionStay(Collision collision)
+    {
+        if (!TryToActivateTrigger(collision.gameObject, TriggerMode.OnCollisionStay))
+            return;
+    }
+
+    protected void OnCollisionExit(Collision collision)
+    {
+        if (!TryToActivateTrigger(collision.gameObject, TriggerMode.OnCollisionExit))
             return;
     }
     #endregion
@@ -110,32 +106,60 @@ public class ColliderTrigger : TriggerBase
     /// <param name="triggeringGameObject">The object that tries to execute the Trigger.</param>
     /// <param name="triggerMode">The TriggerMode that is checked for execution.</param>
     /// <returns>Returns true, if Trigger method was exectued at least once.</returns>
-    protected bool TryToTrigger(GameObject triggeringGameObject, TriggerMode triggerMode)
+    protected bool TryToActivateTrigger(GameObject triggeringGameObject, TriggerMode triggerMode)
     {
-        HashSet<TriggerState> triggerStates = new();
+        IEnumerable<KeyValuePair<ResponderState, TriggerMode>> validSettings =
+            TriggerSettings.Where(o => (o.Value & triggerMode) != 0);
 
-        foreach (var triggerSetting in _triggerSettings)
+        if (!validSettings.Any())
+            return false;
+
+        foreach (var setting in validSettings)
         {
-            if ((triggerSetting.Value & triggerMode) != 0)
-            {
-                triggerStates.Add(triggerSetting.Key);
-                Trigger(triggeringGameObject, triggerSetting.Key);
-            }
+            ActivateTrigger(triggeringGameObject, setting.Key);
         }
 
-        return triggerStates.Count > 0;
+        return true;
     }
 
-    public override void Trigger(GameObject triggeringGameObject, TriggerState triggerState)
+    public override void ActivateTrigger(GameObject triggeringGameObject, ResponderState responderState)
     {
         if (!IsValidTrigger(triggeringGameObject))
             return;
 
         if (IsTriggerable)
-            _isTriggered?.Invoke(gameObject, triggerState);
+            _isTriggered?.Invoke(gameObject, responderState);
         else
             _cannotBeTriggered?.Invoke(gameObject, _cannotBeTriggeredMessage);
     }
 
     protected override bool IsValidTrigger(GameObject triggeringGameObject) => true;
+
+    protected bool ValidateSettings()
+    {
+        // Checks if the correct TriggerModes are set to interact with a Collider.
+        IEnumerable<KeyValuePair<ResponderState, TriggerMode>> wrongSettings =
+            TriggerSettings.Where((o) => (o.Value & (TriggerMode.OnTrigger | TriggerMode.OnCollision)) == 0);
+
+        if (wrongSettings.Any())
+        {
+            foreach (var setting in wrongSettings)
+            {
+                Debug.LogErrorFormat("The ResponderState {0} has no TriggerMode to interact with {1}'s Collider!", setting.Key, gameObject.name);
+            }
+            return false;
+        }
+
+        // Checks if there is a contradiction concerning the Collider component.
+        if (TriggerSettings.Any((o) => (o.Value & TriggerMode.OnCollision) != 0)
+            &&
+            TriggerSettings.Any((o) => (o.Value & TriggerMode.OnTrigger) != 0))
+        {
+            Debug.LogErrorFormat("{0} has contradictory statements. A {1} can have either OnTrigger or OnCollision TriggerModes, not both!", gameObject.name, name);
+
+            return false;
+        }
+
+        return true;
+    }
 }

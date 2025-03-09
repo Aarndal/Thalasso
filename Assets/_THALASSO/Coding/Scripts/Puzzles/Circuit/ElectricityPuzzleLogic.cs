@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ElectricityPuzzleLogic : SolvableObjectBase, IAmRiddle
+public class ElectricityPuzzleLogic : SolvableObject, IAmPuzzle
 {
     [SerializeField] private int puzzleID = 0;
     [SerializeField] private GameObject[] tileFieldInput;

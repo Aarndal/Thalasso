@@ -6,7 +6,7 @@ namespace WwiseHelper
 #if WWISE_2024_OR_LATER
     [RequireComponent(typeof(AkGameObj))]
 #endif
-    public class WwiseEventResponder : ResponderBase
+    public class WwiseEventResponder : Responder
     {
 #if WWISE_2024_OR_LATER
         [Header("Wwise Event Settings")]
@@ -17,13 +17,13 @@ namespace WwiseHelper
         [SerializeField]
         protected bool _playOnOtherObject = false; // ToDo: Implement so that a WwiseEvent can be posted to the triggeringObject.
         [SerializeField]
-        protected TriggerState _startState = TriggerState.TurnOff;
+        protected ResponderState _startState = ResponderState.TurnOff;
 
         [Header("Wwise Events")]
         [SerializeField]
         protected AK.Wwise.Event[] _wwiseEvents;
 
-        protected TriggerState _currentTriggerState = TriggerState.None;
+        protected ResponderState _currentTriggerState = ResponderState.None;
         
         protected AkGameObj _akGameObject = default;
         protected AkRoomAwareObject _akRoomAwareObject = default;
@@ -85,28 +85,28 @@ namespace WwiseHelper
             }
         }
 
-        public override void Respond(GameObject triggeringObject, TriggerState triggerState)
+        public override void Respond(GameObject triggeringObject, ResponderState triggerState)
         {
-            if (triggerState == TriggerState.None)
+            if (triggerState == ResponderState.None)
             {
                 Debug.LogFormat("No valid TriggerState set for Trigger activated by {0}", triggeringObject);
                 return;
             }
 
-            if (triggerState == TriggerState.Switch)
+            if (triggerState == ResponderState.Switch)
             {
-                triggerState = _currentTriggerState == TriggerState.TurnOff ? TriggerState.TurnOn : TriggerState.TurnOff;
+                triggerState = _currentTriggerState == ResponderState.TurnOff ? ResponderState.TurnOn : ResponderState.TurnOff;
             }
 
-            if (triggerState == TriggerState.TurnOn)
+            if (triggerState == ResponderState.TurnOn)
             {
-                _currentTriggerState = TriggerState.TurnOn;
+                _currentTriggerState = ResponderState.TurnOn;
                 TriggerIsTurnedOn();
             }
 
-            if (triggerState == TriggerState.TurnOff)
+            if (triggerState == ResponderState.TurnOff)
             {
-                _currentTriggerState = TriggerState.TurnOff;
+                _currentTriggerState = ResponderState.TurnOff;
                 TriggerIsTurnedOff();
             }
 
@@ -115,7 +115,7 @@ namespace WwiseHelper
                 foreach (var triggerable in _triggers)
                 {
                     if (triggerable.Interface.IsTriggerable)
-                        triggerable.Interface.ChangeIsTriggerable();
+                        triggerable.Interface.SwitchIsTriggerable();
                 }
             }
 #endif

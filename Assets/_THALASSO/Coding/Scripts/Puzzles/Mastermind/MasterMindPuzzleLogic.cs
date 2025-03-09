@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MasterMindPuzzleLogic : SolvableObjectBase, IAmRiddle
+public class MasterMindPuzzleLogic : SolvableObject, IAmPuzzle
 {
     [SerializeField] private Button[] numButtons;
     [SerializeField] private TextMeshProUGUI[] outputText;

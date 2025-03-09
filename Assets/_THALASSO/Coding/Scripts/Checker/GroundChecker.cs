@@ -118,7 +118,7 @@ public class GroundChecker : MonoBehaviour, IMakeChecks
         if (IsGrounded)
         {
             if (Physics.Raycast(transform.position + _groundCheckOffset, -transform.up, out RaycastHit hitInfo, _groundCheckRadius, _groundLayerMasks, QueryTriggerInteraction.Ignore))
-                if (hitInfo.collider.TryGetComponent(out SoundMaterial soundMaterial))
+                if (hitInfo.collider.TryGetComponent(out WwiseSoundMaterial soundMaterial))
                     CurrentSoundMaterial = soundMaterial.Get();
         }
 #endif
