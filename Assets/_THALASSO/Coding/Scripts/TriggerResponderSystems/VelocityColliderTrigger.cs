@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class DoorColliderTrigger : ColliderTrigger
+public class VelocityColliderTrigger : ColliderTrigger
 {
     private void Reset()
     {

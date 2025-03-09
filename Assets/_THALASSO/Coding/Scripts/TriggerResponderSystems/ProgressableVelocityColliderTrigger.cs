@@ -1,7 +1,7 @@
 ﻿using ProgressionTracking;
 using UnityEngine;
 
-public sealed class ProgressableDoorColliderTrigger : DoorColliderTrigger
+public sealed class ProgressableVelocityColliderTrigger : VelocityColliderTrigger
 {
     [SerializeField]
     private SO_ProgressionTracker _progressionTracker = default;

@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/* Plays a WwiseEvent when the referenced AnimationEventBroadcaster sends an AnimationEvent.
+ * The EventArgs of the AnimationEvent must contain a string parameter equal to the name of one of the WwiseEvents registered in the WwiseEventHandler's AudioEvents dictionary.
+ */
 namespace WwiseHelper
 {
     public sealed class WwiseAnimationEventHandler : WwiseEventHandler
