@@ -27,20 +27,12 @@ namespace WwiseHelper
         {
             if (AnimationEventBroadcaster != null)
                 AnimationEventBroadcaster.AnimationEventTriggered += OnAnimationEventTriggered;
-
-#if WWISE_2024_OR_LATER
-            GlobalEventBus.Register(GlobalEvents.Player.GroundSoundMaterialChanged, OnGroundSoundMaterialChanged);
-#endif
         }
 
         private void OnDisable()
         {
             if (AnimationEventBroadcaster != null)
                 AnimationEventBroadcaster.AnimationEventTriggered -= OnAnimationEventTriggered;
-
-#if WWISE_2024_OR_LATER
-            GlobalEventBus.Deregister(GlobalEvents.Player.GroundSoundMaterialChanged, OnGroundSoundMaterialChanged);
-#endif
         }
 
         private void OnAnimationEventTriggered(AnimationEvent eventArgs)
@@ -52,15 +44,5 @@ namespace WwiseHelper
             }
 #endif
         }
-
-#if WWISE_2024_OR_LATER
-        private void OnGroundSoundMaterialChanged(object[] args)
-        {
-            if (args[0] is AK.Wwise.Switch currentSoundMaterial)
-            {
-                currentSoundMaterial.SetValue(_akGameObject.gameObject);
-            }
-        }
-#endif
     }
 }

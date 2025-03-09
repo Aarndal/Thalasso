@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace WwiseHelper
 {
-    public class WwiseSoundMaterial : MonoBehaviour
+    public sealed class WwiseSoundMaterial : MonoBehaviour
     {
 #if WWISE_2024_OR_LATER
         [SerializeField]
