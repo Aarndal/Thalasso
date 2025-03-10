@@ -12,23 +12,26 @@ namespace WwiseHelper
 #if WWISE_2024_OR_LATER
         [SerializeField]
         protected ResponderState _startState = ResponderState.TurnOff;
-        
+
         [Header("Wwise Events Settings")]
         [SerializeField]
-        protected AK.Wwise.Event[] _wwiseEvents;
+        protected AK.Wwise.Event[] _wwiseEvents = default;
         [SerializeField]
         protected bool _playOnOtherObject = false;
         [SerializeField]
-        protected bool _areEnvironmentAware = false;
+        protected bool _isEnvironmentAware = false;
+        [SerializeField]
+        protected bool _isRoomAware = false;
         [SerializeField]
         private bool _areOneTimeEvents = false;
 
         protected ResponderState _currentState = ResponderState.None;
 
         protected GameObject _eventReceiver = default;
+        protected Rigidbody _rigidbody = default;
+
         protected AkGameObj _akGameObject = default;
         protected AkRoomAwareObject _akRoomAwareObject = default;
-        protected Rigidbody _rigidbody = default;
 
         public ResponderState CurrentState { get => _currentState; protected set => _currentState = value; }
 
@@ -40,6 +43,55 @@ namespace WwiseHelper
 
             CurrentState = _startState;
 
+            InitAudioEvents();
+            SetEventReceiver(gameObject);
+            InitRequiredWwiseComponents();
+        }
+
+        public override void Respond(GameObject triggeringObject, ResponderState responderState)
+        {
+            if (_playOnOtherObject)
+            {
+                if (_eventReceiver != triggeringObject)
+                {
+                    SetEventReceiver(triggeringObject);
+                    InitRequiredWwiseComponents();
+                }
+            }
+
+            if (responderState == ResponderState.Switch)
+            {
+                responderState = CurrentState == ResponderState.TurnOff ? ResponderState.TurnOn : ResponderState.TurnOff;
+            }
+
+            switch (responderState)
+            {
+                case ResponderState.None:
+                    Debug.LogWarningFormat("<color=yellow>No valid ResponderState set</color> for Trigger activated by <color=cyan>{0}</color>", triggeringObject);
+                    return;
+                case ResponderState.TurnOff:
+                    TurnOff();
+                    break;
+                case ResponderState.TurnOn:
+                    TurnOn();
+                    break;
+                default:
+                    break;
+            }
+
+            if (_areOneTimeEvents)
+            {
+                foreach (var triggerable in _triggers)
+                {
+                    if (triggerable.Interface.IsTriggerable)
+                        triggerable.Interface.SwitchIsTriggerable();
+                }
+            }
+#endif
+        }
+
+        protected void InitAudioEvents()
+        {
             if (_wwiseEvents != null && _wwiseEvents.Length > 0)
             {
                 if (!_wwiseEvents.All((o) => o != null))
@@ -55,102 +107,63 @@ namespace WwiseHelper
                     }
                 }
             }
+        }
 
-            if (_areEnvironmentAware)
+        protected void InitRequiredWwiseComponents()
+        {
+            // Interactions between AkGameObj/AkRoomAwareObject and AkEnvironment/AkRoom require a Rigidbody component on either the EventReceiver or the environment/room.
+            if (!_eventReceiver.TryGetComponent(out _rigidbody))
             {
-                if (_akGameObject == null || !_akGameObject.gameObject.TryGetComponent(out _rigidbody))
+                if (_rigidbody == null)
                 {
-                    _rigidbody = _rigidbody != null ? _rigidbody : gameObject.GetComponentInParent<Rigidbody>();
+                    _rigidbody = _eventReceiver.AddComponent<Rigidbody>();
+                    _rigidbody.isKinematic = true;
+                }
 
-                    if (_rigidbody == null)
-                    {
-                        _rigidbody = _akGameObject != null ? _akGameObject.gameObject.AddComponent<Rigidbody>() : gameObject.AddComponent<Rigidbody>();
-                    }
-
+                if (_rigidbody.gameObject != _eventReceiver)
+                {
                     if (!_rigidbody.gameObject.TryGetComponent(out _akGameObject))
-                    {
                         _akGameObject = _rigidbody.gameObject.AddComponent<AkGameObj>();
-                    }
-                }
 
-                if (_akGameObject != null && !_akGameObject.gameObject.TryGetComponent(out _akRoomAwareObject))
-                {
-                    _akRoomAwareObject = _akGameObject.gameObject.AddComponent<AkRoomAwareObject>();
+                    _eventReceiver = _akGameObject.gameObject;
                 }
-
-                _akGameObject.isEnvironmentAware = true;
             }
-            else
+
+            _akGameObject.isEnvironmentAware = _isEnvironmentAware;
+
+            if (_isRoomAware)
             {
-                _akGameObject = _akGameObject != null ? _akGameObject : GetComponentInParent<AkGameObj>();
-
-                if (_akGameObject == null)
+                if (!_eventReceiver.TryGetComponent(out _akRoomAwareObject))
                 {
-                    _akGameObject = gameObject.AddComponent<AkGameObj>();
+                    _akRoomAwareObject = _eventReceiver.AddComponent<AkRoomAwareObject>();
                 }
-
-                _akGameObject.isEnvironmentAware = false;
             }
         }
 
-        protected void Start()
+        protected void SetEventReceiver(GameObject gameObject)
         {
-            _eventReceiver = _akGameObject.gameObject;
-        }
-
-        public override void Respond(GameObject triggeringObject, ResponderState responderState)
-        {
-            if (_playOnOtherObject)
+            if (_playOnOtherObject && gameObject != null)
             {
-                _eventReceiver = triggeringObject;
+                _eventReceiver = gameObject;
 
-                if (!_eventReceiver.TryGetComponent(out AkGameObj akGameObject))
-                {
-                    akGameObject = _eventReceiver.AddComponent<AkGameObj>();
-                }
+                if (!_eventReceiver.TryGetComponent(out _akGameObject))
+                    _akGameObject = _eventReceiver.AddComponent<AkGameObj>();
 
-                if (_areEnvironmentAware)
-                    akGameObject.isEnvironmentAware = true;
-                else
-                    akGameObject.isEnvironmentAware = false;
-            }
-
-            if (responderState == ResponderState.None)
-            {
-                Debug.LogWarningFormat("<color=yellow>No valid ResponderState set</color> for Trigger activated by <color=cyan>{0}</color>", triggeringObject);
                 return;
             }
 
-            if (responderState == ResponderState.Switch)
-            {
-                responderState = CurrentState == ResponderState.TurnOff ? ResponderState.TurnOn : ResponderState.TurnOff;
-            }
+            _eventReceiver = this.gameObject;
 
-            if (responderState == ResponderState.TurnOn)
+            if (!_eventReceiver.TryGetComponent(out _akGameObject))
             {
-                CurrentState = ResponderState.TurnOn;
-                TurnOn();
+                _akGameObject = _eventReceiver.AddComponent<AkGameObj>();
             }
-
-            if (responderState == ResponderState.TurnOff)
-            {
-                CurrentState = ResponderState.TurnOff;
-                TurnOff();
-            }
-
-            if (_areOneTimeEvents)
-            {
-                foreach (var triggerable in _triggers)
-                {
-                    if (triggerable.Interface.IsTriggerable)
-                        triggerable.Interface.SwitchIsTriggerable();
-                }
-            }
-#endif
         }
 
         protected void TurnOff()
         {
+            CurrentState = ResponderState.TurnOff;
+
             foreach (var audioEvent in AudioEvents.Values)
             {
                 audioEvent.Stop(_eventReceiver);
@@ -160,6 +173,8 @@ namespace WwiseHelper
 
         protected void TurnOn()
         {
+            CurrentState = ResponderState.TurnOn;
+
             foreach (var audioEvent in AudioEvents.Values)
             {
                 audioEvent.Post(_eventReceiver);

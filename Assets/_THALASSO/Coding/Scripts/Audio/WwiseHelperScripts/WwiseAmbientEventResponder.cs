@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace WwiseHelper
@@ -23,13 +24,13 @@ namespace WwiseHelper
                 {
                     foreach (var akAmbient in akAmbients)
                     {
-                        if (akAmbient.data == wwiseEvent)
-                        {
-                            if (AmbientComponents.TryAdd(wwiseEvent, akAmbient))
-                                break;
-                            else
-                                Debug.LogWarningFormat("{0} already contains a {2} component that plays {1} event!", gameObject.name, wwiseEvent.Name, akAmbient.name);
-                        }
+                        if (akAmbient.data != wwiseEvent)
+                            continue;
+
+                        if (AmbientComponents.TryAdd(wwiseEvent, akAmbient))
+                            continue;
+
+                        Debug.LogWarningFormat("{0} already contains a {2} component that plays {1} event!", gameObject.name, wwiseEvent.Name, akAmbient);
                     }
                 }
 
@@ -40,7 +41,7 @@ namespace WwiseHelper
                 temp.data = wwiseEvent;
 
                 if (!AmbientComponents.TryAdd(wwiseEvent, temp))
-                    Debug.LogWarningFormat("{0} already contains a {2} component that plays {1} event!", gameObject.name, wwiseEvent.Name, temp.name);
+                    Debug.LogWarningFormat("{0} already contains a {2} component that plays {1} event!", gameObject.name, wwiseEvent.Name, temp);
             }
 
             if (AmbientComponents.Count > 0)
