@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace WwiseHelper
@@ -9,25 +10,27 @@ namespace WwiseHelper
     public class WwiseEventResponder : Responder
     {
 #if WWISE_2024_OR_LATER
-        [Header("Wwise Event Settings")]
         [SerializeField]
-        private bool _areOneTimeEvents = false;
+        protected ResponderState _startState = ResponderState.TurnOff;
+        
+        [Header("Wwise Events Settings")]
+        [SerializeField]
+        protected AK.Wwise.Event[] _wwiseEvents;
+        [SerializeField]
+        protected bool _playOnOtherObject = false;
         [SerializeField]
         protected bool _areEnvironmentAware = false;
         [SerializeField]
-        protected bool _playOnOtherObject = false; // ToDo: Implement so that a WwiseEvent can be posted to the triggeringObject.
-        [SerializeField]
-        protected ResponderState _startState = ResponderState.TurnOff;
+        private bool _areOneTimeEvents = false;
 
-        [Header("Wwise Events")]
-        [SerializeField]
-        protected AK.Wwise.Event[] _wwiseEvents;
+        protected ResponderState _currentState = ResponderState.None;
 
-        protected ResponderState _currentTriggerState = ResponderState.None;
-        
+        protected GameObject _eventReceiver = default;
         protected AkGameObj _akGameObject = default;
         protected AkRoomAwareObject _akRoomAwareObject = default;
         protected Rigidbody _rigidbody = default;
+
+        public ResponderState CurrentState { get => _currentState; protected set => _currentState = value; }
 
         public readonly Dictionary<string, AK.Wwise.Event> AudioEvents = new();
 
@@ -35,15 +38,20 @@ namespace WwiseHelper
         {
             base.Awake();
 
-            _currentTriggerState = _startState;
+            CurrentState = _startState;
 
-            if (_wwiseEvents != null || _wwiseEvents.Length == 0)
+            if (_wwiseEvents != null && _wwiseEvents.Length > 0)
             {
+                if (!_wwiseEvents.All((o) => o != null))
+                {
+                    Debug.LogWarningFormat("There are <color=yellow>undefined Wwise Events</color> in <color=cyan>{0}</color>'s {1} component!", gameObject.name, this);
+                }
+
                 foreach (var wwiseEvent in _wwiseEvents)
                 {
                     if (!AudioEvents.TryAdd(wwiseEvent.Name, wwiseEvent))
                     {
-                        Debug.LogErrorFormat("Wwise Event color=cyan>{0}</color> <color=red>is defined multiple times</color> in <color=cyan>{1}</color> WwiseEventAnimationEventResponder component!", wwiseEvent.Name, gameObject.name);
+                        Debug.LogWarningFormat("Wwise Event color=cyan>{0}</color> <color=yellow>is defined multiple times</color> in <color=cyan>{1}</color>'s {2} component!", wwiseEvent.Name, gameObject.name, this);
                     }
                 }
             }
@@ -85,29 +93,49 @@ namespace WwiseHelper
             }
         }
 
-        public override void Respond(GameObject triggeringObject, ResponderState triggerState)
+        protected void Start()
         {
-            if (triggerState == ResponderState.None)
+            _eventReceiver = _akGameObject.gameObject;
+        }
+
+        public override void Respond(GameObject triggeringObject, ResponderState responderState)
+        {
+            if (_playOnOtherObject)
             {
-                Debug.LogFormat("No valid TriggerState set for Trigger activated by {0}", triggeringObject);
+                _eventReceiver = triggeringObject;
+
+                if (!_eventReceiver.TryGetComponent(out AkGameObj akGameObject))
+                {
+                    akGameObject = _eventReceiver.AddComponent<AkGameObj>();
+                }
+
+                if (_areEnvironmentAware)
+                    akGameObject.isEnvironmentAware = true;
+                else
+                    akGameObject.isEnvironmentAware = false;
+            }
+
+            if (responderState == ResponderState.None)
+            {
+                Debug.LogWarningFormat("<color=yellow>No valid ResponderState set</color> for Trigger activated by <color=cyan>{0}</color>", triggeringObject);
                 return;
             }
 
-            if (triggerState == ResponderState.Switch)
+            if (responderState == ResponderState.Switch)
             {
-                triggerState = _currentTriggerState == ResponderState.TurnOff ? ResponderState.TurnOn : ResponderState.TurnOff;
+                responderState = CurrentState == ResponderState.TurnOff ? ResponderState.TurnOn : ResponderState.TurnOff;
             }
 
-            if (triggerState == ResponderState.TurnOn)
+            if (responderState == ResponderState.TurnOn)
             {
-                _currentTriggerState = ResponderState.TurnOn;
-                TriggerIsTurnedOn();
+                CurrentState = ResponderState.TurnOn;
+                TurnOn();
             }
 
-            if (triggerState == ResponderState.TurnOff)
+            if (responderState == ResponderState.TurnOff)
             {
-                _currentTriggerState = ResponderState.TurnOff;
-                TriggerIsTurnedOff();
+                CurrentState = ResponderState.TurnOff;
+                TurnOff();
             }
 
             if (_areOneTimeEvents)
@@ -121,20 +149,20 @@ namespace WwiseHelper
 #endif
         }
 
-        protected void TriggerIsTurnedOff()
+        protected void TurnOff()
         {
             foreach (var audioEvent in AudioEvents.Values)
             {
-                audioEvent.Stop(_akGameObject.gameObject);
+                audioEvent.Stop(_eventReceiver);
             }
-            //AkUnitySoundEngine.StopAll(_akGameObject.gameObject);
+            //AkUnitySoundEngine.StopAll(_eventReceiver);
         }
 
-        protected void TriggerIsTurnedOn()
+        protected void TurnOn()
         {
             foreach (var audioEvent in AudioEvents.Values)
             {
-                audioEvent.Post(_akGameObject.gameObject);
+                audioEvent.Post(_eventReceiver);
             }
         }
     }

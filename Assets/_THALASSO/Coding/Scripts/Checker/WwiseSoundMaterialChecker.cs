@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using WwiseHelper;
 using System;
-using UnityEditor.PackageManager;
 
 // Checks any hit Collider for an attached SoundMaterial component.
 [RequireComponent(typeof(SphereCollider))]
@@ -107,10 +106,9 @@ public sealed class WwiseSoundMaterialChecker : MonoBehaviour, IMakeChecks, INot
         if (!IsActive)
             return false;
 
+#if WWISE_2024_OR_LATER
         Collider[] overlappingColliders = new Collider[10];
 
-#if WWISE_2024_OR_LATER
-        //if (Physics.Raycast(transform.position, target.transform.position - transform.position, out RaycastHit hitInfo, (target.transform.position - transform.position).magnitude, _toCheckLayerMasks))
         if (Physics.OverlapSphereNonAlloc(transform.position + _sphereOffset, _sphereRadius, overlappingColliders, _toCheckLayerMasks) > 0)
         {
             float distanceToClosestCollider = float.MaxValue;
@@ -131,15 +129,6 @@ public sealed class WwiseSoundMaterialChecker : MonoBehaviour, IMakeChecks, INot
                         distanceToClosestCollider = distanceToCollider;
                     }
                 }
-
-                //if (Physics.Raycast(transform.position, collider.transform.position - transform.position, out RaycastHit hitInfo, (collider.transform.position - transform.position).magnitude, _toCheckLayerMasks))
-                //{
-                //    if (hitInfo.collider.TryGetComponent(out WwiseSoundMaterial soundMaterial))
-                //    {
-                //        CurrentSoundMaterial = soundMaterial.Get();
-                //        return true;
-                //    }
-                //}
             }
 
             if(closestSoundMaterial != null)
@@ -148,13 +137,6 @@ public sealed class WwiseSoundMaterialChecker : MonoBehaviour, IMakeChecks, INot
                 return true;
             }
         }
-
-        //if (target.gameObject.TryGetComponent(out WwiseSoundMaterial soundMaterial))
-        //{
-        //    if (CurrentSoundMaterial != soundMaterial.Get())
-        //        CurrentSoundMaterial = soundMaterial.Get();
-        //    return true;
-        //}
 #endif
         return false;
     }

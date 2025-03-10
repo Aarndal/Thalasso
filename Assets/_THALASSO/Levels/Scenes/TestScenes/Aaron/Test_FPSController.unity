@@ -1181,50 +1181,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3873098113950125193, guid: 261c627b89849bc42931d070738be608, type: 3}
   m_PrefabInstance: {fileID: 607135318}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &728072421
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 728072423}
-  - component: {fileID: 728072422}
-  m_Layer: 0
-  m_Name: TransformTransitionSystem
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &728072422
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 728072421}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e98ac1bd94a50fe409d0822ba2906858, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &728072423
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 728072421}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &733527601
 GameObject:
   m_ObjectHideFlags: 0
@@ -1238,7 +1194,6 @@ GameObject:
   - component: {fileID: 733527604}
   - component: {fileID: 733527607}
   - component: {fileID: 733527603}
-  - component: {fileID: 733527606}
   m_Layer: 20
   m_Name: Test_ProgressionTracking
   m_TagString: Untagged
@@ -1271,7 +1226,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 733527601}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cdd26913c9eaeef49a9855fb35d1c37d, type: 3}
   m_Name: 
@@ -1331,23 +1286,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &733527606
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 733527601}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ced575d34fd157d4eb29616abf76f639, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _isTriggerable: 0
-  _isOneTimeTrigger: 0
-  _cannotBeTriggeredMessage: 
-  _triggeringResponderState: 2
-  _progressionTracker: {fileID: 11400000, guid: b9f09e4f92460f84f965d52ff420e87c, type: 2}
 --- !u!65 &733527607
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1544,6 +1482,12 @@ MonoBehaviour:
       editorAssetGUID: 62b7b8a98211af748b85cbf5fc90faf1
       name: UI_Ingame
       _path: Assets/_THALASSO/Levels/UI/UI_Ingame.unity
+    loadInEditor: 1
+    loadMethod: 1
+  - scene:
+      editorAssetGUID: f0e605d3aa8acb945839dd11bf24bc6c
+      name: 00_Core
+      _path: Assets/_THALASSO/Levels/Scenes/00_Core.unity
     loadInEditor: 1
     loadMethod: 1
   _isMainScene: 0
@@ -4277,6 +4221,7 @@ GameObject:
   - component: {fileID: 1260686455905840222}
   - component: {fileID: 2797017065828312059}
   - component: {fileID: 87247872595466033}
+  - component: {fileID: 2797017065828312060}
   m_Layer: 6
   m_Name: Ground_Mesh
   m_TagString: Untagged
@@ -4593,6 +4538,24 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1888427758004582116}
   m_Mesh: {fileID: -2416140440825151618, guid: aa38d7b0e367ecc4aac915dcfe957879, type: 3}
+--- !u!114 &2797017065828312060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1888427758004582116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e191ea7d50ac124468894a088222114b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _soundMaterial:
+    idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 9af64c217f9d52c49b486e289c49605a, type: 2}
 --- !u!23 &2851502387383525248
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7854,10 +7817,9 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 788908502}
-  - {fileID: 728072423}
-  - {fileID: 8345070699607165082}
-  - {fileID: 410087041}
   - {fileID: 832575519}
+  - {fileID: 410087041}
+  - {fileID: 8345070699607165082}
   - {fileID: 7483690675023043624}
   - {fileID: 6548084043922459030}
   - {fileID: 865372189}

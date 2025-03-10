@@ -5,6 +5,7 @@ using UnityEngine;
 [Serializable]
 public abstract class Responder : MonoBehaviour, IAmResponsive
 {
+    [Header("Responder Settings")]
     [SerializeField]
     protected List<MySerializableInterface<IAmTriggerable>> _triggers = new();
 

@@ -2662,7 +2662,6 @@ GameObject:
   - component: {fileID: 1796546054052878204}
   - component: {fileID: 4131238592232167067}
   - component: {fileID: 2036464196522517458}
-  - component: {fileID: 5766402254370432504}
   - component: {fileID: 7320325793655824833}
   - component: {fileID: 3940830999040406894}
   - component: {fileID: 8551591524037566717}
@@ -2855,35 +2854,6 @@ MonoBehaviour:
     idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: 07c6156d9f865144993171de9bb00275, type: 2}
-  useCallbacks: 0
-  stopSoundOnDestroy: 1
-  Callbacks: []
-  soundEmitterObject: {fileID: 0}
-  transitionDuration: 0
-  eventIdInternal: 0
-  valueGuidInternal: 
-  m_callbackDataInternal: {fileID: 0}
---- !u!114 &5766402254370432504
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4829465317767684519}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fdc3ecc4808e08418a29f4eab21d1fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerList: f7e1664c
-  useOtherObject: 0
-  actionOnEventType: 0
-  curveInterpolation: 4
-  enableActionOnEvent: 0
-  data:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 4d27035325f5e464892caee0cb1080d6, type: 2}
   useCallbacks: 0
   stopSoundOnDestroy: 1
   Callbacks: []
