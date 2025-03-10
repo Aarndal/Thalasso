@@ -13,6 +13,8 @@ public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
     [SerializeField] private float transitionduration;
     [SerializeField] private AnimationCurve animationSpeedCurve;
 
+    [SerializeField] private bool uiAlwaysActive = false;
+
     [SerializeField] private bool puzzleAutoStartNeeded = false;
     [SerializeField] private MonoBehaviour autoStartPuzzleScript;
 
@@ -37,7 +39,8 @@ public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
         if (ID == puzzleID)
         {
             buttonUICanvas = reference;
-            buttonUICanvas.SetActive(false);
+            if (!uiAlwaysActive)
+                buttonUICanvas.SetActive(false);
         }
     }
 
@@ -62,7 +65,8 @@ public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
             }, () =>
             {
                 inAnimation = false;
-                buttonUICanvas.SetActive(true);
+                if (!uiAlwaysActive)
+                    buttonUICanvas.SetActive(true);
                 isfocused = true;
 
                 if (puzzleAutoStartNeeded && autoStartPuzzleScript != null)
@@ -81,14 +85,15 @@ public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
             StartCoroutine(TransformTransitionSystem.Instance.TransitionPosRot(Camera.main.gameObject, tempOriginalTransform, transitionduration, animationSpeedCurve, () =>
             {
                 inAnimation = true;
-                buttonUICanvas.SetActive(false);
+                if (!uiAlwaysActive)
+                    buttonUICanvas.SetActive(false);
             }, () =>
             {
                 inAnimation = false;
                 cinemachineCamera.enabled = true;
                 isfocused = false;
             }));
-            
+
             _input.SwitchCurrentActionMap("Player"); // Switch to Player ActionMap and disable any other Action Map
         }
     }

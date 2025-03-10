@@ -6213,8 +6213,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isTriggerable: 0
   _isOneTimeTrigger: 0
-  _triggerMode: 24
   _cannotBeTriggeredMessage: 
+  _triggerMode: 24
   _progressionTracker: {fileID: 11400000, guid: 89803b6ece5f2424782a7f1907d062e6, type: 2}
 --- !u!1001 &1975936413
 PrefabInstance:
@@ -6901,6 +6901,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 6144558130316258282, guid: 0f5d813a16a1e464dac44e1b8dd72275, type: 3}
+    - target: {fileID: 1213776938615444198, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
+      propertyPath: uiAlwaysActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1732256068995673940, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
       propertyPath: m_Name
       value: SM_DoorLock_Riddle

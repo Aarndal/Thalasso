@@ -93,6 +93,7 @@ public class MasterMindPuzzleLogic : SolvableObjectBase
 
     private void CheckInput()
     {
+        bool valid = true;
         for (int i = 0; i < inputCode.Length; i++)
         {
             if (inputCode[i] == code[i])
@@ -101,16 +102,22 @@ public class MasterMindPuzzleLogic : SolvableObjectBase
             }
             else if (code.Contains(inputCode[i]))
             {
+                valid = false;
                 outputText[i].color = Color.yellow;
             }
             else
             {
+                valid = false;
                 outputText[i].color = Color.white;
             }
         }
 
-        Debug.LogFormat("<color=green>{0} solved!</color>", name);
-        Solve();
+        if (valid)
+        {
+            Debug.LogFormat("<color=green>{0} solved!</color>", name);
+            Solve();
+            GetComponent<PuzzleColliderLogic>().Interact(transform);
+        }
     }
 
     public override bool Solve() => IsSolved = true;

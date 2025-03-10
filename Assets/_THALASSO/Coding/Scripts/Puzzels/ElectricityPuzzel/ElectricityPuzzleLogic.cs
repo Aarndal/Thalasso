@@ -443,8 +443,8 @@ public class ElectricityPuzzleLogic : SolvableObjectBase
 
     public override bool Solve()
     {
-        Debug.Log("Puzzle Gelöst!");
 
+        GetComponent<PuzzleColliderLogic>().Interact(transform);
         return IsSolved = true;
     }
 }

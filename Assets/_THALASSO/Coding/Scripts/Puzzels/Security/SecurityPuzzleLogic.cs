@@ -34,6 +34,7 @@ public class SecurityPuzzleLogic : SolvableObjectBase
         if (inputPassword == password)
         {
             Solve();
+            GetComponent<PuzzleColliderLogic>().Interact(transform);
         }
     }
     public void OnResetPassword()

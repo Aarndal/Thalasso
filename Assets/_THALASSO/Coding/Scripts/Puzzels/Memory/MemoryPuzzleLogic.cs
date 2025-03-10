@@ -63,7 +63,7 @@ public class MemoryPuzzleLogic : SolvableObjectBase
     {
         if (isRunning)
             return;
-        if(!isRunning)
+        if (!isRunning)
             isRunning = true;
 
         roundCounter = 0;
@@ -206,15 +206,16 @@ public class MemoryPuzzleLogic : SolvableObjectBase
         }
 
         yield return new WaitForSeconds(0.5f);
+
         Solve();
     }
 
-    
+
 
     public override bool Solve()
     {
         StopAllCoroutines();
-        Debug.Log("Puzzle solved");
+        GetComponent<PuzzleColliderLogic>().Interact(transform);
         return IsSolved = true;
     }
 }
