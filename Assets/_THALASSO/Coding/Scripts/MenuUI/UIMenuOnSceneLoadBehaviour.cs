@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-public class UICanvasOnSceneLoadBehaviour : MonoBehaviour
+public class UIMenuOnSceneLoadBehaviour : MonoBehaviour
 {
     [SerializeField]
     private bool _activateOnSceneLoad = false;
@@ -21,6 +21,8 @@ public class UICanvasOnSceneLoadBehaviour : MonoBehaviour
         _childCanvases = GetComponentsInChildren<Canvas>();
 
         _uniqueCanvasesToLoad = _canvasesToLoad.ToHashSet();
+
+        _uniqueCanvasesToLoad.Add(_canvas);
     }
 
     private void OnEnable()

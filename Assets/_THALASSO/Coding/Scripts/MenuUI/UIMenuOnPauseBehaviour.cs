@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class UICanvasOnPauseBehaviour : MonoBehaviour
+public class UIMenuOnPauseBehaviour : MonoBehaviour
 {
     [SerializeField, Tooltip("Set all Canvases that should be loaded when this Canvas is loaded.")]
     private Canvas[] _canvasesToLoad;

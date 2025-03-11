@@ -1,3 +1,4 @@
+using Eflatun.SceneReference;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,9 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
 
     [SerializeField]
     private InputActionMap _defaultActionMap;
+
+    [SerializeField]
+    private SceneReference _pauseMenu;
 
     [Header("Input Settings")]
     [SerializeField]
@@ -58,7 +62,9 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
         {
             if (value != _currentActionMap)
             {
-                _previousActionMap = _currentActionMap;
+                if (_currentActionMap != null)
+                    _previousActionMap = _currentActionMap;
+
                 _currentActionMap = value;
 
                 ActionMapChanged?.Invoke(_previousActionMap, _currentActionMap);
@@ -148,14 +154,14 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
             _defaultActionMap = _actionMaps[0];
         }
 
+        EnableDefaultActionMap();
+        
         if (ActionMaps.Count > 0 || ActionMaps.Count != _actionMaps.Count)
         {
             ActionMaps.Clear();
             for (int i = 0; i < _actionMaps.Count; i++)
                 ActionMaps.Add(_actionMaps[i].name, _actionMaps[i]);
         }
-
-        EnableDefaultActionMap();
 
         IsPauseActive = false;
 
@@ -179,6 +185,7 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
     {
         _defaultActionMap.Enable();
         CurrentActionMap = _defaultActionMap;
+        _previousActionMap = CurrentActionMap;
     }
 
     public bool SwitchCurrentActionMap(string newActionMapName)
@@ -296,7 +303,7 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
     {
         //_currentInputDevice = GetCurrentInputDevice(context);
 
-        if (context.phase == InputActionPhase.Performed && SceneManager.GetActiveScene().buildIndex != 0 && SceneManager.GetActiveScene().buildIndex != 2)
+        if (context.phase == InputActionPhase.Performed && _pauseMenu.LoadedScene.isLoaded)
         {
             IsPauseActive = !IsPauseActive;
             GlobalEventBus.Raise(GlobalEvents.Game.IsPaused, IsPauseActive);
