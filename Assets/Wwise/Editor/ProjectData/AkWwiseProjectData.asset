@@ -38,7 +38,7 @@ MonoBehaviour:
     ParentPath: Master-Mixer Hierarchy\Default Work Unit
     guid: e859a97a12de8f4f9f8b1ba45dc16a06
     GuidInternal: 
-    m_lastTime: -8584621635814775808
+    m_lastTime: -8584599667203725337
     List:
     - name: Electronics_Room
       guid: ff3039f3c7bdaa4a8be83fc4c1f3b28b
@@ -1178,8 +1178,36 @@ MonoBehaviour:
     ParentPath: Game Parameters\Default Work Unit
     guid: b2cd9fe1606ecb4c9d9f6e3458c75fbe
     GuidInternal: 
-    m_lastTime: -8584635260294775808
-    List: []
+    m_lastTime: -8584599659558431028
+    List:
+    - name: BGM
+      guid: 1c633dfaa00ae4479693aeb1ab8815d2
+      id: 412724365
+      PathAndIcons:
+      - ElementName: Game Parameters
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: b2cd9fe1606ecb4c9d9f6e3458c75fbe
+      - ElementName: BGM
+        ObjectType: 13
+        guid: 1c633dfaa00ae4479693aeb1ab8815d2
+      Path: Game Parameters\Default Work Unit\BGM
+    - name: SFX
+      guid: 9e2028c834ad4345a2562c292585f447
+      id: 393239870
+      PathAndIcons:
+      - ElementName: Game Parameters
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: b2cd9fe1606ecb4c9d9f6e3458c75fbe
+      - ElementName: SFX
+        ObjectType: 13
+        guid: 9e2028c834ad4345a2562c292585f447
+      Path: Game Parameters\Default Work Unit\SFX
   StateWwu:
   - PhysicalPath: States\Default Work Unit.wwu
     PathAndIcons:
