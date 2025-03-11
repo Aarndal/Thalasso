@@ -9,39 +9,49 @@ public class StartCutscene : MonoBehaviour
     [SerializeField] private SO_GameInputReader _input;
     [SerializeField] private Image fadeImage;
     [SerializeField] private float fadeDuration = 1f;
-    private GameObject cutsceneCanvas;
-
+    
+    private Canvas cutsceneCanvas;
     private CinemachineBrain cinemachineBrain;
+    private PCAnimation pCAnimation;
+
+    private void Awake()
+    {
+        if (cutsceneCanvas == null)
+            cutsceneCanvas = GetComponent<Canvas>();
+
+        if (fadeImage == null && cutsceneCanvas != null)
+            fadeImage = GetComponentInChildren<Image>();
+        
+        cinemachineBrain = FindFirstObjectByType<CinemachineBrain>();
+
+        pCAnimation = FindAnyObjectByType<PCAnimation>();
+    }
 
     private void OnEnable()
     {
-        if (cutsceneCanvas == null)
-            cutsceneCanvas = GameObject.Find("CutsceneCanvas");
-
-        if (fadeImage == null && cutsceneCanvas != null)
-            fadeImage = cutsceneCanvas.GetComponentInChildren<Image>();
-
-        _input.SkipIsTriggered += OnSkipCutScene;
-    }
-
-    private void OnDisable()
-    {
-        _input.SkipIsTriggered -= OnSkipCutScene;
+        _input.SkipIsPerformed += OnSkipIsPerformed;
     }
 
     private void Start()
     {
-        cinemachineBrain = Object.FindFirstObjectByType<CinemachineBrain>();
         _input.SwitchCurrentActionMap("Cutscene");
         cinemachineBrain.enabled = false;
+        pCAnimation._inCutscene = true;
 
         fadeImage.gameObject.SetActive(false);
         fadeImage.color = new Color(0, 0, 0, 1);
     }
-    private void OnSkipCutScene()
+
+    private void OnDisable()
+    {
+        _input.SkipIsPerformed -= OnSkipIsPerformed;
+    }
+
+    private void OnSkipIsPerformed()
     {
         StartCoroutine(PerformCutsceneSkipWithFade());
     }
+
     private IEnumerator PerformCutsceneSkipWithFade()
     {
         yield return FadeOut();
@@ -54,7 +64,7 @@ public class StartCutscene : MonoBehaviour
 
     private void ProcessCutsceneSkip()
     {
-        Animator eyeAnimator = cutsceneCanvas.GetComponentInChildren<Animator>();
+        Animator eyeAnimator = GetComponentInChildren<Animator>();
 
         if (eyeAnimator == null)
             return;
@@ -67,7 +77,6 @@ public class StartCutscene : MonoBehaviour
 
     public void OnCutsceneEnd()
     {
-        PCAnimation pCAnimation = FindAnyObjectByType<PCAnimation>();
         pCAnimation._inCutscene = false;
         pCAnimation.SetAnimationState(0, "Idle", 0.02f);
 

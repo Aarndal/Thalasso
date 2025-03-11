@@ -24,6 +24,7 @@ public class ButtonActions : MonoBehaviour
     [SerializeField] private AK.Wwise.Event exitPauseMenuSound;
 #endif
 
+    #region Unity LifeCycelMethods
     private void Awake()
     {
         int curSceneId = SceneManager.GetActiveScene().buildIndex;
@@ -40,7 +41,7 @@ public class ButtonActions : MonoBehaviour
 
     private void OnEnable()
     {
-        input.PauseIsPerformed += OnPauseIsPerformed;
+        GlobalEventBus.Register(GlobalEvents.Game.IsPaused, OnGameIsPaused);
     }
 
     private void Start()
@@ -63,8 +64,9 @@ public class ButtonActions : MonoBehaviour
     }
     private void OnDisable()
     {
-        input.PauseIsPerformed -= OnPauseIsPerformed;
+        GlobalEventBus.Deregister(GlobalEvents.Game.IsPaused, OnGameIsPaused);
     }
+    #endregion
 
     #region NormalUIButtonActions
     public void QuitGame()
@@ -76,7 +78,7 @@ public class ButtonActions : MonoBehaviour
 #endif
     }
 
-    private void OnPauseIsPerformed() => TogglePause();
+    private void OnGameIsPaused(object[] args) => TogglePause();
 
     public void TogglePause()
     {
@@ -103,9 +105,7 @@ public class ButtonActions : MonoBehaviour
 
     public void ResumeGame()
     {
-        input.IsPauseActive = false;
-
-        TogglePause();
+        GlobalEventBus.Raise(GlobalEvents.Game.IsPaused, false);
     }
     #endregion
 
@@ -129,8 +129,7 @@ public class ButtonActions : MonoBehaviour
                 exitMainMenuSound.Post(gameObject);
 #endif
 
-            input.IsPauseActive = false;
-            input.SwitchCurrentActionMap("UI"); // Switch to UI ActionMap and disable any other Action Map
+            GlobalEventBus.Raise(GlobalEvents.Game.IsPaused, false);
         }
 
         if (useFade)

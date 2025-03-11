@@ -5982,19 +5982,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2eec03a4f24e5d40b33c35c84fe4f81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _onEnterSwitchTo:
-    idInternal: 0
-    valueGuidInternal: 
-    groupIdInternal: 0
-    groupGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 36bd40c8978c8a54484ba37162626ec9, type: 2}
-  _onStaySwitchTo:
-    idInternal: 0
-    valueGuidInternal: 
-    groupIdInternal: 0
-    groupGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
-  _onExitSwitchTo:
+  _isTriggerable: 1
+  _isOneTimeTrigger: 0
+  _cannotBeTriggeredMessage: 
+  _triggerSettings:
+    dictionaryList: []
+  _wwiseSwitch:
     idInternal: 0
     valueGuidInternal: 
     groupIdInternal: 0
@@ -7097,7 +7090,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 647758633681982034, guid: 8cba9bbe43d136d478aca13fb10d40d9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.5439887
       objectReference: {fileID: 0}
     - target: {fileID: 647758633681982034, guid: 8cba9bbe43d136d478aca13fb10d40d9, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -7117,7 +7110,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3153661958659906310, guid: 8cba9bbe43d136d478aca13fb10d40d9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1.6319664
       objectReference: {fileID: 0}
     - target: {fileID: 3153661958659906310, guid: 8cba9bbe43d136d478aca13fb10d40d9, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -7137,7 +7130,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3498153426878120474, guid: 8cba9bbe43d136d478aca13fb10d40d9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.5439887
       objectReference: {fileID: 0}
     - target: {fileID: 3498153426878120474, guid: 8cba9bbe43d136d478aca13fb10d40d9, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -7201,7 +7194,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7062000007176987040, guid: 8cba9bbe43d136d478aca13fb10d40d9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -1.6319664
       objectReference: {fileID: 0}
     - target: {fileID: 7062000007176987040, guid: 8cba9bbe43d136d478aca13fb10d40d9, type: 3}
       propertyPath: m_AnchoredPosition.x

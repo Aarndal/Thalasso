@@ -683,7 +683,6 @@ GameObject:
   - component: {fileID: 2326223493296848604}
   - component: {fileID: 2622608469383200603}
   - component: {fileID: 611012666410614468}
-  - component: {fileID: 5991360273986344976}
   m_Layer: 2
   m_Name: SK_Arms3
   m_TagString: Untagged
@@ -744,21 +743,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 315b7b2e41d6446439cef098c462b80c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5991360273986344976
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1203382353444501547}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5aaacb8a6b008564d88c5d61d9450d00, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _input: {fileID: 11400000, guid: bcec874ef13692e4d84d8d005895f237, type: 2}
-  fadeImage: {fileID: 0}
-  fadeDuration: 1
 --- !u!1 &1337625276319946902
 GameObject:
   m_ObjectHideFlags: 0
@@ -2922,8 +2906,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 427036bbf1f0e2544b9ea56073b72233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _akGameObject: {fileID: 2877815694149023805}
-  areEnvironmentAware: 1
   _wwiseEvents:
   - idInternal: 0
     valueGuidInternal: 
@@ -2931,6 +2913,11 @@ MonoBehaviour:
   - idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: 8f4cdb224558c3e4c9231396c69ea7ff, type: 2}
+  _playOnOtherObject: 0
+  _isEnvironmentAware: 0
+  _isRoomAware: 0
+  _eventReceiver: {fileID: 0}
+  _rigidbody: {fileID: 0}
   _animationEventBroadcaster: {fileID: 611012666410614468}
 --- !u!114 &5521118007307983165
 MonoBehaviour:

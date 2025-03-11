@@ -27,7 +27,7 @@ public class PCAnimation : Entity
     private bool _isJumpTriggered = false;
     private bool _isSprintTriggered = false;
 
-    public bool _inCutscene = true;
+    public bool _inCutscene = false;
 
     public Dictionary<int, string> AnimationStates => _animationStates;
 
