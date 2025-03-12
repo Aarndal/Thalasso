@@ -5,9 +5,9 @@ public sealed class LineOfSightColliderTrigger : LayerMaskColliderTrigger
     [SerializeField]
     private Collider _targetedCollider = default;
 
-    private void Start()
+    protected override void Start()
     {
-        _triggerableCollider.isTrigger = true;
+        base.Start();
         _targetedCollider.isTrigger = false;
     }
 

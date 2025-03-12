@@ -5038,6 +5038,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1563763495}
   - component: {fileID: 1563763496}
+  - component: {fileID: 1563763497}
   m_Layer: 0
   m_Name: Ambience_ElectricityRoom
   m_TagString: Untagged
@@ -5081,6 +5082,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 16, y: 5, z: 10}
   m_Center: {x: 0, y: 2.5, z: 0}
+--- !u!114 &1563763497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1563763494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2def41128a38834c9d7c6014c5619fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  excludeOthers: 0
+  isDefault: 0
+  data:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 5cc855fd2c718114ab8c6576b627ab7c, type: 2}
+  priority: 0
+  auxBusIdInternal: 0
+  valueGuidInternal: 
 --- !u!1001 &1601478720
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5960,6 +5982,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2eec03a4f24e5d40b33c35c84fe4f81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isTriggerable: 1
+  _isOneTimeTrigger: 0
+  _cannotBeTriggeredMessage: 
+  _triggerSettings:
+    dictionaryList: []
+  _wwiseSwitch:
+    idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
 --- !u!1001 &1879221973
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6406,6 +6439,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 965732668}
     m_Modifications:
+    - target: {fileID: 683628913608228779, guid: e62e1d1190e76434eb8bf3f9eac846af, type: 3}
+      propertyPath: isEnvironmentAware
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 683628913608228779, guid: e62e1d1190e76434eb8bf3f9eac846af, type: 3}
+      propertyPath: m_positionOffsetData.KeepMe
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5639881543899322830, guid: e62e1d1190e76434eb8bf3f9eac846af, type: 3}
       propertyPath: m_Name
       value: SM_Electricity_V3 (5)
@@ -7098,6 +7139,10 @@ PrefabInstance:
     - target: {fileID: 3498153426878120474, guid: 8cba9bbe43d136d478aca13fb10d40d9, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4227340769615768140, guid: 8cba9bbe43d136d478aca13fb10d40d9, type: 3}
+      propertyPath: isStaticObject
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6424917021618605257, guid: 8cba9bbe43d136d478aca13fb10d40d9, type: 3}
       propertyPath: m_LocalPosition.x

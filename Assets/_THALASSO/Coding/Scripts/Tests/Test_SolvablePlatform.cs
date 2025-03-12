@@ -4,7 +4,7 @@ using UnityEngine;
 namespace ProgressionTracking
 {
     [Serializable]
-    public class Test_SolvablePlatform : SolvableObjectBase
+    public class Test_SolvablePlatform : SolvableObject
     {
         [SerializeField]
         private SO_ProgressionTracker _progressionTracker = default;
