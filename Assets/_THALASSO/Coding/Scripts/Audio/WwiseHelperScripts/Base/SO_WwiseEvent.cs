@@ -4,6 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewWwiseEvent", menuName = "Scriptable Objects/WwiseEvent")]
 public class SO_WwiseEvent : ScriptableObject
 {
+#if WWISE_2024_OR_LATER
     [SerializeField]
     private AK.Wwise.Event _wwiseEvent = default;
 
@@ -83,4 +84,5 @@ public class SO_WwiseEvent : ScriptableObject
         }
         return false;
     }
+#endif
 }

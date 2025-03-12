@@ -7,6 +7,7 @@ namespace WwiseHelper
     [Serializable]
     public class WwiseVolumeSlider : MonoBehaviour
     {
+#if WWISE_2024_OR_LATER
         [SerializeField]
         private AK.Wwise.RTPC _rtpc = default;
         [SerializeField]
@@ -43,5 +44,6 @@ namespace WwiseHelper
             _wwiseBus.DeleteData();
             _wwiseBus.LoadVolume();
         }
+#endif
     }
 }

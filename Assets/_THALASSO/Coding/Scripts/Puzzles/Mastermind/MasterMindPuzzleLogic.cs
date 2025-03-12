@@ -11,6 +11,7 @@ public class MasterMindPuzzleLogic : SolvableObject, IAmPuzzle
     [SerializeField] private TextMeshProUGUI[] outputText;
     [SerializeField] private int puzzleID = 1;
 
+#if WWISE_2024_OR_LATER
     [Header("WWise Events")]
     [SerializeField]
     private AkGameObj akGameObject = default;
@@ -20,6 +21,7 @@ public class MasterMindPuzzleLogic : SolvableObject, IAmPuzzle
     private AK.Wwise.Event wrongInput = default;
     [SerializeField]
     private AK.Wwise.Event correctInput = default;
+#endif
 
     private readonly int[] code = new int[4];
     private readonly int[] inputCode = new int[4];

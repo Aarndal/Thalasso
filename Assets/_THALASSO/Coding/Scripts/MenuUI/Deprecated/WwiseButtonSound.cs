@@ -5,6 +5,7 @@ using UnityEngine.UI;
 [Obsolete]
 public class WwiseButtonSound : MonoBehaviour
 {
+#if WWISE_2024_OR_LATER
     [SerializeField]
     private AK.Wwise.Event _buttonSound = new();
 
@@ -39,4 +40,5 @@ public class WwiseButtonSound : MonoBehaviour
     {
         _buttonSound.Post(_akGameObject.gameObject);
     }
+#endif
 }

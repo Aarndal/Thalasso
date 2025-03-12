@@ -20,6 +20,8 @@ namespace WwiseHelper
     [Serializable]
     public class WwiseSoundBanks : MonoBehaviour
     {
+#if WWISE_2024_OR_LATER
+
         [SerializeField]
         private List<AK.Wwise.Bank> _soundBanks = new();
         [SerializeField]
@@ -128,5 +130,6 @@ namespace WwiseHelper
 
             return true;
         }
+#endif
     }
 }

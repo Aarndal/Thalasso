@@ -5,11 +5,14 @@ namespace WwiseHelper
 {
     public class WwiseBus
     {
+#if WWISE_2024_OR_LATER
         private float _volume = 0.8f;
         private float _volumeRange = 1.0f;
 
+
         private readonly AK.Wwise.RTPC _rtpc;
         private readonly Slider _volumeSlider;
+
 
         public WwiseBus(AK.Wwise.RTPC rtpc, Slider volumeSlider)
         {
@@ -78,5 +81,6 @@ namespace WwiseHelper
             AkUnitySoundEngine.SetRTPCValue(_rtpc.Id, Volume);
             SaveVolume();
         }
+#endif
     }
 }

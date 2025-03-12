@@ -4,6 +4,7 @@ namespace WwiseHelper
 {
     public class WwiseAudioManager : MonoBehaviour
     {
+#if WWISE_2024_OR_LATER
         public string[] playerPrefsNames;
         //this is so the method is run as soon as the scene starts
         private void Start()
@@ -26,5 +27,6 @@ namespace WwiseHelper
                 }
             }
         }
+#endif
     }
 }
