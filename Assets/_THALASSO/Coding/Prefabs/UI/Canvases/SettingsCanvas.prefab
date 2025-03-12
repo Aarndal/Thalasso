@@ -589,8 +589,7 @@ GameObject:
   - component: {fileID: 3461591872827543908}
   - component: {fileID: 5393651075886934472}
   - component: {fileID: 4941890903998611103}
-  - component: {fileID: 1232487109809667389}
-  - component: {fileID: 9112551387552212643}
+  - component: {fileID: 5648230603783515067}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -700,7 +699,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1232487109809667389
+--- !u!114 &5648230603783515067
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -709,27 +708,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1055288135086982246}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b58f0507257aaff4aa35c59801f20a9e, type: 3}
+  m_Script: {fileID: 11500000, guid: 70639ceb579cf5a478fc75124df7e9aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _buttonSounds:
+  - {fileID: 11400000, guid: 8de7268eeb61eba409c435171c6c7829, type: 2}
+  - {fileID: 11400000, guid: 722e86ca9302a9c4fa4d2c006e820b8a, type: 2}
   _switchToOtherCanvas: 1
   _targetCanvas: {fileID: 0}
---- !u!114 &9112551387552212643
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1055288135086982246}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a962dacef71b2d44a14f5f32a1c0acf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _buttonSound:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: ba0e2bb199bb6fc45978cb56b80621dc, type: 2}
 --- !u!1 &1083574820819020600
 GameObject:
   m_ObjectHideFlags: 0

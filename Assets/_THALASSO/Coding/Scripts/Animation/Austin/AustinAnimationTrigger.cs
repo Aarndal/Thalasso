@@ -54,7 +54,8 @@ public class AustinAnimationTrigger : MonoBehaviour
     }
     private void OnProgressChanged(uint _id, bool _isSolved)
     {
-        triggerCollider.enabled = true;
+        if (triggerCollider != null)
+            triggerCollider.enabled = true;
     }
 
 }

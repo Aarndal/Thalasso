@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
+[Obsolete]
 public class WwiseButtonSound : MonoBehaviour
 {
     [SerializeField]

@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 
+[Obsolete]
 public class PauseMenuTrigger : MonoBehaviour
 {
     [SerializeField]

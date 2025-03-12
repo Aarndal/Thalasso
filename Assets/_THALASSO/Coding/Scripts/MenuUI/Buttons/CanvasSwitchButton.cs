@@ -1,7 +1,6 @@
 using UnityEngine;
-using UnityEngine.UI;
 
-public class CanvasSwitchButton : MonoBehaviour
+public class CanvasSwitchButton : ButtonClick
 {
     [SerializeField]
     private bool _switchToOtherCanvas = true;
@@ -9,14 +8,10 @@ public class CanvasSwitchButton : MonoBehaviour
     private Canvas _targetCanvas = default;
 
     private Canvas _currentCanvas = default;
-    private Button _button = default;
 
-    private void Awake()
+    protected override void Awake()
     {
-        _button = _button != null ? _button : GetComponentInChildren<Button>();
-
-        if (_button == null)
-            _button = gameObject.AddComponent<Button>();
+        base.Awake();
 
         _currentCanvas = _currentCanvas != null ? _currentCanvas : GetComponentInParent<Canvas>();
 
@@ -26,21 +21,13 @@ public class CanvasSwitchButton : MonoBehaviour
         }
     }
 
-    private void OnEnable()
+    protected override void OnClicked()
     {
-        _button.onClick.AddListener(OnClicked);
-    }
+        base.OnClicked();
 
-    private void OnDisable()
-    {
-        _button.onClick.RemoveListener(OnClicked);
-    }
-
-    private void OnClicked()
-    {
         _currentCanvas.enabled = !_currentCanvas.enabled;
 
-        if (!_targetCanvas.isActiveAndEnabled && _switchToOtherCanvas)
+        if (!_targetCanvas.enabled && _switchToOtherCanvas)
         {
             _targetCanvas.enabled = !_targetCanvas.enabled;
         }

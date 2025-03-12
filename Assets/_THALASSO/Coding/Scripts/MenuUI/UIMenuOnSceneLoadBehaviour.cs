@@ -36,14 +36,11 @@ public class UIMenuOnSceneLoadBehaviour : MonoBehaviour
         }
 
         _canvas.enabled = _activateOnSceneLoad;
-
-        if (_canvas.enabled)
-            GlobalEventBus.Raise(GlobalEvents.UI.MenuOpened, _canvas.gameObject.name);
     }
 
-    private void OnDisable()
+    private void Start()
     {
         if (_canvas.enabled)
-            GlobalEventBus.Raise(GlobalEvents.UI.MenuClosed, _canvas.gameObject.name);
+            GlobalEventBus.Raise(GlobalEvents.UI.MenuOpened, _canvas.gameObject.name);
     }
 }

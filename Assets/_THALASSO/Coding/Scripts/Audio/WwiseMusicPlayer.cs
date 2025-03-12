@@ -1,3 +1,4 @@
+using Eflatun.SceneReference;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,21 +9,24 @@ public class WwiseMusicPlayer : MonoBehaviour
     [SerializeField]
     private AK.Wwise.Event _mainMenuMusic = default;
     [SerializeField]
-    private int[] _scenesToPlayMainMenuMusic;
+    private SceneReference[] _scenesToPlayMainMenuMusic;
 
     [Space(5)]
 
     [SerializeField]
     private AK.Wwise.Event _creditsMusic = default;
     [SerializeField]
-    private int[] _scenesToPlayCreditsMusic;
+    private SceneReference[] _scenesToPlayCreditsMusic;
 
     private AkGameObj _akGameObject = default;
-    private int _activeScene = -1;
-    private AK.Wwise.Event _activeAKEvent = null;
+    private AK.Wwise.Event _activeAKEvent = default;
+
     private readonly Dictionary<int, AK.Wwise.Event> _sceneMusic = new();
 
-    private static WwiseMusicPlayer _instance;
+    private static WwiseMusicPlayer _instance = default;
+
+    public static WwiseMusicPlayer Instance => _instance;
+    public Dictionary<int, AK.Wwise.Event> SceneMusic => _sceneMusic;
 
     private void Awake()
     {
@@ -34,16 +38,16 @@ public class WwiseMusicPlayer : MonoBehaviour
 
         _instance = this;
 
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(gameObject);
 
-        foreach (var sceneBuildIndex in _scenesToPlayMainMenuMusic)
+        foreach (var scene in _scenesToPlayMainMenuMusic)
         {
-            _sceneMusic.TryAdd(sceneBuildIndex, _mainMenuMusic);
+            _sceneMusic.TryAdd(scene.BuildIndex, _mainMenuMusic);
         }
 
-        foreach (var sceneBuildIndex in _scenesToPlayCreditsMusic)
+        foreach (var scene in _scenesToPlayCreditsMusic)
         {
-            _sceneMusic.TryAdd(sceneBuildIndex, _creditsMusic);
+            _sceneMusic.TryAdd(scene.BuildIndex, _creditsMusic);
         }
 
         _akGameObject = _akGameObject != null ? _akGameObject : GetComponentInParent<AkGameObj>();
@@ -51,9 +55,12 @@ public class WwiseMusicPlayer : MonoBehaviour
         if (_akGameObject == null)
             _akGameObject = gameObject.AddComponent<AkGameObj>();
 
-        SwitchSceneMusic(SceneManager.GetActiveScene());
-
         SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void Start()
+    {
+        SwitchSceneMusic(SceneManager.GetActiveScene());
     }
 
     private void OnDestroy()
@@ -69,11 +76,6 @@ public class WwiseMusicPlayer : MonoBehaviour
         if (_sceneMusic.Count == 0)
             return;
 
-        if (loadedScene.buildIndex == _activeScene)
-            return;
-
-        _activeScene = loadedScene.buildIndex;
-
         SwitchSceneMusic(loadedScene);
     }
 
@@ -84,13 +86,14 @@ public class WwiseMusicPlayer : MonoBehaviour
             if (_activeAKEvent != akEvent)
             {
                 _activeAKEvent?.Stop(_akGameObject.gameObject);
-                akEvent.Post(_akGameObject.gameObject);
+                akEvent?.Post(_akGameObject.gameObject);
                 _activeAKEvent = akEvent;
             }
             return;
         }
 
         _activeAKEvent?.Stop(_akGameObject.gameObject);
+        _activeAKEvent = null;
     }
 #endif
 }

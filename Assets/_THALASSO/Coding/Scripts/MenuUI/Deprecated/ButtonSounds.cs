@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 
+[Obsolete]
 public class ButtonSounds : MonoBehaviour
 {
 #if WWISE_2024_OR_LATER

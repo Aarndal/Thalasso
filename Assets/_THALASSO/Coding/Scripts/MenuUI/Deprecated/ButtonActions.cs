@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+[Obsolete]
 public class ButtonActions : MonoBehaviour
 {
     [HideInInspector] public GameObject pauseMenuToggle;
