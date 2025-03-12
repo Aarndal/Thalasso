@@ -1699,7 +1699,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3308758673271440624, guid: 805d3793adccf5845a68c2cf59d08da4, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3308758673271440624, guid: 805d3793adccf5845a68c2cf59d08da4, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -2108,14 +2108,11 @@ MonoBehaviour:
   _triggers:
   - _monoBehaviourInstance: {fileID: 1459984995}
   - _monoBehaviourInstance: {fileID: 2115662697}
-  _akGameObject: {fileID: 0}
+  _startState: 0
+  _playOnOtherObject: 0
+  _isEnvironmentAware: 0
+  _isRoomAware: 0
   _areOneTimeEvents: 1
-  _areEnvironmentAware: 0
-  _triggerState: 1
-  _wwiseEvents:
-  - idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 0feddf63e5f9c074f9d23b79208370fc, type: 2}
 --- !u!114 &647538659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5868,14 +5865,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _triggers:
   - _monoBehaviourInstance: {fileID: 1125273404}
-  _akGameObject: {fileID: 0}
+  _startState: 0
+  _playOnOtherObject: 0
+  _isEnvironmentAware: 0
+  _isRoomAware: 0
   _areOneTimeEvents: 1
-  _areEnvironmentAware: 0
-  _triggerState: 1
-  _wwiseEvents:
-  - idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 3436b6dde88750048b5be6993e41f411, type: 2}
 --- !u!114 &1686095420
 MonoBehaviour:
   m_ObjectHideFlags: 0
