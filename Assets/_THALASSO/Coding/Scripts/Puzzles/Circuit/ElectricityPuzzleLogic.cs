@@ -87,7 +87,11 @@ public class ElectricityPuzzleLogic : SolvableObject, IAmPuzzle
 
     public void StartPuzzle()
     {
-        StartCoroutine(TransformTransitionSystem.Instance.TransitionRot(doorLockLid, doorLockLidRotationPoint.rotation, transitionduration, animationSpeedCurve, null, () => openDoorSound.Post(gameObject)));
+        StartCoroutine(TransformTransitionSystem.Instance.TransitionRot(doorLockLid, doorLockLidRotationPoint.rotation, transitionduration, animationSpeedCurve, null
+#if WWISE_2024_OR_LATER
+            , () => openDoorSound.Post(gameObject)
+#endif
+            ));
     }
 
     private void RandomizeActiveLayoutPrefab()
@@ -483,9 +487,9 @@ public class ElectricityPuzzleLogic : SolvableObject, IAmPuzzle
     public override bool Solve()
     {
         Debug.Log("Puzzle Gelöst!");
-
+#if WWISE_2024_OR_LATER
         completeSound.Post(gameObject);
-
+#endif
         return IsSolved = true;
     }
 }

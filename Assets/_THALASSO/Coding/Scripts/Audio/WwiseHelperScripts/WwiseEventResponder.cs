@@ -9,13 +9,14 @@ namespace WwiseHelper
 #endif
     public class WwiseEventResponder : Responder
     {
-#if WWISE_2024_OR_LATER
         [SerializeField]
         protected ResponderState _startState = ResponderState.TurnOff;
 
+#if WWISE_2024_OR_LATER
         [Header("Wwise Events Settings")]
         [SerializeField]
         protected AK.Wwise.Event[] _wwiseEvents = default;
+#endif
         [SerializeField]
         protected bool _playOnOtherObject = false;
         [SerializeField]
@@ -30,13 +31,15 @@ namespace WwiseHelper
         protected GameObject _eventReceiver = default;
         protected Rigidbody _rigidbody = default;
 
+#if WWISE_2024_OR_LATER
         protected AkGameObj _akGameObject = default;
         protected AkRoomAwareObject _akRoomAwareObject = default;
-
+#endif
         public ResponderState CurrentState { get => _currentState; protected set => _currentState = value; }
 
+#if WWISE_2024_OR_LATER
         public readonly Dictionary<string, AK.Wwise.Event> AudioEvents = new();
-
+#endif
         protected override void Awake()
         {
             base.Awake();
@@ -87,11 +90,11 @@ namespace WwiseHelper
                         triggerable.Interface.SwitchIsTriggerable();
                 }
             }
-#endif
         }
 
         protected void InitAudioEvents()
         {
+#if WWISE_2024_OR_LATER
             if (_wwiseEvents != null && _wwiseEvents.Length > 0)
             {
                 if (!_wwiseEvents.All((o) => o != null))
@@ -107,10 +110,12 @@ namespace WwiseHelper
                     }
                 }
             }
+#endif
         }
 
         protected void InitRequiredWwiseComponents()
         {
+#if WWISE_2024_OR_LATER
             // Interactions between AkGameObj/AkRoomAwareObject and AkEnvironment/AkRoom require a Rigidbody component on either the EventReceiver or the environment/room.
             if (!_eventReceiver.TryGetComponent(out _rigidbody))
             {
@@ -138,10 +143,12 @@ namespace WwiseHelper
                     _akRoomAwareObject = _eventReceiver.AddComponent<AkRoomAwareObject>();
                 }
             }
+#endif
         }
 
         protected void SetEventReceiver(GameObject gameObject)
         {
+#if WWISE_2024_OR_LATER
             if (_playOnOtherObject && gameObject != null)
             {
                 _eventReceiver = gameObject;
@@ -158,10 +165,12 @@ namespace WwiseHelper
             {
                 _akGameObject = _eventReceiver.AddComponent<AkGameObj>();
             }
+#endif
         }
 
         protected void TurnOff()
         {
+#if WWISE_2024_OR_LATER
             CurrentState = ResponderState.TurnOff;
 
             foreach (var audioEvent in AudioEvents.Values)
@@ -169,16 +178,20 @@ namespace WwiseHelper
                 audioEvent.Stop(_eventReceiver);
             }
             //AkUnitySoundEngine.StopAll(_eventReceiver);
+#endif
         }
 
         protected void TurnOn()
         {
+#if WWISE_2024_OR_LATER
             CurrentState = ResponderState.TurnOn;
 
             foreach (var audioEvent in AudioEvents.Values)
             {
                 audioEvent.Post(_eventReceiver);
             }
+#endif
         }
     }
+
 }

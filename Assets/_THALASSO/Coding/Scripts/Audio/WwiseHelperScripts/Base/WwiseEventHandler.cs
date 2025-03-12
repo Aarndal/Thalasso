@@ -27,16 +27,20 @@ namespace WwiseHelper
         protected AkRoomAwareObject _akRoomAwareObject = default;
 
         public readonly Dictionary<string, AK.Wwise.Event> AudioEvents = new();
+#endif
 
         protected virtual void Awake()
         {
+#if WWISE_2024_OR_LATER
             InitAudioEvents();
             SetEventReceiver(_eventReceiver);
             InitRequiredWwiseComponents();
+#endif
         }
 
         protected void InitAudioEvents()
         {
+#if WWISE_2024_OR_LATER
             if (_wwiseEvents != null && _wwiseEvents.Length > 0)
             {
                 if (!_wwiseEvents.All((o) => o != null))
@@ -52,10 +56,12 @@ namespace WwiseHelper
                     }
                 }
             }
+#endif
         }
 
         protected void InitRequiredWwiseComponents()
         {
+#if WWISE_2024_OR_LATER
             // Interactions between AkGameObj/AkRoomAwareObject and AkEnvironment/AkRoom require a Rigidbody component on either the EventReceiver or the environment/room.
             if (!_eventReceiver.TryGetComponent(out _rigidbody))
             {
@@ -83,10 +89,12 @@ namespace WwiseHelper
                     _akRoomAwareObject = _eventReceiver.AddComponent<AkRoomAwareObject>();
                 }
             }
+#endif
         }
 
         protected void SetEventReceiver(GameObject gameObject)
         {
+#if WWISE_2024_OR_LATER
             if (_playOnOtherObject && gameObject != null)
             {
                 _eventReceiver = gameObject;
@@ -103,7 +111,7 @@ namespace WwiseHelper
             {
                 _akGameObject = _eventReceiver.AddComponent<AkGameObj>();
             }
-        }
 #endif
+        }
     }
 }

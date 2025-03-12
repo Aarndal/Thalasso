@@ -4,7 +4,10 @@ using System;
 
 // Checks any hit Collider for an attached SoundMaterial component.
 [RequireComponent(typeof(SphereCollider))]
-public sealed class WwiseSoundMaterialChecker : MonoBehaviour, IMakeChecks, INotifyValueChanged<AK.Wwise.Switch>
+public sealed class WwiseSoundMaterialChecker : MonoBehaviour, IMakeChecks
+#if WWISE_2024_OR_LATER
+    , INotifyValueChanged<AK.Wwise.Switch>
+#endif
 {
     [Header("Variables")]
     [SerializeField]
@@ -80,10 +83,12 @@ public sealed class WwiseSoundMaterialChecker : MonoBehaviour, IMakeChecks, INot
 
     private void OnTriggerExit(Collider other)
     {
+#if WWISE_2024_OR_LATER
         LayerMask hitLayer = 1 << other.gameObject.layer;
         if ((hitLayer & _toCheckLayerMasks) != 0)
             if (!Check(other.transform))
                 CurrentSoundMaterial = null;
+#endif
     }
 
     private void OnDrawGizmosSelected()
