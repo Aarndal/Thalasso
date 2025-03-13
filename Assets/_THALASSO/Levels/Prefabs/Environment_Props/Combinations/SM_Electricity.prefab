@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4466904009011381815}
   - component: {fileID: 4989310094783604695}
   - component: {fileID: 72796491558293311}
-  - component: {fileID: 2992397422024573108}
   m_Layer: 0
   m_Name: SM_Electricity
   m_TagString: Untagged
@@ -124,34 +123,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _openDoorSound:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 28330804b87e35242ba9dae0fc268403, type: 2}
---- !u!114 &2992397422024573108
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9097386060529620431}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62f370bd38ab0524eb28a985f4b8c87a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_listeners:
-    initialListenerList: []
-    useDefaultListeners: 1
-  isEnvironmentAware: 0
-  isStaticObject: 1
-  usePositionOffsetData: 0
-  m_positionOffsetData:
-    KeepMe: 1
-    positionOffset: {x: 0, y: 0, z: 0}
-  scalingFactor: 1
-  m_posOffsetData: {fileID: 0}
-  listenerMask: 1
 --- !u!1001 &5817719598451542877
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -200,11 +171,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2503739481711561775, guid: f53440108cdee6e469af8fa4616f73f0, type: 3}
+      propertyPath: _doorAnimation
+      value: 
+      objectReference: {fileID: 72796491558293311}
     - target: {fileID: 7150429223131693082, guid: f53440108cdee6e469af8fa4616f73f0, type: 3}
       propertyPath: m_Name
       value: Electricity_Door
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7150429223131693082, guid: f53440108cdee6e469af8fa4616f73f0, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 2503739481711561775, guid: f53440108cdee6e469af8fa4616f73f0, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

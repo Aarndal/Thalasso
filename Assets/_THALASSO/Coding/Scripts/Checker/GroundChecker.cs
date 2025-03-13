@@ -1,10 +1,10 @@
-//#if WWISE_2024_OR_LATER
-//using WwiseHelper;
-//#endif
+#if WWISE_2024_OR_LATER
+using WwiseHelper;
+#endif
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
-public sealed class GroundChecker : MonoBehaviour, IMakeChecks
+public class GroundChecker : MonoBehaviour, IMakeChecks
 {
     [Header("Variables")]
     [SerializeField]
@@ -16,17 +16,16 @@ public sealed class GroundChecker : MonoBehaviour, IMakeChecks
     [SerializeField]
     private float _groundCheckRadius = 0.1f;
 
-//#if WWISE_2024_OR_LATER
-//    [SerializeField]
-//    private AK.Wwise.Switch _defaultSoundMaterial;
+#if WWISE_2024_OR_LATER
+    [SerializeField]
+    private AK.Wwise.Switch _defaultSoundMaterial;
 
-//    private AK.Wwise.Switch _currentSoundMaterial;
-//#endif
+    private AK.Wwise.Switch _currentSoundMaterial;
+#endif
 
     private bool _isGrounded = true;
     private SphereCollider _sphereCollider = default;
-
-    private readonly Layers _defaultLayer = Layers.IgnoreRaycast;
+    private LayerMask _defaultLayerMask = 1 << 2;
 
     public bool IsActive { get => _isActive; set => _isActive = value; }
     public bool IsGrounded
@@ -42,24 +41,24 @@ public sealed class GroundChecker : MonoBehaviour, IMakeChecks
         }
     }
 
-//#if WWISE_2024_OR_LATER
-//    public AK.Wwise.Switch CurrentSoundMaterial
-//    {
-//        get => _currentSoundMaterial;
-//        private set
-//        {
-//            if (_currentSoundMaterial != value)
-//            {
-//                _currentSoundMaterial = value;
-//                GlobalEventBus.Raise(GlobalEvents.Player.GroundSoundMaterialChanged, _currentSoundMaterial);
-//            }
-//        }
-//    }
-//#endif
+#if WWISE_2024_OR_LATER
+    public AK.Wwise.Switch CurrentSoundMaterial
+    {
+        get => _currentSoundMaterial;
+        private set
+        {
+            if (_currentSoundMaterial != value)
+            {
+                _currentSoundMaterial = value;
+                GlobalEventBus.Raise(GlobalEvents.Player.GroundSoundMaterialChanged, _currentSoundMaterial);
+            }
+        }
+    }
+#endif
 
     private void Awake()
     {
-        gameObject.layer = (int)_defaultLayer;
+        gameObject.layer = _defaultLayerMask.value;
         _sphereCollider = _sphereCollider != null ? _sphereCollider : GetComponent<SphereCollider>();
     }
 
@@ -68,9 +67,9 @@ public sealed class GroundChecker : MonoBehaviour, IMakeChecks
         if (_sphereCollider != null)
             SetSphereCollider();
 
-//#if WWISE_2024_OR_LATER
-//        CurrentSoundMaterial = _defaultSoundMaterial;
-//#endif
+#if WWISE_2024_OR_LATER
+        CurrentSoundMaterial = _defaultSoundMaterial;
+#endif
         GlobalEventBus.Raise(GlobalEvents.Player.GroundedStateChanged, _isGrounded);
     }
 
@@ -113,17 +112,17 @@ public sealed class GroundChecker : MonoBehaviour, IMakeChecks
         int maxColliders = 10;
         Collider[] hitColliders = new Collider[maxColliders];
 
-        return IsGrounded = Physics.OverlapSphereNonAlloc(transform.position + _groundCheckOffset, _groundCheckRadius, hitColliders, _groundLayerMasks, QueryTriggerInteraction.Ignore) > 0;
+        IsGrounded = Physics.OverlapSphereNonAlloc(transform.position + _groundCheckOffset, _groundCheckRadius, hitColliders, _groundLayerMasks, QueryTriggerInteraction.Ignore) > 0;
 
-//#if WWISE_2024_OR_LATER
-//        if (IsGrounded)
-//        {
-//            if (Physics.Raycast(transform.position + _groundCheckOffset, -transform.up, out RaycastHit hitInfo, _groundCheckRadius, _groundLayerMasks, QueryTriggerInteraction.Ignore))
-//                if (hitInfo.collider.TryGetComponent(out WwiseSoundMaterial soundMaterial))
-//                    CurrentSoundMaterial = soundMaterial.Get();
-//        }
-//#endif
-        //return IsGrounded;
+#if WWISE_2024_OR_LATER
+        if (IsGrounded)
+        {
+            if (Physics.Raycast(transform.position + _groundCheckOffset, -transform.up, out RaycastHit hitInfo, _groundCheckRadius, _groundLayerMasks, QueryTriggerInteraction.Ignore))
+                if (hitInfo.collider.TryGetComponent(out SoundMaterial soundMaterial))
+                    CurrentSoundMaterial = soundMaterial.Get();
+        }
+#endif
+        return IsGrounded;
     }
 
     private void SetSphereCollider()

@@ -1,11 +1,9 @@
-using Eflatun.SceneReference;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
-using UnityEngine.SceneManagement;
 
 [CreateAssetMenu(fileName = "NewGameInputReader", menuName = "Scriptable Objects/GameInputReader")]
 public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, GameInput.IUIActions, GameInput.ICutsceneActions
@@ -18,18 +16,16 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
     public event Action<bool> JumpIsTriggered;
     public event Action<bool> SprintIsTriggered;
     public event Action<bool> InteractIsTriggered;
+    public event Action PauseIsPerformed;
 
     // UI Actions
     // ...
 
     // Cutscene Actions
-    public event Action SkipIsPerformed;
+    public event Action SkipIsTriggered;
 
     [SerializeField]
     private InputActionMap _defaultActionMap;
-
-    [SerializeField]
-    private SceneReference _pauseMenu;
 
     [Header("Input Settings")]
     [SerializeField]
@@ -50,21 +46,18 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
     private Vector2 _lookInput = new();
     private bool _isJumpTriggered = false;
     private bool _isInteractTriggered = false;
-    private bool _isPauseActive = false;
 
     #region Properties
     public readonly Dictionary<string, InputActionMap> ActionMaps = new();
     public InputDevice CurrentInputDevice { get => _currentInputDevice; }
-    public InputActionMap CurrentActionMap
-    {
+    public InputActionMap CurrentActionMap 
+    { 
         get => _currentActionMap;
-        private set
+        private set 
         {
-            if (value != _currentActionMap)
+            if (_currentActionMap != value)
             {
-                if (_currentActionMap != null)
-                    _previousActionMap = _currentActionMap;
-
+                _previousActionMap = _currentActionMap;
                 _currentActionMap = value;
 
                 ActionMapChanged?.Invoke(_previousActionMap, _currentActionMap);
@@ -100,19 +93,10 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
                 _isJumpTriggered = value;
                 JumpIsTriggered?.Invoke(_isJumpTriggered);
             }
+            ;
         }
     }
-    public bool IsPauseActive
-    {
-        get => _isPauseActive;
-        private set
-        {
-            if (value != _isPauseActive)
-            {
-                _isPauseActive = value;
-            }
-        }
-    }
+    public bool IsPauseActive { get; set; }
     public bool IsSprintTriggered
     {
         get => _isSprintTriggered;
@@ -123,6 +107,7 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
                 _isSprintTriggered = value;
                 SprintIsTriggered?.Invoke(_isSprintTriggered);
             }
+            ;
         }
     }
     public bool IsInteractTriggered
@@ -154,8 +139,6 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
             _defaultActionMap = _actionMaps[0];
         }
 
-        EnableDefaultActionMap();
-        
         if (ActionMaps.Count > 0 || ActionMaps.Count != _actionMaps.Count)
         {
             ActionMaps.Clear();
@@ -163,19 +146,13 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
                 ActionMaps.Add(_actionMaps[i].name, _actionMaps[i]);
         }
 
-        IsPauseActive = false;
+        EnableDefaultActionMap();
 
-        GlobalEventBus.Register(GlobalEvents.UI.MenuOpened, OnMenuOpened);
-        GlobalEventBus.Register(GlobalEvents.UI.MenuClosed, OnMenuClosed);
-        GlobalEventBus.Register(GlobalEvents.Game.IsPaused, OnGameIsPaused);
+        IsPauseActive = false;
     }
 
     private void OnDisable()
     {
-        GlobalEventBus.Deregister(GlobalEvents.Game.IsPaused, OnGameIsPaused);
-        GlobalEventBus.Deregister(GlobalEvents.UI.MenuClosed, OnMenuClosed);
-        GlobalEventBus.Deregister(GlobalEvents.UI.MenuOpened, OnMenuOpened);
-
         DisableAllActionMaps();
     }
     #endregion
@@ -185,7 +162,6 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
     {
         _defaultActionMap.Enable();
         CurrentActionMap = _defaultActionMap;
-        _previousActionMap = CurrentActionMap;
     }
 
     public bool SwitchCurrentActionMap(string newActionMapName)
@@ -201,11 +177,13 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
             _previousActionMap = CurrentActionMap;
             return false;
         }
-
-        CurrentActionMap.Disable();
-        newActionMap.Enable();
-        CurrentActionMap = newActionMap;
-        return true;
+        else 
+        {
+            CurrentActionMap.Disable();
+            newActionMap.Enable();
+            CurrentActionMap = newActionMap;
+            return true;
+        }
     }
 
     public void DisableAllActionMaps()
@@ -301,12 +279,12 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
 
     public void OnPause(InputAction.CallbackContext context)
     {
-        //_currentInputDevice = GetCurrentInputDevice(context);
+        _currentInputDevice = GetCurrentInputDevice(context);
 
-        if (context.phase == InputActionPhase.Performed && _pauseMenu.LoadedScene.isLoaded)
+        if (PauseIsPerformed is not null && context.phase == InputActionPhase.Performed)
         {
             IsPauseActive = !IsPauseActive;
-            GlobalEventBus.Raise(GlobalEvents.Game.IsPaused, IsPauseActive);
+            PauseIsPerformed.Invoke();
         }
     }
 
@@ -371,17 +349,10 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
     #region CutsceneActionMap CallbackFunctions
     public void OnSkip(InputAction.CallbackContext context)
     {
-        if (SkipIsPerformed is not null && context.performed)
-            SkipIsPerformed.Invoke();
+        if (SkipIsTriggered is not null && context.performed)
+            SkipIsTriggered.Invoke();
     }
     #endregion
-
-    public bool SetCursorSettings(bool isCursorVisible, CursorLockMode cursorLockMode)
-    {
-        Cursor.visible = isCursorVisible;
-        Cursor.lockState = cursorLockMode;
-        return Cursor.visible == isCursorVisible && Cursor.lockState == cursorLockMode;
-    }
 
     private bool IsDeviceMouse(InputAction.CallbackContext context) => GetCurrentInputDevice(context) == Mouse.current;
 
@@ -395,25 +366,10 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
         return context.control;
     }
 
-    private void OnGameIsPaused(object[] args)
+    public bool SetCursorSettings(bool isCursorVisible, CursorLockMode cursorLockMode)
     {
-        foreach (var arg in args)
-        {
-            if (arg is bool paused && !paused)
-            {
-                IsPauseActive = paused;
-                break;
-            }
-        }
-    }
-
-    private void OnMenuOpened(object[] args)
-    {
-        SwitchCurrentActionMap("UI");
-    }
-
-    private void OnMenuClosed(object[] args)
-    {
-        SwitchCurrentActionMap(PreviousActionMap.name);
+        Cursor.visible = isCursorVisible;
+        Cursor.lockState = cursorLockMode;
+        return Cursor.visible == isCursorVisible && Cursor.lockState == cursorLockMode;
     }
 }

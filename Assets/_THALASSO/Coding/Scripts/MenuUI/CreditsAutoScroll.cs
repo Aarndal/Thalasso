@@ -15,12 +15,12 @@ public class CreditsAutoScroll : MonoBehaviour
     {
         scrollRect = GetComponent<ScrollRect>();
         buttonActions = FindAnyObjectByType<ButtonActions>();
-        _input.SkipIsPerformed += OnSkipCutScene;
+        _input.SkipIsTriggered += OnSkipCutScene;
     }
 
     private void OnDisable()
     {
-        _input.SkipIsPerformed -= OnSkipCutScene;
+        _input.SkipIsTriggered -= OnSkipCutScene;
     }
 
     private void OnSkipCutScene()

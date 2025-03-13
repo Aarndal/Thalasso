@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class Test_Responder : Responder
+public class Test_Responder : ResponderBase
 {
     [SerializeField]
     private Color _baseColor = Color.black;
@@ -23,7 +23,7 @@ public class Test_Responder : Responder
         _discoTime = _defaultDiscoTime;
     }
 
-    public override void Respond(GameObject @gameObject, ResponderState triggerState)
+    public override void Respond(GameObject @gameObject, IAmTriggerable trigger)
     {
         if(_discoTime < _defaultDiscoTime)
             return;

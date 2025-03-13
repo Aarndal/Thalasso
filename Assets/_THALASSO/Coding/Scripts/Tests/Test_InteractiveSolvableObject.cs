@@ -1,7 +1,7 @@
 ﻿using ProgressionTracking;
 using UnityEngine;
 
-public class Test_InteractiveSolvableObject : SolvableObject, IAmInteractive
+public class Test_InteractiveSolvableObject : SolvableObjectBase, IAmInteractive
 {
     [SerializeField]
     private bool _isActivatable = true;

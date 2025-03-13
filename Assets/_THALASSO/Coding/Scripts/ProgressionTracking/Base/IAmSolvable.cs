@@ -1,6 +1,6 @@
 ﻿namespace ProgressionTracking
 {
-    public interface IAmSolvable
+    internal interface IAmSolvable
     {
         bool IsSolved { get; }
 

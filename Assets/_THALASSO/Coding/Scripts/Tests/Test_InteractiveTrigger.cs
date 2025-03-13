@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[DisallowMultipleComponent]
 [RequireComponent(typeof(MeshRenderer), typeof(MeshFilter))]
 public class Test_InteractiveTrigger : InteractiveTrigger
 {

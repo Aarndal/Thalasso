@@ -162,8 +162,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.04, y: 0.04, z: 2.4}
-  m_Center: {x: -0.02, y: 0.025, z: 0}
+  m_Size: {x: 0.02, y: 0.05, z: 2.4}
+  m_Center: {x: -0.01, y: 0.025, z: 0}
 --- !u!114 &3893317206511846431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,10 +178,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isTriggerable: 1
   _isOneTimeTrigger: 0
+  _triggerMode: 8
   _cannotBeTriggeredMessage: 
-  _triggerSettings:
-    dictionaryList:
-    - Key: 1
-      Value: 8
-      index: 0
-      isKeyDuplicated: 0

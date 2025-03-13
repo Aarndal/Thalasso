@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 7603374662540862649}
   - component: {fileID: 3442460023170281885}
   - component: {fileID: 5048917898069774032}
-  - component: {fileID: 5185282557877620148}
   m_Layer: 0
   m_Name: Railing
   m_TagString: Untagged
@@ -110,21 +109,3 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 7735780139446229729, guid: 950d2a9a69230d742b89bc84cb9cbbf4, type: 3}
---- !u!114 &5185282557877620148
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2447291329132440131}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e191ea7d50ac124468894a088222114b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _soundMaterial:
-    idInternal: 0
-    valueGuidInternal: 
-    groupIdInternal: 0
-    groupGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: f1d57542e2129d947a80a4722415ddd3, type: 2}
