@@ -10,8 +10,9 @@ public class GlobalEvents
     public class Game // 100 - 299
     {
         public const uint TestTriggered = 100;
-        public const uint ProgressionCompleted = 101;
+        public const uint IsPaused = 101;
         public const uint HasBeenSolved = 102;
+        public const uint ProgressionCompleted = 103;
     }
 
     public class Player // 300 - 499

@@ -820,6 +820,7 @@ GameObject:
   m_Component:
   - component: {fileID: 179567934}
   - component: {fileID: 179567936}
+  - component: {fileID: 179567937}
   m_Layer: 0
   m_Name: Ambience_SmallOffice
   m_TagString: Untagged
@@ -863,6 +864,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 6, y: 5, z: 5}
   m_Center: {x: 0, y: 2.5, z: 0}
+--- !u!114 &179567937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 179567933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2def41128a38834c9d7c6014c5619fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  excludeOthers: 0
+  isDefault: 0
+  data:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 6b0695a0ff2bff94fa88afb28a3a2ae8, type: 2}
+  priority: 100
+  auxBusIdInternal: 0
+  valueGuidInternal: 
 --- !u!1001 &190518186
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2047,6 +2069,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 647538657}
+  - component: {fileID: 647538659}
   - component: {fileID: 647538658}
   m_Layer: 0
   m_Name: Event_FirstTimeSeeingMonster
@@ -2085,6 +2108,38 @@ MonoBehaviour:
   _triggers:
   - _monoBehaviourInstance: {fileID: 1459984995}
   - _monoBehaviourInstance: {fileID: 2115662697}
+  _akGameObject: {fileID: 0}
+  _areOneTimeEvents: 1
+  _areEnvironmentAware: 0
+  _triggerState: 1
+  _wwiseEvents:
+  - idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 0feddf63e5f9c074f9d23b79208370fc, type: 2}
+--- !u!114 &647538659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 647538656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62f370bd38ab0524eb28a985f4b8c87a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_listeners:
+    initialListenerList: []
+    useDefaultListeners: 1
+  isEnvironmentAware: 0
+  isStaticObject: 0
+  usePositionOffsetData: 0
+  m_positionOffsetData:
+    KeepMe: 1
+    positionOffset: {x: 0, y: 0, z: 0}
+  scalingFactor: 1
+  m_posOffsetData: {fileID: 0}
+  listenerMask: 1
 --- !u!1 &658025283
 GameObject:
   m_ObjectHideFlags: 0
@@ -2214,6 +2269,7 @@ GameObject:
   m_Component:
   - component: {fileID: 683252550}
   - component: {fileID: 683252552}
+  - component: {fileID: 683252553}
   m_Layer: 0
   m_Name: Ambience_LabBack
   m_TagString: Untagged
@@ -2257,6 +2313,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 17.5, y: 5, z: 8}
   m_Center: {x: 0, y: 2.5, z: 0}
+--- !u!114 &683252553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 683252549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2def41128a38834c9d7c6014c5619fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  excludeOthers: 0
+  isDefault: 0
+  data:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: d6a66f9c1b6d75e4da98063df7902a7e, type: 2}
+  priority: 100
+  auxBusIdInternal: 0
+  valueGuidInternal: 
 --- !u!1001 &722698267
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2967,6 +3044,7 @@ GameObject:
   m_Component:
   - component: {fileID: 952757452}
   - component: {fileID: 952757454}
+  - component: {fileID: 952757455}
   m_Layer: 0
   m_Name: Ambience_LabFront (1)
   m_TagString: Untagged
@@ -3010,6 +3088,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 6, y: 5, z: 10}
   m_Center: {x: 0, y: 2.5, z: 0}
+--- !u!114 &952757455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 952757451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2def41128a38834c9d7c6014c5619fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  excludeOthers: 0
+  isDefault: 1
+  data:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 1c89178fcd04fa24aa9f598e79c28cd8, type: 2}
+  priority: 201
+  auxBusIdInternal: 0
+  valueGuidInternal: 
 --- !u!4 &983447606 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4216511843466098421, guid: 805d3793adccf5845a68c2cf59d08da4, type: 3}
@@ -3097,6 +3196,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1070600747}
   - component: {fileID: 1070600749}
+  - component: {fileID: 1070600750}
   m_Layer: 0
   m_Name: Ambience_LabBack (1)
   m_TagString: Untagged
@@ -3140,6 +3240,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 6, y: 5, z: 6}
   m_Center: {x: 0, y: 2.5, z: 0}
+--- !u!114 &1070600750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1070600746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2def41128a38834c9d7c6014c5619fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  excludeOthers: 0
+  isDefault: 0
+  data:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: d6a66f9c1b6d75e4da98063df7902a7e, type: 2}
+  priority: 100
+  auxBusIdInternal: 0
+  valueGuidInternal: 
 --- !u!1001 &1073325732
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3373,8 +3494,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isTriggerable: 1
   _isOneTimeTrigger: 1
-  _triggerMode: 32
   _cannotBeTriggeredMessage: 
+  _triggerSettings:
+    dictionaryList:
+    - Key: 1
+      Value: 32
+      index: 0
+      isKeyDuplicated: 0
   _triggeringLayerMasks:
     serializedVersion: 2
     m_Bits: 1024
@@ -4587,8 +4713,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isTriggerable: 1
   _isOneTimeTrigger: 1
-  _triggerMode: 24
   _cannotBeTriggeredMessage: 
+  _triggerSettings:
+    dictionaryList:
+    - Key: 1
+      Value: 24
+      index: 0
+      isKeyDuplicated: 0
   _triggeringLayerMasks:
     serializedVersion: 2
     m_Bits: 1024
@@ -5698,6 +5829,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1686095412}
+  - component: {fileID: 1686095420}
   - component: {fileID: 1686095419}
   m_Layer: 0
   m_Name: Event_FirstTimeStation
@@ -5736,6 +5868,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _triggers:
   - _monoBehaviourInstance: {fileID: 1125273404}
+  _akGameObject: {fileID: 0}
+  _areOneTimeEvents: 1
+  _areEnvironmentAware: 0
+  _triggerState: 1
+  _wwiseEvents:
+  - idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 3436b6dde88750048b5be6993e41f411, type: 2}
+--- !u!114 &1686095420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1686095411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62f370bd38ab0524eb28a985f4b8c87a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_listeners:
+    initialListenerList: []
+    useDefaultListeners: 1
+  isEnvironmentAware: 0
+  isStaticObject: 0
+  usePositionOffsetData: 0
+  m_positionOffsetData:
+    KeepMe: 1
+    positionOffset: {x: 0, y: 0, z: 0}
+  scalingFactor: 1
+  m_posOffsetData: {fileID: 0}
+  listenerMask: 1
 --- !u!1 &1692356884
 GameObject:
   m_ObjectHideFlags: 0
@@ -5746,6 +5910,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1692356885}
   - component: {fileID: 1692356887}
+  - component: {fileID: 1692356888}
   m_Layer: 0
   m_Name: Ambience_LabFront
   m_TagString: Untagged
@@ -5789,6 +5954,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 16, y: 5, z: 11}
   m_Center: {x: 0, y: 2.5, z: 0}
+--- !u!114 &1692356888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1692356884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2def41128a38834c9d7c6014c5619fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  excludeOthers: 0
+  isDefault: 1
+  data:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 1c89178fcd04fa24aa9f598e79c28cd8, type: 2}
+  priority: 200
+  auxBusIdInternal: 0
+  valueGuidInternal: 
 --- !u!1 &1720341461
 GameObject:
   m_ObjectHideFlags: 0
@@ -7023,8 +7209,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isTriggerable: 1
   _isOneTimeTrigger: 1
-  _triggerMode: 24
   _cannotBeTriggeredMessage: 
+  _triggerSettings:
+    dictionaryList:
+    - Key: 1
+      Value: 24
+      index: 0
+      isKeyDuplicated: 0
   _triggeringLayerMasks:
     serializedVersion: 2
     m_Bits: 1024

@@ -41,7 +41,7 @@ public class EndCutscene : MonoBehaviour
 
     private void OnDisable()
     {
-        _input.SkipIsTriggered -= OnSkipCutScene;
+        _input.SkipIsPerformed -= OnSkipCutScene;
         progressInfoObject.ValueChanged -= CheckProgressionUpdate;
     }
     private void Start()
@@ -65,7 +65,7 @@ public class EndCutscene : MonoBehaviour
                 _input.SwitchCurrentActionMap("Cutscene");
                 cinemachineCamera.enabled = false;
                 escapePodDoor.TryClose();
-                _input.SkipIsTriggered += OnSkipCutScene;
+                _input.SkipIsPerformed += OnSkipCutScene;
             }, () =>
         {
             cutscneeCamTransform.gameObject.SetActive(true);
