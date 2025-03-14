@@ -247,15 +247,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2def41128a38834c9d7c6014c5619fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  excludeOthers: 0
-  isDefault: 0
-  data:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 7bbe011663452574abaa8c60f595826f, type: 2}
-  priority: 100
-  auxBusIdInternal: 0
-  valueGuidInternal: 
 --- !u!1 &63445251 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6604848265184170634, guid: 261c627b89849bc42931d070738be608, type: 3}
@@ -795,15 +786,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2def41128a38834c9d7c6014c5619fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  excludeOthers: 0
-  isDefault: 0
-  data:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 7bbe011663452574abaa8c60f595826f, type: 2}
-  priority: 100
-  auxBusIdInternal: 0
-  valueGuidInternal: 
 --- !u!1 &221240411
 GameObject:
   m_ObjectHideFlags: 0
@@ -5505,15 +5487,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2def41128a38834c9d7c6014c5619fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  excludeOthers: 0
-  isDefault: 1
-  data:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: b6fcbbe60bd0dbe40a354dfaf7927f3f, type: 2}
-  priority: 200
-  auxBusIdInternal: 0
-  valueGuidInternal: 
 --- !u!1001 &1811850808
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7028,15 +7001,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2def41128a38834c9d7c6014c5619fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  excludeOthers: 0
-  isDefault: 0
-  data:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 7bbe011663452574abaa8c60f595826f, type: 2}
-  priority: 100
-  auxBusIdInternal: 0
-  valueGuidInternal: 
 --- !u!1001 &1304669856585596466
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7231,6 +7195,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1753295511}
     m_Modifications:
+    - target: {fileID: 223620316879841797, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
+      propertyPath: layoutPrefabs.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 223620316879841797, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
+      propertyPath: 'layoutPrefabs.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 5acf747997c130e438abd00ff0c4b10a, type: 2}
+    - target: {fileID: 223620316879841797, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
+      propertyPath: differentTileTypes.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 223620316879841797, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
+      propertyPath: 'differentTileTypes.Array.data[0]'
+      value: 
+      objectReference: {fileID: 4379285173516499534, guid: 79332bd2531e03d44b1eb29f3408c93d, type: 3}
+    - target: {fileID: 223620316879841797, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
+      propertyPath: 'differentTileTypes.Array.data[1]'
+      value: 
+      objectReference: {fileID: 4941020846545517076, guid: 63e7dfcb70b6af342a08f8d11b588c0c, type: 3}
+    - target: {fileID: 223620316879841797, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
+      propertyPath: 'differentTileTypes.Array.data[2]'
+      value: 
+      objectReference: {fileID: 384619184803605061, guid: 4973f14478d72f5418ab6189fca48c12, type: 3}
+    - target: {fileID: 223620316879841797, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
+      propertyPath: 'differentTileTypes.Array.data[3]'
+      value: 
+      objectReference: {fileID: 7361027134707550446, guid: 59c402213cca963469a74469b626fe1e, type: 3}
+    - target: {fileID: 223620316879841797, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
+      propertyPath: 'differentTileTypes.Array.data[4]'
+      value: 
+      objectReference: {fileID: 781644282339386864, guid: cac5e97c9689794439abe21ae61de66d, type: 3}
     - target: {fileID: 1732256068995673940, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
       propertyPath: m_Name
       value: SM_DoorLock_Riddle

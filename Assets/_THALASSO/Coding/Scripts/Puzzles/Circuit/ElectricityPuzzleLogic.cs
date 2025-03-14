@@ -159,6 +159,7 @@ public class ElectricityPuzzleLogic : SolvableObject, IAmPuzzle
         GameObject newTileType = differentTileTypes[_tileTypeIndice];
 
         _tileObject.GetComponent<MeshFilter>().mesh = newTileType.GetComponent<MeshFilter>().sharedMesh;
+        _tileObject.GetComponent<MeshRenderer>().material = newTileType.GetComponent<MeshRenderer>().sharedMaterial;
         _tileObject.name = newTileType.name;
     }
 
