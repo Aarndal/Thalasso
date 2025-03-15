@@ -187,6 +187,7 @@ namespace WwiseHelper
 
                 if (audioEvent.IsOneTimeEvent)
                     PlayedOneTimeAudioEvents.Add(audioEvent);
+            }
 #endif
         }
     }
