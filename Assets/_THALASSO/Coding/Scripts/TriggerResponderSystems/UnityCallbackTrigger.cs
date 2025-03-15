@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class UnityCallbackTrigger : Trigger
 {
+    [Space(5)]
+
+    [Header("Send ResponderState Settings"), Tooltip("Sets which TriggerMode (right column) should send which ResponderState (left column).")]
     [SerializeField]
     protected SerializableDictionary<ResponderState, TriggerMode> _triggerSettings = default;
 
@@ -75,10 +78,8 @@ public class UnityCallbackTrigger : Trigger
             return;
 
         if (IsTriggerable)
-            _isTriggered?.Invoke(gameObject, responderState);
+            _isTriggeredBy?.Invoke(gameObject, responderState, gameObject);
         else
             _cannotBeTriggered?.Invoke(gameObject, _cannotBeTriggeredMessage);
     }
-
-    protected override bool IsValidTrigger(GameObject triggeringGameObject) => true;
 }

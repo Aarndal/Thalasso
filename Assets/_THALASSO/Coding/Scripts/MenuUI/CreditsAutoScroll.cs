@@ -1,20 +1,31 @@
+using Eflatun.SceneReference;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CreditsAutoScroll : MonoBehaviour
 {
-    [SerializeField] private float scrollDuration = 20f;
-    [SerializeField] private AnimationCurve scrollCurve;
-    [SerializeField] private float timeToSwitchAtEnd = 1.5f;
+    [Header("References")]
     [SerializeField] private SO_GameInputReader _input;
-    private ButtonActions buttonActions;
+    [SerializeField] private SceneReference _sceneToLoad;
+
+    [Space(5)]
+
+    [SerializeField] private AnimationCurve scrollCurve;
+    [SerializeField] private float scrollDuration = 20f;
+    [SerializeField] private float timeToSwitchAtEnd = 1.5f;
+
     private ScrollRect scrollRect;
     private float elapsedTime = 0f;
 
-    private void Start()
+    private void Awake()
     {
-        scrollRect = GetComponent<ScrollRect>();
-        buttonActions = FindAnyObjectByType<ButtonActions>();
+        _input.SwitchCurrentActionMap("Cutscene");
+        scrollRect = GetComponentInChildren<ScrollRect>();
+    }
+
+    private void OnEnable()
+    {
         _input.SkipIsPerformed += OnSkipCutScene;
     }
 
@@ -25,20 +36,21 @@ public class CreditsAutoScroll : MonoBehaviour
 
     private void OnSkipCutScene()
     {
-        buttonActions.LoadScene(0);
+        SceneManager.LoadSceneAsync(_sceneToLoad.BuildIndex);
     }
 
     void Update()
     {
         elapsedTime += Time.deltaTime;
-        if (elapsedTime < scrollDuration)
+
+        if (elapsedTime <= scrollDuration)
         {
-            
             float t = elapsedTime / scrollDuration;
             float curveValue = scrollCurve.Evaluate(t);
             scrollRect.verticalNormalizedPosition = Mathf.Lerp(1, 0, curveValue);
         }
-        else if( elapsedTime > scrollDuration + 1)
+
+        if (elapsedTime > scrollDuration + timeToSwitchAtEnd)
         {
             OnSkipCutScene();
         }

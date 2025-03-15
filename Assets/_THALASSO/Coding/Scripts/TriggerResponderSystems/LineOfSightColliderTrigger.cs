@@ -11,12 +11,15 @@ public sealed class LineOfSightColliderTrigger : LayerMaskColliderTrigger
         _targetedCollider.isTrigger = false;
     }
 
-    protected override bool IsValidTrigger(GameObject triggeringGameObject)
+    protected override bool IsValidTrigger(GameObject triggeringObject)
     {
-        if (!IsInTriggeringLayerMasks(triggeringGameObject))
+        if (triggeringObject == null || !triggeringObject.activeInHierarchy)
             return false;
 
-        LineOfSightChecker lineOfSight = triggeringGameObject.GetComponentInChildren<LineOfSightChecker>();
+        if (!IsInTriggeringLayerMasks(triggeringObject))
+            return false;
+
+        LineOfSightChecker lineOfSight = triggeringObject.GetComponentInChildren<LineOfSightChecker>();
 
         if (lineOfSight == null)
             return false;

@@ -38,10 +38,8 @@ public class InteractiveTrigger : Trigger, IAmInteractive
             return;
 
         if (IsTriggerable)
-            _isTriggered?.Invoke(triggeringGameObject, responderState);
+            _isTriggeredBy?.Invoke(gameObject, responderState, triggeringGameObject);
         else
             _cannotBeTriggered?.Invoke(gameObject, _cannotBeTriggeredMessage);
     }
-
-    protected override bool IsValidTrigger(GameObject triggeringGameObject) => true;
 }

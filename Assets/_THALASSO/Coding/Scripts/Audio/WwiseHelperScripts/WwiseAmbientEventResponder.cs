@@ -7,9 +7,9 @@ namespace WwiseHelper
     {
 #if WWISE_2024_OR_LATER
         [SerializeField]
-        private AkMultiPositionType _akMultiPositionType = AkMultiPositionType.MultiPositionType_SingleSource;
+        private MultiPositionTypeLabel _positionType = MultiPositionTypeLabel.Simple_Mode;
 
-        public readonly Dictionary<AK.Wwise.Event, AkAmbient> AmbientComponents = new();
+        public readonly Dictionary<SO_WwiseEvent, AkAmbient> AmbientComponents = new();
 
         protected override void Awake()
         {
@@ -23,7 +23,7 @@ namespace WwiseHelper
                 {
                     foreach (var akAmbient in akAmbients)
                     {
-                        if (akAmbient.data != wwiseEvent)
+                        if (akAmbient.data != wwiseEvent.Value)
                             continue;
 
                         if (AmbientComponents.TryAdd(wwiseEvent, akAmbient))
@@ -37,7 +37,7 @@ namespace WwiseHelper
                     continue;
 
                 AkAmbient temp = gameObject.AddComponent<AkAmbient>();
-                temp.data = wwiseEvent;
+                temp.data = wwiseEvent.Value;
 
                 if (!AmbientComponents.TryAdd(wwiseEvent, temp))
                     Debug.LogWarningFormat("{0} already contains a {2} component that plays {1} event!", gameObject.name, wwiseEvent.Name, temp);
@@ -49,8 +49,8 @@ namespace WwiseHelper
                 {
                     ambientComponent.triggerList.Clear();
                     ambientComponent.triggerList.Add(AkTriggerHandler.START_TRIGGER_ID);
-
-                    ambientComponent.MultiPositionType = _akMultiPositionType;
+                    ambientComponent.multiPositionTypeLabel = _positionType;
+                    ambientComponent.HandleEvent(_akGameObject.gameObject);
                 }
             }
         }

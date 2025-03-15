@@ -76,9 +76,11 @@ public sealed class WwiseSoundMaterialChecker : MonoBehaviour, IMakeChecks
 
     private void OnTriggerEnter(Collider other)
     {
+#if WWISE_2024_OR_LATER
         LayerMask hitLayer = 1 << other.gameObject.layer;
         if ((hitLayer & _toCheckLayerMasks) != 0)
             Check(other.transform);
+#endif
     }
 
     private void OnTriggerExit(Collider other)
@@ -104,7 +106,7 @@ public sealed class WwiseSoundMaterialChecker : MonoBehaviour, IMakeChecks
         if (_sphereCollider != null)
             SetSphereCollider();
     }
-    #endregion
+#endregion
 
     public bool Check(Transform target)
     {
