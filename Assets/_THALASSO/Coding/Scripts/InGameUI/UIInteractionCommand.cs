@@ -1,16 +1,14 @@
-using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class UIInteractionCommand : MonoBehaviour
 {
     [SerializeField]
     private SO_GameInputReader _input = default;
     [SerializeField]
-    private GameObject _dot = default;
-    [SerializeField]
-    private GameObject _interactionButton = default;
+    private Image _dot = default;
     [SerializeField]
     private UIImageSwitch _imageSwitch = default;
     [SerializeField]
@@ -28,17 +26,14 @@ public class UIInteractionCommand : MonoBehaviour
     #region UnityLifecycleMethods
     private void Awake()
     {
-        if (!_interactionButton.activeInHierarchy)
-            _interactionButton.SetActive(true);
-
-        _imageSwitch = _imageSwitch != null ? _imageSwitch : GetComponentInChildren<UIImageSwitch>();
-        _text = _text != null ? _text : GetComponentInChildren<TextMeshProUGUI>();
+        _imageSwitch = _imageSwitch != null ? _imageSwitch : GetComponentInChildren<UIImageSwitch>(true);
+        _text = _text != null ? _text : GetComponentInChildren<TextMeshProUGUI>(true);
     }
 
     private void OnEnable()
     {
-        if (_interactionButton.activeInHierarchy)
-            _interactionButton.SetActive(false);
+        if (_imageSwitch.gameObject.activeInHierarchy)
+            _imageSwitch.gameObject.SetActive(false);
 
         GlobalEventBus.Register(GlobalEvents.Player.InteractiveTargetChanged, OnInteractiveTargetChanged);
 
@@ -58,9 +53,9 @@ public class UIInteractionCommand : MonoBehaviour
     private void OnActionMapChanged(InputActionMap previousMap, InputActionMap currentMap)
     {
         if (currentMap.name != "Player")
-            _dot.SetActive(false);
+            _dot.enabled = false;
         else
-            _dot.SetActive(true);
+            _dot.enabled = true;
     }
 
     private void OnInteractIsTriggered(bool isTriggered)
@@ -71,9 +66,9 @@ public class UIInteractionCommand : MonoBehaviour
                 return;
 
             if (_currentInteractiveObject.IsActivatable)
-                _imageSwitch.ChangeColorForMilliseconds(_activatableColor, _delayTime);
+                _imageSwitch.SwitchImageAndChangeColorForMilliseconds(_activatableColor, _delayTime);
             else
-                _imageSwitch.ChangeColorForMilliseconds(_nonActivatableColor, _delayTime);
+                _imageSwitch.SwitchImageAndChangeColorForMilliseconds(_nonActivatableColor, _delayTime);
         }
     }
 
@@ -83,16 +78,16 @@ public class UIInteractionCommand : MonoBehaviour
         {
             if (arg is IAmInteractive interactiveObject)
             {
-                if (!_interactionButton.activeInHierarchy)
-                    _interactionButton.SetActive(true);
+                if (!_imageSwitch.gameObject.activeInHierarchy)
+                    _imageSwitch.gameObject.SetActive(true);
 
                 _currentInteractiveObject = interactiveObject;
             }
 
             if (arg is null)
             {
-                if (_interactionButton.activeInHierarchy)
-                    _interactionButton.SetActive(false);
+                if (_imageSwitch.gameObject.activeInHierarchy)
+                    _imageSwitch.gameObject.SetActive(false);
             }
         }
     }

@@ -59,8 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _input: {fileID: 11400000, guid: bcec874ef13692e4d84d8d005895f237, type: 2}
-  _dot: {fileID: 6248393672384528531}
-  _interactionButton: {fileID: 3512859930485967234}
+  _dot: {fileID: 6890877340569457009}
   _imageSwitch: {fileID: 2871363008871145478}
   _text: {fileID: 2302391617947461607}
   _delayTime: 500
@@ -78,7 +77,7 @@ GameObject:
   - component: {fileID: 7839534224420446510}
   - component: {fileID: 6104961149287790050}
   m_Layer: 5
-  m_Name: Icon_Background
+  m_Name: Icon_ButtonPress_Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -153,7 +152,7 @@ GameObject:
   - component: {fileID: 3724645306421041921}
   - component: {fileID: 6815883129209160621}
   m_Layer: 5
-  m_Name: Icon_ButtonPress
+  m_Name: Icon_InteractiveObjectTargeted
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -231,7 +230,7 @@ GameObject:
   - component: {fileID: 1988657621382982948}
   - component: {fileID: 2871363008871145478}
   m_Layer: 5
-  m_Name: Icon_Image
+  m_Name: Icon_ButtonPress
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -278,7 +277,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.86666673, g: 0.86666673, b: 0.86666673, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -308,8 +307,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _defaultImage: {fileID: 21300000, guid: 6e0d3070c91411149a29a3bf41aeed13, type: 3}
-  _alternateImage: {fileID: 21300000, guid: 696501302685d0e4c86847bec67c7ee8, type: 3}
-  _defaultColor: {r: 0.86666673, g: 0.86666673, b: 0.86666673, a: 1}
+  _alternateImage: {fileID: 21300000, guid: 661c36a79d4935040a2c5d313024f03e, type: 3}
+  _defaultColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &6210759242857502095
 GameObject:
   m_ObjectHideFlags: 0
