@@ -7,17 +7,18 @@ public class UIImageSwitch : MonoBehaviour
     [SerializeField]
     private Sprite _defaultImage = default;
     [SerializeField]
-    private Sprite _alternateImage = default;
+    private Sprite[] _imageVariants = default;
     [SerializeField]
     private Color _defaultColor = Color.white;
 
     private bool _isChangingColor = false;
     private bool _isChangingImage = false;
+    private bool _increaseImageIndex = true;
+    private int _currentImageIndex = 0;
     private Image _image = default;
 
     public bool IsDefaultImage => _image.sprite == _defaultImage;
     public Sprite DefaultImage => _defaultImage;
-    public Sprite AlternateImage => _alternateImage;
     public Color DefaultColor => _defaultColor;
     public Color CurrentColor => _image.color;
 
@@ -66,7 +67,22 @@ public class UIImageSwitch : MonoBehaviour
 
     public void SwitchImage()
     {
-        _image.sprite = _image.sprite == _defaultImage ? _alternateImage : _defaultImage;
+        if (_increaseImageIndex)
+        {
+            if (++_currentImageIndex >= _imageVariants.Length - 1)
+            {
+                _increaseImageIndex = false;
+            }
+        }
+        else
+        {
+            if (--_currentImageIndex <= 0)
+            {
+                _increaseImageIndex = true;
+            }
+        }
+
+        _image.sprite = _imageVariants[_currentImageIndex];
     }
 
     public async void SwitchImageForMilliseconds(int delayTime)
@@ -81,12 +97,6 @@ public class UIImageSwitch : MonoBehaviour
 
         SwitchImage();
         _isChangingImage = false;
-
-        //await Task.Delay(delayTime).ContinueWith(_ =>
-        //{
-        //    SwitchImage();
-        //    _isChangingImage = false;
-        //});
     }
 
     public async void SwitchImageAndChangeColorForMilliseconds(Color newColor, int delayTime)

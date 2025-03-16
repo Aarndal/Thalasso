@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
+// Toggles the UI cue that an object can be interacted with, and gives a feedback to the player if the interaction was successful or not.
 public class UIInteractionCommand : MonoBehaviour
 {
     [SerializeField]
@@ -88,6 +89,7 @@ public class UIInteractionCommand : MonoBehaviour
             {
                 if (_imageSwitch.gameObject.activeInHierarchy)
                     _imageSwitch.gameObject.SetActive(false);
+
             }
         }
     }
