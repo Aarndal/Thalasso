@@ -9,37 +9,38 @@ public class UIInteractionCommand : MonoBehaviour
     [SerializeField]
     private SO_GameInputReader _input = default;
     [SerializeField]
-    private Image _dot = default;
-    [SerializeField]
-    private UIImageSwitch _imageSwitch = default;
-    [SerializeField]
-    private TextMeshProUGUI _text = default;
+    private GameObject _interactionHint = default;
 
-    [SerializeField, Tooltip("In Milliseconds")]
-    private int _delayTime = 500;
+    [SerializeField, Tooltip("In Seconds")]
+    private float _delayTime = 1.0f;
     [SerializeField]
     private Color _activatableColor = Color.green;
     [SerializeField]
     private Color _nonActivatableColor = Color.red;
 
+    private Image _dot = default;
     private IAmInteractive _currentInteractiveObject = default;
+
+    private UIImageSpriteLooper _imageSwitch = default;
+    private TextMeshProUGUI _text = default;
 
     #region UnityLifecycleMethods
     private void Awake()
     {
-        _imageSwitch = _imageSwitch != null ? _imageSwitch : GetComponentInChildren<UIImageSwitch>(true);
+        _dot = _dot != null ? null : GetComponentInParent<Image>(true);
+        _imageSwitch = _imageSwitch != null ? _imageSwitch : GetComponentInChildren<UIImageSpriteLooper>(true);
         _text = _text != null ? _text : GetComponentInChildren<TextMeshProUGUI>(true);
     }
 
     private void OnEnable()
     {
-        if (_imageSwitch.gameObject.activeInHierarchy)
-            _imageSwitch.gameObject.SetActive(false);
+        if (_interactionHint.activeInHierarchy)
+            _interactionHint.SetActive(false);
+
+        _input.ActionMapChanged += OnActionMapChanged;
+        _input.InteractIsTriggered += OnInteractIsTriggered;
 
         GlobalEventBus.Register(GlobalEvents.Player.InteractiveTargetChanged, OnInteractiveTargetChanged);
-
-        _input.InteractIsTriggered += OnInteractIsTriggered;
-        _input.ActionMapChanged += OnActionMapChanged;
     }
 
     private void OnDisable()
@@ -61,36 +62,40 @@ public class UIInteractionCommand : MonoBehaviour
 
     private void OnInteractIsTriggered(bool isTriggered)
     {
-        if (isTriggered)
+        if (isTriggered && _currentInteractiveObject != null)
         {
-            if (_currentInteractiveObject == null)
-                return;
-
             if (_currentInteractiveObject.IsActivatable)
-                _imageSwitch.SwitchImageAndChangeColorForMilliseconds(_activatableColor, _delayTime);
+                _imageSwitch.StartLoop(_delayTime, true, _activatableColor);
             else
-                _imageSwitch.SwitchImageAndChangeColorForMilliseconds(_nonActivatableColor, _delayTime);
+                _imageSwitch.StartLoop(_delayTime, true, _nonActivatableColor);
         }
     }
 
     private void OnInteractiveTargetChanged(object[] args)
     {
-        foreach (var arg in args)
+        if (args[1] is IAmInteractive interactiveObject)
         {
-            if (arg is IAmInteractive interactiveObject)
+            if (!_interactionHint.activeInHierarchy || !_imageSwitch.enabled)
             {
-                if (!_imageSwitch.gameObject.activeInHierarchy)
-                    _imageSwitch.gameObject.SetActive(true);
-
-                _currentInteractiveObject = interactiveObject;
+                _interactionHint.SetActive(true);
+                _imageSwitch.enabled = true;
             }
 
-            if (arg is null)
-            {
-                if (_imageSwitch.gameObject.activeInHierarchy)
-                    _imageSwitch.gameObject.SetActive(false);
+            _currentInteractiveObject = interactiveObject;
 
+            return;
+        }
+
+        if (args[1] is null)
+        {
+            if (_interactionHint.activeInHierarchy)
+            {
+                _interactionHint.SetActive(false);
             }
+
+            //_imageSwitch.StopLoop();
+
+            return;
         }
     }
 }

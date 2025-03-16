@@ -165,12 +165,13 @@ public sealed class InteractiveObjectTargetProvider : TargetProvider
 
     private void OnTargetChanged(Transform oldTarget, Transform newTarget)
     {
-        object[] data;
+        object[] data = new object[2];
 
-        if (newTarget != null)
-            data = new object[] { newTarget, newTarget.GetComponent<IAmInteractive>() };
-        else
-            data = new object[] { null, null };
+        if (newTarget != null && newTarget.TryGetComponent(out IAmInteractive newInteractive))
+            data[1] = newInteractive;
+        
+        if (oldTarget != null)
+            data[0] = oldTarget;
 
         GlobalEventBus.Raise(GlobalEvents.Player.InteractiveTargetChanged, data);
     }

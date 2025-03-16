@@ -351,13 +351,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _version: 2
   _crossSceneReferences: []
-  _realSceneRootsForPostBuild:
-  - {fileID: 155660192}
-  - {fileID: 266856939}
-  - {fileID: 601804940}
-  - {fileID: 967234216}
-  - {fileID: 792975465}
-  - {fileID: 2081668968}
+  _realSceneRootsForPostBuild: []
   _mergedScenes: []
 --- !u!114 &155660194
 MonoBehaviour:
@@ -373,12 +367,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sceneSetupMode: 0
   _sceneSetup:
-  - scene:
-      editorAssetGUID: f0e605d3aa8acb945839dd11bf24bc6c
-      name: 00_Core
-      _path: Assets/_THALASSO/Levels/Scenes/00_Core.unity
-    loadInEditor: 1
-    loadMethod: 1
   - scene:
       editorAssetGUID: 6a80ebbcbb3bad546af2ef543871c33e
       name: Exterior
@@ -449,6 +437,12 @@ MonoBehaviour:
       editorAssetGUID: 62b7b8a98211af748b85cbf5fc90faf1
       name: UI_Ingame
       _path: Assets/_THALASSO/Levels/UI/UI_Ingame.unity
+    loadInEditor: 1
+    loadMethod: 1
+  - scene:
+      editorAssetGUID: f0e605d3aa8acb945839dd11bf24bc6c
+      name: 00_Core
+      _path: Assets/_THALASSO/Levels/Scenes/00_Core.unity
     loadInEditor: 1
     loadMethod: 1
   _isMainScene: 0
@@ -819,11 +813,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f1a256885e70b5458a41dc6482233d5, type: 3}
---- !u!1 &601804940 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4829465317767684519, guid: 7f1a256885e70b5458a41dc6482233d5, type: 3}
-  m_PrefabInstance: {fileID: 601804939}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &650962923
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1082,16 +1071,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9082369004904279641, guid: f79d266730aa65345ae7d8873db9447e, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f79d266730aa65345ae7d8873db9447e, type: 3}
---- !u!1 &792975465 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4462108285470819433, guid: f79d266730aa65345ae7d8873db9447e, type: 3}
-  m_PrefabInstance: {fileID: 792975464}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &803064593
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1379,11 +1367,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28b8030160a05364597927f760ba1486, type: 3}
---- !u!1 &967234216 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6531619286678820560, guid: 28b8030160a05364597927f760ba1486, type: 3}
-  m_PrefabInstance: {fileID: 967234215}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1018281707
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2744,8 +2727,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2081668970}
-  - component: {fileID: 2081668969}
-  - component: {fileID: 2081668971}
   m_Layer: 0
   m_Name: WwiseGlobal
   m_TagString: Untagged
@@ -2753,31 +2734,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2081668969
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2081668968}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7076f4c030b5a40499749170d7936336, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InitializationSettings: {fileID: 11400000, guid: 74aebaf4af5e78742b1f480ae7b0de98, type: 2}
-  basePath: 
-  language: 
-  defaultPoolSize: 0
-  lowerPoolSize: 0
-  streamingPoolSize: 0
-  memoryCutoffThreshold: 0
-  monitorPoolSize: 0
-  monitorQueuePoolSize: 0
-  callbackManagerBufferSize: 0
-  spatialAudioPoolSize: 0
-  maxSoundPropagationDepth: 0
-  engineLogging: 0
 --- !u!4 &2081668970
 Transform:
   m_ObjectHideFlags: 0
@@ -2793,31 +2749,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2081668971
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2081668968}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 034d28fa1a0fbad4a8e8cef542c97588, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerList: ae8d9d44
-  useOtherObject: 0
-  data:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 094bf1acf3a14874e99961cc090ab754, type: 2}
-  decodeBank: 0
-  overrideLoadSetting: 0
-  loadAsynchronous: 0
-  saveDecodedBank: 0
-  unloadTriggerList: 958ca0ea
-  bankNameInternal: 
-  valueGuidInternal: 
 --- !u!1001 &2145847862
 PrefabInstance:
   m_ObjectHideFlags: 0

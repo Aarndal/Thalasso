@@ -320,6 +320,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StartCutsceneCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 4462108285470819433, guid: f79d266730aa65345ae7d8873db9447e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5297163209692684050, guid: f79d266730aa65345ae7d8873db9447e, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1146,6 +1150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c65610978f7c0e342949ee4f7d2f3db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _startState: 0
   _triggers:
   - _monoBehaviourInstance: {fileID: 390572994}
   _ball: {fileID: 1389671321}
@@ -1689,19 +1694,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7076f4c030b5a40499749170d7936336, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitializationSettings: {fileID: 11400000, guid: 74aebaf4af5e78742b1f480ae7b0de98, type: 2}
-  basePath: 
-  language: 
-  defaultPoolSize: 0
-  lowerPoolSize: 0
-  streamingPoolSize: 0
-  memoryCutoffThreshold: 0
-  monitorPoolSize: 0
-  monitorQueuePoolSize: 0
-  callbackManagerBufferSize: 0
-  spatialAudioPoolSize: 0
-  maxSoundPropagationDepth: 0
-  engineLogging: 0
 --- !u!4 &865372189
 Transform:
   m_ObjectHideFlags: 0
@@ -2086,7 +2078,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Outer_Door (3)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8351718737750889613, guid: 6cafbdc66007702479265f4cce9a8e1b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -2504,6 +2497,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c51827d206a32c44a936d396583f6b8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _startState: 0
   _triggers:
   - _monoBehaviourInstance: {fileID: 1295507077}
   _baseColor: {r: 0, g: 0, b: 0, a: 1}
@@ -4679,12 +4673,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e191ea7d50ac124468894a088222114b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _soundMaterial:
-    idInternal: 0
-    valueGuidInternal: 
-    groupIdInternal: 0
-    groupGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 9af64c217f9d52c49b486e289c49605a, type: 2}
 --- !u!23 &2851502387383525248
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5464,6 +5452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c51827d206a32c44a936d396583f6b8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _startState: 0
   _triggers:
   - _monoBehaviourInstance: {fileID: 448204573}
   _baseColor: {r: 0.8745099, g: 0.85098046, b: 0.8352942, a: 1}
@@ -6618,6 +6607,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 485553831652817541, guid: 7f1a256885e70b5458a41dc6482233d5, type: 3}
+      propertyPath: _sphereCastRadius
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 485553831652817541, guid: 7f1a256885e70b5458a41dc6482233d5, type: 3}
+      propertyPath: _sphereCastDistance
+      value: 1.8
+      objectReference: {fileID: 0}
     - target: {fileID: 591796227990861963, guid: 7f1a256885e70b5458a41dc6482233d5, type: 3}
       propertyPath: _isActive
       value: 1
@@ -6697,6 +6694,18 @@ PrefabInstance:
     - target: {fileID: 5526890881078507483, guid: 7f1a256885e70b5458a41dc6482233d5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5853908308497705051, guid: 7f1a256885e70b5458a41dc6482233d5, type: 3}
+      propertyPath: m_Height
+      value: 1.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5853908308497705051, guid: 7f1a256885e70b5458a41dc6482233d5, type: 3}
+      propertyPath: m_Radius
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 5853908308497705051, guid: 7f1a256885e70b5458a41dc6482233d5, type: 3}
+      propertyPath: m_Center.z
+      value: 0.95
       objectReference: {fileID: 0}
     - target: {fileID: 5991360273986344976, guid: 7f1a256885e70b5458a41dc6482233d5, type: 3}
       propertyPath: m_Enabled
