@@ -120,7 +120,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4014790460822747687}
   - component: {fileID: 1861969898865129800}
-  - component: {fileID: 1064946480738004281}
+  - component: {fileID: 8372752046112319552}
   m_Layer: 0
   m_Name: ColliderTrigger
   m_TagString: Untagged
@@ -164,7 +164,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.04, y: 0.04, z: 2.4}
   m_Center: {x: 0.02, y: 0.025, z: 0}
---- !u!114 &1064946480738004281
+--- !u!114 &8372752046112319552
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -173,7 +173,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 9194058847967415208}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43542f91b9652f946b4a6d398ab10d4b, type: 3}
+  m_Script: {fileID: 11500000, guid: f81fccaefe5b08f4a88acb38d4dd5d52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _isTriggerable: 1
@@ -182,6 +182,6 @@ MonoBehaviour:
   _triggerSettings:
     dictionaryList:
     - Key: 1
-      Value: 8
+      Value: 24
       index: 0
       isKeyDuplicated: 0
