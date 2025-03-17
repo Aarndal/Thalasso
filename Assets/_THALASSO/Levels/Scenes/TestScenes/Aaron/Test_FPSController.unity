@@ -1563,7 +1563,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _version: 2
-  _crossSceneReferences: []
+  _crossSceneReferences:
+  - _sourceObject: {fileID: 4562799559930888365}
+    _sourceField: _textFade
+    DEPRECATED_fromObject:
+      scene:
+        editorAssetGUID: 
+        name: 
+        _path: 
+      fullPath: 
+      componentName: 
+      componentIndex: 0
+      editorLocalId: 0
+      editorPrefabRelativePath: 
+      version: 0
+    _toObject:
+      scene:
+        editorAssetGUID: 62b7b8a98211af748b85cbf5fc90faf1
+        name: UI_Ingame
+        _path: Assets/_THALASSO/Levels/UI/UI_Ingame.unity
+      fullPath: /IngameUICanvas/Text (TMP)
+      componentName: UITextFade, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      componentIndex: 0
+      editorLocalId: 1031783101
+      editorPrefabRelativePath: 
+      version: 1
+    _data:
+      data: []
   _realSceneRootsForPostBuild: []
   _mergedScenes: []
 --- !u!114 &788908501
@@ -4783,6 +4810,7 @@ GameObject:
   - component: {fileID: 3668325171312341260}
   - component: {fileID: 4562799559930888363}
   - component: {fileID: 4562799559930888364}
+  - component: {fileID: 4562799559930888365}
   m_Layer: 6
   m_Name: Structure_Prefab
   m_TagString: Untagged
@@ -5457,6 +5485,22 @@ MonoBehaviour:
   - _monoBehaviourInstance: {fileID: 448204573}
   _baseColor: {r: 0.8745099, g: 0.85098046, b: 0.8352942, a: 1}
   _defaultDiscoTime: 5
+--- !u!114 &4562799559930888365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3019802358967013593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e3b7f96ad50f2047b7d045b4dd21811, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _startState: 0
+  _triggers:
+  - _monoBehaviourInstance: {fileID: 448204573}
+  _textFade: {fileID: 0}
 --- !u!65 &4577807300545924169
 BoxCollider:
   m_ObjectHideFlags: 0
