@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1262533985779518525
 RectTransform:
   m_ObjectHideFlags: 0
@@ -136,14 +136,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.32156864, g: 1, b: 0.9333334, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6e0d3070c91411149a29a3bf41aeed13, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6bdfb24268caa8b4b952a125e7be32b0, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -166,9 +166,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spriteVariants:
-  - {fileID: 21300000, guid: 6e0d3070c91411149a29a3bf41aeed13, type: 3}
-  - {fileID: 21300000, guid: 661c36a79d4935040a2c5d313024f03e, type: 3}
-  - {fileID: 21300000, guid: 696501302685d0e4c86847bec67c7ee8, type: 3}
+  - {fileID: 21300000, guid: 6bdfb24268caa8b4b952a125e7be32b0, type: 3}
+  - {fileID: 21300000, guid: 95f3771dc4179f740ab01c074b41010f, type: 3}
+  - {fileID: 21300000, guid: bd9e520764e831248af80d0e5717f60d, type: 3}
 --- !u!1 &3800467491329171052
 GameObject:
   m_ObjectHideFlags: 0
@@ -280,7 +280,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 696501302685d0e4c86847bec67c7ee8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bd9e520764e831248af80d0e5717f60d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

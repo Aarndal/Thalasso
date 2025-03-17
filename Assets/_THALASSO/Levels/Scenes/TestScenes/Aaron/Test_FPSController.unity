@@ -1583,7 +1583,7 @@ MonoBehaviour:
         name: UI_Ingame
         _path: Assets/_THALASSO/Levels/UI/UI_Ingame.unity
       fullPath: /IngameUICanvas/Text (TMP)
-      componentName: UITextFade, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      componentName: UITextWriter, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       componentIndex: 0
       editorLocalId: 1031783101
@@ -5501,9 +5501,15 @@ MonoBehaviour:
   _triggers:
   - _monoBehaviourInstance: {fileID: 448204573}
   _textFade: {fileID: 0}
+  _typeWriterMethods: 1
+  _fadeMethods: 2
   _text: Disco, Disco, Disco!!!
+  _fadeDelay: 5
+  _fadeDuration: 0.5
+  _startDelay: 0.01
+  _typeFromLeftToRight: 1
   _delayBetweenLetters: 0.1
-  _delayBetweenWords: 1
+  _delayBetweenWords: 0.08
 --- !u!65 &4577807300545924169
 BoxCollider:
   m_ObjectHideFlags: 0
