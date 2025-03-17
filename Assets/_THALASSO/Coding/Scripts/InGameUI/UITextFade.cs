@@ -15,6 +15,7 @@ public class UITextFade : MonoBehaviour
     //private TextMeshPro _tmPro = default;
 
     private CancellationTokenSource _cts;
+    private int _defaultMaxVisibleCharacters = default;
 
     private void Awake()
     {
@@ -32,6 +33,51 @@ public class UITextFade : MonoBehaviour
         _cts?.Cancel();
         _cts?.Dispose();
         _cts = null;
+    }
+
+    public async void TypeWriter(float delayBetweenLetters, float delayBetweenWords, string text = null)
+    {
+        _cts = new();
+        _tmpText.enabled = true;
+        SetAlpha(1.0f);
+
+        _defaultMaxVisibleCharacters = _tmpText.maxVisibleCharacters;
+        _tmpText.maxVisibleCharacters = 0;
+
+        if (text != null)
+        {
+            _tmpText.text = text;
+        }
+
+        try
+        {
+            await WriteText(delayBetweenLetters, delayBetweenWords, _cts.Token);
+        }
+        catch (OperationCanceledException)
+        {
+            Debug.LogFormat("{0}'s {1} <color=white>has been stopped</color> on.", gameObject.name, this);
+        }
+        finally
+        {
+            _cts?.Dispose();
+            _cts = null;
+        }
+    }
+
+    private async Task WriteText(float delayBetweenLetters, float delayBetweenWords, CancellationToken cancellationToken)
+    {
+        await Task.Delay(TimeSpan.FromSeconds(_startDelay), cancellationToken);
+
+        for (int i = 0; i < _tmpText.text.Length; i++)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            _tmpText.maxVisibleCharacters = i + 1;
+
+            await Task.Delay(TimeSpan.FromSeconds(delayBetweenLetters), cancellationToken);
+        }
+
+        _tmpText.maxVisibleCharacters = _defaultMaxVisibleCharacters;
     }
 
     public async void Fade(string text = null)
