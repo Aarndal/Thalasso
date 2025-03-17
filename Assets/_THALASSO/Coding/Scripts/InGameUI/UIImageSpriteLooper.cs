@@ -4,61 +4,85 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Image))]
 public class UIImageSpriteLooper : MonoBehaviour
 {
+    private const uint MAX_LOOP_COUNT = 50;
+
     [SerializeField]
     private Sprite[] _spriteVariants = default;
 
+    private uint _maxLoopCount = 1;
+
     private Image _image = default;
     private Sprite _defaultSprite = default;
-    private Color _defaultColor = Color.white;
+    private Color _defaultColor = default;
 
     private CancellationTokenSource _cts;
 
     public event Action LoopStarted;
     public event Action LoopEnded;
     public event Action LoopStopped;
+    public event Action ReachedEndOfArray;
+    public event Action ReachedStartOfArray;
 
     public bool IsDefaultImage => _image.sprite == _defaultSprite;
-    public bool IsDefaultColor => _image.color == _defaultColor;
+    public Image Image => _image;
+    public Color DefaultColor => _defaultColor;
     public Sprite DefaultSprite => _defaultSprite;
     public Sprite CurrentSprite => _image.sprite;
-    public Color DefaultColor => _defaultColor;
-    public Color CurrentColor => _image.color;
 
+    #region Unity Lifecycle Methods
     private void Awake()
     {
         _image = _image != null ? _image : GetComponent<Image>();
 
-        _defaultColor = _image.color;
         _defaultSprite = _image.sprite;
+        _defaultColor = _image.color;
     }
 
     private void OnEnable()
     {
-        if (_image.sprite != _defaultSprite)
-            _image.sprite = _defaultSprite;
-
-        if (_image.color != _defaultColor)
-            _image.color = _defaultColor;
+        LoopStopped += OnLoopStopped;
     }
 
-    public void ChangeColor(Color newColor)
+    private void Start()
     {
+        _image.sprite = _image.sprite != DefaultSprite ? DefaultSprite : _image.sprite;
+    }
+
+    private void OnDisable()
+    {
+        LoopStopped -= OnLoopStopped;
+    }
+    #endregion
+
+    #region Public Methods
+    public void SetImageColor(Color newColor)
+    {
+        if (newColor == _image.color)
+            return;
+
         _image.color = newColor;
     }
 
-    public async void StartLoop(float delayBetweenSprites, bool loopOnce, Color? newColor = null, Func<bool> stopCondition = null)
+    public async void StartLoop(float delayBetweenSprites, uint maxLoops, Func<bool> stopCondition = null)
     {
         StopLoop();
 
+        if (maxLoops <= 0 || maxLoops > MAX_LOOP_COUNT)
+        {
+            Debug.LogErrorFormat("The number of maximum loops is invalid!");
+            return;
+        }
+
         _cts = new();
+        _maxLoopCount = maxLoops;
         LoopStarted?.Invoke();
-        Color colorToUse = (Color)(newColor == null ? _defaultColor : newColor);
 
         try
         {
-            await AnimateSprites(delayBetweenSprites, loopOnce, _cts.Token, colorToUse, stopCondition);
+            await AnimateSprites(delayBetweenSprites, _cts.Token, stopCondition);
         }
         catch (OperationCanceledException)
         {
@@ -77,11 +101,15 @@ public class UIImageSpriteLooper : MonoBehaviour
         LoopStopped?.Invoke();
         _cts?.Cancel();
     }
+    #endregion
 
-    private async Task AnimateSprites(float delayBetweenSprites, bool loopOnce, CancellationToken cancellationToken, Color newColor, Func<bool> stopCondition = null)
+    #region Private Methods
+    private async Task AnimateSprites(float delayBetweenSprites, CancellationToken cancellationToken, Func<bool> stopCondition = null)
     {
         if (_spriteVariants == null || _spriteVariants.Length == 0)
             return;
+
+        uint currentLoopCount = 0;
 
         do
         {
@@ -93,8 +121,7 @@ public class UIImageSpriteLooper : MonoBehaviour
                 await UpdateSprite(_spriteVariants[i], delayBetweenSprites, cancellationToken);
             }
 
-            if (newColor != _defaultColor)
-                _image.color = newColor;
+            ReachedEndOfArray?.Invoke();
 
             for (int i = _spriteVariants.Length - 1; i >= 0; i--)
             {
@@ -104,12 +131,19 @@ public class UIImageSpriteLooper : MonoBehaviour
                 await UpdateSprite(_spriteVariants[i], delayBetweenSprites, cancellationToken);
             }
 
-            if (_image.color != _defaultColor)
-                _image.color = _defaultColor;
+            ReachedStartOfArray?.Invoke();
 
-        } while (!loopOnce && !cancellationToken.IsCancellationRequested);
+            ++currentLoopCount;
+
+        } while (currentLoopCount < _maxLoopCount && !cancellationToken.IsCancellationRequested);
     }
 
+    /// <summary>
+    /// Checks if the stop condition is met.
+    /// </summary>
+    /// <param name="cancellationToken">Token to monitor for cancellation requests.</param>
+    /// <param name="stopCondition">Optional function to determine if the loop should stop.</param>
+    /// <returns>True if the stop condition is met, otherwise false.</returns>
     private bool CheckStopCondition(CancellationToken cancellationToken, Func<bool> stopCondition = null)
     {
         return cancellationToken.IsCancellationRequested || (stopCondition != null && stopCondition());
@@ -121,52 +155,11 @@ public class UIImageSpriteLooper : MonoBehaviour
         await Task.Delay((int)(delayBetweenSprites * 1000.0f), cancellationToken); // Convert seconds to milliseconds
     }
 
-    //public async void ChangeColorForMilliseconds(Color newColor, int delayTime)
-    //{
-    //    if (_isChangingColor)
-    //        return;
+    private void OnLoopStopped()
+    {
+        _image.sprite = _image.sprite != DefaultSprite ? DefaultSprite : _image.sprite;
 
-    //    _isChangingColor = true;
-    //    Color defaultColor = _image.color;
-    //    ChangeColor(newColor);
-
-    //    await Task.Delay(delayTime);
-
-    //    ChangeColor(defaultColor);
-    //    _isChangingColor = false;
-    //}
-
-    //public async void SwitchImageForMilliseconds(float delayTime)
-    //{
-    //    if (_isChangingImage)
-    //        return;
-
-    //    _isChangingImage = true;
-    //    SwitchImage();
-
-    //    await Task.Delay((int)delayTime * 1000); // Convert seconds to milliseconds
-
-    //    SwitchImage();
-    //    _isChangingImage = false;
-    //}
-
-    //public async void SwitchImageAndChangeColorForMilliseconds(Color newColor, float delayTime)
-    //{
-    //    if (_isChangingImage || _isChangingColor)
-    //        return;
-
-    //    _isChangingImage = true;
-    //    _isChangingColor = true;
-
-    //    Color defaultColor = _image.color;
-    //    SwitchImage();
-    //    ChangeColor(newColor);
-
-    //    await Task.Delay((int)delayTime * 1000); // Convert seconds to milliseconds
-
-    //    ChangeColor(defaultColor);
-    //    SwitchImage();
-    //    _isChangingImage = false;
-    //    _isChangingColor = false;
-    //}
+        _image.color = _image.color != DefaultColor ? DefaultColor : _image.color;
+    }
+    #endregion
 }

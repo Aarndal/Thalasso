@@ -27,7 +27,7 @@ public class UIInteractionCommand : MonoBehaviour
     #region UnityLifecycleMethods
     private void Awake()
     {
-        _dot = _dot != null ? null : GetComponentInParent<Image>(true);
+        _dot = _dot != null ? _dot : GetComponentInParent<Image>(true);
         _imageSwitch = _imageSwitch != null ? _imageSwitch : GetComponentInChildren<UIImageSpriteLooper>(true);
         _text = _text != null ? _text : GetComponentInChildren<TextMeshProUGUI>(true);
     }
@@ -41,10 +41,16 @@ public class UIInteractionCommand : MonoBehaviour
         _input.InteractIsTriggered += OnInteractIsTriggered;
 
         GlobalEventBus.Register(GlobalEvents.Player.InteractiveTargetChanged, OnInteractiveTargetChanged);
+
+        _imageSwitch.ReachedEndOfArray += OnReachedEndOfArray;
+        _imageSwitch.ReachedStartOfArray += OnReachedStartOfArray;
     }
 
     private void OnDisable()
     {
+        _imageSwitch.ReachedStartOfArray -= OnReachedStartOfArray;
+        _imageSwitch.ReachedEndOfArray -= OnReachedEndOfArray;
+
         GlobalEventBus.Deregister(GlobalEvents.Player.InteractiveTargetChanged, OnInteractiveTargetChanged);
 
         _input.InteractIsTriggered -= OnInteractIsTriggered;
@@ -64,10 +70,7 @@ public class UIInteractionCommand : MonoBehaviour
     {
         if (isTriggered && _currentInteractiveObject != null)
         {
-            if (_currentInteractiveObject.IsActivatable)
-                _imageSwitch.StartLoop(_delayTime, true, _activatableColor);
-            else
-                _imageSwitch.StartLoop(_delayTime, true, _nonActivatableColor);
+            _imageSwitch.StartLoop(_delayTime, 1);
         }
     }
 
@@ -93,9 +96,27 @@ public class UIInteractionCommand : MonoBehaviour
                 _interactionHint.SetActive(false);
             }
 
-            //_imageSwitch.StopLoop();
+            _imageSwitch.StopLoop();
 
             return;
         }
     }
+
+    private void OnReachedStartOfArray()
+    {
+        if (_imageSwitch.Image.color != _imageSwitch.DefaultColor)
+            _imageSwitch.SetImageColor(_imageSwitch.DefaultColor);
+    }
+
+    private void OnReachedEndOfArray()
+    {
+        if (_currentInteractiveObject == null)
+            return;
+
+        if (_currentInteractiveObject.IsActivatable)
+            _imageSwitch.SetImageColor(_activatableColor);
+        else
+            _imageSwitch.SetImageColor(_nonActivatableColor);
+    }
+
 }
