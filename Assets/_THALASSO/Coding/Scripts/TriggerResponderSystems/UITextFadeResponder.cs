@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class UITextFadeResponder : Responder
 {
-    [Header("References")]
-    [SerializeField]
-    private UITextWriter _textFade = default;
+    //[Header("References")]
+    //[SerializeField]
+    //private UITextWriter _textFade = default;
 
-    [Space(5)]
+    //[Space(5)]
 
     [Header("Settings")]
     [SerializeField]
@@ -39,8 +39,25 @@ public class UITextFadeResponder : Responder
 
     public override void Respond(GameObject triggeringObject, ResponderState responderState)
     {
-        _textFade.Fade(_fadeMethods, _fadeDelay, _fadeDuration, _text);
+        //_textFade.Fade(_fadeMethods, _fadeDelay, _fadeDuration, _text);
 
-        _textFade.TypeWriter(_typeWriterMethods, _startDelay, _delayBetweenLetters, _delayBetweenWords, _typeFromLeftToRight, _text);
+        //_textFade.TypeWriter(_typeWriterMethods, _startDelay, _delayBetweenLetters, _delayBetweenWords, _typeFromLeftToRight, _text);
+
+        object[] eventArgs =
+        {
+            _fadeMethods,           //0
+            _fadeDelay,             //1
+            _fadeDuration,          //2
+            
+            _typeWriterMethods,     //3
+            _startDelay,            //4
+            _delayBetweenLetters,   //5
+            _delayBetweenWords,     //6
+            _typeFromLeftToRight,   //7
+            
+            _text                   //8
+        };
+
+        GlobalEventBus.Raise(GlobalEvents.UI.DiscoveredNewLocation, eventArgs);
     }
 }

@@ -5,6 +5,7 @@ public class GlobalEvents
     {
         public const uint MenuOpened = 0;
         public const uint MenuClosed = 1;
+        public const uint DiscoveredNewLocation = 2;
     }
 
     public class Game // 100 - 299

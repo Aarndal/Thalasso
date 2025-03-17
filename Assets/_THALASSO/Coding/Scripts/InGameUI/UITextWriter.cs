@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using static UITextWriter;
 
 public class UITextWriter : MonoBehaviour
 {
@@ -24,11 +25,6 @@ public class UITextWriter : MonoBehaviour
         FadeOut = 1 << 1,
     }
 
-    [SerializeField, Min(0.001f), Tooltip("In Seconds.")]
-    private float _fadeDuration = 2.0f;
-    [SerializeField, Min(0.0f), Tooltip("In Seconds.")]
-    private float _startDelay = 0.5f;
-
     private int _defaultMaxVisibleCharacters = default;
 
     private TMP_Text _tmpText = default;
@@ -43,8 +39,11 @@ public class UITextWriter : MonoBehaviour
 
     private void OnEnable()
     {
+        GlobalEventBus.Register(GlobalEvents.UI.DiscoveredNewLocation, OnDiscoveredNewLocation);
+
         _tmpText.enabled = false;
     }
+
 
     private void OnDisable()
     {
@@ -55,6 +54,8 @@ public class UITextWriter : MonoBehaviour
         }
 
         _cts.Clear();
+
+        GlobalEventBus.Deregister(GlobalEvents.UI.DiscoveredNewLocation, OnDiscoveredNewLocation);
     }
     #endregion
 
@@ -253,4 +254,10 @@ public class UITextWriter : MonoBehaviour
     }
     #endregion
 
+    private void OnDiscoveredNewLocation(object[] eventArgs)
+    {
+        Fade((FadeMethods)eventArgs[0], (float)eventArgs[1], (float)eventArgs[2], (string)eventArgs[8]);
+
+        TypeWriter((TypeWriterMethods)eventArgs[3], (float)eventArgs[4], (float)eventArgs[5], (float)eventArgs[6], (bool)eventArgs[7], (string)eventArgs[8]);
+    }
 }

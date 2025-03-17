@@ -1563,34 +1563,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _version: 2
-  _crossSceneReferences:
-  - _sourceObject: {fileID: 4562799559930888365}
-    _sourceField: _textFade
-    DEPRECATED_fromObject:
-      scene:
-        editorAssetGUID: 
-        name: 
-        _path: 
-      fullPath: 
-      componentName: 
-      componentIndex: 0
-      editorLocalId: 0
-      editorPrefabRelativePath: 
-      version: 0
-    _toObject:
-      scene:
-        editorAssetGUID: 62b7b8a98211af748b85cbf5fc90faf1
-        name: UI_Ingame
-        _path: Assets/_THALASSO/Levels/UI/UI_Ingame.unity
-      fullPath: /IngameUICanvas/Text (TMP)
-      componentName: UITextWriter, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      componentIndex: 0
-      editorLocalId: 1031783101
-      editorPrefabRelativePath: 
-      version: 1
-    _data:
-      data: []
+  _crossSceneReferences: []
   _realSceneRootsForPostBuild: []
   _mergedScenes: []
 --- !u!114 &788908501
@@ -2273,6 +2246,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 3873098113950125193, guid: 261c627b89849bc42931d070738be608, type: 3}
   m_PrefabInstance: {fileID: 1251546959}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1293067175 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3852018252367005555, guid: b41df0d0733b0904a9985fb88d08ecf2, type: 3}
+  m_PrefabInstance: {fileID: 4228299591713599387}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1295507071
 GameObject:
@@ -4551,6 +4529,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 448204570}
+  - {fileID: 1293067175}
   m_Father: {fileID: 8345070699607165082}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &2628026576310731739
@@ -4810,7 +4789,6 @@ GameObject:
   - component: {fileID: 3668325171312341260}
   - component: {fileID: 4562799559930888363}
   - component: {fileID: 4562799559930888364}
-  - component: {fileID: 4562799559930888365}
   m_Layer: 6
   m_Name: Structure_Prefab
   m_TagString: Untagged
@@ -5309,6 +5287,71 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1971228046289752306}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &4228299591713599387
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2496030562338064995}
+    m_Modifications:
+    - target: {fileID: 89552941639507742, guid: b41df0d0733b0904a9985fb88d08ecf2, type: 3}
+      propertyPath: _triggers.Array.data[0]._monoBehaviourInstance
+      value: 
+      objectReference: {fileID: 448204573}
+    - target: {fileID: 1628769080063918822, guid: b41df0d0733b0904a9985fb88d08ecf2, type: 3}
+      propertyPath: _triggers.Array.data[0]._monoBehaviourInstance
+      value: 
+      objectReference: {fileID: 448204573}
+    - target: {fileID: 3852018252367005555, guid: b41df0d0733b0904a9985fb88d08ecf2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3852018252367005555, guid: b41df0d0733b0904a9985fb88d08ecf2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3852018252367005555, guid: b41df0d0733b0904a9985fb88d08ecf2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3852018252367005555, guid: b41df0d0733b0904a9985fb88d08ecf2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3852018252367005555, guid: b41df0d0733b0904a9985fb88d08ecf2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3852018252367005555, guid: b41df0d0733b0904a9985fb88d08ecf2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3852018252367005555, guid: b41df0d0733b0904a9985fb88d08ecf2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3852018252367005555, guid: b41df0d0733b0904a9985fb88d08ecf2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3852018252367005555, guid: b41df0d0733b0904a9985fb88d08ecf2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3852018252367005555, guid: b41df0d0733b0904a9985fb88d08ecf2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7435114430000355163, guid: b41df0d0733b0904a9985fb88d08ecf2, type: 3}
+      propertyPath: m_Name
+      value: Event_DiscoveredLocation
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b41df0d0733b0904a9985fb88d08ecf2, type: 3}
 --- !u!33 &4268342739944239755
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -5485,31 +5528,6 @@ MonoBehaviour:
   - _monoBehaviourInstance: {fileID: 448204573}
   _baseColor: {r: 0.8745099, g: 0.85098046, b: 0.8352942, a: 1}
   _defaultDiscoTime: 5
---- !u!114 &4562799559930888365
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3019802358967013593}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e3b7f96ad50f2047b7d045b4dd21811, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _startState: 0
-  _triggers:
-  - _monoBehaviourInstance: {fileID: 448204573}
-  _textFade: {fileID: 0}
-  _typeWriterMethods: 1
-  _fadeMethods: 2
-  _text: Disco, Disco, Disco!!!
-  _fadeDelay: 5
-  _fadeDuration: 0.5
-  _startDelay: 0.01
-  _typeFromLeftToRight: 1
-  _delayBetweenLetters: 0.1
-  _delayBetweenWords: 0.08
 --- !u!65 &4577807300545924169
 BoxCollider:
   m_ObjectHideFlags: 0

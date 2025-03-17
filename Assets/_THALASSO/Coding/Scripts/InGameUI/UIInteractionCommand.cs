@@ -61,9 +61,18 @@ public class UIInteractionCommand : MonoBehaviour
     private void OnActionMapChanged(InputActionMap previousMap, InputActionMap currentMap)
     {
         if (currentMap.name != "Player")
+        {
+            _interactionHint.SetActive(false);
             _dot.enabled = false;
+            return;
+        }
+
+        if(_currentInteractiveObject != null)
+            _interactionHint.SetActive(true);
         else
-            _dot.enabled = true;
+            _interactionHint.SetActive(false);
+
+        _dot.enabled = true;
     }
 
     private void OnInteractIsTriggered(bool isTriggered)
@@ -95,6 +104,8 @@ public class UIInteractionCommand : MonoBehaviour
             {
                 _interactionHint.SetActive(false);
             }
+
+            _currentInteractiveObject = null; //Change necessary?
 
             _imageSwitch.StopLoop();
 
