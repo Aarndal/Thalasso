@@ -7,6 +7,9 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class ColliderTrigger : Trigger
 {
+    [Space(5)]
+
+    [Header("Send ResponderState Settings"), Tooltip("Sets which TriggerMode (right column) should send which ResponderState (left column).")]
     [SerializeField]
     protected SerializableDictionary<ResponderState, TriggerMode> _triggerSettings = default;
 
@@ -21,7 +24,7 @@ public class ColliderTrigger : Trigger
         base.Awake();
 
         ValidateSettings();
-        
+
         if (_collider == null)
         {
             if (!TryGetComponent(out _collider))
@@ -128,12 +131,10 @@ public class ColliderTrigger : Trigger
             return;
 
         if (IsTriggerable)
-            _isTriggered?.Invoke(gameObject, responderState);
+            _isTriggeredBy?.Invoke(gameObject, responderState, triggeringGameObject);
         else
             _cannotBeTriggered?.Invoke(gameObject, _cannotBeTriggeredMessage);
     }
-
-    protected override bool IsValidTrigger(GameObject triggeringGameObject) => true;
 
     protected bool ValidateSettings()
     {

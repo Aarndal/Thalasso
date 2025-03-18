@@ -40,7 +40,7 @@ namespace WwiseHelper
 #if WWISE_2024_OR_LATER
             if (AudioEvents.ContainsKey(eventArgs.stringParameter))
             {
-                AudioEvents[eventArgs.stringParameter].Post(_akGameObject.gameObject);
+                AudioEvents[eventArgs.stringParameter].Play(_akGameObject);
             }
 #endif
         }

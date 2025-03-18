@@ -43,7 +43,7 @@ public abstract class ButtonClick : MonoBehaviour
         {
             foreach (var sound in _buttonSounds)
             {
-                sound.Post(_akGameObject);
+                sound.Play(_akGameObject);
             }
         }
 #endif

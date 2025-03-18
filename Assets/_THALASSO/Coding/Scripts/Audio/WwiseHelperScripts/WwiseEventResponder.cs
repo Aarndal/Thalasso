@@ -9,50 +9,50 @@ namespace WwiseHelper
 #endif
     public class WwiseEventResponder : Responder
     {
-        [SerializeField]
-        protected ResponderState _startState = ResponderState.TurnOff;
-
 #if WWISE_2024_OR_LATER
+        [Space(5)]
+
         [Header("Wwise Events Settings")]
         [SerializeField]
-        protected AK.Wwise.Event[] _wwiseEvents = default;
-#endif
+        protected SO_WwiseEvent[] _wwiseEvents = default;
         [SerializeField]
         protected bool _playOnOtherObject = false;
         [SerializeField]
         protected bool _isEnvironmentAware = false;
         [SerializeField]
         protected bool _isRoomAware = false;
-        [SerializeField]
-        private bool _areOneTimeEvents = false;
 
         protected ResponderState _currentState = ResponderState.None;
 
         protected GameObject _eventReceiver = default;
         protected Rigidbody _rigidbody = default;
 
-#if WWISE_2024_OR_LATER
         protected AkGameObj _akGameObject = default;
         protected AkRoomAwareObject _akRoomAwareObject = default;
-#endif
+
         public ResponderState CurrentState { get => _currentState; protected set => _currentState = value; }
 
-#if WWISE_2024_OR_LATER
-        public readonly Dictionary<string, AK.Wwise.Event> AudioEvents = new();
+        public readonly Dictionary<string, SO_WwiseEvent> AudioEvents = new();
+        public readonly HashSet<SO_WwiseEvent> PlayedOneTimeAudioEvents = new();
 #endif
+
         protected override void Awake()
         {
             base.Awake();
 
+#if WWISE_2024_OR_LATER
             CurrentState = _startState;
 
             InitAudioEvents();
             SetEventReceiver(gameObject);
             InitRequiredWwiseComponents();
+#endif
         }
 
         public override void Respond(GameObject triggeringObject, ResponderState responderState)
         {
+#if WWISE_2024_OR_LATER
+
             if (_playOnOtherObject)
             {
                 if (_eventReceiver != triggeringObject)
@@ -81,20 +81,13 @@ namespace WwiseHelper
                 default:
                     break;
             }
-
-            if (_areOneTimeEvents)
-            {
-                foreach (var triggerable in _triggers)
-                {
-                    if (triggerable.Interface.IsTriggerable)
-                        triggerable.Interface.SwitchIsTriggerable();
-                }
-            }
+#endif
         }
 
         protected void InitAudioEvents()
         {
 #if WWISE_2024_OR_LATER
+
             if (_wwiseEvents != null && _wwiseEvents.Length > 0)
             {
                 if (!_wwiseEvents.All((o) => o != null))
@@ -149,6 +142,7 @@ namespace WwiseHelper
         protected void SetEventReceiver(GameObject gameObject)
         {
 #if WWISE_2024_OR_LATER
+
             if (_playOnOtherObject && gameObject != null)
             {
                 _eventReceiver = gameObject;
@@ -175,9 +169,9 @@ namespace WwiseHelper
 
             foreach (var audioEvent in AudioEvents.Values)
             {
-                audioEvent.Stop(_eventReceiver);
+                if (audioEvent.IsPlayingOn(_akGameObject))
+                    audioEvent.Stop(_akGameObject);
             }
-            //AkUnitySoundEngine.StopAll(_eventReceiver);
 #endif
         }
 
@@ -188,10 +182,13 @@ namespace WwiseHelper
 
             foreach (var audioEvent in AudioEvents.Values)
             {
-                audioEvent.Post(_eventReceiver);
+                if (!PlayedOneTimeAudioEvents.Contains(audioEvent))
+                    audioEvent.Play(_akGameObject);
+
+                if (audioEvent.IsOneTimeEvent)
+                    PlayedOneTimeAudioEvents.Add(audioEvent);
             }
 #endif
         }
     }
-
 }

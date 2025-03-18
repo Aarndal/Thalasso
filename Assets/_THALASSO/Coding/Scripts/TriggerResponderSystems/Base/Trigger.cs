@@ -14,7 +14,7 @@ public abstract class Trigger : MonoBehaviour, IAmTriggerable
     protected bool _hasBeenTriggered;
 
     protected Action<GameObject, string> _cannotBeTriggered;
-    protected Action<GameObject, ResponderState> _isTriggered;
+    protected Action<GameObject, ResponderState, GameObject> _isTriggeredBy;
 
     #region Properties
     public bool IsOneTimeTrigger => _isOneTimeTrigger;
@@ -40,30 +40,31 @@ public abstract class Trigger : MonoBehaviour, IAmTriggerable
         }
         remove => _cannotBeTriggered -= value;
     }
-    public event Action<GameObject, ResponderState> IsTriggered
+    public event Action<GameObject, ResponderState, GameObject> IsTriggeredBy
     {
         add
         {
-            _isTriggered -= value;
-            _isTriggered += value;
+            _isTriggeredBy -= value;
+            _isTriggeredBy += value;
         }
-        remove => _isTriggered -= value;
+        remove => _isTriggeredBy -= value;
     }
     #endregion
 
     #region Unity Lifecycle Methods
     protected virtual void Awake()
     {
-        IsTriggered += OnIsTriggered;
+        IsTriggeredBy += OnIsTriggeredBy;
     }
-    
+
+
     protected virtual void OnDestroy()
     {
-        IsTriggered -= OnIsTriggered;
+        IsTriggeredBy -= OnIsTriggeredBy;
     }
     #endregion
-   
-    public abstract void ActivateTrigger(GameObject @gameObject, ResponderState triggerState);
+
+    public abstract void ActivateTrigger(GameObject triggeringObject, ResponderState triggerState);
 
     public void SwitchIsTriggerable()
     {
@@ -73,9 +74,9 @@ public abstract class Trigger : MonoBehaviour, IAmTriggerable
         IsTriggerable = !IsTriggerable;
     }
 
-    protected abstract bool IsValidTrigger(GameObject triggeringGameObject);
+    protected virtual bool IsValidTrigger(GameObject triggeringObject) => triggeringObject != null && triggeringObject.activeInHierarchy;
 
-    protected void OnIsTriggered(GameObject @gameObject, ResponderState responderState)
+    protected virtual void OnIsTriggeredBy(GameObject triggerObject, ResponderState responderState, GameObject triggeringObject)
     {
         if (_isOneTimeTrigger)
         {

@@ -4,14 +4,14 @@ using UnityEngine;
 [Serializable]
 public abstract class TargetProvider : MonoBehaviour
 {
-    private Transform _target;
+    private Transform _target = default;
 
     public Transform Target
     {
         get => _target;
         protected set
         {
-            if (_target != value)
+            if (value != _target)
             {
                 TargetChanged?.Invoke(_target, value);
 

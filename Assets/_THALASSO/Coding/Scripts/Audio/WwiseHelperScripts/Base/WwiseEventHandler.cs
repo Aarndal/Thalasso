@@ -9,7 +9,7 @@ namespace WwiseHelper
 #if WWISE_2024_OR_LATER
         [Header("Wwise Events Settings")]
         [SerializeField]
-        protected AK.Wwise.Event[] _wwiseEvents = default;
+        protected SO_WwiseEvent[] _wwiseEvents = default;
         [SerializeField]
         protected bool _playOnOtherObject = false;
         [SerializeField]
@@ -26,7 +26,7 @@ namespace WwiseHelper
         protected AkGameObj _akGameObject = default;
         protected AkRoomAwareObject _akRoomAwareObject = default;
 
-        public readonly Dictionary<string, AK.Wwise.Event> AudioEvents = new();
+        public readonly Dictionary<string, SO_WwiseEvent> AudioEvents = new();
 #endif
 
         protected virtual void Awake()

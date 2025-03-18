@@ -15,12 +15,15 @@ public class VelocityColliderTrigger : ColliderTrigger
         _triggerSettings.TryAdd(ResponderState.TurnOn, (TriggerMode.OnTriggerEnter | TriggerMode.OnTriggerStay));
     }
 
-    protected override bool IsValidTrigger(GameObject triggeringGameObject)
+    protected override bool IsValidTrigger(GameObject triggeringObject)
     {
-        if (triggeringGameObject.TryGetComponent(out Entity entity) && !entity.Animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        if (triggeringObject == null || !triggeringObject.activeInHierarchy)
+            return false;
+
+        if (triggeringObject.TryGetComponent(out Entity entity) && !entity.Animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
             return true;
 
-        if (triggeringGameObject.TryGetComponent(out Rigidbody rigidbody) && rigidbody.linearVelocity.sqrMagnitude >= 0.001f)
+        if (triggeringObject.TryGetComponent(out Rigidbody rigidbody) && rigidbody.linearVelocity.sqrMagnitude >= 0.001f)
             return true;
 
         return false;

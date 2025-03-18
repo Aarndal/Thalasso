@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 540597074276480010}
   - component: {fileID: 471846623998242072}
   - component: {fileID: 2941747474719011722}
-  - component: {fileID: 2069466689666652868}
+  - component: {fileID: 4447999212048356304}
   m_Layer: 0
   m_Name: DoorRight
   m_TagString: Untagged
@@ -88,8 +88,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &2069466689666652868
-MeshCollider:
+--- !u!65 &4447999212048356304
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -106,10 +106,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -1979571990259793046, guid: 950d2a9a69230d742b89bc84cb9cbbf4, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 0.59999996, y: 0.05, z: 2.4}
+  m_Center: {x: 0.29999998, y: 0.025, z: -1.2}
 --- !u!1 &7632137486189441158
 GameObject:
   m_ObjectHideFlags: 0
@@ -120,7 +119,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8324062800957809695}
   - component: {fileID: 651861654425258176}
-  - component: {fileID: 3893317206511846431}
+  - component: {fileID: 3647317828266955543}
   m_Layer: 0
   m_Name: ColliderTrigger
   m_TagString: Untagged
@@ -164,7 +163,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.04, y: 0.04, z: 2.4}
   m_Center: {x: -0.02, y: 0.025, z: 0}
---- !u!114 &3893317206511846431
+--- !u!114 &3647317828266955543
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -173,7 +172,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7632137486189441158}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43542f91b9652f946b4a6d398ab10d4b, type: 3}
+  m_Script: {fileID: 11500000, guid: f81fccaefe5b08f4a88acb38d4dd5d52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _isTriggerable: 1
@@ -182,6 +181,6 @@ MonoBehaviour:
   _triggerSettings:
     dictionaryList:
     - Key: 1
-      Value: 8
+      Value: 24
       index: 0
       isKeyDuplicated: 0

@@ -1,53 +1,56 @@
-using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
+// Toggles the UI cue that an object can be interacted with, and gives a feedback to the player if the interaction was successful or not.
 public class UIInteractionCommand : MonoBehaviour
 {
     [SerializeField]
     private SO_GameInputReader _input = default;
     [SerializeField]
-    private GameObject _dot = default;
-    [SerializeField]
-    private GameObject _interactionButton = default;
-    [SerializeField]
-    private UIImageSwitch _imageSwitch = default;
-    [SerializeField]
-    private TextMeshProUGUI _text = default;
+    private GameObject _interactionHint = default;
 
-    [SerializeField, Tooltip("In Milliseconds")]
-    private int _delayTime = 500;
+    [SerializeField, Tooltip("In Seconds")]
+    private float _delayTime = 1.0f;
     [SerializeField]
     private Color _activatableColor = Color.green;
     [SerializeField]
     private Color _nonActivatableColor = Color.red;
 
+    private Image _dot = default;
     private IAmInteractive _currentInteractiveObject = default;
+
+    private UIImageSpriteLooper _imageSwitch = default;
+    private TextMeshProUGUI _text = default;
 
     #region UnityLifecycleMethods
     private void Awake()
     {
-        if (!_interactionButton.activeInHierarchy)
-            _interactionButton.SetActive(true);
-
-        _imageSwitch = _imageSwitch != null ? _imageSwitch : GetComponentInChildren<UIImageSwitch>();
-        _text = _text != null ? _text : GetComponentInChildren<TextMeshProUGUI>();
+        _dot = _dot != null ? _dot : GetComponentInParent<Image>(true);
+        _imageSwitch = _imageSwitch != null ? _imageSwitch : GetComponentInChildren<UIImageSpriteLooper>(true);
+        _text = _text != null ? _text : GetComponentInChildren<TextMeshProUGUI>(true);
     }
 
     private void OnEnable()
     {
-        if (_interactionButton.activeInHierarchy)
-            _interactionButton.SetActive(false);
+        if (_interactionHint.activeInHierarchy)
+            _interactionHint.SetActive(false);
+
+        _input.ActionMapChanged += OnActionMapChanged;
+        _input.InteractIsTriggered += OnInteractIsTriggered;
 
         GlobalEventBus.Register(GlobalEvents.Player.InteractiveTargetChanged, OnInteractiveTargetChanged);
 
-        _input.InteractIsTriggered += OnInteractIsTriggered;
-        _input.ActionMapChanged += OnActionMapChanged;
+        _imageSwitch.ReachedEndOfArray += OnReachedEndOfArray;
+        _imageSwitch.ReachedStartOfArray += OnReachedStartOfArray;
     }
 
     private void OnDisable()
     {
+        _imageSwitch.ReachedStartOfArray -= OnReachedStartOfArray;
+        _imageSwitch.ReachedEndOfArray -= OnReachedEndOfArray;
+
         GlobalEventBus.Deregister(GlobalEvents.Player.InteractiveTargetChanged, OnInteractiveTargetChanged);
 
         _input.InteractIsTriggered -= OnInteractIsTriggered;
@@ -58,42 +61,73 @@ public class UIInteractionCommand : MonoBehaviour
     private void OnActionMapChanged(InputActionMap previousMap, InputActionMap currentMap)
     {
         if (currentMap.name != "Player")
-            _dot.SetActive(false);
+        {
+            _interactionHint.SetActive(false);
+            _dot.enabled = false;
+            return;
+        }
+
+        if(_currentInteractiveObject != null)
+            _interactionHint.SetActive(true);
         else
-            _dot.SetActive(true);
+            _interactionHint.SetActive(false);
+
+        _dot.enabled = true;
     }
 
     private void OnInteractIsTriggered(bool isTriggered)
     {
-        if (isTriggered)
+        if (isTriggered && _currentInteractiveObject != null)
         {
-            if (_currentInteractiveObject == null)
-                return;
-
-            if (_currentInteractiveObject.IsActivatable)
-                _imageSwitch.ChangeColorForMilliseconds(_activatableColor, _delayTime);
-            else
-                _imageSwitch.ChangeColorForMilliseconds(_nonActivatableColor, _delayTime);
+            _imageSwitch.StartLoop(_delayTime, 1);
         }
     }
 
     private void OnInteractiveTargetChanged(object[] args)
     {
-        foreach (var arg in args)
+        if (args[1] is IAmInteractive interactiveObject)
         {
-            if (arg is IAmInteractive interactiveObject)
+            if (!_interactionHint.activeInHierarchy || !_imageSwitch.enabled)
             {
-                if (!_interactionButton.activeInHierarchy)
-                    _interactionButton.SetActive(true);
-
-                _currentInteractiveObject = interactiveObject;
+                _interactionHint.SetActive(true);
+                _imageSwitch.enabled = true;
             }
 
-            if (arg is null)
+            _currentInteractiveObject = interactiveObject;
+
+            return;
+        }
+
+        if (args[1] is null)
+        {
+            if (_interactionHint.activeInHierarchy)
             {
-                if (_interactionButton.activeInHierarchy)
-                    _interactionButton.SetActive(false);
+                _interactionHint.SetActive(false);
             }
+
+            _currentInteractiveObject = null; //Change necessary?
+
+            _imageSwitch.StopLoop();
+
+            return;
         }
     }
+
+    private void OnReachedStartOfArray()
+    {
+        if (_imageSwitch.Image.color != _imageSwitch.DefaultColor)
+            _imageSwitch.SetImageColor(_imageSwitch.DefaultColor);
+    }
+
+    private void OnReachedEndOfArray()
+    {
+        if (_currentInteractiveObject == null)
+            return;
+
+        if (_currentInteractiveObject.IsActivatable)
+            _imageSwitch.SetImageColor(_activatableColor);
+        else
+            _imageSwitch.SetImageColor(_nonActivatableColor);
+    }
+
 }

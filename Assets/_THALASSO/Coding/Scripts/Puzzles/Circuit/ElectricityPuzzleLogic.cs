@@ -159,6 +159,7 @@ public class ElectricityPuzzleLogic : SolvableObject, IAmPuzzle
         GameObject newTileType = differentTileTypes[_tileTypeIndice];
 
         _tileObject.GetComponent<MeshFilter>().mesh = newTileType.GetComponent<MeshFilter>().sharedMesh;
+        _tileObject.GetComponent<MeshRenderer>().material = newTileType.GetComponent<MeshRenderer>().sharedMaterial;
         _tileObject.name = newTileType.name;
     }
 
@@ -448,15 +449,15 @@ public class ElectricityPuzzleLogic : SolvableObject, IAmPuzzle
         string tileType = _tile.name;
         switch (tileType)
         {
-            case "TileType1":
+            case "DoorLock_Hex1":
                 return differentTileTypeConnections.possibleConnectionsType1;
-            case "TileType2":
+            case "DoorLock_Hex2":
                 return differentTileTypeConnections.possibleConnectionsType2;
-            case "TileType3":
+            case "DoorLock_Hex3":
                 return differentTileTypeConnections.possibleConnectionsType3;
-            case "TileType4":
+            case "DoorLock_Hex4":
                 return differentTileTypeConnections.possibleConnectionsType4;
-            case "TileType5":
+            case "DoorLock_Hex5":
                 return differentTileTypeConnections.possibleConnectionsType5;
             default:
                 return null;
