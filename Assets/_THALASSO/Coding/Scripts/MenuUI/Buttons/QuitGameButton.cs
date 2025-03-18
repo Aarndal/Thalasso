@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class QuitGameButton : ButtonClick
 {
     protected override void OnClicked()
@@ -6,8 +8,7 @@ public class QuitGameButton : ButtonClick
 
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
-#else
-        Application.Quit();
 #endif
+        Application.Quit();
     }
 }

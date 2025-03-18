@@ -64180,7 +64180,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5808255327043048419, guid: 8c825a7310fd70740b06ad7ecf5ddc87, type: 3}
       propertyPath: m_Splines.Array.data[0].m_Knots.Array.data[1].Rotation.value.z
-      value: -0.2286319
+      value: -0.22863187
       objectReference: {fileID: 0}
     - target: {fileID: 5808255327043048419, guid: 8c825a7310fd70740b06ad7ecf5ddc87, type: 3}
       propertyPath: m_Splines.Array.data[0].m_Knots.Array.data[2].Rotation.value.w
@@ -64188,7 +64188,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5808255327043048419, guid: 8c825a7310fd70740b06ad7ecf5ddc87, type: 3}
       propertyPath: m_Splines.Array.data[0].m_Knots.Array.data[2].Rotation.value.x
-      value: -0.007757084
+      value: -0.0077570877
       objectReference: {fileID: 0}
     - target: {fileID: 5808255327043048419, guid: 8c825a7310fd70740b06ad7ecf5ddc87, type: 3}
       propertyPath: m_Splines.Array.data[0].m_Knots.Array.data[2].Rotation.value.y
@@ -64196,7 +64196,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5808255327043048419, guid: 8c825a7310fd70740b06ad7ecf5ddc87, type: 3}
       propertyPath: m_Splines.Array.data[0].m_Knots.Array.data[2].Rotation.value.z
-      value: 0.2619153
+      value: 0.26191536
       objectReference: {fileID: 0}
     - target: {fileID: 5808255327043048419, guid: 8c825a7310fd70740b06ad7ecf5ddc87, type: 3}
       propertyPath: m_Splines.Array.data[0].m_Knots.Array.data[4].Rotation.value.w
@@ -64399,6 +64399,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4621377247364498783, guid: 0967439b4b4562246885d8477454d6f3, type: 3}
+      propertyPath: _triggerSettings.dictionaryList.Array.data[0].Value
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4621377247364498783, guid: 0967439b4b4562246885d8477454d6f3, type: 3}
       propertyPath: _triggerSettings.dictionaryList.Array.data[2].Value
       value: 512
       objectReference: {fileID: 0}
@@ -64414,7 +64418,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Austin
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7638506374536808589, guid: 0967439b4b4562246885d8477454d6f3, type: 3}
+    - {fileID: 8677341258138528670, guid: 0967439b4b4562246885d8477454d6f3, type: 3}
+    - {fileID: 8464677286581865149, guid: 0967439b4b4562246885d8477454d6f3, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
