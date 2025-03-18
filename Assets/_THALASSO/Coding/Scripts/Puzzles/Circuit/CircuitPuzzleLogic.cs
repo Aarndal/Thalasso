@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ElectricityPuzzleLogic : SolvableObject, IAmPuzzle
+public class CircuitPuzzleLogic : SolvableObject, IAmPuzzle
 {
     [SerializeField] private int puzzleID = 0;
     [SerializeField] private GameObject[] tileFieldInput;
@@ -28,8 +28,8 @@ public class ElectricityPuzzleLogic : SolvableObject, IAmPuzzle
     private AK.Wwise.Event wrongSound;
     [SerializeField]
     private AK.Wwise.Event completeSound;
-    [SerializeField]
-    private AK.Wwise.Event openDoorSound;
+    //[SerializeField]
+    //private AK.Wwise.Event openDoorSound;
 #endif
 
     private bool isSceneStart = true;
@@ -187,7 +187,7 @@ public class ElectricityPuzzleLogic : SolvableObject, IAmPuzzle
                 if (!activeTiles.Contains(ObjToPos(_updatedTile)))
                 {
                     activeTiles.Add(ObjToPos(_updatedTile));
-                    _updatedTile.GetComponent<MeshRenderer>().material.color = Color.green; // temp visuals
+                    _updatedTile.GetComponent<MeshRenderer>().material.color = Color.green * 2.2f - Color.black * 1.2f; // temp visuals
 
 #if WWISE_2024_OR_LATER
                     if (!isSceneStart)
@@ -231,7 +231,7 @@ public class ElectricityPuzzleLogic : SolvableObject, IAmPuzzle
                 if (!activeTiles.Contains(ObjToPos(_updatedTile)))
                 {
                     activeTiles.Add(ObjToPos(_updatedTile));
-                    _updatedTile.GetComponent<MeshRenderer>().material.color = Color.green; // temp visuals
+                    _updatedTile.GetComponent<MeshRenderer>().material.color = Color.green * 2.2f - Color.black * 1.2f; // temp visuals
 #if WWISE_2024_OR_LATER
                     if (!isSceneStart)
                         correctSound.Post(gameObject);
@@ -274,7 +274,7 @@ public class ElectricityPuzzleLogic : SolvableObject, IAmPuzzle
                 DeactivateTile(PosToObj(activeTiles[index + 1]));
             }
 
-            _tileToDeactivate.GetComponent<MeshRenderer>().material.color = Color.red;
+            _tileToDeactivate.GetComponent<MeshRenderer>().material.color = Color.red * 2.2f - Color.black * 1.2f;
 #if WWISE_2024_OR_LATER
             wrongSound.Post(gameObject);
 #endif
