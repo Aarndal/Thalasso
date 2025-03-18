@@ -1891,7 +1891,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1035527622}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1832929480019741141, guid: 317acf25e95e7db4ebf3b935817e02c9, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2022,11 +2022,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 317acf25e95e7db4ebf3b935817e02c9, type: 3}
---- !u!4 &587946359 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6272708509281683266, guid: 317acf25e95e7db4ebf3b935817e02c9, type: 3}
-  m_PrefabInstance: {fileID: 587946358}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &591847983
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7392,7 +7387,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1146057732724087758, guid: 8251b4ee7532b9f4786687271d26e532, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1.6319664
       objectReference: {fileID: 0}
     - target: {fileID: 1146057732724087758, guid: 8251b4ee7532b9f4786687271d26e532, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -7412,7 +7407,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1488549326730756818, guid: 8251b4ee7532b9f4786687271d26e532, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.5439887
       objectReference: {fileID: 0}
     - target: {fileID: 1488549326730756818, guid: 8251b4ee7532b9f4786687271d26e532, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -7436,7 +7431,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3233266446037635738, guid: 8251b4ee7532b9f4786687271d26e532, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.5439887
       objectReference: {fileID: 0}
     - target: {fileID: 3233266446037635738, guid: 8251b4ee7532b9f4786687271d26e532, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -7456,7 +7451,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5053830632264360296, guid: 8251b4ee7532b9f4786687271d26e532, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -1.6319664
       objectReference: {fileID: 0}
     - target: {fileID: 5053830632264360296, guid: 8251b4ee7532b9f4786687271d26e532, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -7539,3 +7534,4 @@ SceneRoots:
   m_Roots:
   - {fileID: 1344535697}
   - {fileID: 1167749897}
+  - {fileID: 587946358}
