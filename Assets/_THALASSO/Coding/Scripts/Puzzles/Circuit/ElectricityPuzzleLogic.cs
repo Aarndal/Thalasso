@@ -13,10 +13,10 @@ public class ElectricityPuzzleLogic : SolvableObject, IAmPuzzle
     [SerializeField] private ElectricityPuzzelTileTypeConnections differentTileTypeConnections;
     [SerializeField] private ElectricityPuzzlePrefab[] layoutPrefabs;
 
-    [SerializeField] private GameObject doorLockLid;
-    [SerializeField] private Transform doorLockLidRotationPoint;
-    [SerializeField] private float transitionduration = 0.5f;
-    [SerializeField] private AnimationCurve animationSpeedCurve;
+    //[SerializeField] private GameObject doorLockLid;
+    //[SerializeField] private Transform doorLockLidRotationPoint;
+    //[SerializeField] private float transitionduration = 0.5f;
+    //[SerializeField] private AnimationCurve animationSpeedCurve;
 
 #if WWISE_2024_OR_LATER
     [Header("Wwise Audio Settings")]
@@ -87,11 +87,11 @@ public class ElectricityPuzzleLogic : SolvableObject, IAmPuzzle
 
     public void StartPuzzle()
     {
-        StartCoroutine(TransformTransitionSystem.Instance.TransitionRot(doorLockLid, doorLockLidRotationPoint.rotation, transitionduration, animationSpeedCurve, null
-#if WWISE_2024_OR_LATER
-            , () => openDoorSound.Post(gameObject)
-#endif
-            ));
+        //StartCoroutine(TransformTransitionSystem.Instance.TransitionRot(doorLockLid, doorLockLidRotationPoint.rotation, transitionduration, animationSpeedCurve, null
+//#if WWISE_2024_OR_LATER
+//            , () => openDoorSound.Post(gameObject)
+//#endif
+//            ));
     }
 
     private void RandomizeActiveLayoutPrefab()
