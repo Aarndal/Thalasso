@@ -19,7 +19,7 @@ namespace WwiseHelper
             if (IsTriggerable)
             {
                 _wwiseSwitch.SetValue(triggeringGameObject);
-                _isTriggered?.Invoke(gameObject, responderState);
+                _isTriggeredBy?.Invoke(gameObject, responderState, triggeringGameObject);
             }
             else
             {
