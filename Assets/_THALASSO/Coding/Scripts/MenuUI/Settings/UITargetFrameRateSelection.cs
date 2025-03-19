@@ -1,8 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Security.Cryptography;
 using TMPro;
 using UnityEngine;
 
@@ -29,6 +25,8 @@ public class UITargetFrameRateSelection : MonoBehaviour
     private Resolution[] _resolutions;
 
     private readonly Dictionary<string, int> _targetFrameRates = new();
+
+    public int CurrentFrameRate => ((int)Screen.currentResolution.refreshRateRatio.value);
 
     private void Awake()
     {
