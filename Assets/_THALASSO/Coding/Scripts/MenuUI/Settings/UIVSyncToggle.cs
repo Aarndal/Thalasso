@@ -19,6 +19,9 @@ public class UIVSyncToggle : MonoBehaviour, INotifyValueChanged<bool>
 
     private Toggle _toggle = default;
 
+    public uint ID => ((uint)GetInstanceID());
+    public bool IsOn => _toggle.isOn;
+
     private Action<uint, bool> _valueChanged;
 
     public event Action<uint, bool> ValueChanged
@@ -30,10 +33,6 @@ public class UIVSyncToggle : MonoBehaviour, INotifyValueChanged<bool>
         }
         remove => _valueChanged -= value;
     }
-
-    public bool IsOn => _toggle.isOn;
-
-    public uint ID => ((uint)GetInstanceID());
 
     private void Awake()
     {
@@ -52,7 +51,6 @@ public class UIVSyncToggle : MonoBehaviour, INotifyValueChanged<bool>
     {
         _toggle.isOn = true;
         OnVSyncChanged(true);
-        //_toggle.Rebuild(CanvasUpdate.Prelayout);
     }
 
     private void OnDisable()
@@ -68,6 +66,7 @@ public class UIVSyncToggle : MonoBehaviour, INotifyValueChanged<bool>
 
         _tmpText.text = isOn ? _isOnText : _isOffText;
         _tmpText.color = isOn ? _isOnColor : _isOffColor;
+        _toggle.targetGraphic.enabled = !isOn;
 
         _valueChanged?.Invoke(ID, isOn);
     }
