@@ -478,8 +478,8 @@ MonoBehaviour:
         guid: 742c5d442d967546bfb250fb2f943ddf
       Path: Events\Default Work Unit\Music\Chase_Music
       maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxDuration: 0
+      minDuration: 0
     - name: CircuitRiddle
       guid: 92136bdb08f3084084ad8ac6eadf0481
       id: 2057550820
@@ -521,8 +521,8 @@ MonoBehaviour:
         guid: 46a011f9610d704a9205175c906f4e23
       Path: Events\Default Work Unit\Riddles\CircuitRiddle\CircuitRiddle_Click
       maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxDuration: 0.9426086
+      minDuration: 0.40817642
     - name: CircuitRiddle_Complete
       guid: 4045a13e98ac544ea10626a2ded0edc8
       id: 2222894834
@@ -544,8 +544,8 @@ MonoBehaviour:
         guid: 4045a13e98ac544ea10626a2ded0edc8
       Path: Events\Default Work Unit\Riddles\CircuitRiddle\CircuitRiddle_Complete
       maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxDuration: 3.0976002
+      minDuration: 3.0976002
     - name: CircuitRiddle_Right
       guid: 4552b7c124bf21419ab0db6101f1f889
       id: 4250834603
@@ -567,8 +567,8 @@ MonoBehaviour:
         guid: 4552b7c124bf21419ab0db6101f1f889
       Path: Events\Default Work Unit\Riddles\CircuitRiddle\CircuitRiddle_Right
       maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxDuration: 0.5891656
+      minDuration: 0.36280942
     - name: CircuitRiddle_Wrong
       guid: 57f3d86c9626da4181941c94116a0d24
       id: 1404039910
@@ -590,8 +590,8 @@ MonoBehaviour:
         guid: 57f3d86c9626da4181941c94116a0d24
       Path: Events\Default Work Unit\Riddles\CircuitRiddle\CircuitRiddle_Wrong
       maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxDuration: 1.1145884
+      minDuration: 0.7147663
     - name: DoorOpen
       guid: 6ba5f69d5250094288205d926f45f22c
       id: 1404805401
@@ -612,9 +612,9 @@ MonoBehaviour:
         ObjectType: 3
         guid: 6ba5f69d5250094288205d926f45f22c
       Path: Events\Default Work Unit\Enviroment\Doors\DoorOpen
-      maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxAttenuation: 50
+      maxDuration: 2.6106668
+      minDuration: 2.6106668
     - name: Doors
       guid: d7c7ddb5ec4de749a95ea38e6ca31ecd
       id: 2150196036
@@ -655,9 +655,9 @@ MonoBehaviour:
         ObjectType: 3
         guid: 4164b2d527981e46b465fe4e329d6314
       Path: Events\Default Work Unit\Enviroment\Ambience\ElectronicsRoom_Hum
-      maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxAttenuation: 5
+      maxDuration: 0
+      minDuration: 0
     - name: End_Credits
       guid: 57771e8076b8f64a9f41ca652c09fb62
       id: 3797583859
@@ -676,8 +676,8 @@ MonoBehaviour:
         guid: 57771e8076b8f64a9f41ca652c09fb62
       Path: Events\Default Work Unit\Music\End_Credits
       maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxDuration: 99.428566
+      minDuration: 99.428566
     - name: Enviroment
       guid: f7853a6c27cd924fadd820903c35b2a6
       id: 3909959462
@@ -715,9 +715,9 @@ MonoBehaviour:
         ObjectType: 3
         guid: 3f77e21764bd4846a9009f7e29603aa3
       Path: Events\Default Work Unit\Enviroment\Doors\EscapePodDoorOpen
-      maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxAttenuation: 50
+      maxDuration: 4.8214374
+      minDuration: 4.8214374
     - name: Last_Chase_Music
       guid: 5af86b0448834947919792dd4117dcf1
       id: 2540848410
@@ -736,8 +736,8 @@ MonoBehaviour:
         guid: 5af86b0448834947919792dd4117dcf1
       Path: Events\Default Work Unit\Music\Last_Chase_Music
       maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxDuration: 0
+      minDuration: 0
     - name: Main_Menu_In
       guid: 4b4230c85b7262498456d3f64fe02130
       id: 580468006
@@ -756,8 +756,8 @@ MonoBehaviour:
         guid: 4b4230c85b7262498456d3f64fe02130
       Path: Events\Default Work Unit\Menu Sounds\Main_Menu_In
       maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxDuration: 1.6664166
+      minDuration: 1.6664166
     - name: Main_Menu_Music
       guid: 602b47f21ed7e64baced9d1f35a08734
       id: 3399698792
@@ -776,8 +776,8 @@ MonoBehaviour:
         guid: 602b47f21ed7e64baced9d1f35a08734
       Path: Events\Default Work Unit\Music\Main_Menu_Music
       maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxDuration: 0
+      minDuration: 0
     - name: Main_Menu_Out
       guid: f3f22cf989a36047bfd9b724c8c1c785
       id: 3091888041
@@ -796,8 +796,8 @@ MonoBehaviour:
         guid: f3f22cf989a36047bfd9b724c8c1c785
       Path: Events\Default Work Unit\Menu Sounds\Main_Menu_Out
       maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxDuration: 0.5933333
+      minDuration: 0.5933333
     - name: MastermindButtonPress
       guid: b1906b74acd7c4438347589fb987d89d
       id: 847120340
@@ -819,8 +819,8 @@ MonoBehaviour:
         guid: b1906b74acd7c4438347589fb987d89d
       Path: Events\Default Work Unit\Riddles\MastermindRiddle\MastermindButtonPress
       maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxDuration: 1.2
+      minDuration: 0.6
     - name: MastermindCorrect
       guid: 91eb183301535749ad9036eb9cc72b21
       id: 3511230007
@@ -842,8 +842,8 @@ MonoBehaviour:
         guid: 91eb183301535749ad9036eb9cc72b21
       Path: Events\Default Work Unit\Riddles\MastermindRiddle\MastermindCorrect
       maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxDuration: 1.2
+      minDuration: 1.2
     - name: MastermindRiddle
       guid: 1b5507e7a004a94dad6bb48614920f79
       id: 2668375601
@@ -885,8 +885,8 @@ MonoBehaviour:
         guid: 0920fbde6d4f8243bcbd4b31c99d9166
       Path: Events\Default Work Unit\Riddles\MastermindRiddle\MastermindWrong
       maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxDuration: 0.3438914
+      minDuration: 0.3438914
     - name: Menu Sounds
       guid: d5763613872ef2498e0e8389e0436448
       id: 1842939884
@@ -922,8 +922,8 @@ MonoBehaviour:
         guid: de1597ceeb47c54ca5118d7699dd15b2
       Path: Events\Default Work Unit\Menu Sounds\Menu_Back_Button
       maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxDuration: 0.30300647
+      minDuration: 0.2608239
     - name: Menu_Button_Press
       guid: 1dd9e9747eb2304c8436b5c6231d3522
       id: 952003163
@@ -942,8 +942,8 @@ MonoBehaviour:
         guid: 1dd9e9747eb2304c8436b5c6231d3522
       Path: Events\Default Work Unit\Menu Sounds\Menu_Button_Press
       maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxDuration: 1.8704894
+      minDuration: 0.4080316
     - name: MonsterSounds
       guid: 0193a850dc314b4ea489a670b4fe02e5
       id: 682291357
@@ -996,8 +996,8 @@ MonoBehaviour:
         guid: 9284d8823fc8e6468a7d581d2dd4238e
       Path: Events\Default Work Unit\Music\Music_Ambience_First_Time_Monster
       maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxDuration: 0
+      minDuration: 0
     - name: Music_Ambience_First_Time_Station
       guid: b918ab708f88e44cab808d3d4d1a52f6
       id: 3531297571
@@ -1016,8 +1016,8 @@ MonoBehaviour:
         guid: b918ab708f88e44cab808d3d4d1a52f6
       Path: Events\Default Work Unit\Music\Music_Ambience_First_Time_Station
       maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxDuration: 0
+      minDuration: 0
     - name: Pause_Menu_In
       guid: 0d706117bf48234a9bdf7dd669800093
       id: 3382955325
@@ -1036,8 +1036,8 @@ MonoBehaviour:
         guid: 0d706117bf48234a9bdf7dd669800093
       Path: Events\Default Work Unit\Menu Sounds\Pause_Menu_In
       maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxDuration: 0.42666668
+      minDuration: 0.42666668
     - name: Pause_Menu_Out
       guid: 013f3b44ac13e54fb3bc3bf774fcc39c
       id: 2397763428
@@ -1056,8 +1056,8 @@ MonoBehaviour:
         guid: 013f3b44ac13e54fb3bc3bf774fcc39c
       Path: Events\Default Work Unit\Menu Sounds\Pause_Menu_Out
       maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxDuration: 0.84933335
+      minDuration: 0.84933335
     - name: Play_Austin
       guid: 40eb851379590a40983f18d6e3794cd1
       id: 3408260292
@@ -1078,9 +1078,9 @@ MonoBehaviour:
         ObjectType: 3
         guid: 40eb851379590a40983f18d6e3794cd1
       Path: Events\Default Work Unit\MonsterSounds\Austin\Play_Austin
-      maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxAttenuation: 100
+      maxDuration: 0
+      minDuration: 0
     - name: Play_Music_Ambience
       guid: ccbf4be69c29de4dbebd3da213cbe6f2
       id: 1659166974
@@ -1121,9 +1121,9 @@ MonoBehaviour:
         ObjectType: 3
         guid: 38e25ee7731a1c40b1ea915770cd1e75
       Path: Events\Default Work Unit\Enviroment\Ambience\PlayAmbienceLoop
-      maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxAttenuation: 50
+      maxDuration: 0
+      minDuration: 0
     - name: PlayAmbienceOneShots
       guid: 9735d1e5275ff84496fd141b034973f1
       id: 1968327068
@@ -1144,9 +1144,9 @@ MonoBehaviour:
         ObjectType: 3
         guid: 9735d1e5275ff84496fd141b034973f1
       Path: Events\Default Work Unit\Enviroment\Ambience\PlayAmbienceOneShots
-      maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxAttenuation: 50
+      maxDuration: 0
+      minDuration: 0
     - name: PlayerFoot_Run
       guid: 9535f4e52441134bb64bf6b39f19f673
       id: 4265836956
@@ -1165,8 +1165,8 @@ MonoBehaviour:
         guid: 9535f4e52441134bb64bf6b39f19f673
       Path: Events\Default Work Unit\PlayerSounds\PlayerFoot_Run
       maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxDuration: 0.877017
+      minDuration: 0.604
     - name: PlayerFoot_Walk
       guid: d89b7d260f96d3469d767294b02d398d
       id: 744081578
@@ -1185,8 +1185,8 @@ MonoBehaviour:
         guid: d89b7d260f96d3469d767294b02d398d
       Path: Events\Default Work Unit\PlayerSounds\PlayerFoot_Walk
       maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxDuration: 0.9262182
+      minDuration: 0.604
     - name: PlayerSounds
       guid: 1e79cc6510d6214d8453cc6ec06f3599
       id: 1327972334
@@ -1239,8 +1239,8 @@ MonoBehaviour:
         guid: ce8c73ed0e4fa04e8108a34a66524703
       Path: Events\Default Work Unit\Music\Room_Music
       maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxDuration: 0
+      minDuration: 0
     - name: SmallDoorCloseClick
       guid: 5837945a3e41364ca24269e51b8ba595
       id: 3301454522
@@ -1261,9 +1261,9 @@ MonoBehaviour:
         ObjectType: 3
         guid: 5837945a3e41364ca24269e51b8ba595
       Path: Events\Default Work Unit\Enviroment\Doors\SmallDoorCloseClick
-      maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxAttenuation: 50
+      maxDuration: 0.16100703
+      minDuration: 0.16100703
     - name: SmallDoorCloseCreak
       guid: 89dde8be5c37324ea84608b209a92d13
       id: 779185414
@@ -1284,9 +1284,9 @@ MonoBehaviour:
         ObjectType: 3
         guid: 89dde8be5c37324ea84608b209a92d13
       Path: Events\Default Work Unit\Enviroment\Doors\SmallDoorCloseCreak
-      maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxAttenuation: 50
+      maxDuration: 0.33781382
+      minDuration: 0.33781382
     - name: SmallDoorOpenClick
       guid: a6e32b8139d8c34d82347f49fbe414c1
       id: 1277509966
@@ -1307,9 +1307,9 @@ MonoBehaviour:
         ObjectType: 3
         guid: a6e32b8139d8c34d82347f49fbe414c1
       Path: Events\Default Work Unit\Enviroment\Doors\SmallDoorOpenClick
-      maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxAttenuation: 50
+      maxDuration: 0.180997
+      minDuration: 0.180997
     - name: SmallDoorOpenCreak
       guid: 28001404b6856241b5f1195ac0d0d0fe
       id: 488029002
@@ -1330,9 +1330,9 @@ MonoBehaviour:
         ObjectType: 3
         guid: 28001404b6856241b5f1195ac0d0d0fe
       Path: Events\Default Work Unit\Enviroment\Doors\SmallDoorOpenCreak
-      maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxAttenuation: 50
+      maxDuration: 0.8096383
+      minDuration: 0.8096383
     - name: Stop_Music_Ambience
       guid: 98e50f7b451d8c4f99237ae90806e118
       id: 398256180
