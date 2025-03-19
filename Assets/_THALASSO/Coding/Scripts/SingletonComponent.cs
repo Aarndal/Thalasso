@@ -1,12 +1,16 @@
 using UnityEngine;
 
-public class SingletonComponent<T> : MonoBehaviour where T : MonoBehaviour
+public class SingletonComponent<T> : MonoBehaviour where T : Component
 {
-    private static readonly object _threadLock = new();
+    private static T _instance;
 
     private static bool _isQuitting = false;
 
-    private static T _instance = null;
+    private static readonly object _threadLock = new();
+
+    #region Properties
+    public static bool HasInstance => _instance != null;
+
     public static T Instance
     {
         get
@@ -22,35 +26,45 @@ public class SingletonComponent<T> : MonoBehaviour where T : MonoBehaviour
                 {
                     if(_instance == null)
                     {
-                        var singeltonGameObject = new GameObject();
-                        singeltonGameObject.name = typeof(T).Name + " (Persists)";
+                        var singeltonGameObject = new GameObject(typeof(T).Name + " (Auto-Generated)");
                         _instance = singeltonGameObject.AddComponent<T>();
 
                         DontDestroyOnLoad(singeltonGameObject);
-                        Debug.Log($"New Instance of {_instance.gameObject.name} created!");
+                        Debug.LogFormat("New Instance of {0} created!", _instance.gameObject.name);
                     }
                 }
             }
             return _instance;
         }
     }
+    #endregion
+
+    #region Unity Lifecycle Methods
     protected virtual void Awake()
     {
-        if(_instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        _instance = GetComponent<T>();
-        DontDestroyOnLoad(gameObject);
-
-        if (_instance == null)
-            return;
+        InitSingleton();
     }
 
     protected virtual void OnDestroy()
     {
         _isQuitting = true;
+    }
+    #endregion
+
+    public static T TryGetInstance() => HasInstance ? _instance : null;
+
+    protected void InitSingleton()
+    {
+        if (_instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        _instance = this as T;
+        DontDestroyOnLoad(gameObject);
+
+        if (Instance == null)
+            return;
     }
 }

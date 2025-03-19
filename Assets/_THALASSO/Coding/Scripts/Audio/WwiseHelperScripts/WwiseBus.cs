@@ -44,7 +44,7 @@ namespace WwiseHelper
 
         public void AddListener()
         {
-            _volumeSlider.onValueChanged.AddListener((value) => SetVolume(value));
+            _volumeSlider.onValueChanged.AddListener(SetVolume);
         }
 
         public void DeleteData()
@@ -62,7 +62,7 @@ namespace WwiseHelper
 
         public void RemoveListener()
         {
-            _volumeSlider.onValueChanged.RemoveListener((value) => SetVolume(value));
+            _volumeSlider.onValueChanged.RemoveListener(SetVolume);
         }
 
         public void SetVolumeRange(float minValue, float maxValue)

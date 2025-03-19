@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class WwiseMusicPlayer : MonoBehaviour
+public class WwiseMusicPlayer : SingletonComponent<MonoBehaviour>
 {
 #if WWISE_2024_OR_LATER
     [SerializeField]
@@ -26,26 +26,13 @@ public class WwiseMusicPlayer : MonoBehaviour
     private AK.Wwise.Event _activeAKEvent = default;
 
     private readonly Dictionary<int, AK.Wwise.Event> _sceneMusic = new();
-#endif
 
-    private static WwiseMusicPlayer _instance = default;
-
-    public static WwiseMusicPlayer Instance => _instance;
-#if WWISE_2024_OR_LATER
     public Dictionary<int, AK.Wwise.Event> SceneMusic => _sceneMusic;
 #endif
 
-    private void Awake()
+    protected override void Awake()
     {
-        if (_instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        _instance = this;
-
-        DontDestroyOnLoad(gameObject);
+        base.Awake();
 		
 #if WWISE_2024_OR_LATER
         foreach (var scene in _scenesToPlayMainMenuMusic)
@@ -64,6 +51,10 @@ public class WwiseMusicPlayer : MonoBehaviour
             _akGameObject = gameObject.AddComponent<AkGameObj>();
 #endif
 
+    }
+
+    private void OnEnable()
+    {
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
@@ -72,7 +63,7 @@ public class WwiseMusicPlayer : MonoBehaviour
         SwitchSceneMusic(SceneManager.GetActiveScene());
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
