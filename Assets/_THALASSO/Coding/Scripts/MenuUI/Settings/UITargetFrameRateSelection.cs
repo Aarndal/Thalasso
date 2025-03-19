@@ -108,10 +108,11 @@ public class UITargetFrameRateSelection : MonoBehaviour
         }
 
         _targetFrameRates.TryAdd("Unlimited FPS", -1);
-        /*When QualitySettings.vSyncCount = 0 and Application.targetFrameRate = -1:
-         * Desktop: Content is rendered unsynchronized as fast as possible.
-         * Web: Content is rendered at the native display refresh rate.
-         * Android and iOS: Content is rendered at fixed 30 fps to conserve battery power, independent of the native refresh rate of the display.
+        /*
+         * When QualitySettings.vSyncCount = 0 and Application.targetFrameRate = -1:
+         *  Desktop: Content is rendered unsynchronized as fast as possible.
+         *  Web: Content is rendered at the native display refresh rate.
+         *  Android and iOS: Content is rendered at fixed 30 fps to conserve battery power, independent of the native refresh rate of the display.
          */
 
         _tmpDropdown.ClearOptions();

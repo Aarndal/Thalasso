@@ -61,8 +61,10 @@ public class UIVSyncToggle : MonoBehaviour, INotifyValueChanged<bool>
     private void OnVSyncChanged(bool isOn)
     {
         QualitySettings.vSyncCount = isOn ? 1 : 0;
-        /* If vSyncCount == 1, rendering is synchronized to the vertical refresh rate of the display.
-         * If vSyncCount is set to 0, Unity does not synchronize rendering to vertical sync, and the field Application.targetFrameRate is instead used to pace the rendered frames.*/
+        /* 
+         * If vSyncCount == 1, rendering is synchronized to the vertical refresh rate of the display.
+         * If vSyncCount is set to 0, Unity does not synchronize rendering to vertical sync, and the field Application.targetFrameRate is instead used to pace the rendered frames.
+         */
 
         _tmpText.text = isOn ? _isOnText : _isOffText;
         _tmpText.color = isOn ? _isOnColor : _isOffColor;
