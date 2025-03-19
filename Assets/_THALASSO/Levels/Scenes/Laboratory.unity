@@ -20124,11 +20124,82 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1053347789530097978, guid: d9eeafceb24102745b7aacb033af3ddb, type: 3}
   m_PrefabInstance: {fileID: 1682159897}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1686095412 stripped
+--- !u!1 &1686095411
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1686095412}
+  - component: {fileID: 1686095419}
+  - component: {fileID: 1686095420}
+  m_Layer: 2
+  m_Name: Event_FirstTimeStation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &1686095412
 Transform:
   m_CorrespondingSourceObject: {fileID: 2510256943725823372, guid: 8729a1d372968714ebb9d006fc75f10e, type: 3}
   m_PrefabInstance: {fileID: 6274808729320972660}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1686095411}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -10, y: 0, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1125273403}
+  m_Father: {fileID: 1760583284}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1686095419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1686095411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606a08c86fff76e4481420862fde1c01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _startState: 0
+  _triggers:
+  - _monoBehaviourInstance: {fileID: 1125273404}
+  _wwiseEvents: []
+  _playOnOtherObject: 0
+  _isEnvironmentAware: 0
+  _isRoomAware: 0
+--- !u!114 &1686095420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1686095411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62f370bd38ab0524eb28a985f4b8c87a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_listeners:
+    initialListenerList: []
+    useDefaultListeners: 1
+  isEnvironmentAware: 1
+  isStaticObject: 1
+  usePositionOffsetData: 0
+  m_positionOffsetData:
+    KeepMe: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+  scalingFactor: 1
+  m_posOffsetData: {fileID: 0}
+  listenerMask: 1
 --- !u!1 &1692356884
 GameObject:
   m_ObjectHideFlags: 0
