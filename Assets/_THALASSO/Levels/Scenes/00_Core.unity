@@ -316,6 +316,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1329546430893694980, guid: ef3d7c47602e07a4baf836c86a10ce12, type: 3}
+      propertyPath: _sceneMusic.dictionaryList.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1329546430893694980, guid: ef3d7c47602e07a4baf836c86a10ce12, type: 3}
+      propertyPath: _sceneMusic.dictionaryList.Array.data[0].Key
+      value: MainMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 1329546430893694980, guid: ef3d7c47602e07a4baf836c86a10ce12, type: 3}
+      propertyPath: _sceneMusic.dictionaryList.Array.data[1].Key
+      value: CreditsScreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 1329546430893694980, guid: ef3d7c47602e07a4baf836c86a10ce12, type: 3}
+      propertyPath: _sceneMusic.dictionaryList.Array.data[0].Value
+      value: 
+      objectReference: {fileID: 11400000, guid: 9bbfef4f719613c488787dc7df1c091f, type: 2}
+    - target: {fileID: 1329546430893694980, guid: ef3d7c47602e07a4baf836c86a10ce12, type: 3}
+      propertyPath: _sceneMusic.dictionaryList.Array.data[1].Value
+      value: 
+      objectReference: {fileID: 11400000, guid: 23cdec2eb8eb7ed478c2244b7da58f19, type: 2}
+    - target: {fileID: 1329546430893694980, guid: ef3d7c47602e07a4baf836c86a10ce12, type: 3}
+      propertyPath: _sceneMusic.dictionaryList.Array.data[1].index
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1329546430893694980, guid: ef3d7c47602e07a4baf836c86a10ce12, type: 3}
+      propertyPath: _sceneMusic.dictionaryList.Array.data[1].isKeyDuplicated
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1369501701996979986, guid: ef3d7c47602e07a4baf836c86a10ce12, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -356,6 +384,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5630358214324177304, guid: ef3d7c47602e07a4baf836c86a10ce12, type: 3}
+      propertyPath: _soundBanks.Array.data[0].WwiseObjectReference
+      value: 
+      objectReference: {fileID: 11400000, guid: 811e4f2625da2d14a853c33ae44d0fde, type: 2}
     - target: {fileID: 6542260148469151086, guid: ef3d7c47602e07a4baf836c86a10ce12, type: 3}
       propertyPath: m_Name
       value: MusicPlayer

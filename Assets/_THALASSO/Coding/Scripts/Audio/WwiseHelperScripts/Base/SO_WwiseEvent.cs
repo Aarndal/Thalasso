@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -21,13 +22,15 @@ public class SO_WwiseEvent : ScriptableObject
 
     public uint ID => _wwiseEvent.Id;
     public bool IsOneTimeEvent => _isOneTimeEvent;
-    public bool IsValid => _wwiseEvent.IsValid();
-    public string Name => _wwiseEvent.Name;
+    public bool IsValid => IsWwiseEventValid(_wwiseEvent);
+    public string EventName => _wwiseEvent.Name;
     public AK.Wwise.Event Value => _wwiseEvent;
     public readonly HashSet<GameObject> PlayingSources = new();
 
     private void Awake()
     {
+        IsWwiseEventValid(_wwiseEvent);
+
         _playingIDs = new uint[_maxPlayingID];
     }
 
@@ -43,17 +46,30 @@ public class SO_WwiseEvent : ScriptableObject
     /// <returns></returns>
     public bool IsPlayingOn(AkGameObj akGameObject)
     {
-        if (_wwiseEvent.IsValid())
+        if (!IsValid)
+            return false;
+
+        if (!IsAkGameObjectValid(akGameObject))
+            return false;
+
+        AkUnitySoundEngine.GetPlayingIDsFromGameObject(akGameObject.gameObject, ref _maxPlayingID, _playingIDs);
+
+        if (_playingIDs.Length == 0)
         {
-            AkUnitySoundEngine.GetPlayingIDsFromGameObject(akGameObject.gameObject, ref _maxPlayingID, _playingIDs);
-
-            if (_playingIDs.Length == 0)
-                return false;
-
-            if (_playingIDs.Any((id) => id == _wwiseEvent.PlayingId))
-                return true;
+            Debug.LogFormat("There is no WwiseEvent playing on {0}.", akGameObject.gameObject.name);
+            return false;
         }
-        return false;
+
+        if (!_playingIDs.Any((id) => id == _wwiseEvent.PlayingId))
+        {
+            Debug.LogFormat("{1} is currently not playing on {0}.", akGameObject.gameObject.name, EventName);
+            return false;
+        }
+
+        if (!PlayingSources.Contains(akGameObject.gameObject))
+            PlayingSources.Add(akGameObject.gameObject);
+
+        return true;
     }
 
     /// <summary>
@@ -63,13 +79,16 @@ public class SO_WwiseEvent : ScriptableObject
     /// <returns></returns>
     public bool Play(AkGameObj akGameObject)
     {
-        if (_wwiseEvent.IsValid())
+        if (IsPlayingOn(akGameObject))
         {
-            _wwiseEvent?.Post(akGameObject.gameObject);
-            PlayingSources.Add(akGameObject.gameObject);
-            return true;
+            Debug.LogFormat("{1} is already playing on {0}.", akGameObject.gameObject.name, EventName);
+            return false;
         }
-        return false;
+
+        _wwiseEvent?.Post(akGameObject.gameObject);
+        PlayingSources.Add(akGameObject.gameObject);
+
+        return true;
     }
 
     /// <summary>
@@ -84,17 +103,11 @@ public class SO_WwiseEvent : ScriptableObject
             return false;
 
         _cancellationTokenSource = new();
-        
-        if (_wwiseEvent.IsValid())
-        {
-            if (!await DelaySound(akGameObject, delayInSeconds))
-                return false;
 
-            _wwiseEvent?.Post(akGameObject.gameObject);
-            PlayingSources.Add(akGameObject.gameObject);
-            return true;
-        }
-        return false;
+        if (!await DelaySound(akGameObject, delayInSeconds))
+            return false;
+
+        return Play(akGameObject);
     }
 
     /// <summary>
@@ -104,13 +117,12 @@ public class SO_WwiseEvent : ScriptableObject
     /// <returns></returns>
     public bool Stop(AkGameObj akGameObject)
     {
-        if (_wwiseEvent.IsValid())
-        {
-            _wwiseEvent?.Stop(akGameObject.gameObject);
-            PlayingSources.Remove(akGameObject.gameObject);
-            return true;
-        }
-        return false;
+        if (!IsPlayingOn(akGameObject))
+            return false;
+
+        _wwiseEvent?.Stop(akGameObject.gameObject);
+        PlayingSources.Remove(akGameObject.gameObject);
+        return true;
     }
 
     /// <summary>
@@ -119,24 +131,79 @@ public class SO_WwiseEvent : ScriptableObject
     /// <returns></returns>
     public bool Stop()
     {
-        if (_wwiseEvent.IsValid())
+        if (!IsValid)
+            return false;
+
+        AkUnitySoundEngine.StopPlayingID(_wwiseEvent.PlayingId);
+        PlayingSources.Clear();
+        return true;
+    }
+
+    /// <summary>
+    /// Used to switch between WwiseEvents on the given GameObject. If no WwiseEvent is provided, it stops all current WwiseEvents on the GameObject.
+    /// </summary>
+    /// <param name="akGameObject"></param>
+    /// <param name="wwiseEvent"></param>
+    /// <returns></returns>
+    public bool Switch(AkGameObj akGameObject, SO_WwiseEvent wwiseEvent = null)
+    {
+        if (!IsAkGameObjectValid(akGameObject))
+            return false;
+
+        if (wwiseEvent == null)
         {
-            AkUnitySoundEngine.StopPlayingID(_wwiseEvent.PlayingId);
-            PlayingSources.Clear();
-            return true;
+            AkUnitySoundEngine.StopAll(akGameObject.gameObject);
+            PlayingSources.Remove(akGameObject.gameObject);
         }
-        return false;
+
+        if (wwiseEvent != null && wwiseEvent.IsValid)
+            wwiseEvent.Stop(akGameObject);
+
+        return Play(akGameObject);
+    }
+
+    /// <summary>
+    /// Checks whether anything in the Wwise-Type Event property drawer has been selected. 
+    /// </summary>
+    /// <param name="wwiseEvent"></param>
+    /// <returns></returns>
+    private bool IsWwiseEventValid(AK.Wwise.Event wwiseEvent)
+    {
+        if (!wwiseEvent.IsValid())
+        {
+            wwiseEvent.Validate();
+            return false;
+        }
+
+        if (wwiseEvent == null)
+        {
+            Debug.LogErrorFormat("The referenced WwiseEvent on {0} is null!", name);
+            return false;
+        }
+
+        return true;
+    }
+
+    private bool IsAkGameObjectValid(AkGameObj akGameObject)
+    {
+        if (akGameObject == null)
+        {
+            Debug.LogErrorFormat("NullReference detected by {1}: The referenced AkGameObject on {0} is null!", akGameObject.gameObject.name, name);
+            return false;
+        }
+
+        return true;
     }
 
     private async Task<bool> DelaySound(AkGameObj akGameObject, float delayInSeconds)
     {
         try
         {
-            await Task.Delay((int)delayInSeconds * 1000, _cancellationTokenSource.Token);
+            await Task.Delay(TimeSpan.FromSeconds(delayInSeconds), _cancellationTokenSource.Token);
         }
         catch
         {
-            Debug.LogFormat("{1} ended on {0}.", akGameObject.gameObject.name, Name);
+            Debug.LogFormat("{1} ended on {0}.", akGameObject.gameObject.name, EventName);
             return false;
         }
         finally

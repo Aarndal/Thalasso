@@ -29,7 +29,7 @@ namespace WwiseHelper
                         if (AmbientComponents.TryAdd(wwiseEvent, akAmbient))
                             continue;
 
-                        Debug.LogWarningFormat("{0} already contains a {2} component that plays {1} event!", gameObject.name, wwiseEvent.Name, akAmbient);
+                        Debug.LogWarningFormat("{0} already contains a {2} component that plays {1} event!", gameObject.name, wwiseEvent.EventName, akAmbient);
                     }
                 }
 
@@ -40,7 +40,7 @@ namespace WwiseHelper
                 temp.data = wwiseEvent.Value;
 
                 if (!AmbientComponents.TryAdd(wwiseEvent, temp))
-                    Debug.LogWarningFormat("{0} already contains a {2} component that plays {1} event!", gameObject.name, wwiseEvent.Name, temp);
+                    Debug.LogWarningFormat("{0} already contains a {2} component that plays {1} event!", gameObject.name, wwiseEvent.EventName, temp);
             }
 
             if (AmbientComponents.Count > 0)

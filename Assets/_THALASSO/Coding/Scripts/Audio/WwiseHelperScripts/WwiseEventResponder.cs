@@ -97,9 +97,9 @@ namespace WwiseHelper
 
                 foreach (var wwiseEvent in _wwiseEvents)
                 {
-                    if (!AudioEvents.TryAdd(wwiseEvent.Name, wwiseEvent))
+                    if (!AudioEvents.TryAdd(wwiseEvent.EventName, wwiseEvent))
                     {
-                        Debug.LogWarningFormat("Wwise Event color=cyan>{0}</color> <color=yellow>is defined multiple times</color> in <color=cyan>{1}</color>'s {2} component!", wwiseEvent.Name, gameObject.name, this);
+                        Debug.LogWarningFormat("Wwise Event color=cyan>{0}</color> <color=yellow>is defined multiple times</color> in <color=cyan>{1}</color>'s {2} component!", wwiseEvent.EventName, gameObject.name, this);
                     }
                 }
             }
