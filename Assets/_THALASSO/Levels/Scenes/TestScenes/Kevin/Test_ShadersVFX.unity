@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 70895263}
   - component: {fileID: 70895261}
   m_Layer: 0
-  m_Name: Camera
+  m_Name: VFXRenderCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -240,12 +240,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 70895260}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -1126, y: 335, z: -670}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 2109534498}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &385657742
 PrefabInstance:
@@ -718,12 +718,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1236610724}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 2109534498}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1236610728
 MonoBehaviour:
@@ -1219,6 +1219,39 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2108192203}
   m_CullTransparentMesh: 1
+--- !u!1 &2109534497
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2109534498}
+  m_Layer: 0
+  m_Name: MainMenuCameras
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2109534498
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2109534497}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1236610727}
+  - {fileID: 70895264}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &22378697967248152
 GameObject:
   m_ObjectHideFlags: 0
@@ -1523,7 +1556,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70639ceb579cf5a478fc75124df7e9aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _switchToOtherCanvas: 1
+  _toggleOtherCanvas: 1
   _targetCanvas: {fileID: 5609843745462360150}
 --- !u!224 &490248017932601665
 RectTransform:
@@ -2467,7 +2500,7 @@ MonoBehaviour:
   m_text: Settings
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dec44b249f5646f47b38cf14f6e7f340, type: 2}
-  m_sharedMaterial: {fileID: 1322165989590672895, guid: dec44b249f5646f47b38cf14f6e7f340, type: 2}
+  m_sharedMaterial: {fileID: 6410528652424057794, guid: dec44b249f5646f47b38cf14f6e7f340, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3051,7 +3084,7 @@ MonoBehaviour:
   m_text: Fear The Deep
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dec44b249f5646f47b38cf14f6e7f340, type: 2}
-  m_sharedMaterial: {fileID: 1322165989590672895, guid: dec44b249f5646f47b38cf14f6e7f340, type: 2}
+  m_sharedMaterial: {fileID: 6410528652424057794, guid: dec44b249f5646f47b38cf14f6e7f340, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3493,7 +3526,7 @@ MonoBehaviour:
 '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dec44b249f5646f47b38cf14f6e7f340, type: 2}
-  m_sharedMaterial: {fileID: 1322165989590672895, guid: dec44b249f5646f47b38cf14f6e7f340, type: 2}
+  m_sharedMaterial: {fileID: 6410528652424057794, guid: dec44b249f5646f47b38cf14f6e7f340, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3573,7 +3606,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70639ceb579cf5a478fc75124df7e9aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _switchToOtherCanvas: 1
+  _toggleOtherCanvas: 1
   _targetCanvas: {fileID: 4498853071287710183}
 --- !u!222 &4797243358916617422
 CanvasRenderer:
@@ -3764,7 +3797,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb5f680e412885e4e931265f06eca117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _delayInMilliseconds: 1000
 --- !u!222 &5339306633396858201
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5347,12 +5379,11 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 2090343199}
-  - {fileID: 1236610727}
   - {fileID: 1613318766}
   - {fileID: 385657742}
   - {fileID: 661391203}
   - {fileID: 3543643738902164952}
   - {fileID: 1566751013}
-  - {fileID: 70895264}
   - {fileID: 1429417550}
   - {fileID: 1027912941}
+  - {fileID: 2109534498}

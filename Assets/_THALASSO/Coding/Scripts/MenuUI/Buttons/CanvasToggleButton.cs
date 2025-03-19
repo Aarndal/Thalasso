@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class CanvasSwitchButton : ButtonClick
+public class CanvasToggleButton : ButtonClick
 {
     [SerializeField]
-    private bool _switchToOtherCanvas = true;
+    private bool _toggleOtherCanvas = true;
     [SerializeField]
     private Canvas _targetCanvas = default;
 
@@ -15,21 +15,27 @@ public class CanvasSwitchButton : ButtonClick
 
         _currentCanvas = _currentCanvas != null ? _currentCanvas : GetComponentInParent<Canvas>();
 
-        if (_switchToOtherCanvas && _targetCanvas == null)
+        if (_toggleOtherCanvas && _targetCanvas == null)
         {
             Debug.LogErrorFormat("<color=red>No Target Canvas assigned</color> on <color=cyan>{0}'s</color> {1} component!", gameObject.name, this);
         }
     }
 
+
     protected override void OnClicked()
     {
         base.OnClicked();
 
-        _currentCanvas.enabled = !_currentCanvas.enabled;
+        if (_currentCanvas.enabled)
+        {
+            _currentCanvas.enabled = !_currentCanvas.enabled;
+            GlobalEventBus.Raise(GlobalEvents.UI.CanvasDisabled, _currentCanvas.name);
+        }
 
-        if (!_targetCanvas.enabled && _switchToOtherCanvas)
+        if (_toggleOtherCanvas && _targetCanvas != null && !_targetCanvas.enabled)
         {
             _targetCanvas.enabled = !_targetCanvas.enabled;
+            GlobalEventBus.Raise(GlobalEvents.UI.CanvasEnabled, _targetCanvas.name);
         }
     }
 }
