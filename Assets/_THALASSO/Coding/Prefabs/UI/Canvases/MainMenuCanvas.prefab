@@ -595,6 +595,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32baeb09470cc8f4caa2513356855b92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _soundBanks:
+  - idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 6f9b9fb0310fd4a4394e4fd6e098bc90, type: 2}
+  _loadAsynchronously: 0
+  _loadMethod: 0
+  _unloadMethod: 0
 --- !u!114 &353297663627228363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1632,11 +1639,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6064089296531809077, guid: 9494964d1ecd41047b86fa0e1ad77c4a, type: 3}
       propertyPath: m_Name
-      value: StartUpCanvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 8266838465162248161, guid: 9494964d1ecd41047b86fa0e1ad77c4a, type: 3}
-      propertyPath: m_Enabled
-      value: 1
+      value: GameStartUpCanvas
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

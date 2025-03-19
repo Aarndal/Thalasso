@@ -60,7 +60,7 @@ public class SO_WwiseEvent : ScriptableObject
             return false;
         }
 
-        if (!_playingIDs.Any((id) => id == _wwiseEvent.PlayingId))
+        if (!_playingIDs.Any((id) => AkUnitySoundEngine.GetEventIDFromPlayingID(id) == ID))
         {
             Debug.LogFormat("{1} is currently not playing on {0}.", akGameObject.gameObject.name, EventName);
             return false;
@@ -79,11 +79,11 @@ public class SO_WwiseEvent : ScriptableObject
     /// <returns></returns>
     public bool Play(AkGameObj akGameObject)
     {
-        if (IsPlayingOn(akGameObject))
-        {
-            Debug.LogFormat("{1} is already playing on {0}.", akGameObject.gameObject.name, EventName);
+        if (!IsValid)
             return false;
-        }
+
+        if (!IsAkGameObjectValid(akGameObject))
+            return false;
 
         _wwiseEvent?.Post(akGameObject.gameObject);
         PlayingSources.Add(akGameObject.gameObject);
@@ -104,7 +104,7 @@ public class SO_WwiseEvent : ScriptableObject
 
         _cancellationTokenSource = new();
 
-        if (!await DelaySound(akGameObject, delayInSeconds))
+        if (!await DelaySound(akGameObject.gameObject, delayInSeconds))
             return false;
 
         return Play(akGameObject);
@@ -117,7 +117,10 @@ public class SO_WwiseEvent : ScriptableObject
     /// <returns></returns>
     public bool Stop(AkGameObj akGameObject)
     {
-        if (!IsPlayingOn(akGameObject))
+        if (!IsValid)
+            return false;
+
+        if (!IsAkGameObjectValid(akGameObject))
             return false;
 
         _wwiseEvent?.Stop(akGameObject.gameObject);
@@ -195,7 +198,7 @@ public class SO_WwiseEvent : ScriptableObject
         return true;
     }
 
-    private async Task<bool> DelaySound(AkGameObj akGameObject, float delayInSeconds)
+    private async Task<bool> DelaySound(GameObject @gameObject, float delayInSeconds)
     {
         try
         {
@@ -203,7 +206,7 @@ public class SO_WwiseEvent : ScriptableObject
         }
         catch
         {
-            Debug.LogFormat("{1} ended on {0}.", akGameObject.gameObject.name, EventName);
+            Debug.LogFormat("{1} ended on {0}.", @gameObject.name, EventName);
             return false;
         }
         finally

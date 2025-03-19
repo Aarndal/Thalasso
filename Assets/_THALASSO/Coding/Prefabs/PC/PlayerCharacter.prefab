@@ -1240,7 +1240,7 @@ MonoBehaviour:
   _slopeSpeedBoost: 2.6
   _groundLayerMasks:
     serializedVersion: 2
-    m_Bits: 65
+    m_Bits: 1048641
 --- !u!1 &2308971294593066016
 GameObject:
   m_ObjectHideFlags: 0
@@ -2646,8 +2646,6 @@ GameObject:
   - component: {fileID: 1796546054052878204}
   - component: {fileID: 4131238592232167067}
   - component: {fileID: 2036464196522517458}
-  - component: {fileID: 7320325793655824833}
-  - component: {fileID: 3940830999040406894}
   - component: {fileID: 8551591524037566717}
   - component: {fileID: 5521118007307983165}
   - component: {fileID: 2210585923915962435}
@@ -2784,7 +2782,7 @@ MonoBehaviour:
   data:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: e39c6a93ec2d9ec42aa5a0586ff6f20a, type: 2}
+    WwiseObjectReference: {fileID: 11400000, guid: c775e21d4bcbde74199495f56883450b, type: 2}
   decodeBank: 0
   overrideLoadSetting: 0
   loadAsynchronous: 0
@@ -2809,7 +2807,7 @@ MonoBehaviour:
   data:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 3b2c45c9619f89c4f90609d113df29dd, type: 2}
+    WwiseObjectReference: {fileID: 11400000, guid: 971a8339544eae441917ee51c05140c3, type: 2}
   decodeBank: 0
   overrideLoadSetting: 0
   loadAsynchronous: 0
@@ -2837,7 +2835,7 @@ MonoBehaviour:
   data:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 07c6156d9f865144993171de9bb00275, type: 2}
+    WwiseObjectReference: {fileID: 11400000, guid: fbd5a609f22925c4eb1da7d01ca6b8a7, type: 2}
   useCallbacks: 0
   stopSoundOnDestroy: 1
   Callbacks: []
@@ -2846,54 +2844,6 @@ MonoBehaviour:
   eventIdInternal: 0
   valueGuidInternal: 
   m_callbackDataInternal: {fileID: 0}
---- !u!114 &7320325793655824833
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4829465317767684519}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d13bf43d64b87934b9ee773e80da8bf8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerList: f7e1664c
-  useOtherObject: 0
-  data:
-    idInternal: 0
-    valueGuidInternal: 
-    groupIdInternal: 0
-    groupGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 4cd6ca7981263eb45b92b24bfec100bf, type: 2}
-  valueIdInternal: 0
-  groupIdInternal: 0
-  valueGuidInternal: 
-  groupGuidInternal: 
---- !u!114 &3940830999040406894
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4829465317767684519}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d13bf43d64b87934b9ee773e80da8bf8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerList: f7e1664c
-  useOtherObject: 0
-  data:
-    idInternal: 0
-    valueGuidInternal: 
-    groupIdInternal: 0
-    groupGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 7b5fcdb2a1ca27b42b8d976b69d66e3d, type: 2}
-  valueIdInternal: 0
-  groupIdInternal: 0
-  valueGuidInternal: 
-  groupGuidInternal: 
 --- !u!114 &8551591524037566717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2907,17 +2857,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _wwiseEvents:
-  - idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 18eb4eaee53fddb459098dbac0bae978, type: 2}
-  - idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 8f4cdb224558c3e4c9231396c69ea7ff, type: 2}
+  - {fileID: 11400000, guid: db33476dd894d33488141856395f763f, type: 2}
+  - {fileID: 11400000, guid: 016b0ef5d5f043c44882e189597dd898, type: 2}
   _playOnOtherObject: 0
-  _isEnvironmentAware: 0
+  _isEnvironmentAware: 1
   _isRoomAware: 0
-  _eventReceiver: {fileID: 0}
-  _rigidbody: {fileID: 0}
+  _eventReceiver: {fileID: 4829465317767684519}
+  _rigidbody: {fileID: 1408469698922686335}
   _animationEventBroadcaster: {fileID: 611012666410614468}
 --- !u!114 &5521118007307983165
 MonoBehaviour:
@@ -2937,7 +2883,7 @@ MonoBehaviour:
     valueGuidInternal: 
     groupIdInternal: 0
     groupGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 9af64c217f9d52c49b486e289c49605a, type: 2}
+    WwiseObjectReference: {fileID: 11400000, guid: 3db5df55e5345794788f7b0381780c33, type: 2}
 --- !u!114 &2210585923915962435
 MonoBehaviour:
   m_ObjectHideFlags: 0

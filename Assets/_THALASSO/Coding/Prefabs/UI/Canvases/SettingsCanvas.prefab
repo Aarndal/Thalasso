@@ -2943,6 +2943,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23f19ec9b12a3994d873215e504441e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rtpc:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  _volumeSlider: {fileID: 0}
 --- !u!1 &3010215350302135781
 GameObject:
   m_ObjectHideFlags: 0
@@ -4623,6 +4628,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23f19ec9b12a3994d873215e504441e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rtpc:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  _volumeSlider: {fileID: 0}
 --- !u!1 &4906077253679631212
 GameObject:
   m_ObjectHideFlags: 0
@@ -5653,6 +5663,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23f19ec9b12a3994d873215e504441e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rtpc:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  _volumeSlider: {fileID: 0}
 --- !u!1 &5655629134858553296
 GameObject:
   m_ObjectHideFlags: 0
@@ -8732,6 +8747,18 @@ PrefabInstance:
       propertyPath: m_text
       value: Back
       objectReference: {fileID: 0}
+    - target: {fileID: 2495989734936987568, guid: f92d5f610c5d95e4b8121aac1f5ed588, type: 3}
+      propertyPath: _buttonSounds.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2495989734936987568, guid: f92d5f610c5d95e4b8121aac1f5ed588, type: 3}
+      propertyPath: '_buttonSounds.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 31104c6979492b144bd3527855705a9e, type: 2}
+    - target: {fileID: 2495989734936987568, guid: f92d5f610c5d95e4b8121aac1f5ed588, type: 3}
+      propertyPath: '_buttonSounds.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 0acf5b4c49ead154ea1164e1cddaed98, type: 2}
     - target: {fileID: 5511751637837763952, guid: f92d5f610c5d95e4b8121aac1f5ed588, type: 3}
       propertyPath: m_Pivot.x
       value: 1

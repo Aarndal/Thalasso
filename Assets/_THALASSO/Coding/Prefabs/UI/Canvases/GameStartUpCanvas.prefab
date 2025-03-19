@@ -45,7 +45,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6064089296531809077}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}
@@ -240,6 +240,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Button_StartGame
       objectReference: {fileID: 0}
+    - target: {fileID: 8303505910765628991, guid: 2d6c2b3cffaa56b48bf9b0515adcf6db, type: 3}
+      propertyPath: _scene.guid
+      value: 325ed5290f0c66d4ea38b3f8ac854207
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303505910765628991, guid: 2d6c2b3cffaa56b48bf9b0515adcf6db, type: 3}
+      propertyPath: _scene.asset
+      value: 
+      objectReference: {fileID: 102900000, guid: 325ed5290f0c66d4ea38b3f8ac854207, type: 3}
+    - target: {fileID: 8303505910765628991, guid: 2d6c2b3cffaa56b48bf9b0515adcf6db, type: 3}
+      propertyPath: _buttonSounds.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303505910765628991, guid: 2d6c2b3cffaa56b48bf9b0515adcf6db, type: 3}
+      propertyPath: '_buttonSounds.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: ce006378684ee614bae53c43b94e07e8, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -554,14 +570,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Button_Credits
       objectReference: {fileID: 0}
-    - target: {fileID: 8303505910765628991, guid: 2d6c2b3cffaa56b48bf9b0515adcf6db, type: 3}
-      propertyPath: _scene.guid
-      value: 87e2ea3adb914e5469e9d53c0e50fe19
-      objectReference: {fileID: 0}
-    - target: {fileID: 8303505910765628991, guid: 2d6c2b3cffaa56b48bf9b0515adcf6db, type: 3}
-      propertyPath: _scene.asset
-      value: 
-      objectReference: {fileID: 102900000, guid: 87e2ea3adb914e5469e9d53c0e50fe19, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
