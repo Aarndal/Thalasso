@@ -28,14 +28,14 @@ public class UITargetFrameRateSelection : MonoBehaviour
 
     private Resolution[] _resolutions;
 
-    private readonly SortedDictionary<string, int> _targetFrameRates = new();
+    private readonly Dictionary<string, int> _targetFrameRates = new();
 
     private void Awake()
     {
         if (!gameObject.TryGetComponent(out _tmpDropdown))
             _tmpDropdown = gameObject.AddComponent<TMP_Dropdown>();
 
-        _tmpDropdown.captionText.color = _defaultCaptionTextColor;
+        _defaultCaptionTextColor = _tmpDropdown.captionText.color;
 
         _vsyncToggle = _vsyncToggle != null ? _vsyncToggle : FindFirstObjectByType<UIVSyncToggle>(FindObjectsInactive.Include);
 
@@ -74,7 +74,7 @@ public class UITargetFrameRateSelection : MonoBehaviour
 
     private int GetTargetFrameRateIndex()
     {
-        return _tmpDropdown.options.FindIndex((optionData) => optionData.text == Screen.currentResolution.refreshRateRatio + " FPS");
+        return _tmpDropdown.options.FindIndex((optionData) => _targetFrameRates[optionData.text] == ((int)Screen.currentResolution.refreshRateRatio.value));
     }
 
     private void OnVSyncChanged(uint id, bool isOn)
@@ -95,16 +95,16 @@ public class UITargetFrameRateSelection : MonoBehaviour
 
     private void SetupTargetFrameRateOptions()
     {
+        foreach (var frameRate in _supportedFrameRates)
+        {
+            _targetFrameRates.TryAdd(frameRate + " FPS", frameRate);
+        }
+
         _resolutions = Screen.resolutions;
 
         foreach (Resolution res in _resolutions)
         {
-            _targetFrameRates.TryAdd(res.refreshRateRatio + " FPS", ((int)res.refreshRateRatio.value));
-        }
-
-        foreach (var frameRate in _supportedFrameRates)
-        {
-            _targetFrameRates.TryAdd(frameRate + " FPS", frameRate);
+            _targetFrameRates.TryAdd(((int)res.refreshRateRatio.value) + " FPS", ((int)res.refreshRateRatio.value));
         }
 
         _targetFrameRates.TryAdd("Unlimited FPS", -1);
