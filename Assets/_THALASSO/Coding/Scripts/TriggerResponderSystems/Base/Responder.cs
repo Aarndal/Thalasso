@@ -43,9 +43,18 @@ public abstract class Responder : MonoBehaviour, IAmResponsive
     {
         if (_triggers.Count <= 0)
         {
-            Debug.LogErrorFormat("<color=yellow>Responder</color> {0} (ID: {1}) <color=yellow>has no triggers assigned!</color>", gameObject.name, GetInstanceID());
+            Debug.LogWarningFormat("{3} <color=cyan>{0} (ID: {1})</color> <color=yellow>has no triggers assigned!</color>", gameObject.name, GetInstanceID(), this);
             return false;
         }
+
+        foreach (var trigger in _triggers)
+        {
+            if(trigger.Interface == null)
+            {
+                Debug.LogErrorFormat("{3} <color=cyan>{0} (ID: {1})</color> <color=red>has a null trigger assigned!</color>", gameObject.name, GetInstanceID(), this);
+            }
+        }
+
         return true;
     }
 }

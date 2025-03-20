@@ -13,12 +13,12 @@ GameObject:
   - component: {fileID: 4999010717830798263}
   - component: {fileID: 9030081401403404873}
   - component: {fileID: 8322469523419279822}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Escape_Pod_Doc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6818215213995765519
 Transform:
@@ -122,3 +122,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e191ea7d50ac124468894a088222114b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _soundMaterial:
+    idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 3db5df55e5345794788f7b0381780c33, type: 2}

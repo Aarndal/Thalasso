@@ -21,15 +21,13 @@ public class UIInteractionCommand : MonoBehaviour
     private Image _dot = default;
     private IAmInteractive _currentInteractiveObject = default;
 
-    private UIImageSpriteLooper _imageSwitch = default;
-    private TextMeshProUGUI _text = default;
+    private UIImageSpriteLooper _spriteLooper = default;
 
     #region UnityLifecycleMethods
     private void Awake()
     {
         _dot = _dot != null ? _dot : GetComponentInParent<Image>(true);
-        _imageSwitch = _imageSwitch != null ? _imageSwitch : GetComponentInChildren<UIImageSpriteLooper>(true);
-        _text = _text != null ? _text : GetComponentInChildren<TextMeshProUGUI>(true);
+        _spriteLooper = _spriteLooper != null ? _spriteLooper : GetComponentInChildren<UIImageSpriteLooper>(true);
     }
 
     private void OnEnable()
@@ -42,14 +40,14 @@ public class UIInteractionCommand : MonoBehaviour
 
         GlobalEventBus.Register(GlobalEvents.Player.InteractiveTargetChanged, OnInteractiveTargetChanged);
 
-        _imageSwitch.ReachedEndOfArray += OnReachedEndOfArray;
-        _imageSwitch.ReachedStartOfArray += OnReachedStartOfArray;
+        _spriteLooper.ReachedEndOfArray += OnReachedEndOfArray;
+        _spriteLooper.ReachedStartOfArray += OnReachedStartOfArray;
     }
 
     private void OnDisable()
     {
-        _imageSwitch.ReachedStartOfArray -= OnReachedStartOfArray;
-        _imageSwitch.ReachedEndOfArray -= OnReachedEndOfArray;
+        _spriteLooper.ReachedStartOfArray -= OnReachedStartOfArray;
+        _spriteLooper.ReachedEndOfArray -= OnReachedEndOfArray;
 
         GlobalEventBus.Deregister(GlobalEvents.Player.InteractiveTargetChanged, OnInteractiveTargetChanged);
 
@@ -79,7 +77,7 @@ public class UIInteractionCommand : MonoBehaviour
     {
         if (isTriggered && _currentInteractiveObject != null)
         {
-            _imageSwitch.StartLoop(_delayTime, 1);
+            _spriteLooper.StartLoop(_delayTime, 1);
         }
     }
 
@@ -87,10 +85,10 @@ public class UIInteractionCommand : MonoBehaviour
     {
         if (args[1] is IAmInteractive interactiveObject)
         {
-            if (!_interactionHint.activeInHierarchy || !_imageSwitch.enabled)
+            if (!_interactionHint.activeInHierarchy || !_spriteLooper.enabled)
             {
                 _interactionHint.SetActive(true);
-                _imageSwitch.enabled = true;
+                _spriteLooper.enabled = true;
             }
 
             _currentInteractiveObject = interactiveObject;
@@ -107,7 +105,7 @@ public class UIInteractionCommand : MonoBehaviour
 
             _currentInteractiveObject = null; //Change necessary?
 
-            _imageSwitch.StopLoop();
+            _spriteLooper.StopLoop();
 
             return;
         }
@@ -115,8 +113,8 @@ public class UIInteractionCommand : MonoBehaviour
 
     private void OnReachedStartOfArray()
     {
-        if (_imageSwitch.Image.color != _imageSwitch.DefaultColor)
-            _imageSwitch.SetImageColor(_imageSwitch.DefaultColor);
+        if (_spriteLooper.CurrentColor != _spriteLooper.DefaultColor)
+            _spriteLooper.SetColor(_spriteLooper.DefaultColor);
     }
 
     private void OnReachedEndOfArray()
@@ -125,9 +123,9 @@ public class UIInteractionCommand : MonoBehaviour
             return;
 
         if (_currentInteractiveObject.IsActivatable)
-            _imageSwitch.SetImageColor(_activatableColor);
+            _spriteLooper.SetColor(_activatableColor);
         else
-            _imageSwitch.SetImageColor(_nonActivatableColor);
+            _spriteLooper.SetColor(_nonActivatableColor);
     }
 
 }

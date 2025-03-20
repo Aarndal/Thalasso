@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +18,7 @@ public class UIImageSpriteLooper : MonoBehaviour
     private Image _image = default;
     private Sprite _defaultSprite = default;
     private Color _defaultColor = default;
+    private TMP_Text _text = default;
 
     private CancellationTokenSource _cts;
 
@@ -27,8 +29,8 @@ public class UIImageSpriteLooper : MonoBehaviour
     public event Action ReachedStartOfArray;
 
     public bool IsDefaultImage => _image.sprite == _defaultSprite;
-    public Image Image => _image;
     public Color DefaultColor => _defaultColor;
+    public Color CurrentColor => _image.color;
     public Sprite DefaultSprite => _defaultSprite;
     public Sprite CurrentSprite => _image.sprite;
 
@@ -36,6 +38,8 @@ public class UIImageSpriteLooper : MonoBehaviour
     private void Awake()
     {
         _image = _image != null ? _image : GetComponent<Image>();
+
+        _text = _text != null ? _text : GetComponentInChildren<TMP_Text>(true);
 
         _defaultSprite = _image.sprite;
         _defaultColor = _image.color;
@@ -58,12 +62,13 @@ public class UIImageSpriteLooper : MonoBehaviour
     #endregion
 
     #region Public Methods
-    public void SetImageColor(Color newColor)
+    public void SetColor(Color newColor)
     {
-        if (newColor == _image.color)
+        if (newColor == CurrentColor)
             return;
 
         _image.color = newColor;
+        _text.color = newColor;
     }
 
     public async void StartLoop(float delayBetweenSprites, uint maxLoops, Func<bool> stopCondition = null)

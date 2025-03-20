@@ -384,7 +384,7 @@ public class DoorAnimation : MonoBehaviour
 
     private void SetDoorStates(bool isOpen, bool isOpening, bool isClosing
 #if WWISE_2024_OR_LATER  
-        , SO_WwiseEvent soundEvent
+        , SO_WwiseEvent soundEvent = null
 #endif
         )
     {

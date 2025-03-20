@@ -94,7 +94,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7941958420872814005, guid: 231dd352913f2224fb7498bb074c5e45, type: 3}
       propertyPath: m_Name
-      value: Button_ResumeGame Variant
+      value: ResumeGameButton
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -121,3 +121,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 801e19e14d95d154fb5063b8beba6a13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _buttonSounds:
+  - {fileID: 11400000, guid: 31104c6979492b144bd3527855705a9e, type: 2}

@@ -4962,7 +4962,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0777d029ed3dffa4692f417d4aba19ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 3f51e84062f26c64db36331ac3d2e6dc, type: 2}
+  m_Material: {fileID: 2100000, guid: 31d0dcc6f2dd4e4408d18036a2c93862, type: 2}
   m_DrawDistance: 1000
   m_FadeScale: 0.9
   m_StartAngleFade: 180
@@ -6436,6 +6436,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 221240412}
     m_Modifications:
+    - target: {fileID: 153112437607973450, guid: 6cafbdc66007702479265f4cce9a8e1b, type: 3}
+      propertyPath: isLocked
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2048561956328797334, guid: 6cafbdc66007702479265f4cce9a8e1b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1
@@ -6484,18 +6488,27 @@ PrefabInstance:
       propertyPath: m_Name
       value: Outer_Door
       objectReference: {fileID: 0}
+    - target: {fileID: 7298052850356077742, guid: 6cafbdc66007702479265f4cce9a8e1b, type: 3}
+      propertyPath: m_Name
+      value: ProgressableVelocityColliderTriggerBack
+      objectReference: {fileID: 0}
+    - target: {fileID: 7984539764972395657, guid: 6cafbdc66007702479265f4cce9a8e1b, type: 3}
+      propertyPath: _triggers.Array.data[1]._monoBehaviourInstance
+      value: 
+      objectReference: {fileID: 1954509886}
     - target: {fileID: 8861648116531926516, guid: 6cafbdc66007702479265f4cce9a8e1b, type: 3}
       propertyPath: _triggers.Array.data[1]._monoBehaviourInstance
       value: 
-      objectReference: {fileID: 1954509887}
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3432760953013467701, guid: 6cafbdc66007702479265f4cce9a8e1b, type: 3}
+    - {fileID: 5480545969519444511, guid: 6cafbdc66007702479265f4cce9a8e1b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2470625211961263278, guid: 6cafbdc66007702479265f4cce9a8e1b, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 7298052850356077742, guid: 6cafbdc66007702479265f4cce9a8e1b, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1954509887}
+      addedObject: {fileID: 1954509886}
   m_SourcePrefab: {fileID: 100100000, guid: 6cafbdc66007702479265f4cce9a8e1b, type: 3}
 --- !u!4 &1954509884 stripped
 Transform:
@@ -6504,10 +6517,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1954509885 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 2470625211961263278, guid: 6cafbdc66007702479265f4cce9a8e1b, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7298052850356077742, guid: 6cafbdc66007702479265f4cce9a8e1b, type: 3}
   m_PrefabInstance: {fileID: 1954509883}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1954509887
+--- !u!114 &1954509886
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7463,9 +7476,49 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1753295511}
     m_Modifications:
+    - target: {fileID: 223620316879841797, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
+      propertyPath: clickSound.WwiseObjectReference
+      value: 
+      objectReference: {fileID: 11400000, guid: dcac52159d844a54eba4cc8c53239242, type: 2}
+    - target: {fileID: 223620316879841797, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
+      propertyPath: wrongSound.WwiseObjectReference
+      value: 
+      objectReference: {fileID: 11400000, guid: c9c1c6c8de90b6546aca8b1239baabdc, type: 2}
+    - target: {fileID: 223620316879841797, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
+      propertyPath: correctSound.WwiseObjectReference
+      value: 
+      objectReference: {fileID: 11400000, guid: 14bb6ffffc1e5004487a231167b59862, type: 2}
+    - target: {fileID: 223620316879841797, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
+      propertyPath: completeSound.WwiseObjectReference
+      value: 
+      objectReference: {fileID: 11400000, guid: 06f23b1f5953b8441b54f0751c78c6dd, type: 2}
+    - target: {fileID: 943820818185514809, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
+      propertyPath: _closedSound
+      value: 
+      objectReference: {fileID: 11400000, guid: bdd64eb84fd223e4289cd20c8fd6af38, type: 2}
+    - target: {fileID: 943820818185514809, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
+      propertyPath: _openedSound
+      value: 
+      objectReference: {fileID: 11400000, guid: eadf3d4f2e680984daae5a0ed87b4f92, type: 2}
+    - target: {fileID: 943820818185514809, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
+      propertyPath: _closingSound
+      value: 
+      objectReference: {fileID: 11400000, guid: 8e25480123cbcad4cb1b4a53ebef4f86, type: 2}
+    - target: {fileID: 943820818185514809, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
+      propertyPath: _openingSound
+      value: 
+      objectReference: {fileID: 11400000, guid: adf7b605b8a050346bb979a453f47af0, type: 2}
     - target: {fileID: 1732256068995673940, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
       propertyPath: m_Name
       value: SM_DoorLock_Riddle
+      objectReference: {fileID: 0}
+    - target: {fileID: 8522291653039740318, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
+      propertyPath: isEnvironmentAware
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8522291653039740318, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
+      propertyPath: m_positionOffsetData.KeepMe
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8816796418483307134, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
       propertyPath: m_LocalPosition.x
