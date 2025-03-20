@@ -43,12 +43,10 @@ public class UIImageSpriteLooper : MonoBehaviour
 
         _defaultSprite = _image.sprite;
         _defaultColor = _image.color;
-    }
-
-    private void OnEnable()
-    {
+        
         LoopStopped += OnLoopStopped;
     }
+
 
     private void Start()
     {
@@ -56,6 +54,11 @@ public class UIImageSpriteLooper : MonoBehaviour
     }
 
     private void OnDisable()
+    {
+        StopLoop();
+    }
+
+    private void OnDestroy()
     {
         LoopStopped -= OnLoopStopped;
     }
@@ -89,7 +92,7 @@ public class UIImageSpriteLooper : MonoBehaviour
         {
             await AnimateSprites(delayBetweenSprites, _cts.Token, stopCondition);
         }
-        catch (OperationCanceledException)
+        catch
         {
             Debug.LogFormat("{0}'s {1} <color=white>has been stopped</color> on.", gameObject.name, this);
         }
@@ -109,7 +112,7 @@ public class UIImageSpriteLooper : MonoBehaviour
     #endregion
 
     #region Private Methods
-    private async Task AnimateSprites(float delayBetweenSprites, CancellationToken cancellationToken, Func<bool> stopCondition = null)
+    private async Task AnimateSprites(float delayBetweenSprites, CancellationToken ct, Func<bool> stopCondition = null)
     {
         if (_spriteVariants == null || _spriteVariants.Length == 0)
             return;
@@ -120,50 +123,49 @@ public class UIImageSpriteLooper : MonoBehaviour
         {
             for (int i = 0; i < _spriteVariants.Length; i++)
             {
-                if (CheckStopCondition(cancellationToken, stopCondition))
+                if (CheckStopCondition(ct, stopCondition))
                     break;
 
-                await UpdateSprite(_spriteVariants[i], delayBetweenSprites, cancellationToken);
+                await UpdateSprite(_spriteVariants[i], delayBetweenSprites, ct);
             }
 
             ReachedEndOfArray?.Invoke();
 
             for (int i = _spriteVariants.Length - 1; i >= 0; i--)
             {
-                if (CheckStopCondition(cancellationToken, stopCondition))
+                if (CheckStopCondition(ct, stopCondition))
                     break;
 
-                await UpdateSprite(_spriteVariants[i], delayBetweenSprites, cancellationToken);
+                await UpdateSprite(_spriteVariants[i], delayBetweenSprites, ct);
             }
 
             ReachedStartOfArray?.Invoke();
 
             ++currentLoopCount;
 
-        } while (currentLoopCount < _maxLoopCount && !cancellationToken.IsCancellationRequested);
+        } while (currentLoopCount < _maxLoopCount && !ct.IsCancellationRequested);
     }
 
     /// <summary>
     /// Checks if the stop condition is met.
     /// </summary>
-    /// <param name="cancellationToken">Token to monitor for cancellation requests.</param>
+    /// <param name="ct">Token to monitor for cancellation requests.</param>
     /// <param name="stopCondition">Optional function to determine if the loop should stop.</param>
     /// <returns>True if the stop condition is met, otherwise false.</returns>
-    private bool CheckStopCondition(CancellationToken cancellationToken, Func<bool> stopCondition = null)
+    private bool CheckStopCondition(CancellationToken ct, Func<bool> stopCondition = null)
     {
-        return cancellationToken.IsCancellationRequested || (stopCondition != null && stopCondition());
+        return ct.IsCancellationRequested || (stopCondition != null && stopCondition());
     }
 
-    private async Task UpdateSprite(Sprite sprite, float delayBetweenSprites, CancellationToken cancellationToken)
+    private async Task UpdateSprite(Sprite sprite, float delayBetweenSprites, CancellationToken ct)
     {
         _image.sprite = sprite;
-        await Task.Delay((int)(delayBetweenSprites * 1000.0f), cancellationToken); // Convert seconds to milliseconds
+        await Task.Delay((int)(delayBetweenSprites * 1000.0f), ct); // Convert seconds to milliseconds
     }
 
     private void OnLoopStopped()
     {
         _image.sprite = _image.sprite != DefaultSprite ? DefaultSprite : _image.sprite;
-
         _image.color = _image.color != DefaultColor ? DefaultColor : _image.color;
     }
     #endregion

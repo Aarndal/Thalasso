@@ -34,35 +34,32 @@ public class UIMenuSound : MonoBehaviour
     private void OnMenuClosed(object[] eventArgs)
     {
 #if WWISE_2024_OR_LATER
-        if (_exitMenuSound == null)
-            return;
-
-        foreach (var arg in eventArgs)
-        {
-            if (arg is string menuName && menuName == gameObject.name)
-            {
-                _exitMenuSound.Play(_akGameObject);
-                return;
-            }
-        }
+        PlayMenuSound(eventArgs, _exitMenuSound);
 #endif
     }
+
 
     private void OnMenuOpened(object[] eventArgs)
     {
 #if WWISE_2024_OR_LATER
-        if (_enterMenuSound == null)
+        PlayMenuSound(eventArgs, _enterMenuSound);
+#endif
+    }
+
+#if WWISE_2024_OR_LATER
+    private void PlayMenuSound(object[] eventArgs, SO_WwiseEvent menuSound)
+    {
+        if (menuSound == null)
             return;
 
         foreach (var arg in eventArgs)
         {
             if (arg is string menuName && menuName == gameObject.name)
             {
-                _enterMenuSound.Play(_akGameObject);
+                menuSound.Play(_akGameObject);
                 return;
             }
         }
-#endif
     }
-
+#endif
 }

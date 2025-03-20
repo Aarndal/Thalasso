@@ -5,7 +5,7 @@ using UnityEngine.UI;
 namespace WwiseHelper
 {
     [Serializable]
-    public class WwiseVolumeSlider : MonoBehaviour
+    public class UIWwiseVolumeSlider : MonoBehaviour
     {
 #if WWISE_2024_OR_LATER
         [SerializeField]
@@ -15,34 +15,45 @@ namespace WwiseHelper
 
         private WwiseBus _wwiseBus;
 
+        public WwiseBus AudioBus => _wwiseBus;
+
         private void Awake()
         {
             _volumeSlider = _volumeSlider != null ? _volumeSlider : GetComponentInChildren<Slider>();
 
-            _wwiseBus = new(_rtpc, _volumeSlider);
+            if(_volumeSlider == null)
+            {
+                Debug.LogErrorFormat("<color=cyan>{0}</color> <color=red>has no Slider attached!</color> {1} needs a Slider component on its associated GameObject or one of its children to function.", gameObject.name, this);
+            }
+
+            if(!_rtpc.IsValid())
+            {
+                _rtpc.Validate();
+                return;
+            }
+
+            _wwiseBus ??= new(_rtpc, _volumeSlider);
         }
 
         private void OnEnable()
         {
-            _wwiseBus.LoadVolume();
-            _wwiseBus.AddListener();
+            _wwiseBus.LoadData();
         }
 
         private void Start()
         {
-            _wwiseBus.SetVolumeRange(_volumeSlider.minValue, _volumeSlider.maxValue);
+            _wwiseBus.AddListener();
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             _wwiseBus.RemoveListener();
         }
 
-        //and finally a method we can call to remove all the user data!
         public void DeleteUserData()
         {
             _wwiseBus.DeleteData();
-            _wwiseBus.LoadVolume();
+            _wwiseBus.LoadData();
         }
 #endif
     }

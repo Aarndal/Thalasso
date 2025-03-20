@@ -18,7 +18,7 @@ public class SO_WwiseEvent : ScriptableObject
     private uint _maxPlayingID = 50; // Maximum number of PlayingIDs to search for on one GameObject.
     private uint[] _playingIDs;
 
-    private CancellationTokenSource _cancellationTokenSource;
+    private readonly HashSet<CancellationTokenSource> _cts = new();
 
     public uint ID => _wwiseEvent.Id;
     public bool IsOneTimeEvent => _isOneTimeEvent;
@@ -34,9 +34,12 @@ public class SO_WwiseEvent : ScriptableObject
         _playingIDs = new uint[_maxPlayingID];
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
-        _cancellationTokenSource?.Cancel();
+        foreach (var cts in _cts)
+            cts?.Cancel();
+
+        _cts.Clear();
     }
 
     /// <summary>
@@ -92,20 +95,21 @@ public class SO_WwiseEvent : ScriptableObject
     }
 
     /// <summary>
-    /// Plays the WwiseEvent on the given GameObject after a certain time in seconds.
+    /// Plays the WwiseEvent on the given GameObject after a certain time in seconds. For an input of 0.1 seconds or below, there will be no delay.
     /// </summary>
     /// <param name="akGameObject"></param>
     /// <param name="delayInSeconds"></param>
     /// <returns></returns>
     public async Task<bool> PlayWithDelay(AkGameObj akGameObject, float delayInSeconds)
     {
-        if (delayInSeconds <= 0.0f)
+        if (delayInSeconds < 0.0f)
             return false;
 
-        _cancellationTokenSource = new();
-
-        if (!await DelaySound(akGameObject.gameObject, delayInSeconds))
-            return false;
+        if (delayInSeconds > 0.1f)
+        {
+            if (!await DelaySound(akGameObject.gameObject, delayInSeconds))
+                return false;
+        }
 
         return Play(akGameObject);
     }
@@ -200,19 +204,22 @@ public class SO_WwiseEvent : ScriptableObject
 
     private async Task<bool> DelaySound(GameObject @gameObject, float delayInSeconds)
     {
+        CancellationTokenSource cts = new();
+        _cts.Add(cts);
+
         try
         {
-            await Task.Delay(TimeSpan.FromSeconds(delayInSeconds), _cancellationTokenSource.Token);
+            await Task.Delay(TimeSpan.FromSeconds(delayInSeconds), cts.Token);
         }
         catch
         {
-            Debug.LogFormat("{1} ended on {0}.", @gameObject.name, EventName);
+            Debug.LogFormat("{1} <color=white>has been stopped</color> on {0}.", @gameObject.name, EventName);
             return false;
         }
         finally
         {
-            _cancellationTokenSource.Dispose();
-            _cancellationTokenSource = null;
+            _cts.Remove(cts);
+            cts?.Dispose();
         }
 
         return true;

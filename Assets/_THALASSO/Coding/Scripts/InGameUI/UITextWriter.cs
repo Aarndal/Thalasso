@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
-using static UITextWriter;
 
 public class UITextWriter : MonoBehaviour
 {
@@ -48,10 +46,7 @@ public class UITextWriter : MonoBehaviour
     private void OnDisable()
     {
         foreach (var cts in _cts)
-        {
             cts?.Cancel();
-            cts?.Dispose();
-        }
 
         _cts.Clear();
 
@@ -84,7 +79,7 @@ public class UITextWriter : MonoBehaviour
             if ((TypeWriterMethods.DeleteText & usedMethod) != 0)
                 await DeleteText(cts.Token, startDelay, delayBetweenLetters, delayBetweenWords, typeFromLeftToRight);
         }
-        catch (OperationCanceledException)
+        catch
         {
             Debug.LogErrorFormat("{0}'s {1} <color=white>has been stopped</color> on.", gameObject.name, this);
         }
@@ -118,7 +113,7 @@ public class UITextWriter : MonoBehaviour
             if ((FadeMethods.FadeOut & usedMethod) != 0)
                 await FadeOut(cts.Token, startDelay, fadeDuration);
         }
-        catch (OperationCanceledException)
+        catch
         {
             Debug.LogFormat("{0}'s {1} <color=white>has been stopped</color> on.", gameObject.name, this);
         }
@@ -134,16 +129,14 @@ public class UITextWriter : MonoBehaviour
     #endregion
 
     #region Private Fade Methods
-    private async Task FadeIn(CancellationToken cancellationToken, float startDelay, float fadeDuration)
+    private async Task FadeIn(CancellationToken ct, float startDelay, float fadeDuration)
     {
-        await Task.Delay(TimeSpan.FromSeconds(startDelay), cancellationToken);
+        await Task.Delay(TimeSpan.FromSeconds(startDelay), ct);
 
         float elapsedTime = 0.0f;
 
-        while (elapsedTime < fadeDuration)
+        while (elapsedTime < fadeDuration && !ct.IsCancellationRequested)
         {
-            cancellationToken.ThrowIfCancellationRequested();
-
             elapsedTime += Time.deltaTime;
             float alphaValue = Mathf.Clamp01(elapsedTime / fadeDuration);
             SetAlpha(alphaValue);
@@ -154,16 +147,14 @@ public class UITextWriter : MonoBehaviour
         SetAlpha(1.0f);
     }
 
-    private async Task FadeOut(CancellationToken cancellationToken, float startDelay, float fadeDuration)
+    private async Task FadeOut(CancellationToken ct, float startDelay, float fadeDuration)
     {
-        await Task.Delay(TimeSpan.FromSeconds(startDelay), cancellationToken);
+        await Task.Delay(TimeSpan.FromSeconds(startDelay), ct);
 
         float elapsedTime = 0.0f;
 
-        while (elapsedTime < fadeDuration)
+        while (elapsedTime < fadeDuration && !ct.IsCancellationRequested)
         {
-            cancellationToken.ThrowIfCancellationRequested();
-
             elapsedTime += Time.deltaTime;
             float alphaValue = Mathf.Clamp01(1 - elapsedTime / fadeDuration);
             SetAlpha(alphaValue);
@@ -189,32 +180,34 @@ public class UITextWriter : MonoBehaviour
     #endregion
 
     #region Private TextWriter Methods
-    private async Task ShowText(CancellationToken cancellationToken, float startDelay, float delayBetweenLetters, float delayBetweenWords, bool fromLeftToRight = true)
+    private async Task ShowText(CancellationToken ct, float startDelay, float delayBetweenLetters, float delayBetweenWords, bool fromLeftToRight = true)
     {
-        await Task.Delay(TimeSpan.FromSeconds(startDelay), cancellationToken);
+        await Task.Delay(TimeSpan.FromSeconds(startDelay), ct);
 
         for (int i = 0; i < _tmpText.text.Length; i++)
         {
-            cancellationToken.ThrowIfCancellationRequested();
+            if (ct.IsCancellationRequested)
+                break;
 
             _tmpText.maxVisibleCharacters = i + 1;
 
             if (_tmpText.text[i] == ' ')
-                await Task.Delay(TimeSpan.FromSeconds(delayBetweenWords), cancellationToken);
+                await Task.Delay(TimeSpan.FromSeconds(delayBetweenWords), ct);
             else
-                await Task.Delay(TimeSpan.FromSeconds(delayBetweenLetters), cancellationToken);
+                await Task.Delay(TimeSpan.FromSeconds(delayBetweenLetters), ct);
         }
     }
 
-    private async Task DeleteText(CancellationToken cancellationToken, float startDelay, float delayBetweenLetters, float delayBetweenWords, bool fromLeftToRight = true)
+    private async Task DeleteText(CancellationToken ct, float startDelay, float delayBetweenLetters, float delayBetweenWords, bool fromLeftToRight = true)
     {
-        await Task.Delay(TimeSpan.FromSeconds(startDelay), cancellationToken);
+        await Task.Delay(TimeSpan.FromSeconds(startDelay), ct);
 
         StringBuilder stringBuilder = new(_tmpText.text);
 
         for (int i = 0; i < stringBuilder.Capacity; i++)
         {
-            cancellationToken.ThrowIfCancellationRequested();
+            if (ct.IsCancellationRequested)
+                break;
 
             if (fromLeftToRight)
                 stringBuilder.Remove(0, 1);
@@ -223,19 +216,23 @@ public class UITextWriter : MonoBehaviour
 
             _tmpText.text = stringBuilder.ToString();
 
-            await Task.Delay(TimeSpan.FromSeconds(delayBetweenLetters), cancellationToken);
+            if (_tmpText.text[i] == ' ')
+                await Task.Delay(TimeSpan.FromSeconds(delayBetweenWords), ct);
+            else
+                await Task.Delay(TimeSpan.FromSeconds(delayBetweenLetters), ct);
         }
     }
 
-    private async Task WipeText(CancellationToken cancellationToken, float startDelay, float delayBetweenLetters, float delayBetweenWords, bool fromLeftToRight = true)
+    private async Task WipeText(CancellationToken ct, float startDelay, float delayBetweenLetters, float delayBetweenWords, bool fromLeftToRight = true)
     {
-        await Task.Delay(TimeSpan.FromSeconds(startDelay), cancellationToken);
+        await Task.Delay(TimeSpan.FromSeconds(startDelay), ct);
 
         StringBuilder stringBuilder = new(_tmpText.text);
 
         for (int i = 0; i < stringBuilder.Capacity; i++)
         {
-            cancellationToken.ThrowIfCancellationRequested();
+            if (ct.IsCancellationRequested)
+                break;
 
             if (fromLeftToRight)
             {
@@ -249,7 +246,10 @@ public class UITextWriter : MonoBehaviour
 
             _tmpText.text = stringBuilder.ToString();
 
-            await Task.Delay(TimeSpan.FromSeconds(delayBetweenLetters), cancellationToken);
+            if (_tmpText.text[i] == ' ')
+                await Task.Delay(TimeSpan.FromSeconds(delayBetweenWords), ct);
+            else
+                await Task.Delay(TimeSpan.FromSeconds(delayBetweenLetters), ct);
         }
     }
     #endregion

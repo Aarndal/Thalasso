@@ -1,10 +1,9 @@
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Toggle))]
-public class UIVSyncToggle : MonoBehaviour, INotifyValueChanged<bool>
+public class UIVSyncToggle : SettingElement<bool>
 {
     [SerializeField]
     private TMP_Text _tmpText = default;
@@ -17,21 +16,31 @@ public class UIVSyncToggle : MonoBehaviour, INotifyValueChanged<bool>
     [SerializeField]
     private Color _isOffColor = Color.grey;
 
+    private bool _isOn = true;
     private Toggle _toggle = default;
 
-    public uint ID => ((uint)GetInstanceID());
-    public bool IsOn => _toggle.isOn;
-
-    private Action<uint, bool> _valueChanged;
-
-    public event Action<uint, bool> ValueChanged
+    public bool IsOn
     {
-        add
+        get => _isOn;
+        private set
         {
-            _valueChanged -= value;
-            _valueChanged += value;
+            if (value != _isOn)
+            {
+                _isOn = value;
+
+                QualitySettings.vSyncCount = _isOn ? 1 : 0;
+                /* 
+                 * If vSyncCount == 1, rendering is synchronized to the vertical refresh rate of the display.
+                 * If vSyncCount is set to 0, Unity does not synchronize rendering to vertical sync, and the field Application.targetFrameRate is instead used to pace the rendered frames.
+                 */
+
+                _tmpText.text = _isOn ? _isOnText : _isOffText;
+                _tmpText.color = _isOn ? _isOnColor : _isOffColor;
+                _toggle.targetGraphic.enabled = !_isOn;
+
+                _valueChanged?.Invoke(ID, _isOn);
+            }
         }
-        remove => _valueChanged -= value;
     }
 
     private void Awake()
@@ -42,34 +51,41 @@ public class UIVSyncToggle : MonoBehaviour, INotifyValueChanged<bool>
         _tmpText = _tmpText != null ? _tmpText : GetComponentInChildren<TMP_Text>();
     }
 
-    private void OnEnable()
+
+    public override void DeleteData()
     {
-        _toggle.onValueChanged.AddListener(OnVSyncChanged);
+        if (PlayerPrefs.HasKey(SettingNames.VSync))
+            PlayerPrefs.DeleteKey(SettingNames.VSync);
     }
 
-    private void Start()
+    public override void LoadData()
     {
-        _toggle.isOn = true;
-        OnVSyncChanged(true);
+        if (!PlayerPrefs.HasKey(SettingNames.VSync))
+        {
+            PlayerPrefs.SetInt(SettingNames.VSync, 1); // 1 representing value: true | 0 representing value : false
+        }
+
+        IsOn = PlayerPrefs.GetInt(SettingNames.VSync) != 0;
     }
 
-    private void OnDisable()
+    public override void SaveData()
     {
-        _toggle.onValueChanged.RemoveListener(OnVSyncChanged);
+        int data = IsOn ? 1 : 0; // 1 representing value: true | 0 representing value : false
+        PlayerPrefs.SetInt(SettingNames.VSync, data);
     }
 
-    private void OnVSyncChanged(bool isOn)
+
+    protected override void AddListener()
     {
-        QualitySettings.vSyncCount = isOn ? 1 : 0;
-        /* 
-         * If vSyncCount == 1, rendering is synchronized to the vertical refresh rate of the display.
-         * If vSyncCount is set to 0, Unity does not synchronize rendering to vertical sync, and the field Application.targetFrameRate is instead used to pace the rendered frames.
-         */
-
-        _tmpText.text = isOn ? _isOnText : _isOffText;
-        _tmpText.color = isOn ? _isOnColor : _isOffColor;
-        _toggle.targetGraphic.enabled = !isOn;
-
-        _valueChanged?.Invoke(ID, isOn);
+        base.AddListener();
+        _toggle.onValueChanged.AddListener(SetData);
     }
+
+    protected override void RemoveListener()
+    {
+        _toggle.onValueChanged.RemoveListener(SetData);
+        base.RemoveListener();
+    }
+
+    protected override void SetData(bool isOn) => IsOn = isOn;
 }
