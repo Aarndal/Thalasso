@@ -458,7 +458,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 59649873}
-  - component: {fileID: 59649872}
   m_Layer: 0
   m_Name: WwiseGlobal
   m_TagString: Untagged
@@ -466,31 +465,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &59649872
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 59649871}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7076f4c030b5a40499749170d7936336, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InitializationSettings: {fileID: 11400000, guid: d870274f457cf0f4f85426e0fcbee927, type: 2}
-  basePath: 
-  language: 
-  defaultPoolSize: 0
-  lowerPoolSize: 0
-  streamingPoolSize: 0
-  memoryCutoffThreshold: 0
-  monitorPoolSize: 0
-  monitorQueuePoolSize: 0
-  callbackManagerBufferSize: 0
-  spatialAudioPoolSize: 0
-  maxSoundPropagationDepth: 0
-  engineLogging: 0
 --- !u!4 &59649873
 Transform:
   m_ObjectHideFlags: 0
@@ -7771,7 +7745,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1146057732724087758, guid: 8251b4ee7532b9f4786687271d26e532, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.6319664
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1146057732724087758, guid: 8251b4ee7532b9f4786687271d26e532, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -7791,7 +7765,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1488549326730756818, guid: 8251b4ee7532b9f4786687271d26e532, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.5439887
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1488549326730756818, guid: 8251b4ee7532b9f4786687271d26e532, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -7819,7 +7793,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3233266446037635738, guid: 8251b4ee7532b9f4786687271d26e532, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.5439887
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3233266446037635738, guid: 8251b4ee7532b9f4786687271d26e532, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -7839,7 +7813,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5053830632264360296, guid: 8251b4ee7532b9f4786687271d26e532, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.6319664
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5053830632264360296, guid: 8251b4ee7532b9f4786687271d26e532, type: 3}
       propertyPath: m_AnchoredPosition.x
