@@ -55,8 +55,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.275, y: 0.45, z: 0.04}
-  m_Center: {x: 0, y: 0, z: -0.025}
+  m_Size: {x: 0.275, y: 0.45, z: 0.028}
+  m_Center: {x: 0, y: 0, z: -0.018}
 --- !u!114 &8014686542172745484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,6 +139,22 @@ MonoBehaviour:
   layoutPrefabs:
   - {fileID: 11400000, guid: 3d612203c0c1abf4ba748d238569f33c, type: 2}
   - {fileID: 11400000, guid: 5acf747997c130e438abd00ff0c4b10a, type: 2}
+  clickSound:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: dcac52159d844a54eba4cc8c53239242, type: 2}
+  correctSound:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 14bb6ffffc1e5004487a231167b59862, type: 2}
+  wrongSound:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: c9c1c6c8de90b6546aca8b1239baabdc, type: 2}
+  completeSound:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 06f23b1f5953b8441b54f0751c78c6dd, type: 2}
 --- !u!114 &8594738884609048701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,6 +167,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32baeb09470cc8f4caa2513356855b92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _soundBanks:
+  - idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 5a06c5b75515e904a9fbe1f010977c54, type: 2}
+  _loadAsynchronously: 0
+  _loadMethod: 0
+  _unloadMethod: 0
 --- !u!1 &7016991804783340907
 GameObject:
   m_ObjectHideFlags: 0

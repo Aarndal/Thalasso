@@ -30,12 +30,10 @@ public class UIMenuOnSceneLoadBehaviour : MonoBehaviour
         foreach (var canvas in _childCanvases)
         {
             if (_uniqueCanvasesToLoad.Contains(canvas))
-                canvas.enabled = true;
+                canvas.enabled = _activateOnSceneLoad;
             else
                 canvas.enabled = false;
         }
-
-        _canvas.enabled = _activateOnSceneLoad;
     }
 
     private void Start()

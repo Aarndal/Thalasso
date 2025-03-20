@@ -1865,7 +1865,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2143623728748561951, guid: 470ddaca7ebe0ce4aaead8ce8f502a70, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2143623728748561951, guid: 470ddaca7ebe0ce4aaead8ce8f502a70, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -3170,7 +3170,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2143623728748561951, guid: 470ddaca7ebe0ce4aaead8ce8f502a70, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2143623728748561951, guid: 470ddaca7ebe0ce4aaead8ce8f502a70, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -3415,12 +3415,16 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7744877337771004822, guid: 261c627b89849bc42931d070738be608, type: 3}
+      propertyPath: _openingSound
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7744877337771004822, guid: 261c627b89849bc42931d070738be608, type: 3}
       propertyPath: openingDistance
       value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8097574005474314998, guid: 261c627b89849bc42931d070738be608, type: 3}
       propertyPath: m_Name
-      value: Inner_Door (2)
+      value: Inner_Door (OurLittleSpecialDoor)
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4178212586310480159, guid: 261c627b89849bc42931d070738be608, type: 3}
@@ -7476,49 +7480,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1753295511}
     m_Modifications:
-    - target: {fileID: 223620316879841797, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
-      propertyPath: clickSound.WwiseObjectReference
-      value: 
-      objectReference: {fileID: 11400000, guid: dcac52159d844a54eba4cc8c53239242, type: 2}
-    - target: {fileID: 223620316879841797, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
-      propertyPath: wrongSound.WwiseObjectReference
-      value: 
-      objectReference: {fileID: 11400000, guid: c9c1c6c8de90b6546aca8b1239baabdc, type: 2}
-    - target: {fileID: 223620316879841797, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
-      propertyPath: correctSound.WwiseObjectReference
-      value: 
-      objectReference: {fileID: 11400000, guid: 14bb6ffffc1e5004487a231167b59862, type: 2}
-    - target: {fileID: 223620316879841797, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
-      propertyPath: completeSound.WwiseObjectReference
-      value: 
-      objectReference: {fileID: 11400000, guid: 06f23b1f5953b8441b54f0751c78c6dd, type: 2}
-    - target: {fileID: 943820818185514809, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
-      propertyPath: _closedSound
-      value: 
-      objectReference: {fileID: 11400000, guid: bdd64eb84fd223e4289cd20c8fd6af38, type: 2}
-    - target: {fileID: 943820818185514809, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
-      propertyPath: _openedSound
-      value: 
-      objectReference: {fileID: 11400000, guid: eadf3d4f2e680984daae5a0ed87b4f92, type: 2}
-    - target: {fileID: 943820818185514809, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
-      propertyPath: _closingSound
-      value: 
-      objectReference: {fileID: 11400000, guid: 8e25480123cbcad4cb1b4a53ebef4f86, type: 2}
-    - target: {fileID: 943820818185514809, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
-      propertyPath: _openingSound
-      value: 
-      objectReference: {fileID: 11400000, guid: adf7b605b8a050346bb979a453f47af0, type: 2}
     - target: {fileID: 1732256068995673940, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
       propertyPath: m_Name
       value: SM_DoorLock_Riddle
-      objectReference: {fileID: 0}
-    - target: {fileID: 8522291653039740318, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
-      propertyPath: isEnvironmentAware
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8522291653039740318, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
-      propertyPath: m_positionOffsetData.KeepMe
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8816796418483307134, guid: 4364c8241673953439fa6b0ed1e870cb, type: 3}
       propertyPath: m_LocalPosition.x

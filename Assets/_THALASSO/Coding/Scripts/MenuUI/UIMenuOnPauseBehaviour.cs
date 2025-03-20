@@ -18,6 +18,8 @@ public class UIMenuOnPauseBehaviour : MonoBehaviour
         _childCanvases = GetComponentsInChildren<Canvas>();
 
         _uniqueCanvasesToLoad = _canvasesToLoad.ToHashSet();
+
+        _uniqueCanvasesToLoad.Add(_canvas);
     }
 
     private void OnEnable()
@@ -43,19 +45,14 @@ public class UIMenuOnPauseBehaviour : MonoBehaviour
             }
         }
 
-        if (isPauseActive)
+        foreach (var canvas in _childCanvases)
         {
-            foreach (var canvas in _childCanvases)
-            {
-                if (_uniqueCanvasesToLoad.Contains(canvas))
-                    canvas.enabled = true;
-                else
-                    canvas.enabled = false;
-            }
+            if (_uniqueCanvasesToLoad.Contains(canvas))
+                canvas.enabled = isPauseActive;
+            else
+                canvas.enabled = false;
         }
 
-        _canvas.enabled = isPauseActive;
-        
         if (_canvas.enabled)
             GlobalEventBus.Raise(GlobalEvents.UI.MenuOpened, _canvas.gameObject.name);
 

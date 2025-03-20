@@ -89,6 +89,8 @@ GameObject:
   - component: {fileID: 3852018252367005555}
   - component: {fileID: 89552941639507742}
   - component: {fileID: 1628769080063918822}
+  - component: {fileID: 7450766259952755405}
+  - component: {fileID: 6924380942062574304}
   m_Layer: 2
   m_Name: Event_DiscoveredLocation
   m_TagString: Untagged
@@ -129,7 +131,7 @@ MonoBehaviour:
   - _monoBehaviourInstance: {fileID: 4830999531090997415}
   _typeWriterMethods: 1
   _fadeMethods: 2
-  _text: Laboratory
+  _text: New Room Discovered!
   _fadeDelay: 4.5
   _fadeDuration: 0.5
   _startDelay: 0.01
@@ -151,3 +153,53 @@ MonoBehaviour:
   _startState: 0
   _triggers:
   - _monoBehaviourInstance: {fileID: 4830999531090997415}
+  _wwiseSwitch:
+  - idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 4a0f306e8a3fa0243bc9c291c46699ed, type: 2}
+--- !u!114 &7450766259952755405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7435114430000355163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62f370bd38ab0524eb28a985f4b8c87a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_listeners:
+    initialListenerList: []
+    useDefaultListeners: 1
+  isEnvironmentAware: 0
+  isStaticObject: 1
+  usePositionOffsetData: 0
+  m_positionOffsetData:
+    KeepMe: 1
+    positionOffset: {x: 0, y: 0, z: 0}
+  scalingFactor: 1
+  m_posOffsetData: {fileID: 0}
+  listenerMask: 1
+--- !u!114 &6924380942062574304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7435114430000355163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606a08c86fff76e4481420862fde1c01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _startState: 0
+  _triggers:
+  - _monoBehaviourInstance: {fileID: 4830999531090997415}
+  _wwiseEvents:
+  - {fileID: 11400000, guid: 54f779aadd4550a4c8e9cd2550a8dbb4, type: 2}
+  _playOnOtherObject: 1
+  _isEnvironmentAware: 0
+  _isRoomAware: 0
