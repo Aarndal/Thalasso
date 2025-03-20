@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(TMP_Dropdown))]
-public class UIDisplaySelection : MonoBehaviour
+public class UIDisplaySelection : SettingElement<int>
 {
     [SerializeField]
     private Sprite _sprite = default;
@@ -25,31 +24,56 @@ public class UIDisplaySelection : MonoBehaviour
         SetupDisplayOptions();
     }
 
-    private void OnEnable()
-    {
-        _tmpDropdown.onValueChanged.AddListener(SetDisplay);
-    }
 
-    private void Start()
+    #region Data Management Methods
+    public override void LoadData()
     {
-        _tmpDropdown.value = GetCurrentDisplayIndex();
+        if (!PlayerPrefs.HasKey(SettingNames.Display))
+        {
+            PlayerPrefs.SetInt(SettingNames.Display, GetCurrentDisplayIndex());
+        }
+
+        _tmpDropdown.value = PlayerPrefs.GetInt(SettingNames.Display);
         _tmpDropdown.RefreshShownValue();
     }
 
-    private void OnDisable()
+    protected override void SetData(int optionIndex)
     {
-        _tmpDropdown.onValueChanged.RemoveListener(SetDisplay);
+        DisplayInfo newDisplay = _displayLayout.Find((display) => _tmpDropdown.options[optionIndex].text == display.name);
+        Screen.MoveMainWindowTo(newDisplay, new Vector2Int(0, 0));
     }
 
+    public override void SaveData()
+    {
+        PlayerPrefs.SetInt(SettingNames.Display, GetCurrentDisplayIndex());
+    }
+
+    public override void DeleteData()
+    {
+        if (PlayerPrefs.HasKey(SettingNames.Display))
+            PlayerPrefs.DeleteKey(SettingNames.Display);
+    }
+    #endregion
+
+
+    #region Callback Functions
+    protected override void AddListener()
+    {
+        base.AddListener();
+        _tmpDropdown.onValueChanged.AddListener(SetData);
+    }
+
+    protected override void RemoveListener()
+    {
+        _tmpDropdown.onValueChanged.RemoveListener(SetData);
+        base.RemoveListener();
+    }
+    #endregion
+ 
+    
     private int GetCurrentDisplayIndex()
     {
         return _tmpDropdown.options.FindIndex((optionData) => optionData.text == CurrentDisplay.name);
-    }
-
-    private void SetDisplay(int optionIndex)
-    {
-        DisplayInfo newDisplay = _displayLayout.Find((display) => _tmpDropdown.options[optionIndex].text == display.name);
-        Screen.MoveMainWindowTo(newDisplay, new Vector2Int(0,0));
     }
 
     private void SetupDisplayOptions()

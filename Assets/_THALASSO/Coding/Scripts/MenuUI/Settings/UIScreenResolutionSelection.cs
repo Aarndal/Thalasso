@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(TMP_Dropdown))]
-public class UIScreenResolutionSelection : MonoBehaviour
+public class UIScreenResolutionSelection : SettingElement<int>
 {
     [SerializeField]
     private Sprite _sprite = default;
@@ -28,25 +28,57 @@ public class UIScreenResolutionSelection : MonoBehaviour
         SetupResolutionOptions();
     }
 
-    private void OnEnable()
-    {
-        _tmpDropdown.onValueChanged.AddListener(SetScreenResolution);
-    }
 
-    private void Start()
+    #region Data Management Methods
+    public override void LoadData()
     {
-        RefreshCurrentResolutionSelection();
-    }
+        if (!PlayerPrefs.HasKey(SettingNames.ScreenResolution))
+        {
+            PlayerPrefs.SetInt(SettingNames.ScreenResolution, GetCurrentResolutionIndex());
+        }
 
-    private void OnDisable()
-    {
-        _tmpDropdown.onValueChanged.RemoveListener(SetScreenResolution);
-    }
-
-    public void RefreshCurrentResolutionSelection()
-    {
-        _tmpDropdown.value = GetCurrentResolutionIndex();
+        _tmpDropdown.value = PlayerPrefs.GetInt(SettingNames.ScreenResolution);
         _tmpDropdown.RefreshShownValue();
+    }
+
+    protected override void SetData(int optionIndex)
+    {
+        Screen.SetResolution(AvailableResolutions[_tmpDropdown.options[optionIndex].text].width, AvailableResolutions[_tmpDropdown.options[optionIndex].text].height, CurrentScreenMode);
+    }
+
+    public override void SaveData()
+    {
+        PlayerPrefs.SetInt(SettingNames.ScreenResolution, GetCurrentResolutionIndex());
+    }
+
+    public override void DeleteData()
+    {
+        if (PlayerPrefs.HasKey(SettingNames.ScreenResolution))
+            PlayerPrefs.DeleteKey(SettingNames.ScreenResolution);
+    }
+    #endregion
+
+
+    #region Callback Functions
+    protected override void AddListener()
+    {
+        base.AddListener();
+        _tmpDropdown.onValueChanged.AddListener(SetData);
+    }
+
+    protected override void RemoveListener()
+    {
+        _tmpDropdown.onValueChanged.RemoveListener(SetData);
+        base.RemoveListener();
+    }
+    #endregion
+
+
+    private int GetCurrentResolutionIndex()
+    {
+        string currentRes = AvailableResolutions.Keys.First((res) => AvailableResolutions[res].width == CurrentResolution.width && AvailableResolutions[res].height == CurrentResolution.height);
+
+        return _tmpDropdown.options.FindIndex((optionData) => optionData.text == currentRes);
     }
 
     public void SetupResolutionOptions()
@@ -68,17 +100,5 @@ public class UIScreenResolutionSelection : MonoBehaviour
             else
                 _tmpDropdown.options.Add(new TMP_Dropdown.OptionData(text));
         }
-    }
-
-    private int GetCurrentResolutionIndex()
-    {
-        string currentRes = AvailableResolutions.Keys.First((res) => AvailableResolutions[res].width == CurrentResolution.width && AvailableResolutions[res].height == CurrentResolution.height);
-
-        return _tmpDropdown.options.FindIndex((optionData) => optionData.text == currentRes);
-    }
-
-    private void SetScreenResolution(int optionIndex)
-    {
-        Screen.SetResolution(AvailableResolutions[_tmpDropdown.options[optionIndex].text].width, AvailableResolutions[_tmpDropdown.options[optionIndex].text].height, CurrentScreenMode);
     }
 }

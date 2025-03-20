@@ -52,12 +52,7 @@ public class UIVSyncToggle : SettingElement<bool>
     }
 
 
-    public override void DeleteData()
-    {
-        if (PlayerPrefs.HasKey(SettingNames.VSync))
-            PlayerPrefs.DeleteKey(SettingNames.VSync);
-    }
-
+    #region Data Management Methods
     public override void LoadData()
     {
         if (!PlayerPrefs.HasKey(SettingNames.VSync))
@@ -65,8 +60,10 @@ public class UIVSyncToggle : SettingElement<bool>
             PlayerPrefs.SetInt(SettingNames.VSync, 1); // 1 representing value: true | 0 representing value : false
         }
 
-        IsOn = PlayerPrefs.GetInt(SettingNames.VSync) != 0;
+        _toggle.isOn = PlayerPrefs.GetInt(SettingNames.VSync) != 0;
     }
+
+    protected override void SetData(bool isOn) => IsOn = isOn;
 
     public override void SaveData()
     {
@@ -74,7 +71,15 @@ public class UIVSyncToggle : SettingElement<bool>
         PlayerPrefs.SetInt(SettingNames.VSync, data);
     }
 
+    public override void DeleteData()
+    {
+        if (PlayerPrefs.HasKey(SettingNames.VSync))
+            PlayerPrefs.DeleteKey(SettingNames.VSync);
+    }
+    #endregion
 
+
+    #region Callback Functions
     protected override void AddListener()
     {
         base.AddListener();
@@ -86,6 +91,5 @@ public class UIVSyncToggle : SettingElement<bool>
         _toggle.onValueChanged.RemoveListener(SetData);
         base.RemoveListener();
     }
-
-    protected override void SetData(bool isOn) => IsOn = isOn;
+    #endregion
 }

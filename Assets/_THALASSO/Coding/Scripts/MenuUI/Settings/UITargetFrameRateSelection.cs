@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(TMP_Dropdown))]
-public class UITargetFrameRateSelection : MonoBehaviour
+public class UITargetFrameRateSelection : SettingElement<int>
 {
     [SerializeField]
     private UIVSyncToggle _vsyncToggle = default;
@@ -46,50 +46,72 @@ public class UITargetFrameRateSelection : MonoBehaviour
         SetupTargetFrameRateOptions();
     }
 
-    private void OnEnable()
+
+    #region Data Management Methods
+    public override void LoadData()
     {
-        _tmpDropdown.onValueChanged.AddListener(SetTargetFrameRate);
+        if (!PlayerPrefs.HasKey(SettingNames.TargetFrameRate))
+        {
+            PlayerPrefs.SetInt(SettingNames.TargetFrameRate, GetTargetFrameRateIndex());
+        }
+
+        bool isVsyncOn = PlayerPrefs.GetInt(SettingNames.VSync) != 0;
+        SetDropdownInteraction(isVsyncOn);
+
+        _tmpDropdown.value = PlayerPrefs.GetInt(SettingNames.TargetFrameRate);
+        _tmpDropdown.RefreshShownValue();
+    }
+    
+    protected override void SetData(int optionIndex)
+    {
+        Application.targetFrameRate = _targetFrameRates[_tmpDropdown.options[optionIndex].text];
+    }
+
+    public override void SaveData()
+    {
+        PlayerPrefs.SetInt(SettingNames.TargetFrameRate, GetTargetFrameRateIndex());
+    }
+
+    public override void DeleteData()
+    {
+        if (PlayerPrefs.HasKey(SettingNames.TargetFrameRate))
+            PlayerPrefs.DeleteKey(SettingNames.TargetFrameRate);
+    }
+    #endregion
+
+
+    #region Callback Functions
+    protected override void AddListener()
+    {
+        base.AddListener();
+        _tmpDropdown.onValueChanged.AddListener(SetData);
 
         if (_vsyncToggle != null)
             _vsyncToggle.ValueChanged += OnVSyncChanged;
     }
 
-    private void Start()
-    {
-        _tmpDropdown.value = GetTargetFrameRateIndex();
-        _tmpDropdown.RefreshShownValue();
-
-        if (_vsyncToggle != null)
-            SetDropdownInteraction(_vsyncToggle.IsOn);
-    }
-
-    private void OnDisable()
+    protected override void RemoveListener()
     {
         if (_vsyncToggle != null)
             _vsyncToggle.ValueChanged -= OnVSyncChanged;
 
-        _tmpDropdown.onValueChanged.RemoveListener(SetTargetFrameRate);
+        _tmpDropdown.onValueChanged.RemoveListener(SetData);
+        base.RemoveListener();
     }
+
+    private void OnVSyncChanged(uint id, bool isOn) => SetDropdownInteraction(isOn);
+    #endregion
+
 
     private int GetTargetFrameRateIndex()
     {
-        return _tmpDropdown.options.FindIndex((optionData) => _targetFrameRates[optionData.text] == ((int)Screen.currentResolution.refreshRateRatio.value));
-    }
-
-    private void OnVSyncChanged(uint id, bool isOn)
-    {
-        SetDropdownInteraction(isOn);
+        return _tmpDropdown.options.FindIndex((optionData) => _targetFrameRates[optionData.text] == CurrentFrameRate);
     }
 
     private void SetDropdownInteraction(bool isVsyncOn)
     {
         _tmpDropdown.interactable = !isVsyncOn;
         _tmpDropdown.captionText.color = isVsyncOn ? Color.grey : _defaultCaptionTextColor;
-    }
-
-    private void SetTargetFrameRate(int optionIndex)
-    {
-        Application.targetFrameRate = _targetFrameRates[_tmpDropdown.options[optionIndex].text];
     }
 
     private void SetupTargetFrameRateOptions()

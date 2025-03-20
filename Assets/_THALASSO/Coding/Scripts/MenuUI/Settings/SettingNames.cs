@@ -9,8 +9,8 @@
 
     // Audio Settings
     public static string MasterVolume => "MasterVolume";
-    public static string SFXVolume => "SFXVolume";
     public static string BGMVolume => "BGMVolume";
+    public static string SFXVolume => "SFXVolume";
     public static string UIVolume => "UIVolume";
 
 }

@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(TMP_Dropdown))]
-public class UIScreenModeSelection : MonoBehaviour
+public class UIScreenModeSelection : SettingElement<int>
 {
     [SerializeField]
     private Sprite _sprite = default;
@@ -25,33 +25,57 @@ public class UIScreenModeSelection : MonoBehaviour
         SetupScreenModeOptions();
     }
 
-    private void OnEnable()
-    {
-        _tmpDropdown.onValueChanged.AddListener(SetScreenMode);
-    }
 
-    private void Start()
+    #region Data Management Methods
+    public override void LoadData()
     {
-        _tmpDropdown.value = GetCurrentScreenModeIndex();
+        if (!PlayerPrefs.HasKey(SettingNames.ScreenMode))
+        {
+            PlayerPrefs.SetInt(SettingNames.ScreenMode, GetCurrentScreenModeIndex());
+        }
+
+        _tmpDropdown.value = PlayerPrefs.GetInt(SettingNames.ScreenMode);
         _tmpDropdown.RefreshShownValue();
     }
 
-
-    private void OnDisable()
+    protected override void SetData(int optionIndex)
     {
-        _tmpDropdown.onValueChanged.RemoveListener(SetScreenMode);
+        Screen.fullScreenMode = _screenModes[_tmpDropdown.options[optionIndex].text];
     }
+
+    public override void SaveData()
+    {
+        PlayerPrefs.SetInt(SettingNames.ScreenMode, GetCurrentScreenModeIndex());
+    }
+
+    public override void DeleteData()
+    {
+        if (PlayerPrefs.HasKey(SettingNames.ScreenMode))
+            PlayerPrefs.DeleteKey(SettingNames.ScreenMode);
+    }
+    #endregion
+
+
+    #region Callback Functions
+    protected override void AddListener()
+    {
+        base.AddListener();
+        _tmpDropdown.onValueChanged.AddListener(SetData);
+    }
+
+    protected override void RemoveListener()
+    {
+        _tmpDropdown.onValueChanged.RemoveListener(SetData);
+        base.RemoveListener();
+    }
+    #endregion
+
 
     private int GetCurrentScreenModeIndex()
     {
         string currentMode = _screenModes.Keys.First((mode) => _screenModes[mode] == CurrentScreenMode);
 
         return _tmpDropdown.options.FindIndex((optionData) => optionData.text == currentMode);
-    }
-
-    private void SetScreenMode(int optionIndex)
-    {
-        Screen.fullScreenMode = _screenModes[_tmpDropdown.options[optionIndex].text];
     }
 
     private void SetupScreenModeOptions()
