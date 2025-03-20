@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
+[Serializable]
 public abstract class SettingElement<T> : MonoBehaviour, IAmSettable, INotifyValueChanged<T>
 {
     public uint ID => (uint)GetInstanceID();
@@ -31,8 +32,8 @@ public abstract class SettingElement<T> : MonoBehaviour, IAmSettable, INotifyVal
     #endregion
 
     #region Callback Functions
-    protected virtual void AddListener() => GlobalEventBus.Register(GlobalEvents.UI.MenuClosed, OnMenuClosed);
-    protected virtual void RemoveListener() => GlobalEventBus.Deregister(GlobalEvents.UI.MenuClosed, OnMenuClosed);
+    protected virtual void AddListener() => GlobalEventBus.Register(GlobalEvents.UI.CanvasDisabled, OnMenuClosed);
+    protected virtual void RemoveListener() => GlobalEventBus.Deregister(GlobalEvents.UI.CanvasDisabled, OnMenuClosed);
     protected virtual void OnMenuClosed(object[] eventArgs) => SaveData();
     #endregion
 }

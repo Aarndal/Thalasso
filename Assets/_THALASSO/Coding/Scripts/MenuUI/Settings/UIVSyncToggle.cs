@@ -75,6 +75,8 @@ public class UIVSyncToggle : SettingElement<bool>
     {
         if (PlayerPrefs.HasKey(SettingNames.VSync))
             PlayerPrefs.DeleteKey(SettingNames.VSync);
+
+        LoadData();
     }
     #endregion
 

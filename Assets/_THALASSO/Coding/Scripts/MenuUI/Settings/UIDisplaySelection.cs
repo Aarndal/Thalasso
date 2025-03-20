@@ -52,6 +52,8 @@ public class UIDisplaySelection : SettingElement<int>
     {
         if (PlayerPrefs.HasKey(SettingNames.Display))
             PlayerPrefs.DeleteKey(SettingNames.Display);
+
+        LoadData();
     }
     #endregion
 

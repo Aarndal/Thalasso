@@ -76,6 +76,8 @@ public class UITargetFrameRateSelection : SettingElement<int>
     {
         if (PlayerPrefs.HasKey(SettingNames.TargetFrameRate))
             PlayerPrefs.DeleteKey(SettingNames.TargetFrameRate);
+
+        LoadData();
     }
     #endregion
 

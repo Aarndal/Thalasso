@@ -52,6 +52,8 @@ public class UIScreenModeSelection : SettingElement<int>
     {
         if (PlayerPrefs.HasKey(SettingNames.ScreenMode))
             PlayerPrefs.DeleteKey(SettingNames.ScreenMode);
+
+        LoadData();
     }
     #endregion
 

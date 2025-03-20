@@ -1,60 +1,101 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace WwiseHelper
 {
-    [Serializable]
-    public class UIWwiseVolumeSlider : MonoBehaviour
+    [RequireComponent(typeof(Slider))]
+    public class UIWwiseVolumeSlider : SettingElement<float>
     {
 #if WWISE_2024_OR_LATER
         [SerializeField]
         private AK.Wwise.RTPC _rtpc = default;
-        [SerializeField]
+
         private Slider _volumeSlider = default;
+        private float _volume = 0.8f;
 
-        private WwiseBus _wwiseBus;
+        public string RTPCName => _rtpc.Name;
 
-        public WwiseBus AudioBus => _wwiseBus;
+        public float Volume
+        {
+            get => _volume;
+            private set
+            {
+                if (value >= 1.0f)
+                    value = 1.0f;
+
+                if (value <= 0.0f)
+                    value = 0.0f;
+
+                AkUnitySoundEngine.SetRTPCValue(_rtpc.Id, _volume);
+
+                if (value != _volume)
+                {
+                    _volume = value;
+                    _valueChanged?.Invoke(ID, _volume);
+                }
+            }
+        }
 
         private void Awake()
         {
-            _volumeSlider = _volumeSlider != null ? _volumeSlider : GetComponentInChildren<Slider>();
+            if (!gameObject.TryGetComponent(out _volumeSlider))
+                _volumeSlider = gameObject.AddComponent<Slider>();
 
-            if(_volumeSlider == null)
-            {
-                Debug.LogErrorFormat("<color=cyan>{0}</color> <color=red>has no Slider attached!</color> {1} needs a Slider component on its associated GameObject or one of its children to function.", gameObject.name, this);
-            }
-
-            if(!_rtpc.IsValid())
+            if (!_rtpc.IsValid())
             {
                 _rtpc.Validate();
                 return;
             }
-
-            _wwiseBus ??= new(_rtpc, _volumeSlider);
         }
 
-        private void OnEnable()
+
+        #region Data Management Methods
+        public override void LoadData()
         {
-            _wwiseBus.LoadData();
+            if (!PlayerPrefs.HasKey(_rtpc.Name))
+            {
+                PlayerPrefs.SetFloat(_rtpc.Name, Volume);
+            }
+
+            Volume = PlayerPrefs.GetFloat(_rtpc.Name);
+
+            _volumeSlider.value = _volumeSlider.maxValue * Volume + _volumeSlider.minValue * (1 - Volume);
         }
 
-        private void Start()
+        protected override void SetData(float data)
         {
-            _wwiseBus.AddListener();
+            if (_volumeSlider.normalizedValue != Volume)
+                Volume = _volumeSlider.normalizedValue;
         }
 
-        private void OnDestroy()
+        public override void SaveData()
         {
-            _wwiseBus.RemoveListener();
+            PlayerPrefs.SetFloat(_rtpc.Name, Volume);
         }
 
-        public void DeleteUserData()
+        public override void DeleteData()
         {
-            _wwiseBus.DeleteData();
-            _wwiseBus.LoadData();
+            if (PlayerPrefs.HasKey(_rtpc.Name))
+                PlayerPrefs.DeleteKey(_rtpc.Name);
+
+            LoadData();
         }
+        #endregion
+
+
+        #region Callback Functions
+        protected override void AddListener()
+        {
+            base.AddListener();
+            _volumeSlider.onValueChanged.AddListener(SetData);
+        }
+
+        protected override void RemoveListener()
+        {
+            _volumeSlider.onValueChanged.RemoveListener(SetData);
+            base.RemoveListener();
+        }
+        #endregion
 #endif
     }
 }

@@ -55,6 +55,8 @@ public class UIScreenResolutionSelection : SettingElement<int>
     {
         if (PlayerPrefs.HasKey(SettingNames.ScreenResolution))
             PlayerPrefs.DeleteKey(SettingNames.ScreenResolution);
+
+        LoadData();
     }
     #endregion
 

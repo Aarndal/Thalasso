@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace WwiseHelper
 {
+    [Obsolete]
     public class WwiseBus
     {
 #if WWISE_2024_OR_LATER
