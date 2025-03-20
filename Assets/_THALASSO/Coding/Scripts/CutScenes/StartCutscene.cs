@@ -34,6 +34,7 @@ public class StartCutscene : MonoBehaviour
 
     private void Start()
     {
+        cutsceneCanvas.enabled = true;
         _input.SwitchCurrentActionMap("Cutscene");
         cinemachineBrain.enabled = false;
         pCAnimation._inCutscene = true;
@@ -87,7 +88,7 @@ public class StartCutscene : MonoBehaviour
         GameObject skipInfoText = cutsceneCanvas.GetComponentInChildren<TextMeshProUGUI>().gameObject;
         skipInfoText.SetActive(false);
 
-        this.enabled = false;
+        cutsceneCanvas.enabled = false;
     }
 
 

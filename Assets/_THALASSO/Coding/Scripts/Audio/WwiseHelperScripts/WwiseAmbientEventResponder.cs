@@ -48,7 +48,8 @@ namespace WwiseHelper
                 foreach (var ambientComponent in AmbientComponents.Values)
                 {
                     ambientComponent.triggerList.Clear();
-                    ambientComponent.triggerList.Add(AkTriggerHandler.START_TRIGGER_ID);
+                    ambientComponent.triggerList.Add(AkTriggerHandler.ON_ENABLE_TRIGGER_ID);
+                    ambientComponent.triggerList.Add(AkTriggerHandler.ON_DISABLE_TRIGGER_ID);
                     ambientComponent.multiPositionTypeLabel = _positionType;
                     ambientComponent.HandleEvent(_akGameObject.gameObject);
                 }

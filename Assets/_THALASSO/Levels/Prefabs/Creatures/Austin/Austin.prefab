@@ -296,6 +296,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4260091299021275346}
   - component: {fileID: 4621377247364498783}
+  - component: {fileID: 848058553545289402}
+  - component: {fileID: 6178942820716839189}
+  - component: {fileID: 8864595863000888764}
   - component: {fileID: 7506580016743242627}
   - component: {fileID: 7157658190512331377}
   m_Layer: 0
@@ -368,6 +371,69 @@ MonoBehaviour:
       Value: 512
       index: 1
       isKeyDuplicated: 0
+--- !u!114 &848058553545289402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 245432554367774696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32baeb09470cc8f4caa2513356855b92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _soundBanks:
+  - idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 64bdd407567a33943ba7a3c1b7f15b67, type: 2}
+  _loadAsynchronously: 0
+  _loadMethod: 0
+  _unloadMethod: 0
+--- !u!114 &6178942820716839189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 245432554367774696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62f370bd38ab0524eb28a985f4b8c87a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_listeners:
+    initialListenerList: []
+    useDefaultListeners: 1
+  isEnvironmentAware: 0
+  isStaticObject: 0
+  usePositionOffsetData: 0
+  m_positionOffsetData:
+    KeepMe: 1
+    positionOffset: {x: 0, y: 0, z: 0}
+  scalingFactor: 1
+  m_posOffsetData: {fileID: 0}
+  listenerMask: 1
+--- !u!114 &8864595863000888764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 245432554367774696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606a08c86fff76e4481420862fde1c01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _startState: 0
+  _triggers:
+  - _monoBehaviourInstance: {fileID: 4621377247364498783}
+  _wwiseEvents:
+  - {fileID: 11400000, guid: 0728af5349c98934088565b16749b596, type: 2}
+  _playOnOtherObject: 0
+  _isEnvironmentAware: 0
+  _isRoomAware: 0
 --- !u!95 &7506580016743242627
 Animator:
   serializedVersion: 7
@@ -15027,9 +15093,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3535229527100626191}
   - component: {fileID: 1001811569898221630}
-  - component: {fileID: 3805371692858794090}
-  - component: {fileID: 2604139029019209575}
-  - component: {fileID: 414338913656608873}
   m_Layer: 0
   m_Name: Austin
   m_TagString: Untagged
@@ -15065,70 +15128,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ffe5f1c63733104f989f2124a9fe9e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3805371692858794090
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8747237158198663476}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32baeb09470cc8f4caa2513356855b92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _soundBanks:
-  - idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 64bdd407567a33943ba7a3c1b7f15b67, type: 2}
-  _loadAsynchronously: 0
-  _loadMethod: 0
-  _unloadMethod: 0
---- !u!114 &2604139029019209575
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8747237158198663476}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62f370bd38ab0524eb28a985f4b8c87a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_listeners:
-    initialListenerList: []
-    useDefaultListeners: 1
-  isEnvironmentAware: 0
-  isStaticObject: 0
-  usePositionOffsetData: 0
-  m_positionOffsetData:
-    KeepMe: 1
-    positionOffset: {x: 0, y: 0, z: 0}
-  scalingFactor: 1
-  m_posOffsetData: {fileID: 0}
-  listenerMask: 1
---- !u!114 &414338913656608873
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8747237158198663476}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69ad867a7a2d5ee4f8a6a858cdf06c66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _startState: 0
-  _triggers:
-  - _monoBehaviourInstance: {fileID: 4621377247364498783}
-  _wwiseEvents:
-  - {fileID: 11400000, guid: 0728af5349c98934088565b16749b596, type: 2}
-  _playOnOtherObject: 0
-  _isEnvironmentAware: 0
-  _isRoomAware: 0
-  _positionType: 0
 --- !u!1 &8752991012919895210
 GameObject:
   m_ObjectHideFlags: 0

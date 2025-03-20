@@ -1,8 +1,9 @@
+using Eflatun.SceneReference;
 using ProgressionTracking;
-using System.Collections;
 using TMPro;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EndCutscene : MonoBehaviour
 {
@@ -11,9 +12,9 @@ public class EndCutscene : MonoBehaviour
     [SerializeField] private Transform cutscneeCamTransform;
     [SerializeField] private DoorAnimation escapePodDoor;
     [SerializeField] private float camTransitionDurations = 1f;
+    [SerializeField] private SceneReference _sceneToLoad = default;
     private GameObject playerBody;
     private GameObject cutsceneCanvas;
-    private ButtonActions buttonActions;
     private CinemachineCamera cinemachineCamera;
     private GameObject skipInfoText;
 
@@ -21,9 +22,6 @@ public class EndCutscene : MonoBehaviour
     {
         if (cutsceneCanvas == null)
             cutsceneCanvas = GameObject.Find("CutsceneCanvas");
-
-        if (buttonActions == null)
-            buttonActions = cutsceneCanvas.GetComponent<ButtonActions>();
 
         if (playerBody == null)
             playerBody = GameObject.FindGameObjectWithTag("PlayerBody");
@@ -80,6 +78,6 @@ public class EndCutscene : MonoBehaviour
 
     public void OnCutsceneEnd()
     {
-        buttonActions.LoadScene(2); //crdits scene
+        SceneManager.LoadScene(_sceneToLoad.BuildIndex);
     }
 }
