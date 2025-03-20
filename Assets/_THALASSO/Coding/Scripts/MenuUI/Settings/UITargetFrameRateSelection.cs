@@ -55,6 +55,11 @@ public class UITargetFrameRateSelection : SettingElement<int>
             PlayerPrefs.SetInt(SettingNames.TargetFrameRate, GetTargetFrameRateIndex());
         }
 
+        if (!PlayerPrefs.HasKey(SettingNames.VSync))
+        {
+            PlayerPrefs.SetInt(SettingNames.VSync, 1);
+        }
+
         bool isVsyncOn = PlayerPrefs.GetInt(SettingNames.VSync) != 0;
         SetDropdownInteraction(isVsyncOn);
 
