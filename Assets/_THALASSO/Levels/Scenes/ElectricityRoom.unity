@@ -449,37 +449,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7998438128949053113, guid: e62e1d1190e76434eb8bf3f9eac846af, type: 3}
   m_PrefabInstance: {fileID: 54723067}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &59649871
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 59649873}
-  m_Layer: 0
-  m_Name: WwiseGlobal
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &59649873
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 59649871}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &91063879
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1652,6 +1621,10 @@ PrefabInstance:
       propertyPath: _text
       value: Electricity Room
       objectReference: {fileID: 0}
+    - target: {fileID: 1628769080063918822, guid: b41df0d0733b0904a9985fb88d08ecf2, type: 3}
+      propertyPath: _wwiseSwitch.Array.data[0].WwiseObjectReference
+      value: 
+      objectReference: {fileID: 11400000, guid: a5a63f14f04df4e4f8665045b7f16f67, type: 2}
     - target: {fileID: 3852018252367005555, guid: b41df0d0733b0904a9985fb88d08ecf2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3566,7 +3539,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1563763495}
-  - {fileID: 1875633908}
   m_Father: {fileID: 1167749897}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &965732667
@@ -5571,6 +5543,7 @@ GameObject:
   - component: {fileID: 1563763495}
   - component: {fileID: 1563763496}
   - component: {fileID: 1563763497}
+  - component: {fileID: 1563763498}
   m_Layer: 0
   m_Name: Ambience_ElectricityRoom
   m_TagString: Untagged
@@ -5627,14 +5600,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   excludeOthers: 0
-  isDefault: 0
+  isDefault: 1
   data:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
-  priority: 0
+    WwiseObjectReference: {fileID: 11400000, guid: 2781ab4aadc4e5a4f83ef367ecfb8898, type: 2}
+  priority: 200
   auxBusIdInternal: 0
   valueGuidInternal: 
+--- !u!114 &1563763498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1563763494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d15cd8317ff57ec4e9f010c5dae1a949, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _environmentData: {fileID: 11400000, guid: b09ab1fd406438043a872fdc87b47714, type: 2}
 --- !u!1001 &1601478720
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6492,83 +6478,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3147350042673536162, guid: 35e7b8dbf6fffae4d942dff509a968f2, type: 3}
   m_PrefabInstance: {fileID: 1874414578}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1875633907
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1875633908}
-  - component: {fileID: 1875633911}
-  - component: {fileID: 1875633912}
-  m_Layer: 0
-  m_Name: BGM_ElectricityRoom
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1875633908
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1875633907}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 957959222}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1875633911
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1875633907}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 17, y: 5, z: 10}
-  m_Center: {x: -0.5, y: 2.5, z: 0}
---- !u!114 &1875633912
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1875633907}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2eec03a4f24e5d40b33c35c84fe4f81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _isTriggerable: 1
-  _isOneTimeTrigger: 0
-  _cannotBeTriggeredMessage: 
-  _triggerSettings:
-    dictionaryList: []
-  _wwiseSwitch:
-    idInternal: 0
-    valueGuidInternal: 
-    groupIdInternal: 0
-    groupGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
 --- !u!1001 &1879221973
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7823,6 +7732,22 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8210881948123425994, guid: 8251b4ee7532b9f4786687271d26e532, type: 3}
+      propertyPath: akGameObject
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8210881948123425994, guid: 8251b4ee7532b9f4786687271d26e532, type: 3}
+      propertyPath: wrongInput.WwiseObjectReference
+      value: 
+      objectReference: {fileID: 11400000, guid: ebbe6178f7f1e6348a5bd477c537da26, type: 2}
+    - target: {fileID: 8210881948123425994, guid: 8251b4ee7532b9f4786687271d26e532, type: 3}
+      propertyPath: buttonPress.WwiseObjectReference
+      value: 
+      objectReference: {fileID: 11400000, guid: e03e3393755d61246b9361e9703c2ce8, type: 2}
+    - target: {fileID: 8210881948123425994, guid: 8251b4ee7532b9f4786687271d26e532, type: 3}
+      propertyPath: correctInput.WwiseObjectReference
+      value: 
+      objectReference: {fileID: 11400000, guid: 502486788a99183438aaf8d5bb4f283c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7896,4 +7821,3 @@ SceneRoots:
   m_Roots:
   - {fileID: 1344535697}
   - {fileID: 1167749897}
-  - {fileID: 59649873}

@@ -896,6 +896,7 @@ GameObject:
   - component: {fileID: 348974237}
   - component: {fileID: 348974239}
   - component: {fileID: 348974240}
+  - component: {fileID: 348974241}
   m_Layer: 0
   m_Name: Ambience_SecurityRoom
   m_TagString: Untagged
@@ -958,10 +959,23 @@ MonoBehaviour:
   data:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
-  priority: 0
+    WwiseObjectReference: {fileID: 11400000, guid: dd678ed526d92b644a7ca529d1637d8f, type: 2}
+  priority: 100
   auxBusIdInternal: 0
   valueGuidInternal: 
+--- !u!114 &348974241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 348974236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d15cd8317ff57ec4e9f010c5dae1a949, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _environmentData: {fileID: 11400000, guid: c6066e7f6adcb074d8f0b1c78c5d58ad, type: 2}
 --- !u!1 &357148975
 GameObject:
   m_ObjectHideFlags: 0
@@ -2508,8 +2522,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 348974237}
   - {fileID: 1146747690}
+  - {fileID: 348974237}
   m_Father: {fileID: 1167749897}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &986641694
@@ -2874,8 +2888,9 @@ GameObject:
   - component: {fileID: 1146747690}
   - component: {fileID: 1146747692}
   - component: {fileID: 1146747693}
+  - component: {fileID: 1146747694}
   m_Layer: 0
-  m_Name: Ambience_OutsideSecurityRoom
+  m_Name: Ambience_Hallway
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2930,14 +2945,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   excludeOthers: 0
-  isDefault: 0
+  isDefault: 1
   data:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
-  priority: 0
+    WwiseObjectReference: {fileID: 11400000, guid: ca9e595e058ffe5429a3c288c3c39907, type: 2}
+  priority: 200
   auxBusIdInternal: 0
   valueGuidInternal: 
+--- !u!114 &1146747694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146747689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d15cd8317ff57ec4e9f010c5dae1a949, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _environmentData: {fileID: 11400000, guid: 57f5f35f3bd4b064189f6b26ca5d9c44, type: 2}
 --- !u!1001 &1161221412
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3896,6 +3924,10 @@ PrefabInstance:
       propertyPath: _text
       value: Security Room
       objectReference: {fileID: 0}
+    - target: {fileID: 1628769080063918822, guid: b41df0d0733b0904a9985fb88d08ecf2, type: 3}
+      propertyPath: _wwiseSwitch.Array.data[0].WwiseObjectReference
+      value: 
+      objectReference: {fileID: 11400000, guid: 696feacff84934042b11dab5a4e321fb, type: 2}
     - target: {fileID: 3852018252367005555, guid: b41df0d0733b0904a9985fb88d08ecf2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

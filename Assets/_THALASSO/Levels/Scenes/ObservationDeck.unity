@@ -4542,63 +4542,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 605947546859176271, guid: cf52fe7fd174f7c4e951707bbad1e93e, type: 3}
   m_PrefabInstance: {fileID: 858774779}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &865829346
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 865829348}
-  - component: {fileID: 865829347}
-  m_Layer: 0
-  m_Name: WwiseGlobal
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &865829347
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 865829346}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7076f4c030b5a40499749170d7936336, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InitializationSettings: {fileID: 11400000, guid: d870274f457cf0f4f85426e0fcbee927, type: 2}
-  basePath: 
-  language: 
-  defaultPoolSize: 0
-  lowerPoolSize: 0
-  streamingPoolSize: 0
-  memoryCutoffThreshold: 0
-  monitorPoolSize: 0
-  monitorQueuePoolSize: 0
-  callbackManagerBufferSize: 0
-  spatialAudioPoolSize: 0
-  maxSoundPropagationDepth: 0
-  engineLogging: 0
---- !u!4 &865829348
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 865829346}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &867038414
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5413,6 +5356,10 @@ PrefabInstance:
       propertyPath: _text
       value: Observation Deck
       objectReference: {fileID: 0}
+    - target: {fileID: 1628769080063918822, guid: b41df0d0733b0904a9985fb88d08ecf2, type: 3}
+      propertyPath: _wwiseSwitch.Array.data[0].WwiseObjectReference
+      value: 
+      objectReference: {fileID: 11400000, guid: a3e61a97771f57c439c8cae335d800e9, type: 2}
     - target: {fileID: 3852018252367005555, guid: b41df0d0733b0904a9985fb88d08ecf2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -8942,6 +8889,7 @@ GameObject:
   - component: {fileID: 1595319343}
   - component: {fileID: 1595319345}
   - component: {fileID: 1595319346}
+  - component: {fileID: 1595319347}
   m_Layer: 0
   m_Name: Ambience_ObservationDeckFront
   m_TagString: Untagged
@@ -8958,7 +8906,7 @@ Transform:
   m_GameObject: {fileID: 1595319342}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.000001, y: 0, z: 0.49996662}
+  m_LocalPosition: {x: -9.000001, y: 0, z: 0.49995518}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8998,14 +8946,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   excludeOthers: 0
-  isDefault: 0
+  isDefault: 1
   data:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
-  priority: 0
+    WwiseObjectReference: {fileID: 11400000, guid: 66748e5cb23fe9641931a863795a585b, type: 2}
+  priority: 200
   auxBusIdInternal: 0
   valueGuidInternal: 
+--- !u!114 &1595319347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1595319342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d15cd8317ff57ec4e9f010c5dae1a949, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _environmentData: {fileID: 11400000, guid: 4d947e05f7c2a9f4dba650ccb44d6d2b, type: 2}
 --- !u!1001 &1600090232
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9397,6 +9358,7 @@ GameObject:
   - component: {fileID: 1724259466}
   - component: {fileID: 1724259468}
   - component: {fileID: 1724259469}
+  - component: {fileID: 1724259470}
   m_Layer: 0
   m_Name: Ambience_ObservationDeckBack
   m_TagString: Untagged
@@ -9453,14 +9415,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   excludeOthers: 0
-  isDefault: 0
+  isDefault: 1
   data:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
-  priority: 0
+    WwiseObjectReference: {fileID: 11400000, guid: 66748e5cb23fe9641931a863795a585b, type: 2}
+  priority: 200
   auxBusIdInternal: 0
   valueGuidInternal: 
+--- !u!114 &1724259470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724259465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d15cd8317ff57ec4e9f010c5dae1a949, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _environmentData: {fileID: 11400000, guid: 4d947e05f7c2a9f4dba650ccb44d6d2b, type: 2}
 --- !u!1001 &1744985647
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11517,4 +11492,3 @@ SceneRoots:
   m_Roots:
   - {fileID: 1344535697}
   - {fileID: 1167749897}
-  - {fileID: 865829348}

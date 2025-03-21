@@ -192,6 +192,7 @@ GameObject:
   - component: {fileID: 44983754}
   - component: {fileID: 44983756}
   - component: {fileID: 44983757}
+  - component: {fileID: 44983758}
   m_Layer: 0
   m_Name: Ambience_CellRoom
   m_TagString: Untagged
@@ -252,10 +253,23 @@ MonoBehaviour:
   data:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
-  priority: 0
+    WwiseObjectReference: {fileID: 11400000, guid: 29c89b04d54be644ea80fab413328ba5, type: 2}
+  priority: 100
   auxBusIdInternal: 0
   valueGuidInternal: 
+--- !u!114 &44983758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 44983753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d15cd8317ff57ec4e9f010c5dae1a949, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _environmentData: {fileID: 11400000, guid: 1fc99e077cd70464fb5ca6613efcd516, type: 2}
 --- !u!1 &63445251 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6604848265184170634, guid: 261c627b89849bc42931d070738be608, type: 3}
@@ -1006,6 +1020,7 @@ GameObject:
   - component: {fileID: 208307562}
   - component: {fileID: 208307564}
   - component: {fileID: 208307565}
+  - component: {fileID: 208307566}
   m_Layer: 0
   m_Name: Ambience_CellRoom (1)
   m_TagString: Untagged
@@ -1066,10 +1081,23 @@ MonoBehaviour:
   data:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
-  priority: 0
+    WwiseObjectReference: {fileID: 11400000, guid: 29c89b04d54be644ea80fab413328ba5, type: 2}
+  priority: 100
   auxBusIdInternal: 0
   valueGuidInternal: 
+--- !u!114 &208307566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 208307561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d15cd8317ff57ec4e9f010c5dae1a949, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _environmentData: {fileID: 11400000, guid: 1fc99e077cd70464fb5ca6613efcd516, type: 2}
 --- !u!1 &221240411
 GameObject:
   m_ObjectHideFlags: 0
@@ -1707,10 +1735,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1776849408}
   - {fileID: 44983754}
   - {fileID: 208307562}
   - {fileID: 2142047758}
-  - {fileID: 1776849408}
   m_Father: {fileID: 1167749897}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &341191936
@@ -5838,63 +5866,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3918017912021229663, guid: 330c950e6a7370b42acd37160274dbd8, type: 3}
   m_PrefabInstance: {fileID: 1656643763}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1676094570
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1676094572}
-  - component: {fileID: 1676094571}
-  m_Layer: 0
-  m_Name: WwiseGlobal
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1676094571
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1676094570}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7076f4c030b5a40499749170d7936336, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InitializationSettings: {fileID: 11400000, guid: d870274f457cf0f4f85426e0fcbee927, type: 2}
-  basePath: 
-  language: 
-  defaultPoolSize: 0
-  lowerPoolSize: 0
-  streamingPoolSize: 0
-  memoryCutoffThreshold: 0
-  monitorPoolSize: 0
-  monitorQueuePoolSize: 0
-  callbackManagerBufferSize: 0
-  spatialAudioPoolSize: 0
-  maxSoundPropagationDepth: 0
-  engineLogging: 0
---- !u!4 &1676094572
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1676094570}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1696599554
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6251,8 +6222,9 @@ GameObject:
   - component: {fileID: 1776849408}
   - component: {fileID: 1776849410}
   - component: {fileID: 1776849411}
+  - component: {fileID: 1776849412}
   m_Layer: 0
-  m_Name: Ambience_Cells
+  m_Name: Ambience_CellAnteroom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6307,14 +6279,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   excludeOthers: 0
-  isDefault: 0
+  isDefault: 1
   data:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
-  priority: 0
+    WwiseObjectReference: {fileID: 11400000, guid: 5dac864ba274b0e41b95bcb7590ea057, type: 2}
+  priority: 200
   auxBusIdInternal: 0
   valueGuidInternal: 
+--- !u!114 &1776849412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1776849407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d15cd8317ff57ec4e9f010c5dae1a949, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _environmentData: {fileID: 11400000, guid: 345db730ef8e513489da8ebd135bfb6f, type: 2}
 --- !u!1001 &1811850808
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7959,6 +7944,7 @@ GameObject:
   - component: {fileID: 2142047758}
   - component: {fileID: 2142047760}
   - component: {fileID: 2142047761}
+  - component: {fileID: 2142047762}
   m_Layer: 0
   m_Name: Ambience_CellRoom (2)
   m_TagString: Untagged
@@ -8019,10 +8005,23 @@ MonoBehaviour:
   data:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
-  priority: 0
+    WwiseObjectReference: {fileID: 11400000, guid: 29c89b04d54be644ea80fab413328ba5, type: 2}
+  priority: 100
   auxBusIdInternal: 0
   valueGuidInternal: 
+--- !u!114 &2142047762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2142047757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d15cd8317ff57ec4e9f010c5dae1a949, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _environmentData: {fileID: 11400000, guid: 1fc99e077cd70464fb5ca6613efcd516, type: 2}
 --- !u!1001 &1304669856585596466
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8829,4 +8828,3 @@ SceneRoots:
   m_Roots:
   - {fileID: 1344535697}
   - {fileID: 1167749897}
-  - {fileID: 1676094572}
