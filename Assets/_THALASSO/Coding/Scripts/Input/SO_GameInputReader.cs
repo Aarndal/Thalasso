@@ -153,8 +153,6 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
 
             _defaultActionMap = _actionMaps[0];
         }
-
-        EnableDefaultActionMap();
         
         if (ActionMaps.Count > 0 || ActionMaps.Count != _actionMaps.Count)
         {
@@ -162,6 +160,8 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
             for (int i = 0; i < _actionMaps.Count; i++)
                 ActionMaps.Add(_actionMaps[i].name, _actionMaps[i]);
         }
+        
+        EnableDefaultActionMap();
 
         IsPauseActive = false;
 
@@ -186,6 +186,9 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
         _defaultActionMap.Enable();
         CurrentActionMap = _defaultActionMap;
         _previousActionMap = CurrentActionMap;
+
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(0))
+            SwitchCurrentActionMap("UI");
     }
 
     public bool SwitchCurrentActionMap(string newActionMapName)

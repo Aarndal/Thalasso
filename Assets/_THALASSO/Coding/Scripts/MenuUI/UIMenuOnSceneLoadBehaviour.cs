@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIMenuOnSceneLoadBehaviour : MonoBehaviour
 {
+    private static bool IsFirstSceneLoad = true;
+
     [SerializeField]
     private bool _activateOnSceneLoad = false;
 
@@ -13,6 +16,12 @@ public class UIMenuOnSceneLoadBehaviour : MonoBehaviour
     private Canvas _canvas = default;
     private Canvas[] _childCanvases;
     private HashSet<Canvas> _uniqueCanvasesToLoad = new();
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    static private void OnBeforeSceneLoad()
+    {
+        IsFirstSceneLoad = true;
+    }
 
     private void Awake()
     {
@@ -25,8 +34,15 @@ public class UIMenuOnSceneLoadBehaviour : MonoBehaviour
         _uniqueCanvasesToLoad.Add(_canvas);
     }
 
-    private void OnEnable()
+    private void OnEnable() => SceneManager.sceneLoaded += OnSceneLoaded;
+
+    private void OnDisable() => SceneManager.sceneLoaded -= OnSceneLoaded;
+
+    private void OnSceneLoaded(Scene loadedScene, LoadSceneMode loadSceneMode)
     {
+        if (loadSceneMode == LoadSceneMode.Additive)
+            return;
+
         foreach (var canvas in _childCanvases)
         {
             if (_uniqueCanvasesToLoad.Contains(canvas))
@@ -34,11 +50,11 @@ public class UIMenuOnSceneLoadBehaviour : MonoBehaviour
             else
                 canvas.enabled = false;
         }
-    }
 
-    private void Start()
-    {
-        if (_canvas.enabled)
+        if (_canvas.enabled && !IsFirstSceneLoad)
             GlobalEventBus.Raise(GlobalEvents.UI.MenuOpened, _canvas.gameObject.name);
+
+        if (IsFirstSceneLoad)
+            IsFirstSceneLoad = false;
     }
 }

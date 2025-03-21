@@ -38,7 +38,6 @@ public class UIMenuSound : MonoBehaviour
 #endif
     }
 
-
     private void OnMenuOpened(object[] eventArgs)
     {
 #if WWISE_2024_OR_LATER

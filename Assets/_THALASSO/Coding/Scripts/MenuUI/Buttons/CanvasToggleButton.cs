@@ -31,7 +31,7 @@ public class CanvasToggleButton : ButtonClick
             _currentCanvas.enabled = !_currentCanvas.enabled;
             GlobalEventBus.Raise(GlobalEvents.UI.CanvasDisabled, _currentCanvas.name);
 
-            PlayerPrefs.Save();
+            //PlayerPrefs.Save();
         }
 
         if (_toggleOtherCanvas && _targetCanvas != null && !_targetCanvas.enabled)

@@ -22,15 +22,9 @@ public class UIMenuOnPauseBehaviour : MonoBehaviour
         _uniqueCanvasesToLoad.Add(_canvas);
     }
 
-    private void OnEnable()
-    {
-        GlobalEventBus.Register(GlobalEvents.Game.IsPaused, OnGameIsPaused);
-    }
+    private void OnEnable() => GlobalEventBus.Register(GlobalEvents.Game.IsPaused, OnGameIsPaused);
 
-    private void OnDisable()
-    {
-        GlobalEventBus.Deregister(GlobalEvents.Game.IsPaused, OnGameIsPaused);
-    }
+    private void OnDisable() => GlobalEventBus.Deregister(GlobalEvents.Game.IsPaused, OnGameIsPaused);
 
     private void OnGameIsPaused(object[] args)
     {
