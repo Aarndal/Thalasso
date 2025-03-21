@@ -1,0 +1,212 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Windows",
+  "BasePlatform": "Windows",
+  "SchemaVersion": "16",
+  "SoundBankVersion": "154",
+  "SoundBanks": [
+   {
+    "Id": "2805599468",
+    "Type": "User",
+    "GUID": "{DA46290E-9FA1-418E-8B57-C1FE453C49E4}",
+    "Language": "SFX",
+    "Hash": "{0693B2E5-1D6A-5BD7-6BB7-4F9EF4548F82}",
+    "ObjectPath": "\\SoundBanks\\Default Work Unit\\MenuSounds",
+    "ShortName": "MenuSounds",
+    "Path": "MenuSounds.bnk",
+    "Media": [
+     {
+      "Id": "107835739",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "01-1 Menu\\Pause Menu In.wav",
+      "CachePath": "ED/{EDBFA2CA-10F8-87E6-B968-383DFD291580}.wem"
+     },
+     {
+      "Id": "230977404",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "01-1 Menu\\Menu Button Back 02.wav",
+      "CachePath": "F5/{F5CD0AFE-8C9B-B7CC-E1A1-440A5D7DD3CF}.wem"
+     },
+     {
+      "Id": "318477370",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "01-1 Menu\\Menu Button Back 01.wav",
+      "CachePath": "06/{06F276E4-3961-B178-2E90-7E436CA1398D}.wem"
+     },
+     {
+      "Id": "463578854",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "01-1 Menu\\Main Menu Out.wav",
+      "CachePath": "F3/{F39CC53D-74A9-26A4-D1FA-2075510EEDAD}.wem"
+     },
+     {
+      "Id": "534026076",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "01-1 Menu\\Menu Button Back 03.wav",
+      "CachePath": "F2/{F2CA3B34-D401-6FE0-8184-68F1ECE487B9}.wem"
+     },
+     {
+      "Id": "765414864",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "01-1 Menu\\Menu Button Press 03.wav",
+      "CachePath": "76/{763682C6-9E82-7E2D-A486-642685AAB397}.wem"
+     },
+     {
+      "Id": "786146522",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "01-1 Menu\\Pause Menu Out.wav",
+      "CachePath": "8B/{8BF366CB-2EB7-32AD-9FE5-E468CAEC89CF}.wem"
+     },
+     {
+      "Id": "796356191",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "01-1 Menu\\Menu Button Press 04.wav",
+      "CachePath": "74/{74DCB086-7D21-A931-E9FD-F8EA8F283312}.wem"
+     },
+     {
+      "Id": "936956570",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "01-1 Menu\\Menu Button Press 01.wav",
+      "CachePath": "E4/{E4329548-20A4-DE28-85FC-09F7133EF630}.wem"
+     },
+     {
+      "Id": "950487757",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "01-1 Menu\\Main Menu In.wav",
+      "CachePath": "FB/{FBF56FA8-5561-F8CB-8CB7-DC16865A606E}.wem"
+     },
+     {
+      "Id": "968139258",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "01-1 Menu\\Menu Button Press 02.wav",
+      "CachePath": "4E/{4E6807C9-E40B-3CAB-7200-651200F414ED}.wem"
+     }
+    ],
+    "Events": [
+     {
+      "Id": "580468006",
+      "Name": "Main_Menu_In",
+      "ObjectPath": "\\Events\\Default Work Unit\\Menu Sounds\\Main_Menu_In",
+      "GUID": "{C830424B-725B-4962-8456-D3F64FE02130}",
+      "DurationType": "OneShot",
+      "DurationMin": "1.6664166",
+      "DurationMax": "1.6664166",
+      "MediaRefs": [
+       {
+        "Id": "950487757"
+       }
+      ]
+     },
+     {
+      "Id": "3091888041",
+      "Name": "Main_Menu_Out",
+      "ObjectPath": "\\Events\\Default Work Unit\\Menu Sounds\\Main_Menu_Out",
+      "GUID": "{F92CF2F3-A389-4760-BFD9-B724C8C1C785}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.5933333",
+      "DurationMax": "0.5933333",
+      "MediaRefs": [
+       {
+        "Id": "463578854"
+       }
+      ]
+     },
+     {
+      "Id": "2351299877",
+      "Name": "Menu_Back_Button",
+      "ObjectPath": "\\Events\\Default Work Unit\\Menu Sounds\\Menu_Back_Button",
+      "GUID": "{CE9715DE-47EB-4CC5-A511-8D7699DD15B2}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.2608239",
+      "DurationMax": "0.30300647",
+      "MediaRefs": [
+       {
+        "Id": "230977404"
+       },
+       {
+        "Id": "318477370"
+       },
+       {
+        "Id": "534026076"
+       }
+      ]
+     },
+     {
+      "Id": "952003163",
+      "Name": "Menu_Button_Press",
+      "ObjectPath": "\\Events\\Default Work Unit\\Menu Sounds\\Menu_Button_Press",
+      "GUID": "{74E9D91D-B27E-4C30-8436-B5C6231D3522}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.4080316",
+      "DurationMax": "1.8704894",
+      "MediaRefs": [
+       {
+        "Id": "765414864"
+       },
+       {
+        "Id": "796356191"
+       },
+       {
+        "Id": "936956570"
+       },
+       {
+        "Id": "968139258"
+       }
+      ]
+     },
+     {
+      "Id": "3382955325",
+      "Name": "Pause_Menu_In",
+      "ObjectPath": "\\Events\\Default Work Unit\\Menu Sounds\\Pause_Menu_In",
+      "GUID": "{1761700D-48BF-4A23-9BDF-7DD669800093}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.42666668",
+      "DurationMax": "0.42666668",
+      "MediaRefs": [
+       {
+        "Id": "107835739"
+       }
+      ]
+     },
+     {
+      "Id": "2397763428",
+      "Name": "Pause_Menu_Out",
+      "ObjectPath": "\\Events\\Default Work Unit\\Menu Sounds\\Pause_Menu_Out",
+      "GUID": "{443B3F01-13AC-4FE5-B3BC-3BF774FCC39C}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.84933335",
+      "DurationMax": "0.84933335",
+      "MediaRefs": [
+       {
+        "Id": "786146522"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "FileHash": "{2D2F6C33-3957-080A-C6EB-624DC4F4E47B}"
+ }
+}

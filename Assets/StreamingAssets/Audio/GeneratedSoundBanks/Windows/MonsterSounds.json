@@ -1,0 +1,142 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Windows",
+  "BasePlatform": "Windows",
+  "SchemaVersion": "16",
+  "SoundBankVersion": "154",
+  "SoundBanks": [
+   {
+    "Id": "682291357",
+    "Type": "User",
+    "GUID": "{7A612667-1EAF-43F5-93B2-EF1DDE5CE2EA}",
+    "Language": "SFX",
+    "Hash": "{63E992CD-74E6-6A95-1B0F-9C73FCE1EA4F}",
+    "ObjectPath": "\\SoundBanks\\Default Work Unit\\MonsterSounds",
+    "ShortName": "MonsterSounds",
+    "Path": "MonsterSounds.bnk",
+    "Media": [
+     {
+      "Id": "5487145",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "Austin\\Austin Sing 3.wav",
+      "CachePath": "A1/{A19D8925-1AE2-F85E-7655-2E0BD49CC162}.wem"
+     },
+     {
+      "Id": "12209465",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "Austin\\Austin Click 3.wav",
+      "CachePath": "07/{07523651-5828-ADD1-C215-E2C05D16DEEE}.wem"
+     },
+     {
+      "Id": "285488184",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "Austin\\Austin Click 2.wav",
+      "CachePath": "EE/{EED750EE-2624-522F-55B6-8448D42E507F}.wem"
+     },
+     {
+      "Id": "563326792",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "Austin\\Austin Click 4.wav",
+      "CachePath": "21/{2124268A-243A-DD8D-AB9A-7474022C21FF}.wem"
+     },
+     {
+      "Id": "626261901",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "Austin\\Austin Sing 1.wav",
+      "CachePath": "8E/{8EBE4751-BDA8-5F84-1B98-3857EAD14BCE}.wem"
+     },
+     {
+      "Id": "695614713",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "Austin\\Austin Sing 2.wav",
+      "CachePath": "9A/{9A44D19E-C1B7-A3F7-91A9-9AE6646C0969}.wem"
+     },
+     {
+      "Id": "800757292",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "Austin\\Austin Click 1.wav",
+      "CachePath": "9F/{9F4B62DC-7516-168D-0C1B-068DA1E30C95}.wem"
+     },
+     {
+      "Id": "946977464",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "Austin\\Austin Sing 4.wav",
+      "CachePath": "0F/{0F800423-F8E1-E1DA-3AA5-24350CDF908F}.wem"
+     }
+    ],
+    "Plugins": {
+     "Custom": [
+      {
+       "Id": "991471871",
+       "Name": "Silence",
+       "ObjectPath": "\\Actor-Mixer Hierarchy\\Default Work Unit\\Monster Sounds\\Monster Sounds\\Austin\\AustinSounds\\AustinSilence\\Silence",
+       "GUID": "{987A2A55-4776-4836-8220-BB098B96F9F8}",
+       "LibName": "Wwise Silence",
+       "LibId": "6619138"
+      }
+     ]
+    },
+    "Events": [
+     {
+      "Id": "3408260292",
+      "Name": "Play_Austin",
+      "ObjectPath": "\\Events\\Default Work Unit\\MonsterSounds\\Austin\\Play_Austin",
+      "GUID": "{1385EB40-5979-400A-983F-18D6E3794CD1}",
+      "MaxAttenuation": "100",
+      "DurationType": "Infinite",
+      "MediaRefs": [
+       {
+        "Id": "5487145"
+       },
+       {
+        "Id": "12209465"
+       },
+       {
+        "Id": "285488184"
+       },
+       {
+        "Id": "563326792"
+       },
+       {
+        "Id": "626261901"
+       },
+       {
+        "Id": "695614713"
+       },
+       {
+        "Id": "800757292"
+       },
+       {
+        "Id": "946977464"
+       }
+      ],
+      "PluginRefs": {
+       "Custom": [
+        {
+         "Id": "991471871"
+        }
+       ]
+      }
+     }
+    ]
+   }
+  ],
+  "FileHash": "{A5E31DC7-204E-EDAA-0596-513802B0AB63}"
+ }
+}

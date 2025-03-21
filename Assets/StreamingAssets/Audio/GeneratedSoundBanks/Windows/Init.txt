@@ -1,0 +1,52 @@
+State Group	ID	Name			Wwise Object Path	Notes
+	423500810	Last_Chase			\Default Work Unit\Last_Chase	
+	493461511	Chased			\Default Work Unit\Chased	
+
+State	ID	Name	State Group			Notes
+	748895195	None	Last_Chase			
+	833258532	Almost_there	Last_Chase			
+	1026627430	Middle	Last_Chase			
+	1281810935	Start	Last_Chase			
+	184992947	Searching	Chased			
+	748895195	None	Chased			
+	3863236874	Running	Chased			
+
+Game Parameter	ID	Name			Wwise Object Path	Notes
+	393239870	SFX			\Default Work Unit\SFX	
+	412724365	BGM			\Default Work Unit\BGM	
+	4056684167	Master			\Default Work Unit\Master	
+
+Audio Bus	ID	Name			Wwise Object Path	Notes
+	393239870	SFX			\Default Work Unit\Master Audio Bus\SFX	
+	3803692087	Master Audio Bus			\Default Work Unit\Master Audio Bus	
+	3991942870	Music			\Default Work Unit\Master Audio Bus\Music	
+
+Auxiliary Bus	ID	Name			Wwise Object Path	Notes
+	65866301	Starting_Room			\Default Work Unit\Master Audio Bus\SFX\Starting_Room	
+	1804753788	Escape_Pod			\Default Work Unit\Master Audio Bus\SFX\Escape_Pod	
+	2572679272	Electronics_Room			\Default Work Unit\Master Audio Bus\SFX\Electronics_Room	
+	2844374603	Outside_Security_Room			\Default Work Unit\Master Audio Bus\SFX\Outside_Security_Room	
+	2864961108	Laboratory2			\Default Work Unit\Master Audio Bus\SFX\Laboratory2	
+	2864961111	Laboratory1			\Default Work Unit\Master Audio Bus\SFX\Laboratory1	
+	3078522397	Small_Office			\Default Work Unit\Master Audio Bus\SFX\Small_Office	
+	3239831741	Outside_Starting_Room			\Default Work Unit\Master Audio Bus\SFX\Outside_Starting_Room	
+	3464770571	Observation_Deck			\Default Work Unit\Master Audio Bus\SFX\Observation_Deck	
+	3965376459	Security_Room			\Default Work Unit\Master Audio Bus\SFX\Security_Room	
+	4053971408	Hallways			\Default Work Unit\Master Audio Bus\SFX\Hallways	
+
+Effect plug-ins	ID	Name	Type				Notes
+	72572332	Laboratory2_Verb	Wwise RoomVerb			
+	430564736	Electronics_Room_Verb	Wwise RoomVerb			
+	1730787343	Small_Office_Verb	Wwise RoomVerb			
+	1735422657	Security_Room_Verb	Wwise RoomVerb			
+	2807656001	Outside_Security_Room_Verb	Wwise RoomVerb			
+	2982121985	Observation_Deck_Verb	Wwise RoomVerb			
+	3110602672	Hallway_Reverb	Wwise RoomVerb			
+	3732139885	Laboratory1_Verb	Wwise RoomVerb			
+	3811422703	Outside_Starting_Room_Verb	Wwise RoomVerb			
+	3933724404	Starting_Room_Reverb	Wwise RoomVerb			
+
+Audio Devices	ID	Name	Type				Notes
+	2317455096	No_Output	No Output			
+	3859886410	System	System			
+

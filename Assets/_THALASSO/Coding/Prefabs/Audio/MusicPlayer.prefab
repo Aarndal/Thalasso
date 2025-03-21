@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1369501701996979986}
   - component: {fileID: 5630358214324177304}
   - component: {fileID: 1329546430893694980}
-  - component: {fileID: 5212674088994613955}
   m_Layer: 0
   m_Name: MusicPlayer
   m_TagString: Untagged
@@ -75,27 +74,3 @@ MonoBehaviour:
       Value: {fileID: 11400000, guid: 23cdec2eb8eb7ed478c2244b7da58f19, type: 2}
       index: 1
       isKeyDuplicated: 0
---- !u!114 &5212674088994613955
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6542260148469151086}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62f370bd38ab0524eb28a985f4b8c87a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_listeners:
-    initialListenerList: []
-    useDefaultListeners: 1
-  isEnvironmentAware: 0
-  isStaticObject: 0
-  usePositionOffsetData: 0
-  m_positionOffsetData:
-    KeepMe: 1
-    positionOffset: {x: 0, y: 0, z: 0}
-  scalingFactor: 1
-  m_posOffsetData: {fileID: 0}
-  listenerMask: 1

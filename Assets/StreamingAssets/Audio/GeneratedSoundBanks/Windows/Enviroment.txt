@@ -1,0 +1,36 @@
+Event	ID	Name			Wwise Object Path	Notes
+	206142921	PlayAmbienceLoop			\Default Work Unit\Enviroment\Ambience\PlayAmbienceLoop	
+	488029002	SmallDoorOpenCreak			\Default Work Unit\Enviroment\Doors\SmallDoorOpenCreak	
+	576245037	EscapePodDoorOpen			\Default Work Unit\Enviroment\Doors\EscapePodDoorOpen	
+	779185414	SmallDoorCloseCreak			\Default Work Unit\Enviroment\Doors\SmallDoorCloseCreak	
+	898570444	ElectronicsRoom_Hum			\Default Work Unit\Enviroment\Ambience\ElectronicsRoom_Hum	
+	1277509966	SmallDoorOpenClick			\Default Work Unit\Enviroment\Doors\SmallDoorOpenClick	
+	1404805401	DoorOpen			\Default Work Unit\Enviroment\Doors\DoorOpen	
+	1968327068	PlayAmbienceOneShots			\Default Work Unit\Enviroment\Ambience\PlayAmbienceOneShots	
+	3301454522	SmallDoorCloseClick			\Default Work Unit\Enviroment\Doors\SmallDoorCloseClick	
+
+Effect plug-ins	ID	Name	Type				Notes
+	3443867847	LowCut	Wwise Parametric EQ			
+	3604890626	High_Pass_60Hz	Wwise Parametric EQ			
+
+Source plug-ins	ID	Name	Type		Wwise Object Path	Notes
+	531438813	Silence	Wwise Silence		\Actor-Mixer Hierarchy\Default Work Unit\Enviroment\Enviroment\Ambience\Ambience\Amb_Silence\Silence	
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	24734453	EscapePodDoorOpen	C:\Users\Aaron\Desktop\SAE\Thalasso_WwiseProject\.cache\BC\{BCB7BA49-2A64-7482-DDF1-0FC65D98AC9A}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Enviroment\Enviroment\Doors\EscapePodDoorOpen		925860
+	34649697	Creak 1	C:\Users\Aaron\Desktop\SAE\Thalasso_WwiseProject\.cache\EC\{EC183C00-F2E7-56DB-6F04-323782529386}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Enviroment\Enviroment\Ambience\Ambience\SFX_OneShots_Amb\Creak 1		236452
+	83144592	AmbienceBuzz 1	C:\Users\Aaron\Desktop\SAE\Thalasso_WwiseProject\.cache\19\{19A4E6F7-3EEB-B94F-0333-44A336E3EDB3}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Enviroment\Enviroment\Ambience\Ambience\SFX_OneShots_Amb\AmbienceBuzz 1		157084
+	104535247	Electronic Hum 1	C:\Users\Aaron\Desktop\SAE\Thalasso_WwiseProject\.cache\B3\{B3D3A7CC-F13A-E1A6-80BF-A5D43E2BD3C8}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Enviroment\Enviroment\Ambience\Electronic Hum 1		10098996
+	316646439	BoxDoorCloseClick	C:\Users\Aaron\Desktop\SAE\Thalasso_WwiseProject\.cache\8E\{8ECB86A0-7CE9-C8E2-5CFB-74CD743D1863}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Enviroment\Enviroment\Doors\BoxDoorCloseClick		28496
+	367695375	Waterdrop 1	C:\Users\Aaron\Desktop\SAE\Thalasso_WwiseProject\.cache\77\{771D4F9A-629B-C537-A6DD-171B35394FB0}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Enviroment\Enviroment\Ambience\Ambience\SFX_OneShots_Amb\Waterdrop 1		316628
+	436627202	Creak 2	C:\Users\Aaron\Desktop\SAE\Thalasso_WwiseProject\.cache\D1\{D120F4F0-B7F8-8616-D235-85DB514F31CA}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Enviroment\Enviroment\Ambience\Ambience\SFX_OneShots_Amb\Creak 2		482688
+	472235547	BoxDoorOpenCreak	C:\Users\Aaron\Desktop\SAE\Thalasso_WwiseProject\.cache\61\{61552F80-C68D-BD1E-983E-85AE8F18EAF2}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Enviroment\Enviroment\Doors\BoxDoorOpenCreak		155596
+	502575544	BoxDoorOpenClick	C:\Users\Aaron\Desktop\SAE\Thalasso_WwiseProject\.cache\F7\{F73A07D0-4D57-A92E-5EC4-DD2C386A8B30}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Enviroment\Enviroment\Doors\BoxDoorOpenClick		34896
+	618606248	Creak 5	C:\Users\Aaron\Desktop\SAE\Thalasso_WwiseProject\.cache\7C\{7C050B46-1E9B-6592-1477-510EE457E483}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Enviroment\Enviroment\Ambience\Ambience\SFX_OneShots_Amb\Creak 5		434968
+	751888672	locations_bedroom_door_open_01	C:\Users\Aaron\Desktop\SAE\Thalasso_WwiseProject\.cache\83\{8376B48C-115D-3B20-A7CA-34283D9CAD5A}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Enviroment\Enviroment\Doors\locations_bedroom_door_open_01		501344
+	764220210	BoxDoorCloseCreak	C:\Users\Aaron\Desktop\SAE\Thalasso_WwiseProject\.cache\44\{44440FD3-7234-1A31-84F5-AAD5B5078669}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Enviroment\Enviroment\Doors\BoxDoorCloseCreak		59688
+	831765074	Waterdrop 2	C:\Users\Aaron\Desktop\SAE\Thalasso_WwiseProject\.cache\0A\{0A65CE7E-DB9B-D34C-DE28-1C902899CAED}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Enviroment\Enviroment\Ambience\Ambience\SFX_OneShots_Amb\Waterdrop 2		148520
+	874907034	SFX_Ambience	C:\Users\Aaron\Desktop\SAE\Thalasso_WwiseProject\.cache\6B\{6B01EAD7-F141-2943-5409-0017C6A4579A}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Enviroment\Enviroment\Ambience\SFX_Ambience		6007000
+	901724507	Creak 4	C:\Users\Aaron\Desktop\SAE\Thalasso_WwiseProject\.cache\85\{85A8CE56-4E27-3A7A-7AD4-7DE6CB4A64ED}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Enviroment\Enviroment\Ambience\Ambience\SFX_OneShots_Amb\Creak 4		283116
+	1055766517	Creak 3	C:\Users\Aaron\Desktop\SAE\Thalasso_WwiseProject\.cache\BC\{BC4BA624-3280-13BA-3A8C-A15364A59AE4}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Enviroment\Enviroment\Ambience\Ambience\SFX_OneShots_Amb\Creak 3		216344
+

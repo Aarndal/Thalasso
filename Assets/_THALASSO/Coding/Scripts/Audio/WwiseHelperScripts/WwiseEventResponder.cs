@@ -4,9 +4,6 @@ using UnityEngine;
 
 namespace WwiseHelper
 {
-#if WWISE_2024_OR_LATER
-    [RequireComponent(typeof(AkGameObj))]
-#endif
     public class WwiseEventResponder : Responder
     {
 #if WWISE_2024_OR_LATER

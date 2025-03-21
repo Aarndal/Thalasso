@@ -14,20 +14,23 @@ public class MasterMindPuzzleLogic : SolvableObject, IAmPuzzle
 #if WWISE_2024_OR_LATER
     [Header("WWise Events")]
     [SerializeField]
-    private AkGameObj akGameObject = default;
+    private SO_WwiseEvent _buttonPress = default;
     [SerializeField]
-    private AK.Wwise.Event buttonPress = default;
+    private SO_WwiseEvent _wrongInput = default;
     [SerializeField]
-    private AK.Wwise.Event wrongInput = default;
-    [SerializeField]
-    private AK.Wwise.Event correctInput = default;
+    private SO_WwiseEvent _correctInput = default;
 #endif
+
+    private AkGameObj _akGameObject = default;
 
     private readonly int[] code = new int[4];
     private readonly int[] inputCode = new int[4];
 
     private void Awake()
     {
+        if (!gameObject.TryGetComponent(out _akGameObject))
+            _akGameObject = gameObject.AddComponent<AkGameObj>();
+
         PuzzleUIReferencesSender.PuzzleUIReferenceLogger += GetUIReference;
     }
 
@@ -43,6 +46,8 @@ public class MasterMindPuzzleLogic : SolvableObject, IAmPuzzle
 
     private void Start()
     {
+        _akGameObject.isEnvironmentAware = false;
+
         GenerateNewCode();
         for (int i = 0; i < numButtons.Length - 3; i++)
         {
@@ -53,7 +58,7 @@ public class MasterMindPuzzleLogic : SolvableObject, IAmPuzzle
         numButtons[10].onClick.AddListener(() => NumButtonInput(0));
         numButtons[11].onClick.AddListener(() => Reset());
 #if WWISE_2024_OR_LATER
-        numButtons[11].onClick.AddListener(() => buttonPress.Post(akGameObject.gameObject));
+        numButtons[11].onClick.AddListener(() => _buttonPress.Play(_akGameObject));
 #endif
     }
 
@@ -102,7 +107,7 @@ public class MasterMindPuzzleLogic : SolvableObject, IAmPuzzle
     public void NumButtonInput(int _num)
     {
 #if WWISE_2024_OR_LATER
-        buttonPress.Post(akGameObject.gameObject);
+        _buttonPress.Play(_akGameObject);
 #endif
         if (inputIndex <= 3)
         {
@@ -135,7 +140,7 @@ public class MasterMindPuzzleLogic : SolvableObject, IAmPuzzle
             if (outputText[i].color != Color.green)
             {
 #if WWISE_2024_OR_LATER
-                wrongInput.Post(akGameObject.gameObject);
+                _wrongInput.Play(_akGameObject);
 #endif
                 return false;
             }
@@ -143,7 +148,7 @@ public class MasterMindPuzzleLogic : SolvableObject, IAmPuzzle
 
         Debug.LogFormat("<color=green>{0} solved!</color>", name);
 #if WWISE_2024_OR_LATER
-        correctInput.Post(akGameObject.gameObject);
+        _correctInput.Play(_akGameObject);
 #endif
         return IsSolved = true;
     }

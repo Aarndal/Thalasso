@@ -54,7 +54,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.08, y: 0.02, z: 0.06}
+  m_Size: {x: 0.1, y: 0.03, z: 0.06}
   m_Center: {x: 0, y: 0.015, z: 0}
 --- !u!114 &4497879667299098407
 MonoBehaviour:
@@ -69,7 +69,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isTriggerable: 0
-  _triggerMessage: 
+  _isOneTimeTrigger: 0
+  _cannotBeTriggeredMessage: 
+  _triggeringResponderState: 2
   _progressionTracker: {fileID: 11400000, guid: 72058b24738059f42b0e85fad2937d5e, type: 2}
 --- !u!1 &2696111912124431497
 GameObject:
@@ -151,6 +153,9 @@ MonoBehaviour:
   cutscneeCamTransform: {fileID: 7084185660962636199}
   escapePodDoor: {fileID: 1245282075024585198}
   camTransitionDurations: 1
+  _sceneToLoad:
+    asset: {fileID: 102900000, guid: 87e2ea3adb914e5469e9d53c0e50fe19, type: 3}
+    guid: 87e2ea3adb914e5469e9d53c0e50fe19
 --- !u!114 &9191141762812040872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,7 +172,7 @@ MonoBehaviour:
   m_PlayOnAwake: 1
   m_LoopMode: 2
   m_Method: 1
-  m_Duration: 29.782307
+  m_Duration: 29.850449
   m_MaxSpeed: 40
   m_EasingMode: 1
   m_AlignmentMode: 1
@@ -185,6 +190,7 @@ GameObject:
   - component: {fileID: 6383405055491228878}
   - component: {fileID: 2364553470977733384}
   - component: {fileID: 1245282075024585198}
+  - component: {fileID: 1841432630481421398}
   m_Layer: 0
   m_Name: Escape_Pod_Door
   m_TagString: Untagged
@@ -222,6 +228,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17968903f72a8274ba27278efea47a9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _startState: 0
   _triggers:
   - _monoBehaviourInstance: {fileID: 4497879667299098407}
   _doorAnimation: {fileID: 1245282075024585198}
@@ -247,7 +254,7 @@ MonoBehaviour:
   localAxis: 2
   openInSameDirection: 0
   openingDistance: 0
-  openingRotation: -85
+  openingRotation: -80
   openingDuration: 1.5
   openingSpeedCurve:
     serializedVersion: 2
@@ -298,6 +305,34 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _openingSound: {fileID: 11400000, guid: e13c5c6b1c692f349b1099b32cd15a32, type: 2}
+  _openedSound: {fileID: 0}
+  _closingSound: {fileID: 0}
+  _closedSound: {fileID: 0}
+--- !u!114 &1841432630481421398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3217182343360410372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62f370bd38ab0524eb28a985f4b8c87a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_listeners:
+    initialListenerList: []
+    useDefaultListeners: 1
+  isEnvironmentAware: 0
+  isStaticObject: 0
+  usePositionOffsetData: 0
+  m_positionOffsetData:
+    KeepMe: 1
+    positionOffset: {x: 0, y: 0, z: 0}
+  scalingFactor: 1
+  m_posOffsetData: {fileID: 0}
+  listenerMask: 1
 --- !u!1 &7281251302917340582
 GameObject:
   m_ObjectHideFlags: 0
@@ -1672,6 +1707,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Button_EckigBottom
       objectReference: {fileID: 0}
+    - target: {fileID: 2204035054666604103, guid: ffac53308628c4d46b6d67c443db6de1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7880597207807743569, guid: ffac53308628c4d46b6d67c443db6de1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2330,6 +2369,10 @@ PrefabInstance:
     - target: {fileID: 969281312679770700, guid: cd544dd83dc55ec4b95238e4ce7d0b51, type: 3}
       propertyPath: m_Name
       value: Button_EckigTop
+      objectReference: {fileID: 0}
+    - target: {fileID: 969281312679770700, guid: cd544dd83dc55ec4b95238e4ce7d0b51, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
