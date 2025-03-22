@@ -12,7 +12,7 @@ public class VelocityColliderTrigger : ColliderTrigger
         _isTriggerable = true;
         _isOneTimeTrigger = false;
 
-        _triggerSettings.TryAdd(ResponderState.TurnOn, (TriggerMode.OnTriggerEnter | TriggerMode.OnTriggerStay));
+        _triggerSettings.TryAdd(ResponderState.On, (TriggerMode.OnTriggerEnter | TriggerMode.OnTriggerStay));
     }
 
     protected override bool IsValidTrigger(GameObject triggeringObject)

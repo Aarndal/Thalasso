@@ -15,7 +15,7 @@ public sealed class ProgressableVelocityColliderTrigger : VelocityColliderTrigge
 
         _isTriggerable = false;
         _isOneTimeTrigger = false;
-        _triggerSettings.TryAdd(ResponderState.TurnOn, (TriggerMode.OnTriggerEnter | TriggerMode.OnTriggerStay));
+        _triggerSettings.TryAdd(ResponderState.On, (TriggerMode.OnTriggerEnter | TriggerMode.OnTriggerStay));
     }
 
     public override void ActivateTrigger(GameObject triggeringGameObject, ResponderState triggerState)

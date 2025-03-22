@@ -7,7 +7,7 @@ public abstract class Responder : MonoBehaviour, IAmResponsive
 {
     [Header("Responder Settings")]
     [SerializeField]
-    protected ResponderState _startState = ResponderState.TurnOff;
+    protected ResponderState _startState = ResponderState.Off;
     [SerializeField]
     protected List<MySerializableInterface<IAmTriggerable>> _triggers = new();
 

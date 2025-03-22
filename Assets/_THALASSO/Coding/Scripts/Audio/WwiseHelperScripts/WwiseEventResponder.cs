@@ -57,7 +57,7 @@ namespace WwiseHelper
 
             if (responderState == ResponderState.Switch)
             {
-                responderState = CurrentState == ResponderState.TurnOff ? ResponderState.TurnOn : ResponderState.TurnOff;
+                responderState = CurrentState == ResponderState.Off ? ResponderState.On : ResponderState.Off;
             }
 
             switch (responderState)
@@ -65,10 +65,10 @@ namespace WwiseHelper
                 case ResponderState.None:
                     Debug.LogWarningFormat("<color=yellow>No valid ResponderState set</color> for Trigger activated by <color=cyan>{0}</color>", triggeringObject);
                     return;
-                case ResponderState.TurnOff:
+                case ResponderState.Off:
                     TurnOff();
                     break;
-                case ResponderState.TurnOn:
+                case ResponderState.On:
                     TurnOn();
                     break;
                 default:
@@ -146,7 +146,7 @@ namespace WwiseHelper
         protected void TurnOff()
         {
 #if WWISE_2024_OR_LATER
-            CurrentState = ResponderState.TurnOff;
+            CurrentState = ResponderState.Off;
 
             foreach (var audioEvent in AudioEvents.Values)
             {
@@ -158,7 +158,7 @@ namespace WwiseHelper
         protected void TurnOn()
         {
 #if WWISE_2024_OR_LATER
-            CurrentState = ResponderState.TurnOn;
+            CurrentState = ResponderState.On;
 
             foreach (var audioEvent in AudioEvents.Values)
             {

@@ -1584,15 +1584,15 @@ MonoBehaviour:
     loadInEditor: 1
     loadMethod: 1
   - scene:
-      editorAssetGUID: 62b7b8a98211af748b85cbf5fc90faf1
-      name: UI_Ingame
-      _path: Assets/_THALASSO/Levels/UI/UI_Ingame.unity
-    loadInEditor: 1
-    loadMethod: 1
-  - scene:
       editorAssetGUID: 0c5166dfdf4ef0245abb0381ff613c4c
       name: PauseMenu
       _path: Assets/_THALASSO/Levels/Scenes/MenuScenes/PauseMenu.unity
+    loadInEditor: 1
+    loadMethod: 1
+  - scene:
+      editorAssetGUID: 62b7b8a98211af748b85cbf5fc90faf1
+      name: UI_Ingame
+      _path: Assets/_THALASSO/Levels/UI/UI_Ingame.unity
     loadInEditor: 1
     loadMethod: 1
   _isMainScene: 0
@@ -5334,6 +5334,10 @@ PrefabInstance:
       propertyPath: _triggers.Array.data[0]._monoBehaviourInstance
       value: 
       objectReference: {fileID: 2104898729}
+    - target: {fileID: 1628769080063918822, guid: b41df0d0733b0904a9985fb88d08ecf2, type: 3}
+      propertyPath: _wwiseSwitch.Array.data[0].WwiseObjectReference
+      value: 
+      objectReference: {fileID: 11400000, guid: 696feacff84934042b11dab5a4e321fb, type: 2}
     - target: {fileID: 3852018252367005555, guid: b41df0d0733b0904a9985fb88d08ecf2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -6799,7 +6803,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5349519842341829364, guid: 7f1a256885e70b5458a41dc6482233d5, type: 3}
       propertyPath: m_IsTrigger
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5526890881078507483, guid: 7f1a256885e70b5458a41dc6482233d5, type: 3}
       propertyPath: m_LocalPosition.x
