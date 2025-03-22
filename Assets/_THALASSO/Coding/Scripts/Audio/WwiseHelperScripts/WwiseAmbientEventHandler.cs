@@ -27,19 +27,22 @@ namespace WwiseHelper
                 AkAmbient akAmbient = gameObject.AddComponent<AkAmbient>();
 
                 akAmbient.data = audioEvent.Value;
+                akAmbient.useOtherObject = _playOnOtherObject;
 
                 if (_positionType == MultiPositionTypeLabel.MultiPosition_Mode)
                 {
-                    AkMultiPosEvent akMultiPosEvent = new ();
-                    akMultiPosEvent.list.Add(akAmbient);
-                    AkAmbient.multiPosEventTree.TryAdd(akAmbient.data.Id, akMultiPosEvent);
+                    if (!AkAmbient.multiPosEventTree.ContainsKey(audioEvent.ID))
+                    {
+                        AkMultiPosEvent akMultiPosEvent = new ();
+                        akMultiPosEvent.list.Add(akAmbient);
+                        AkAmbient.multiPosEventTree.Add(audioEvent.ID, akMultiPosEvent);
+                    }
                 }
                 
                 akAmbient.multiPositionTypeLabel = _positionType;
-                akAmbient.stopSoundOnDestroy = true;
-                akAmbient.HandleEvent(_eventReceiver);
                 akAmbient.triggerList.Clear();
                 akAmbient.triggerList.Add(AkTriggerHandler.START_TRIGGER_ID);
+                akAmbient.stopSoundOnDestroy = true;
 
                 AmbientEventSender.TryAdd(audioEvent.ID, akAmbient);
             }

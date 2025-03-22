@@ -111,6 +111,7 @@ namespace AK
         static const AkUniqueID BGM = 412724365U;
         static const AkUniqueID MASTER = 4056684167U;
         static const AkUniqueID SFX = 393239870U;
+        static const AkUniqueID UI = 1551306167U;
     } // namespace GAME_PARAMETERS
 
     namespace BANKS
@@ -129,6 +130,7 @@ namespace AK
         static const AkUniqueID MASTER_AUDIO_BUS = 3803692087U;
         static const AkUniqueID MUSIC = 3991942870U;
         static const AkUniqueID SFX = 393239870U;
+        static const AkUniqueID UI = 1551306167U;
     } // namespace BUSSES
 
     namespace AUX_BUSSES
