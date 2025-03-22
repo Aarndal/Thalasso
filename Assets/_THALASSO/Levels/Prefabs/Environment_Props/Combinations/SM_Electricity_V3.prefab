@@ -155,7 +155,7 @@ Transform:
   m_GameObject: {fileID: 5639881543899322830}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.176, y: 0, z: 3.363}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -178,8 +178,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3229963611375595715}
-  - component: {fileID: 4038512329910055403}
-  - component: {fileID: 848946733645725313}
+  - component: {fileID: 5739892781787513030}
   m_Layer: 0
   m_Name: Electricity_Audio_Hum
   m_TagString: Untagged
@@ -202,7 +201,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7998438128949053113}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4038512329910055403
+--- !u!114 &5739892781787513030
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -211,55 +210,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 5801130241976593261}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62f370bd38ab0524eb28a985f4b8c87a, type: 3}
+  m_Script: {fileID: 11500000, guid: 69ad867a7a2d5ee4f8a6a858cdf06c66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_listeners:
-    initialListenerList: []
-    useDefaultListeners: 1
-  isEnvironmentAware: 0
-  isStaticObject: 1
-  usePositionOffsetData: 0
-  m_positionOffsetData:
-    KeepMe: 1
-    positionOffset: {x: 0, y: 0, z: 0}
-  scalingFactor: 1
-  m_posOffsetData: {fileID: 0}
-  listenerMask: 1
---- !u!114 &848946733645725313
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5801130241976593261}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d650bac5f32964b4bb2160ebe541db94, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerList: f7e1664c
-  useOtherObject: 0
-  actionOnEventType: 0
-  curveInterpolation: 4
-  enableActionOnEvent: 0
-  data:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 4508c5e79e32b614e9d6bd8ad1f87513, type: 2}
-  useCallbacks: 0
-  stopSoundOnDestroy: 1
-  Callbacks: []
-  soundEmitterObject: {fileID: 0}
-  transitionDuration: 0
-  eventIdInternal: 0
-  valueGuidInternal: 
-  m_callbackDataInternal: {fileID: 0}
-  MultiPositionType: 1
-  multiPositionTypeLabel: 2
-  attenuationSphereColor: {r: 1, g: 0, b: 0, a: 0.1}
-  LargeModePositions: []
-  multiPositionArray: []
+  _wwiseEvents:
+  - {fileID: 11400000, guid: 08e849c5232187a4daeaaec1bdb55fb0, type: 2}
+  _playOnOtherObject: 0
+  _isEnvironmentAware: 0
+  _isRoomAware: 0
+  _eventReceiver: {fileID: 5801130241976593261}
+  _positionType: 2
 --- !u!1 &6038635361706276390
 GameObject:
   m_ObjectHideFlags: 0

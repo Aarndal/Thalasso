@@ -20,8 +20,6 @@ namespace WwiseHelper
         [Header("References for Wwise Events")]
         [SerializeField]
         protected GameObject _eventReceiver = default;
-        [SerializeField]
-        protected Rigidbody _rigidbody = default;
         
         protected AkGameObj _akGameObject = default;
         protected AkRoomAwareObject _akRoomAwareObject = default;
@@ -61,33 +59,30 @@ namespace WwiseHelper
 
         protected void InitRequiredWwiseComponents()
         {
+            if (_eventReceiver == null)
+                return;
+
 #if WWISE_2024_OR_LATER
-            // Interactions between AkGameObj/AkRoomAwareObject and AkEnvironment/AkRoom require a Rigidbody component on either the EventReceiver or the environment/room.
-            if (!_eventReceiver.TryGetComponent(out _rigidbody))
-            {
-                if (_rigidbody == null)
-                {
-                    _rigidbody = _eventReceiver.AddComponent<Rigidbody>();
-                    _rigidbody.isKinematic = true;
-                }
-
-                if (_rigidbody.gameObject != _eventReceiver)
-                {
-                    if (!_rigidbody.gameObject.TryGetComponent(out _akGameObject))
-                        _akGameObject = _rigidbody.gameObject.AddComponent<AkGameObj>();
-
-                    _eventReceiver = _akGameObject.gameObject;
-                }
-            }
+            if (!_eventReceiver.TryGetComponent(out _akGameObject))
+                _akGameObject = _eventReceiver.AddComponent<AkGameObj>();
 
             _akGameObject.isEnvironmentAware = _isEnvironmentAware;
 
-            if (_isRoomAware)
+            if (_isRoomAware && !_eventReceiver.TryGetComponent<AkRoomAwareObject>(out _))
             {
-                if (!_eventReceiver.TryGetComponent(out _akRoomAwareObject))
-                {
-                    _akRoomAwareObject = _eventReceiver.AddComponent<AkRoomAwareObject>();
-                }
+                _eventReceiver.AddComponent<AkRoomAwareObject>();
+            }
+
+            // Interactions between AkGameObj/AkRoomAwareObject and AkEnvironment/AkRoom require a Rigidbody component on either the EventReceiver or the AkEnvironment/AkRoom.
+            if (_isEnvironmentAware || _isRoomAware)
+            {
+                if (_eventReceiver != gameObject && _eventReceiver.TryGetComponent<Rigidbody>(out _))
+                    return;
+
+                if (gameObject.TryGetComponent<Rigidbody>(out _))
+                    return;
+
+                _eventReceiver.AddComponent<Rigidbody>().isKinematic = true;
             }
 #endif
         }
@@ -95,22 +90,13 @@ namespace WwiseHelper
         protected void SetEventReceiver(GameObject gameObject)
         {
 #if WWISE_2024_OR_LATER
-            if (_playOnOtherObject && gameObject != null)
-            {
-                _eventReceiver = gameObject;
-
-                if (!_eventReceiver.TryGetComponent(out _akGameObject))
-                    _akGameObject = _eventReceiver.AddComponent<AkGameObj>();
-
+            if (gameObject == null)
                 return;
-            }
 
-            _eventReceiver = this.gameObject;
+            if (_playOnOtherObject && gameObject == this.gameObject)
+                return;
 
-            if (!_eventReceiver.TryGetComponent(out _akGameObject))
-            {
-                _akGameObject = _eventReceiver.AddComponent<AkGameObj>();
-            }
+            _eventReceiver = gameObject;
 #endif
         }
     }

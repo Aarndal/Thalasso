@@ -19,17 +19,18 @@ public class SO_WwiseEvent : ScriptableObject
     private uint[] _playingIDs;
 
     private readonly HashSet<CancellationTokenSource> _cts = new();
+    private readonly Dictionary<AkGameObj, HashSet<uint>> _soundEmitter = new();
 
     public uint ID => _wwiseEvent.Id;
     public bool IsOneTimeEvent => _isOneTimeEvent;
-    public bool IsValid => IsWwiseEventValid(_wwiseEvent);
+    public bool IsValid => IsWwiseEventValid();
     public string EventName => _wwiseEvent.Name;
     public AK.Wwise.Event Value => _wwiseEvent;
-    public readonly HashSet<GameObject> PlayingSources = new();
+
 
     private void Awake()
     {
-        IsWwiseEventValid(_wwiseEvent);
+        IsWwiseEventValid();
 
         _playingIDs = new uint[_maxPlayingID];
     }
@@ -37,15 +38,22 @@ public class SO_WwiseEvent : ScriptableObject
     private void OnDisable()
     {
         foreach (var cts in _cts)
+        {
             cts?.Cancel();
+        }
 
         _cts.Clear();
     }
 
+    private void OnDestroy()
+    {
+        Stop();
+    }
+
     /// <summary>
-    /// Checks if the WwiseEvent is currently playing on the given GameObject.
+    /// Checks if the WwiseEvent is currently playing on the given Emitter Object.
     /// </summary>
-    /// <param name="gameObject"></param>
+    /// <param name="akGameObject">Emitter Object</param>
     /// <returns></returns>
     public bool IsPlayingOn(AkGameObj akGameObject)
     {
@@ -55,6 +63,9 @@ public class SO_WwiseEvent : ScriptableObject
         if (!IsAkGameObjectValid(akGameObject))
             return false;
 
+        if (_soundEmitter.ContainsKey(akGameObject))
+            return true;
+
         AkUnitySoundEngine.GetPlayingIDsFromGameObject(akGameObject.gameObject, ref _maxPlayingID, _playingIDs);
 
         if (_playingIDs.Length == 0)
@@ -63,22 +74,22 @@ public class SO_WwiseEvent : ScriptableObject
             return false;
         }
 
-        if (!_playingIDs.Any((id) => AkUnitySoundEngine.GetEventIDFromPlayingID(id) == ID))
+        HashSet<uint> myPlayingIDs = _playingIDs.Where((playingID) => AkUnitySoundEngine.GetEventIDFromPlayingID(playingID) == ID).ToHashSet();
+
+        if (myPlayingIDs.Count == 0)
         {
             Debug.LogFormat("{1} is currently not playing on {0}.", akGameObject.gameObject.name, EventName);
             return false;
         }
 
-        if (!PlayingSources.Contains(akGameObject.gameObject))
-            PlayingSources.Add(akGameObject.gameObject);
-
+        _soundEmitter.TryAdd(akGameObject, myPlayingIDs);
         return true;
     }
 
     /// <summary>
-    /// Plays the WwiseEvent on the given GameObject.
+    /// Plays the WwiseEvent on the given Emitter Object.
     /// </summary>
-    /// <param name="akGameObject"></param>
+    /// <param name="akGameObject">Emitter Object</param>
     /// <returns></returns>
     public bool Play(AkGameObj akGameObject)
     {
@@ -88,16 +99,23 @@ public class SO_WwiseEvent : ScriptableObject
         if (!IsAkGameObjectValid(akGameObject))
             return false;
 
-        _wwiseEvent?.Post(akGameObject.gameObject);
-        PlayingSources.Add(akGameObject.gameObject);
+        uint playingID = _wwiseEvent.Post(akGameObject.gameObject);
 
+        if (_soundEmitter.ContainsKey(akGameObject))
+        {
+            _soundEmitter[akGameObject].Add(playingID);
+            return true;
+        }
+
+        HashSet<uint> myPlayingIDs = new() { playingID };
+        _soundEmitter.TryAdd(akGameObject, myPlayingIDs);
         return true;
     }
 
     /// <summary>
-    /// Plays the WwiseEvent on the given GameObject after a certain time in seconds. For an input of 0.1 seconds or below, there will be no delay.
+    /// Plays the WwiseEvent on the given Emitter Object after a certain time in seconds. For an input below 0.1 seconds, there will be no delay.
     /// </summary>
-    /// <param name="akGameObject"></param>
+    /// <param name="akGameObject">Emitter Object</param>
     /// <param name="delayInSeconds"></param>
     /// <returns></returns>
     public async Task<bool> PlayWithDelay(AkGameObj akGameObject, float delayInSeconds)
@@ -105,7 +123,7 @@ public class SO_WwiseEvent : ScriptableObject
         if (delayInSeconds < 0.0f)
             return false;
 
-        if (delayInSeconds > 0.1f)
+        if (delayInSeconds >= 0.1f)
         {
             if (!await DelaySound(akGameObject.gameObject, delayInSeconds))
                 return false;
@@ -115,9 +133,9 @@ public class SO_WwiseEvent : ScriptableObject
     }
 
     /// <summary>
-    /// Stops the WwiseEvent on the given GameObject.
+    /// Stops the WwiseEvent on the given Emitter Object.
     /// </summary>
-    /// <param name="akGameObject"></param>
+    /// <param name="akGameObject">Emitter Object</param>
     /// <returns></returns>
     public bool Stop(AkGameObj akGameObject)
     {
@@ -127,13 +145,13 @@ public class SO_WwiseEvent : ScriptableObject
         if (!IsAkGameObjectValid(akGameObject))
             return false;
 
-        _wwiseEvent?.Stop(akGameObject.gameObject);
-        PlayingSources.Remove(akGameObject.gameObject);
+        _wwiseEvent.Stop(akGameObject.gameObject);
+        _soundEmitter.Remove(akGameObject);
         return true;
     }
 
     /// <summary>
-    /// Stops the WwiseEvent on all GameObjects.
+    /// Stops all instances of the WwiseEvent on all Emitter Objects.
     /// </summary>
     /// <returns></returns>
     public bool Stop()
@@ -141,18 +159,18 @@ public class SO_WwiseEvent : ScriptableObject
         if (!IsValid)
             return false;
 
-        AkUnitySoundEngine.StopPlayingID(_wwiseEvent.PlayingId);
-        PlayingSources.Clear();
+        AkUnitySoundEngine.ExecuteActionOnEvent(ID, AkActionOnEventType.AkActionOnEventType_Stop);
+        _soundEmitter.Clear();
         return true;
     }
 
     /// <summary>
-    /// Used to switch between WwiseEvents on the given GameObject. If no WwiseEvent is provided, it stops all current WwiseEvents on the GameObject.
+    /// Used to switch between WwiseEvents on the given Emitter Object. If no WwiseEvent is provided, it stops all current WwiseEvents on the Emitter Object.
     /// </summary>
-    /// <param name="akGameObject"></param>
+    /// <param name="akGameObject">Emitter Object</param>
     /// <param name="wwiseEvent"></param>
     /// <returns></returns>
-    public bool Switch(AkGameObj akGameObject, SO_WwiseEvent wwiseEvent = null)
+    public bool Switch(AkGameObj akGameObject, SO_WwiseEvent wwiseEvent = null) //TO-DO: Needs renaming for clarity!
     {
         if (!IsAkGameObjectValid(akGameObject))
             return false;
@@ -160,7 +178,7 @@ public class SO_WwiseEvent : ScriptableObject
         if (wwiseEvent == null)
         {
             AkUnitySoundEngine.StopAll(akGameObject.gameObject);
-            PlayingSources.Remove(akGameObject.gameObject);
+            _soundEmitter.Remove(akGameObject);
         }
 
         if (wwiseEvent != null && wwiseEvent.IsValid)
@@ -172,17 +190,16 @@ public class SO_WwiseEvent : ScriptableObject
     /// <summary>
     /// Checks whether anything in the Wwise-Type Event property drawer has been selected. 
     /// </summary>
-    /// <param name="wwiseEvent"></param>
     /// <returns></returns>
-    private bool IsWwiseEventValid(AK.Wwise.Event wwiseEvent)
+    private bool IsWwiseEventValid()
     {
-        if (!wwiseEvent.IsValid())
+        if (!_wwiseEvent.IsValid())
         {
-            wwiseEvent.Validate();
+            _wwiseEvent.Validate();
             return false;
         }
 
-        if (wwiseEvent == null)
+        if (_wwiseEvent == null)
         {
             Debug.LogErrorFormat("The referenced WwiseEvent on {0} is null!", name);
             return false;

@@ -24,7 +24,6 @@ namespace WwiseHelper
         protected GameObject _eventReceiver = default;
 
         protected AkGameObj _akGameObject = default;
-        protected AkRoomAwareObject _akRoomAwareObject = default;
 
         public ResponderState CurrentState { get => _currentState; protected set => _currentState = value; }
 
@@ -111,9 +110,9 @@ namespace WwiseHelper
 
             _akGameObject.isEnvironmentAware = _isEnvironmentAware;
 
-            if (_isRoomAware && !_eventReceiver.TryGetComponent(out _akRoomAwareObject))
+            if (_isRoomAware && !_eventReceiver.TryGetComponent<AkRoomAwareObject>(out _))
             {
-                _akRoomAwareObject = _eventReceiver.AddComponent<AkRoomAwareObject>();
+                _eventReceiver.AddComponent<AkRoomAwareObject>();
             }
 
             // Interactions between AkGameObj/AkRoomAwareObject and AkEnvironment/AkRoom require a Rigidbody component on either the EventReceiver or the AkEnvironment/AkRoom.

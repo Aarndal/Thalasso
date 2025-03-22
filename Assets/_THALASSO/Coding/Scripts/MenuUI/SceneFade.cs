@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -40,6 +42,8 @@ public class SceneFade : MonoBehaviour
         _opaqueColor = _fadeImage.color;
         _fadeImage.color = Color.clear;
 
+        if ((_fadeMode & FadeMode.FadeIn) == 0)
+            StartCoroutine(Fade(FadeMode.FadeIn, _fadeInDuration));
         //SceneManager.sceneLoaded += OnSceneLoaded;
         //SceneManager.sceneUnloaded += OnSceneUnloaded;
     }
@@ -50,36 +54,38 @@ public class SceneFade : MonoBehaviour
             _canvas.enabled = false;
     }
 
-    //private void OnDestroy()
-    //{
-    //    SceneManager.sceneUnloaded -= OnSceneUnloaded;
-    //    SceneManager.sceneLoaded -= OnSceneLoaded;
-    //}
+    private void OnDestroy()
+    {
+        //    SceneManager.sceneUnloaded -= OnSceneUnloaded;
+        //    SceneManager.sceneLoaded -= OnSceneLoaded;
 
-    //private void OnSceneLoaded(Scene loadedScene, LoadSceneMode loadSceneMode)
-    //{
-    //    if (_fadeImage == null || (_fadeMode & FadeMode.FadeIn) == 0)
-    //        return;
+        StopAllCoroutines();
+    }
 
-    //    if (loadSceneMode == LoadSceneMode.Additive)
-    //        return;
+//private void OnSceneLoaded(Scene loadedScene, LoadSceneMode loadSceneMode)
+//{
+//    if (_fadeImage == null || (_fadeMode & FadeMode.FadeIn) == 0)
+//        return;
 
-    //    StartCoroutine(new WaitUntil(() => Fade(FadeMode.FadeIn, _fadeInDuration)));
-    //}
+//    if (loadSceneMode == LoadSceneMode.Additive)
+//        return;
 
-    //private void OnSceneUnloaded(Scene unloadedScene)
-    //{
-    //    if (_fadeImage == null || (_fadeMode & FadeMode.FadeOut) == 0)
-    //        return;
+//    StartCoroutine(new WaitUntil(() => Fade(FadeMode.FadeIn, _fadeInDuration)));
+//}
 
-    //    if (unloadedScene != SceneManager.GetActiveScene())
-    //        return;
+//private void OnSceneUnloaded(Scene unloadedScene)
+//{
+//    if (_fadeImage == null || (_fadeMode & FadeMode.FadeOut) == 0)
+//        return;
 
-    //    StartCoroutine(new WaitUntil (() => Fade(FadeMode.FadeOut, _fadeOutDuration)));
-    //}
+//    if (unloadedScene != SceneManager.GetActiveScene())
+//        return;
+
+//    StartCoroutine(new WaitUntil (() => Fade(FadeMode.FadeOut, _fadeOutDuration)));
+//}
 
 
-    private bool Fade(FadeMode fadeMode, float fadeDuration)
+private IEnumerator<bool> Fade(FadeMode fadeMode, float fadeDuration)
     {
         _fadeImage.color = fadeMode == FadeMode.FadeIn ? _opaqueColor : Color.clear;
 
@@ -94,12 +100,14 @@ public class SceneFade : MonoBehaviour
             counter += Time.deltaTime;
 
             _fadeImage.color = new Color(_opaqueColor.r, _opaqueColor.g, _opaqueColor.b, Mathf.Lerp(startAlpha, 1.0f - startAlpha, counter / fadeDuration));
+
+            yield return false;
         }
 
         _fadeImage.color = fadeMode == FadeMode.FadeOut ? _opaqueColor : Color.clear;
 
         _canvas.enabled = false;
 
-        return true;
+        yield return true;
     }
 }
