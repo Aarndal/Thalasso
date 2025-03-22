@@ -23,7 +23,7 @@ public class VelocityColliderTrigger : ColliderTrigger
         if (triggeringObject.TryGetComponent(out Entity entity) && !entity.Animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
             return true;
 
-        if (triggeringObject.TryGetComponent(out Rigidbody rigidbody) && rigidbody.linearVelocity.sqrMagnitude >= 0.001f)
+        if (triggeringObject.TryGetComponent(out Rigidbody rigidbody) && rigidbody.linearVelocity.sqrMagnitude > 0.01f) // Checks if the object is moving
             return true;
 
         return false;

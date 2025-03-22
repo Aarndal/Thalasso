@@ -16,13 +16,24 @@ public class UIDisplaySelection : SettingElement<int>
 
     public DisplayInfo CurrentDisplay => Screen.mainWindowDisplayInfo;
 
-    private void Awake()
+
+    #region Unity Lifecycle Methods
+    protected override void Awake()
     {
+        MySettingsManager.Settings.TryAdd(transform.parent.name, this);
+
         if (!gameObject.TryGetComponent(out _tmpDropdown))
             _tmpDropdown = gameObject.AddComponent<TMP_Dropdown>();
 
         SetupDisplayOptions();
+
+        base.Awake();
     }
+
+    private void OnEnable() => _tmpDropdown.onValueChanged.AddListener(SetData);
+
+    private void OnDisable() => _tmpDropdown.onValueChanged.RemoveListener(SetData);
+    #endregion
 
 
     #region Data Management Methods
@@ -41,10 +52,6 @@ public class UIDisplaySelection : SettingElement<int>
     {
         DisplayInfo newDisplay = _displayLayout.Find((display) => _tmpDropdown.options[optionIndex].text == display.name);
         Screen.MoveMainWindowTo(newDisplay, new Vector2Int(0, 0));
-    }
-
-    public override void SaveData()
-    {
         PlayerPrefs.SetInt(SettingNames.Display, GetCurrentDisplayIndex());
     }
 
@@ -58,21 +65,6 @@ public class UIDisplaySelection : SettingElement<int>
     #endregion
 
 
-    #region Callback Functions
-    protected override void AddListener()
-    {
-        base.AddListener();
-        _tmpDropdown.onValueChanged.AddListener(SetData);
-    }
-
-    protected override void RemoveListener()
-    {
-        _tmpDropdown.onValueChanged.RemoveListener(SetData);
-        base.RemoveListener();
-    }
-    #endregion
- 
-    
     private int GetCurrentDisplayIndex()
     {
         return _tmpDropdown.options.FindIndex((optionData) => optionData.text == CurrentDisplay.name);

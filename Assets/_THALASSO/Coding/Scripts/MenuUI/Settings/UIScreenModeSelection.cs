@@ -17,13 +17,24 @@ public class UIScreenModeSelection : SettingElement<int>
 
     public FullScreenMode CurrentScreenMode => Screen.fullScreenMode;
 
-    private void Awake()
+
+    #region Unity Lifecycle Methods
+    protected override void Awake()
     {
+        MySettingsManager.Settings.TryAdd(transform.parent.name, this);
+
         if (!gameObject.TryGetComponent(out _tmpDropdown))
             _tmpDropdown = gameObject.AddComponent<TMP_Dropdown>();
 
         SetupScreenModeOptions();
+
+        base.Awake();
     }
+
+    private void OnEnable() => _tmpDropdown.onValueChanged.AddListener(SetData);
+
+    private void OnDisable() => _tmpDropdown.onValueChanged.RemoveListener(SetData);
+    #endregion
 
 
     #region Data Management Methods
@@ -41,10 +52,6 @@ public class UIScreenModeSelection : SettingElement<int>
     protected override void SetData(int optionIndex)
     {
         Screen.fullScreenMode = _screenModes[_tmpDropdown.options[optionIndex].text];
-    }
-
-    public override void SaveData()
-    {
         PlayerPrefs.SetInt(SettingNames.ScreenMode, GetCurrentScreenModeIndex());
     }
 
@@ -54,21 +61,6 @@ public class UIScreenModeSelection : SettingElement<int>
             PlayerPrefs.DeleteKey(SettingNames.ScreenMode);
 
         LoadData();
-    }
-    #endregion
-
-
-    #region Callback Functions
-    protected override void AddListener()
-    {
-        base.AddListener();
-        _tmpDropdown.onValueChanged.AddListener(SetData);
-    }
-
-    protected override void RemoveListener()
-    {
-        _tmpDropdown.onValueChanged.RemoveListener(SetData);
-        base.RemoveListener();
     }
     #endregion
 

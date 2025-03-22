@@ -20,13 +20,24 @@ public class UIScreenResolutionSelection : SettingElement<int>
     public Resolution CurrentResolution => Screen.currentResolution;
     public RefreshRate CurrentRefreshRate => Screen.currentResolution.refreshRateRatio;
 
-    private void Awake()
+
+    #region Unity Lifecycle Methods
+    protected override void Awake()
     {
+        MySettingsManager.Settings.TryAdd(transform.parent.name, this);
+
         if (!gameObject.TryGetComponent(out _tmpDropdown))
             _tmpDropdown = gameObject.AddComponent<TMP_Dropdown>();
 
         SetupResolutionOptions();
+
+        base.Awake();
     }
+
+    private void OnEnable() => _tmpDropdown.onValueChanged.AddListener(SetData);
+
+    private void OnDisable() => _tmpDropdown.onValueChanged.RemoveListener(SetData);
+    #endregion
 
 
     #region Data Management Methods
@@ -44,10 +55,6 @@ public class UIScreenResolutionSelection : SettingElement<int>
     protected override void SetData(int optionIndex)
     {
         Screen.SetResolution(AvailableResolutions[_tmpDropdown.options[optionIndex].text].width, AvailableResolutions[_tmpDropdown.options[optionIndex].text].height, CurrentScreenMode);
-    }
-
-    public override void SaveData()
-    {
         PlayerPrefs.SetInt(SettingNames.ScreenResolution, GetCurrentResolutionIndex());
     }
 
@@ -57,21 +64,6 @@ public class UIScreenResolutionSelection : SettingElement<int>
             PlayerPrefs.DeleteKey(SettingNames.ScreenResolution);
 
         LoadData();
-    }
-    #endregion
-
-
-    #region Callback Functions
-    protected override void AddListener()
-    {
-        base.AddListener();
-        _tmpDropdown.onValueChanged.AddListener(SetData);
-    }
-
-    protected override void RemoveListener()
-    {
-        _tmpDropdown.onValueChanged.RemoveListener(SetData);
-        base.RemoveListener();
     }
     #endregion
 
@@ -90,7 +82,7 @@ public class UIScreenResolutionSelection : SettingElement<int>
         foreach (var res in _screenResolutions)
         {
             if (res.refreshRateRatio.numerator == CurrentRefreshRate.numerator)
-                AvailableResolutions.TryAdd(res.width + " x " + res.height + " : " + res.refreshRateRatio + " Hz", res);
+                AvailableResolutions.TryAdd(res.width + " x " + res.height, res);
         }
 
         _tmpDropdown.ClearOptions();

@@ -1,8 +1,12 @@
-using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public static class MySettingsManager
 {
+    public static readonly Dictionary<string, Canvas> Canvases = new();
+    public static readonly Dictionary<string, IAmSettable> Settings = new();
+
     static MySettingsManager()
     {
         GlobalEventBus.Register(GlobalEvents.UI.CanvasDisabled, OnCanvasDisabled);
@@ -17,7 +21,11 @@ public static class MySettingsManager
 
     private static void OnCanvasDisabled(object[] eventArgs)
     {
-        PlayerPrefs.Save();
+        foreach (object arg in eventArgs)
+        {
+            if (arg is string canvasName && Canvases.Keys.Contains(canvasName))
+                PlayerPrefs.Save();
+        }
     }
 
     private static void OnQuitting()

@@ -2641,8 +2641,7 @@ GameObject:
   - component: {fileID: 5526890881078507483}
   - component: {fileID: 5891931385148496486}
   - component: {fileID: 1408469698922686335}
-  - component: {fileID: 1796546054052878204}
-  - component: {fileID: 4131238592232167067}
+  - component: {fileID: 3523992505956197832}
   - component: {fileID: 6682741721565110656}
   - component: {fileID: 4956306217864244396}
   - component: {fileID: 8551591524037566717}
@@ -2727,7 +2726,7 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 3
---- !u!114 &1796546054052878204
+--- !u!114 &3523992505956197832
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2736,47 +2735,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 4829465317767684519}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 034d28fa1a0fbad4a8e8cef542c97588, type: 3}
+  m_Script: {fileID: 11500000, guid: 32baeb09470cc8f4caa2513356855b92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerList: ae8d9d44
-  useOtherObject: 0
-  data:
-    idInternal: 0
+  _soundBanks:
+  - idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: c775e21d4bcbde74199495f56883450b, type: 2}
-  decodeBank: 0
-  overrideLoadSetting: 0
-  loadAsynchronous: 0
-  saveDecodedBank: 0
-  unloadTriggerList: 958ca0ea
-  bankNameInternal: 
-  valueGuidInternal: 
---- !u!114 &4131238592232167067
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4829465317767684519}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 034d28fa1a0fbad4a8e8cef542c97588, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerList: ae8d9d44
-  useOtherObject: 0
-  data:
-    idInternal: 0
+  - idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: 971a8339544eae441917ee51c05140c3, type: 2}
-  decodeBank: 0
-  overrideLoadSetting: 0
-  loadAsynchronous: 0
-  saveDecodedBank: 0
-  unloadTriggerList: 958ca0ea
-  bankNameInternal: 
-  valueGuidInternal: 
+  _loadAsynchronously: 0
+  _loadMethod: 0
+  _unloadMethod: 0
 --- !u!114 &6682741721565110656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2919,7 +2890,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _input: {fileID: 11400000, guid: bcec874ef13692e4d84d8d005895f237, type: 2}
   _cameraRoot: {fileID: 9113321653146743760}
-  _rotationThreshold: 0.01
+  _rotationThreshold: 0.001
   _topClampAngle: 60
   _bottomClampAngle: -60
   _horizontalSensitivity: 1
@@ -3375,7 +3346,7 @@ MonoBehaviour:
     m_Bits: 1048576
   _ignoredLayerMasks:
     serializedVersion: 2
-    m_Bits: 1078
+    m_Bits: 1076
   _maxTargetsToSearch: 50
   _sphereCastRadius: 0.2
   _sphereCastDistance: 1.6

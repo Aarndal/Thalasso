@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class UIMenuOnSceneLoadBehaviour : MonoBehaviour
 {
-    private static bool IsFirstSceneLoad = true;
+    private static bool _isFirstSceneLoad;
+    public static bool IsFirstSceneLoad => _isFirstSceneLoad;
 
     [SerializeField]
     private bool _activateOnSceneLoad = false;
@@ -20,7 +21,7 @@ public class UIMenuOnSceneLoadBehaviour : MonoBehaviour
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static private void OnBeforeSceneLoad()
     {
-        IsFirstSceneLoad = true;
+        _isFirstSceneLoad = true;
     }
 
     private void Awake()
@@ -51,10 +52,11 @@ public class UIMenuOnSceneLoadBehaviour : MonoBehaviour
                 canvas.enabled = false;
         }
 
-        if (_canvas.enabled && !IsFirstSceneLoad)
+        //if (_canvas.enabled && !IsFirstSceneLoad) // Added IsFristSceneLoad check to UIMenuSound
+        if (_canvas.enabled)
             GlobalEventBus.Raise(GlobalEvents.UI.MenuOpened, _canvas.gameObject.name);
 
         if (IsFirstSceneLoad)
-            IsFirstSceneLoad = false;
+            _isFirstSceneLoad = false;
     }
 }

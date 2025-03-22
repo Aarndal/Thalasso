@@ -3,9 +3,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Animations;
 
-#if WWISE_2024_OR_LATER
-[RequireComponent(typeof(AkGameObj))]
-#endif
 public class DoorAnimation : MonoBehaviour
 {
     [Header("References")]
@@ -62,19 +59,19 @@ public class DoorAnimation : MonoBehaviour
     private AnimationCurve closingSpeedCurve;
 
 #if WWISE_2024_OR_LATER
-    private AkGameObj _akGameObject;
+    private AkGameObj _akGameObject = default;
 
     [Space(10)]
 
     [Header("Wwise Events")]
     [SerializeField]
-    private SO_WwiseEvent _openingSound;
+    private SO_WwiseEvent _openingSound = default;
     [SerializeField]
-    private SO_WwiseEvent _openedSound;
+    private SO_WwiseEvent _openedSound = default;
     [SerializeField]
-    private SO_WwiseEvent _closingSound;
+    private SO_WwiseEvent _closingSound = default;
     [SerializeField]
-    private SO_WwiseEvent _closedSound;
+    private SO_WwiseEvent _closedSound = default;
 #endif
 
     // Door Properties

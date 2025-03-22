@@ -207,6 +207,85 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &3581274152331668713
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4342579304655957145}
+  - component: {fileID: 3895252277261497922}
+  - component: {fileID: 5464324893326531725}
+  m_Layer: 0
+  m_Name: LineOfSightTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4342579304655957145
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3581274152331668713}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.70710653, z: -0, w: 0.70710707}
+  m_LocalPosition: {x: 0.29999828, y: 0, z: 0.08000755}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 371451032079447602}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &3895252277261497922
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3581274152331668713}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 6, y: 3, z: 18}
+  m_Center: {x: 0, y: 1.5, z: -9}
+--- !u!114 &5464324893326531725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3581274152331668713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5d50dc6045755b44b94b909a343902a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isTriggerable: 1
+  _isOneTimeTrigger: 1
+  _cannotBeTriggeredMessage: 
+  _triggerSettings:
+    dictionaryList:
+    - Key: 1
+      Value: 24
+      index: 0
+      isKeyDuplicated: 0
+  _triggeringLayerMasks:
+    serializedVersion: 2
+    m_Bits: 1024
+  _targetedCollider: {fileID: 3215526814903501603}
 --- !u!1 &3661862278850986358
 GameObject:
   m_ObjectHideFlags: 0
@@ -448,6 +527,7 @@ Transform:
   - {fileID: 1746787252204364603}
   - {fileID: 2124735928477727539}
   - {fileID: 6271187163482457120}
+  - {fileID: 4342579304655957145}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6134576530614963286

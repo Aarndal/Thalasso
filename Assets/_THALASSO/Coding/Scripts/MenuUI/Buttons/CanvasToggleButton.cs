@@ -19,6 +19,8 @@ public class CanvasToggleButton : ButtonClick
         {
             Debug.LogErrorFormat("<color=red>No Target Canvas assigned</color> on <color=cyan>{0}'s</color> {1} component!", gameObject.name, this);
         }
+        
+        MySettingsManager.Canvases.TryAdd(_currentCanvas.name, _currentCanvas);
     }
 
 
@@ -30,8 +32,6 @@ public class CanvasToggleButton : ButtonClick
         {
             _currentCanvas.enabled = !_currentCanvas.enabled;
             GlobalEventBus.Raise(GlobalEvents.UI.CanvasDisabled, _currentCanvas.name);
-
-            //PlayerPrefs.Save();
         }
 
         if (_toggleOtherCanvas && _targetCanvas != null && !_targetCanvas.enabled)

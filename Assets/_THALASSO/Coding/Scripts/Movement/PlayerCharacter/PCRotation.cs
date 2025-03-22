@@ -13,8 +13,8 @@ public class PCRotation : MonoBehaviour
 
     [Header("Look Variables")]
     [Tooltip("Defines the minimum threshold value for registering the look input for the rotation. Is compared with the squared magnitude of the look input vector.")]
-    [SerializeField, Range(0.01f, 1.0f)]
-    private float _rotationThreshold = 1.0f;
+    [SerializeField, Range(0.001f, 0.01f)]
+    private float _rotationThreshold = 0.001f;
     [Tooltip("How far in degrees can you move the camera up.")]
     [SerializeField, Range(30.0f, 80.0f)]
     private float _topClampAngle = 80.0f;

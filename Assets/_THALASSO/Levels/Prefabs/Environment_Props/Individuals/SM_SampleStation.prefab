@@ -96,12 +96,12 @@ GameObject:
   m_Component:
   - component: {fileID: 8563968856195034348}
   - component: {fileID: 2711092360612000298}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: SampleStation_Reagenzglashalter_Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8563968856195034348
 Transform:
@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 1849976482108360258}
   - component: {fileID: 7854197889084005315}
   - component: {fileID: 2076514384250589274}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: SampleStation_Monitor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -691,12 +691,12 @@ GameObject:
   m_Component:
   - component: {fileID: 7514791359340143072}
   - component: {fileID: 4308350769604216109}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: SampleStation_Tank_Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7514791359340143072
 Transform:
@@ -744,12 +744,12 @@ GameObject:
   m_Component:
   - component: {fileID: 7292461061181432336}
   - component: {fileID: 7244737080341613073}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: SampleStation_Mixer_Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7292461061181432336
 Transform:
@@ -839,19 +839,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5479226479079355616, guid: 9851c439d15cb964d9ba19bc908ca549, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6846905660422775471, guid: 9851c439d15cb964d9ba19bc908ca549, type: 3}
       propertyPath: m_Name
       value: Sample
       objectReference: {fileID: 0}
-    - target: {fileID: 6846905660422775471, guid: 9851c439d15cb964d9ba19bc908ca549, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
+    - target: {fileID: 6905164898854853992, guid: 9851c439d15cb964d9ba19bc908ca549, type: 3}
+      propertyPath: m_Layer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6905164898854853992, guid: 9851c439d15cb964d9ba19bc908ca549, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

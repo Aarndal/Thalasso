@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [Serializable]
 public abstract class SettingElement<T> : MonoBehaviour, IAmSettable, INotifyValueChanged<T>
@@ -19,21 +20,24 @@ public abstract class SettingElement<T> : MonoBehaviour, IAmSettable, INotifyVal
     }
 
     #region Unity Lifecycle Methods
-    protected virtual void OnEnable() => AddListener();
+    protected virtual void Awake() => SceneManager.sceneLoaded += OnSceneLoaded;
     protected virtual void Start() => LoadData();
-    protected virtual void OnDestroy() => RemoveListener();
+    protected virtual void OnDestroy() => SceneManager.sceneLoaded -= OnSceneLoaded;
     #endregion
 
     #region Data Management Methods
     public abstract void LoadData();
     protected abstract void SetData(T data);
-    public abstract void SaveData();
     public abstract void DeleteData();
     #endregion
 
     #region Callback Functions
-    protected virtual void AddListener() => GlobalEventBus.Register(GlobalEvents.UI.CanvasDisabled, OnMenuClosed);
-    protected virtual void RemoveListener() => GlobalEventBus.Deregister(GlobalEvents.UI.CanvasDisabled, OnMenuClosed);
-    protected virtual void OnMenuClosed(object[] eventArgs) => SaveData();
+    protected void OnSceneLoaded(Scene loadedScene, LoadSceneMode loadSceneMode)
+    {
+        if (loadSceneMode == LoadSceneMode.Additive)
+            return;
+
+        LoadData();
+    }
     #endregion
 }

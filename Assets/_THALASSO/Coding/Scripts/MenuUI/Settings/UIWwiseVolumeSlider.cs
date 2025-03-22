@@ -36,8 +36,12 @@ namespace WwiseHelper
             }
         }
 
-        private void Awake()
+
+        #region Unity Lifecycle Methods
+        protected override void Awake()
         {
+            MySettingsManager.Settings.TryAdd(transform.parent.name, this);
+
             if (!gameObject.TryGetComponent(out _volumeSlider))
                 _volumeSlider = gameObject.AddComponent<Slider>();
 
@@ -46,7 +50,20 @@ namespace WwiseHelper
                 _rtpc.Validate();
                 return;
             }
+
+            base.Awake();
         }
+
+        private void OnEnable()
+        {
+            _volumeSlider.onValueChanged.AddListener(SetData);
+        }
+
+        private void OnDisable()
+        {
+            _volumeSlider.onValueChanged.RemoveListener(SetData);
+        }
+        #endregion
 
 
         #region Data Management Methods
@@ -66,10 +83,6 @@ namespace WwiseHelper
         {
             if (_volumeSlider.normalizedValue != Volume)
                 Volume = _volumeSlider.normalizedValue;
-        }
-
-        public override void SaveData()
-        {
             PlayerPrefs.SetFloat(_rtpc.Name, Volume);
         }
 
@@ -79,21 +92,6 @@ namespace WwiseHelper
                 PlayerPrefs.DeleteKey(_rtpc.Name);
 
             LoadData();
-        }
-        #endregion
-
-
-        #region Callback Functions
-        protected override void AddListener()
-        {
-            base.AddListener();
-            _volumeSlider.onValueChanged.AddListener(SetData);
-        }
-
-        protected override void RemoveListener()
-        {
-            _volumeSlider.onValueChanged.RemoveListener(SetData);
-            base.RemoveListener();
         }
         #endregion
 #endif

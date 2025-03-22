@@ -28,9 +28,13 @@ public class UITargetFrameRateSelection : SettingElement<int>
     private readonly Dictionary<string, int> _targetFrameRates = new();
 
     public int CurrentFrameRate => ((int)Screen.currentResolution.refreshRateRatio.value);
-
-    private void Awake()
+    
+    
+    #region Unity Lifecycle Methods
+    protected override void Awake()
     {
+        MySettingsManager.Settings.TryAdd(transform.parent.name, this);
+
         if (!gameObject.TryGetComponent(out _tmpDropdown))
             _tmpDropdown = gameObject.AddComponent<TMP_Dropdown>();
 
@@ -44,7 +48,26 @@ public class UITargetFrameRateSelection : SettingElement<int>
         }
 
         SetupTargetFrameRateOptions();
+
+        base.Awake();
     }
+
+    private void OnEnable()
+    {
+        _tmpDropdown.onValueChanged.AddListener(SetData);
+
+        if (_vsyncToggle != null)
+            _vsyncToggle.ValueChanged += OnVSyncChanged;
+    }
+
+    private void OnDisable()
+    {
+        if (_vsyncToggle != null)
+            _vsyncToggle.ValueChanged -= OnVSyncChanged;
+
+        _tmpDropdown.onValueChanged.RemoveListener(SetData);
+    }
+    #endregion
 
 
     #region Data Management Methods
@@ -66,14 +89,10 @@ public class UITargetFrameRateSelection : SettingElement<int>
         _tmpDropdown.value = PlayerPrefs.GetInt(SettingNames.TargetFrameRate);
         _tmpDropdown.RefreshShownValue();
     }
-    
+
     protected override void SetData(int optionIndex)
     {
         Application.targetFrameRate = _targetFrameRates[_tmpDropdown.options[optionIndex].text];
-    }
-
-    public override void SaveData()
-    {
         PlayerPrefs.SetInt(SettingNames.TargetFrameRate, GetTargetFrameRateIndex());
     }
 
@@ -88,24 +107,6 @@ public class UITargetFrameRateSelection : SettingElement<int>
 
 
     #region Callback Functions
-    protected override void AddListener()
-    {
-        base.AddListener();
-        _tmpDropdown.onValueChanged.AddListener(SetData);
-
-        if (_vsyncToggle != null)
-            _vsyncToggle.ValueChanged += OnVSyncChanged;
-    }
-
-    protected override void RemoveListener()
-    {
-        if (_vsyncToggle != null)
-            _vsyncToggle.ValueChanged -= OnVSyncChanged;
-
-        _tmpDropdown.onValueChanged.RemoveListener(SetData);
-        base.RemoveListener();
-    }
-
     private void OnVSyncChanged(uint id, bool isOn) => SetDropdownInteraction(isOn);
     #endregion
 

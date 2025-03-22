@@ -43,13 +43,24 @@ public class UIVSyncToggle : SettingElement<bool>
         }
     }
 
-    private void Awake()
+
+    #region Unity Lifecycle Methods
+    protected override void Awake()
     {
+        MySettingsManager.Settings.TryAdd(transform.parent.name, this);
+
         if (!gameObject.TryGetComponent(out _toggle))
             _toggle = gameObject.AddComponent<Toggle>();
 
         _tmpText = _tmpText != null ? _tmpText : GetComponentInChildren<TMP_Text>();
+
+        base.Awake();
     }
+
+    private void OnEnable() => _toggle.onValueChanged.AddListener(SetData);
+
+    private void OnDisable() => _toggle.onValueChanged.RemoveListener(SetData);
+    #endregion
 
 
     #region Data Management Methods
@@ -63,10 +74,10 @@ public class UIVSyncToggle : SettingElement<bool>
         _toggle.isOn = PlayerPrefs.GetInt(SettingNames.VSync) != 0;
     }
 
-    protected override void SetData(bool isOn) => IsOn = isOn;
-
-    public override void SaveData()
+    protected override void SetData(bool isOn)
     {
+        IsOn = isOn;
+
         int data = IsOn ? 1 : 0; // 1 representing value: true | 0 representing value : false
         PlayerPrefs.SetInt(SettingNames.VSync, data);
     }
@@ -77,21 +88,6 @@ public class UIVSyncToggle : SettingElement<bool>
             PlayerPrefs.DeleteKey(SettingNames.VSync);
 
         LoadData();
-    }
-    #endregion
-
-
-    #region Callback Functions
-    protected override void AddListener()
-    {
-        base.AddListener();
-        _toggle.onValueChanged.AddListener(SetData);
-    }
-
-    protected override void RemoveListener()
-    {
-        _toggle.onValueChanged.RemoveListener(SetData);
-        base.RemoveListener();
     }
     #endregion
 }

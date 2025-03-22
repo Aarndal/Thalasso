@@ -40,6 +40,9 @@ public class UIMenuSound : MonoBehaviour
 
     private void OnMenuOpened(object[] eventArgs)
     {
+        if (UIMenuOnSceneLoadBehaviour.IsFirstSceneLoad)
+            return;
+
 #if WWISE_2024_OR_LATER
         PlayMenuSound(eventArgs, _enterMenuSound);
 #endif
