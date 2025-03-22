@@ -9,7 +9,7 @@ namespace WwiseHelper
         [SerializeField]
         private MultiPositionTypeLabel _positionType = MultiPositionTypeLabel.Simple_Mode;
 
-        public readonly Dictionary<uint, AkAmbient> AmbientEventSender = default;
+        public readonly Dictionary<uint, AkAmbient> AmbientEventSender = new();
 
         protected override void Awake()
         {
@@ -19,22 +19,6 @@ namespace WwiseHelper
 
             InitAmbientEventSender();
         }
-
-        //protected void OnEnable()
-        //{
-        //    foreach (var broadcaster in AmbientEventSender.Values)
-        //    {
-        //        broadcaster.data.Post(_eventReceiver);
-        //    }
-        //}
-
-        //protected void OnDisable()
-        //{
-        //    foreach (var broadcaster in AmbientEventSender.Values)
-        //    {
-        //        broadcaster.data.Stop(_eventReceiver);
-        //    }
-        //}
 
         private void InitAmbientEventSender()
         {
@@ -52,7 +36,6 @@ namespace WwiseHelper
                 }
                 
                 akAmbient.multiPositionTypeLabel = _positionType;
-
                 akAmbient.stopSoundOnDestroy = true;
                 akAmbient.HandleEvent(_eventReceiver);
                 akAmbient.triggerList.Clear();
