@@ -108,10 +108,12 @@ namespace AK
 
     namespace GAME_PARAMETERS
     {
-        static const AkUniqueID BGM = 412724365U;
-        static const AkUniqueID MASTER = 4056684167U;
-        static const AkUniqueID SFX = 393239870U;
-        static const AkUniqueID UI = 1551306167U;
+        static const AkUniqueID AMBIENT_VOLUME = 2364768092U;
+        static const AkUniqueID MASTER_VOLUME = 4179668880U;
+        static const AkUniqueID MUSIC_VOLUME = 1006694123U;
+        static const AkUniqueID SFX_VOLUME = 1564184899U;
+        static const AkUniqueID UI_VOLUME = 1719345792U;
+        static const AkUniqueID VOICE_VOLUME = 3538560642U;
     } // namespace GAME_PARAMETERS
 
     namespace BANKS
@@ -127,10 +129,12 @@ namespace AK
 
     namespace BUSSES
     {
-        static const AkUniqueID MASTER_AUDIO_BUS = 3803692087U;
-        static const AkUniqueID MUSIC = 3991942870U;
-        static const AkUniqueID SFX = 393239870U;
-        static const AkUniqueID UI = 1551306167U;
+        static const AkUniqueID AMBIENT_AUDIOBUS = 2154083886U;
+        static const AkUniqueID MASTER_AUDIOBUS = 1833879282U;
+        static const AkUniqueID MUSIC_AUDIOBUS = 4176732273U;
+        static const AkUniqueID SFX_AUDIOBUS = 648249209U;
+        static const AkUniqueID UI_AUDIOBUS = 4101830594U;
+        static const AkUniqueID VOICE_AUDIOBUS = 3013361712U;
     } // namespace BUSSES
 
     namespace AUX_BUSSES
