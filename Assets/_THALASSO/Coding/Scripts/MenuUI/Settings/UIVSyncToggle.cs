@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -16,9 +17,12 @@ public class UIVSyncToggle : SettingElement<bool>
     private string _isOffText = "Inactive";
     [SerializeField]
     private Color _isOffColor = Color.grey;
+    [SerializeField]
+    private SO_WwiseEvent _sound = default;
 
     private bool _isOn = true;
     private Toggle _toggle = default;
+    private AkGameObj _akGameObject = default;
 
     public bool IsOn
     {
@@ -38,7 +42,7 @@ public class UIVSyncToggle : SettingElement<bool>
                 _tmpText.text = _isOn ? _isOnText : _isOffText;
                 _tmpText.color = _isOn ? _isOnColor : _isOffColor;
                 _toggle.targetGraphic.enabled = !_isOn;
-
+                _sound.Play(_akGameObject);
                 _valueChanged?.Invoke(ID, _isOn);
             }
         }
@@ -54,6 +58,10 @@ public class UIVSyncToggle : SettingElement<bool>
             _toggle = gameObject.AddComponent<Toggle>();
 
         _tmpText = _tmpText != null ? _tmpText : GetComponentInChildren<TMP_Text>();
+
+        _akGameObject = _akGameObject != null ? _akGameObject : GetComponentInParent<AkGameObj>();
+        if (_akGameObject == null)
+            _akGameObject = gameObject.AddComponent<AkGameObj>();
 
         base.Awake();
     }
