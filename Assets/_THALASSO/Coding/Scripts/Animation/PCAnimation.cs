@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using UnityEngine;
 
 public class PCAnimation : Entity
@@ -13,6 +14,8 @@ public class PCAnimation : Entity
 
     [Header("Normalized Transition Durations")]
     [Tooltip("The duration of the transition, in normalized time, relative to the current state’s duration.")]
+    [SerializeField, Range(0.0f, 1.0f)]
+    private float _cutsceneTransitionDuration = 0.02f;
     [SerializeField, Range(0.0f, 1.0f)]
     private float _idleTransitionDuration = 0.02f;
     [SerializeField, Range(0.0f, 1.0f)]
@@ -50,6 +53,7 @@ public class PCAnimation : Entity
     {
         base.OnEnable();
 
+        GlobalEventBus.Register(GlobalEvents.Game.CutsceneIsRunning, OnCutsceneIsRunning);
         GlobalEventBus.Register(GlobalEvents.Player.GroundedStateChanged, OnGroundedStateChanged);
 
         _input.MoveInputHasChanged += OnMoveInputHasChanged;
@@ -75,15 +79,16 @@ public class PCAnimation : Entity
 
     protected override void OnDisable()
     {
-        base.OnDisable();
+        TransitionCheck -= OnTransitionCheck;
+
+        _input.JumpIsTriggered -= OnJumpIsTriggered;
+        _input.SprintIsTriggered -= OnSprintIsTriggered;
+        _input.MoveInputHasChanged -= OnMoveInputHasChanged;
 
         GlobalEventBus.Deregister(GlobalEvents.Player.GroundedStateChanged, OnGroundedStateChanged);
+        GlobalEventBus.Deregister(GlobalEvents.Game.CutsceneIsRunning, OnCutsceneIsRunning);
 
-        _input.MoveInputHasChanged -= OnMoveInputHasChanged;
-        _input.SprintIsTriggered -= OnSprintIsTriggered;
-        _input.JumpIsTriggered -= OnJumpIsTriggered;
-
-        TransitionCheck -= OnTransitionCheck;
+        base.OnDisable();
     }
 
     protected virtual void OnValidate()
@@ -108,7 +113,7 @@ public class PCAnimation : Entity
     private bool OnTransitionCheck()
     {
         if (_inCutscene)
-            return false;
+            return SetAnimationState(0, "StartHandsAnimation", _cutsceneTransitionDuration);
 
         if (_isGrounded && !_isCurrentlyMoving)
             return SetAnimationState(0, "Idle", _idleTransitionDuration);
@@ -126,12 +131,27 @@ public class PCAnimation : Entity
     }
 
     #region Condition Change Event Methods
-    private void OnGroundedStateChanged(object[] args)
+    private void OnCutsceneIsRunning(object[] eventArgs)
     {
-        if (args[0] is bool isGrounded && isGrounded != _isGrounded)
+        foreach (var eventArg in eventArgs)
         {
-            _isGrounded = isGrounded;
-            TransitionCheck?.Invoke();
+            if (eventArg is bool inCutscene && inCutscene != _inCutscene)
+            {
+                _inCutscene = inCutscene;
+                TransitionCheck?.Invoke();
+            }
+        }
+    }
+
+    private void OnGroundedStateChanged(object[] eventArgs)
+    {
+        foreach (var eventArg in eventArgs)
+        {
+            if (eventArg is bool isGrounded && isGrounded != _isGrounded)
+            {
+                _isGrounded = isGrounded;
+                TransitionCheck?.Invoke();
+            }
         }
     }
 

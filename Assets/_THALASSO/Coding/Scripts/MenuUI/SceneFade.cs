@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -42,8 +41,8 @@ public class SceneFade : MonoBehaviour
         _opaqueColor = _fadeImage.color;
         _fadeImage.color = Color.clear;
 
-        if ((_fadeMode & FadeMode.FadeIn) == 0)
-            StartCoroutine(Fade(FadeMode.FadeIn, _fadeInDuration));
+        //if ((_fadeMode & FadeMode.FadeIn) == 0)
+        //    StartCoroutine(Fade(FadeMode.FadeIn, _fadeInDuration));
         //SceneManager.sceneLoaded += OnSceneLoaded;
         //SceneManager.sceneUnloaded += OnSceneUnloaded;
     }

@@ -12,7 +12,6 @@ public class StartCutscene : MonoBehaviour
     
     private Canvas cutsceneCanvas;
     private CinemachineBrain cinemachineBrain;
-    private PCAnimation pCAnimation;
 
     private void Awake()
     {
@@ -24,7 +23,6 @@ public class StartCutscene : MonoBehaviour
         
         cinemachineBrain = FindFirstObjectByType<CinemachineBrain>();
 
-        pCAnimation = FindAnyObjectByType<PCAnimation>();
     }
 
     private void OnEnable()
@@ -34,10 +32,10 @@ public class StartCutscene : MonoBehaviour
 
     private void Start()
     {
+        GlobalEventBus.Raise(GlobalEvents.Game.CutsceneIsRunning, true);
         cutsceneCanvas.enabled = true;
         _input.SwitchCurrentActionMap("Cutscene");
         cinemachineBrain.enabled = false;
-        pCAnimation._inCutscene = true;
 
         fadeImage.gameObject.SetActive(false);
         fadeImage.color = new Color(0, 0, 0, 1);
@@ -78,13 +76,12 @@ public class StartCutscene : MonoBehaviour
 
     public void OnCutsceneEnd()
     {
-        pCAnimation._inCutscene = false;
-        pCAnimation.SetAnimationState(0, "Idle", 0.02f);
+        GlobalEventBus.Raise(GlobalEvents.Game.CutsceneIsRunning, false);
 
         cinemachineBrain.enabled = true;
         cinemachineBrain.gameObject.GetComponent<Animator>().enabled = false;
-        _input.SwitchCurrentActionMap("Player");
 
+        _input.SwitchCurrentActionMap("Player");
         GameObject skipInfoText = cutsceneCanvas.GetComponentInChildren<TextMeshProUGUI>().gameObject;
         skipInfoText.SetActive(false);
 

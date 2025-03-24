@@ -28,26 +28,27 @@ public class EndCutscene : MonoBehaviour
 
         progressInfoObject.ValueChanged += CheckProgressionUpdate;
     }
-
-    private void CheckProgressionUpdate(uint _id, bool _isSolved)
-    {
-        if(_isSolved)
-        {
-            GetComponent<Animator>().enabled = true;
-        }
-    }
-
-    private void OnDisable()
-    {
-        _input.SkipIsPerformed -= OnSkipCutScene;
-        progressInfoObject.ValueChanged -= CheckProgressionUpdate;
-    }
     private void Start()
     {
         cutscneeCamTransform.gameObject.SetActive(false);
         cinemachineCamera = FindAnyObjectByType<CinemachineCamera>();
         skipInfoText = cutsceneCanvas.GetComponentInChildren<TextMeshProUGUI>().gameObject;
     }
+    
+
+    private void OnDisable()
+    {
+        _input.SkipIsPerformed -= OnSkipCutScene;
+        progressInfoObject.ValueChanged -= CheckProgressionUpdate;
+    }
+    private void CheckProgressionUpdate(uint _id, bool _isSolved)
+    {
+        if (_isSolved)
+        {
+            GetComponent<Animator>().enabled = true;
+        }
+    }
+
     private void TransitionCamForEndcut()
     {
 

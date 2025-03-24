@@ -20,6 +20,14 @@ namespace WwiseHelper
             InitAmbientEventSender();
         }
 
+        protected void OnEnable()
+        {
+            foreach (var ambient in AmbientEventSender.Values)
+            {
+                ambient.OnEnable();
+            }
+        }
+
         private void InitAmbientEventSender()
         {
             foreach (var audioEvent in _wwiseEvents)
@@ -27,19 +35,9 @@ namespace WwiseHelper
                 AkAmbient akAmbient = gameObject.AddComponent<AkAmbient>();
 
                 akAmbient.data = audioEvent.Value;
-                akAmbient.useOtherObject = _playOnOtherObject;
-
-                if (_positionType == MultiPositionTypeLabel.MultiPosition_Mode)
-                {
-                    if (!AkAmbient.multiPosEventTree.ContainsKey(audioEvent.ID))
-                    {
-                        AkMultiPosEvent akMultiPosEvent = new ();
-                        akMultiPosEvent.list.Add(akAmbient);
-                        AkAmbient.multiPosEventTree.Add(audioEvent.ID, akMultiPosEvent);
-                    }
-                }
-                
                 akAmbient.multiPositionTypeLabel = _positionType;
+                akAmbient.useOtherObject = _playOnOtherObject;
+                akAmbient.soundEmitterObject = _eventReceiver;
                 akAmbient.triggerList.Clear();
                 akAmbient.triggerList.Add(AkTriggerHandler.START_TRIGGER_ID);
                 akAmbient.stopSoundOnDestroy = true;

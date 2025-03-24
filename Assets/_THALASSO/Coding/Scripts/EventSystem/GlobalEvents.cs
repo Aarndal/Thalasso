@@ -1,4 +1,6 @@
 ﻿
+using UnityEngine.UIElements;
+
 public class GlobalEvents
 {
     public class UI // 0 - 99
@@ -16,6 +18,7 @@ public class GlobalEvents
         public const uint IsPaused = 101;
         public const uint HasBeenSolved = 102;
         public const uint ProgressionCompleted = 103;
+        public const uint CutsceneIsRunning = 104;
     }
 
     public class Player // 300 - 499
