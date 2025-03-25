@@ -33,6 +33,7 @@ namespace AK
         static const AkUniqueID MENU_BUTTON_PRESS = 952003163U;
         static const AkUniqueID MUSIC_AMBIENCE_FIRST_TIME_MONSTER = 1832321273U;
         static const AkUniqueID MUSIC_AMBIENCE_FIRST_TIME_STATION = 3531297571U;
+        static const AkUniqueID MUSIC_AMBIENCE_LOFITHEME = 1959405895U;
         static const AkUniqueID PAUSE_MENU_IN = 3382955325U;
         static const AkUniqueID PAUSE_MENU_OUT = 2397763428U;
         static const AkUniqueID PLAY_AUSTIN = 3408260292U;
