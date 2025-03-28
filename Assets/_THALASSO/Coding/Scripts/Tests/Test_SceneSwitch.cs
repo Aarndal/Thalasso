@@ -1,22 +1,14 @@
-using UnityEngine.SceneManagement;
+using Eflatun.SceneReference;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class Test_SceneSwitch : MonoBehaviour
+public class Test_SceneSwitch : Responder
 {
-    private Scene _currentScene;
     [SerializeField]
-    private int _sceneToLoadIndex;
+    private SceneReference _sceneToLoad;
 
-    private void Start()
+    public override void Respond(GameObject triggeringObject, ResponderState responderState)
     {
-        _currentScene = SceneManager.GetActiveScene();
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            SceneManager.LoadScene(_sceneToLoadIndex, LoadSceneMode.Single);
-        }
+        SceneManager.LoadScene(_sceneToLoad.Name, LoadSceneMode.Single);
     }
 }

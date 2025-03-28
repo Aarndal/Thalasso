@@ -10,19 +10,9 @@ public class FluidShaderWarp : MonoBehaviour
     [SerializeField] private Vector4 m_warpFactor;
     private float m_value;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         StartCoroutine(StartWarpFluid());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-
-
-
     }
 
     private IEnumerator StartWarpFluid()
@@ -55,7 +45,7 @@ public class FluidShaderWarp : MonoBehaviour
             var vec4y = m_shader.GetVector("_WarpModifier2").y + m_warpFactor.y;
             m_shader.SetVector("_WarpModifier2", new Vector4(vec4x, vec4y));
             m_iterator = i;
-            Debug.Log("VecShaderX: " + m_shader.GetVector("_WarpModifier2").x + "VecShaderY: " + m_shader.GetVector("_WarpModifier2").y + m_warpFactor.y + " || " + "Iterator: " + m_iterator);
+            //Debug.Log("VecShaderX: " + m_shader.GetVector("_WarpModifier2").x + "VecShaderY: " + m_shader.GetVector("_WarpModifier2").y + m_warpFactor.y + " || " + "Iterator: " + m_iterator);
         }
     }
 
@@ -67,7 +57,7 @@ public class FluidShaderWarp : MonoBehaviour
             var vec4y = m_shader.GetVector("_WarpModifier2").y - m_warpFactor.y;
             m_shader.SetVector("_WarpModifier2", new Vector4(vec4x, vec4y));
             m_iterator = i;
-            Debug.Log("VecShaderX: " + m_shader.GetVector("_WarpModifier2").x + "VecShaderY: " + m_shader.GetVector("_WarpModifier2").y + m_warpFactor.y + " || " + "Iterator: " + m_iterator);
+            //Debug.Log("VecShaderX: " + m_shader.GetVector("_WarpModifier2").x + "VecShaderY: " + m_shader.GetVector("_WarpModifier2").y + m_warpFactor.y + " || " + "Iterator: " + m_iterator);
         }
     }
 

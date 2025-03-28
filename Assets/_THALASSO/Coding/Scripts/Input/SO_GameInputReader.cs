@@ -186,9 +186,6 @@ public class SO_GameInputReader : ScriptableObject, GameInput.IPlayerActions, Ga
         _defaultActionMap.Enable();
         CurrentActionMap = _defaultActionMap;
         _previousActionMap = CurrentActionMap;
-
-        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(0))
-            SwitchCurrentActionMap("UI");
     }
 
     public bool SwitchCurrentActionMap(string newActionMapName)

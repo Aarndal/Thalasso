@@ -9,6 +9,9 @@ public class UIMenuOnSceneLoadBehaviour : MonoBehaviour
     public static bool IsFirstSceneLoad => _isFirstSceneLoad;
 
     [SerializeField]
+    private SO_GameInputReader _input = default;
+
+    [SerializeField]
     private bool _activateOnSceneLoad = false;
 
     [SerializeField, Tooltip("Set all Canvases that should be loaded when this Canvas is loaded.")]
@@ -54,7 +57,10 @@ public class UIMenuOnSceneLoadBehaviour : MonoBehaviour
 
         //if (_canvas.enabled && !IsFirstSceneLoad) // Added IsFristSceneLoad check to UIMenuSound
         if (_canvas.enabled)
+        {
             GlobalEventBus.Raise(GlobalEvents.UI.MenuOpened, _canvas.gameObject.name);
+            _input.SwitchCurrentActionMap("UI");
+        }
 
         if (IsFirstSceneLoad)
             _isFirstSceneLoad = false;
