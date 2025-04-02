@@ -29,12 +29,16 @@ namespace WwiseHelper
 
         public override void Respond(GameObject triggeringObject, ResponderState responderState)
         {
+            
 #if WWISE_2024_OR_LATER
             if (triggeringObject.TryGetComponent<AkGameObj>(out _))
             {
                 foreach (var audioSwitch in AudioSwitches)
                 {
-                    audioSwitch.SetValue(triggeringObject);
+                    if (responderState == ResponderState.On)
+                        audioSwitch.SetValue(triggeringObject);
+                    else
+                        AkUnitySoundEngine.SetSwitch(audioSwitch.GroupId, AkUnitySoundEngine.AK_DEFAULT_SWITCH_STATE, triggeringObject);
                 }
             }
 #endif

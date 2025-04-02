@@ -33,6 +33,76 @@ Transform:
   - {fileID: 6747513297281007146}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4254549833317476826
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4528588274788265862}
+  - component: {fileID: 292037292537425413}
+  - component: {fileID: 2934216740732044806}
+  m_Layer: 20
+  m_Name: Oxygen_Station_Button_InteractiveCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4528588274788265862
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4254549833317476826}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6747513297281007146}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &292037292537425413
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4254549833317476826}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.08
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2934216740732044806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4254549833317476826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd72c0c59656fbe4ea926bebfd6f969b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isTriggerable: 1
+  _isOneTimeTrigger: 0
+  _cannotBeTriggeredMessage: 
+  _triggeringResponderState: 1
 --- !u!1001 &1130838415788418168
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -95,7 +165,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 5913912492543154770, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4528588274788265862}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 08941a3ec34efba46911f36b8cbb543f, type: 3}
 --- !u!4 &6747513297281007146 stripped
@@ -162,10 +235,38 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 98914674487780284, guid: 36853d72ab147ac4c88e77bcaefa83ff, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2037256866306643851}
   m_SourcePrefab: {fileID: 100100000, guid: 36853d72ab147ac4c88e77bcaefa83ff, type: 3}
 --- !u!4 &2019240664951731662 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2503055275933813583, guid: 36853d72ab147ac4c88e77bcaefa83ff, type: 3}
   m_PrefabInstance: {fileID: 4519761543290388097}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4604369258617609533 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 98914674487780284, guid: 36853d72ab147ac4c88e77bcaefa83ff, type: 3}
+  m_PrefabInstance: {fileID: 4519761543290388097}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2037256866306643851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4604369258617609533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606a08c86fff76e4481420862fde1c01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _startState: 0
+  _triggers:
+  - _monoBehaviourInstance: {fileID: 2934216740732044806}
+  _wwiseEvents:
+  - {fileID: 11400000, guid: 79fb92bdcaca26b4d8d3cb6db51ee0a0, type: 2}
+  _playOnOtherObject: 1
+  _isEnvironmentAware: 0
+  _isRoomAware: 0
