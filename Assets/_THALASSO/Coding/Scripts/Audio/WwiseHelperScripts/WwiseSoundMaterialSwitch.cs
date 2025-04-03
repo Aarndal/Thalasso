@@ -9,9 +9,9 @@ namespace WwiseHelper
         private WwiseSoundMaterialChecker _soundMaterialChecker = default;
 
 #if WWISE_2024_OR_LATER
-        [Header("Wwise Settings")]
-        [SerializeField]
-        private AK.Wwise.Switch _defaultSoundMaterial = default;
+        //[Header("Wwise Settings")]
+        //[SerializeField]
+        //private AK.Wwise.Switch _defaultSoundMaterial = default;
 
         private AkGameObj _akGameObject = default;
 
@@ -32,7 +32,9 @@ namespace WwiseHelper
 
         private void Start()
         {
-            _defaultSoundMaterial.SetValue(_akGameObject.gameObject);
+            //_defaultSoundMaterial.SetValue(_akGameObject.gameObject);
+
+            //AkUnitySoundEngine.SetSwitch(soundMaterial.GroupId, AkUnitySoundEngine.AK_DEFAULT_SWITCH_STATE, _akGameObject.gameObject);
         }
 
         private void OnDisable()
@@ -45,7 +47,7 @@ namespace WwiseHelper
             if (soundMaterial != null)
                 soundMaterial.SetValue(_akGameObject.gameObject);
             else
-                _defaultSoundMaterial.SetValue(_akGameObject.gameObject);
+                AkUnitySoundEngine.SetSwitch(soundMaterial.GroupId, AkUnitySoundEngine.AK_DEFAULT_SWITCH_STATE, _akGameObject.gameObject);
         }
 #endif
     }
