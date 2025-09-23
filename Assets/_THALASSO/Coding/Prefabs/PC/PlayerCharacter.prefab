@@ -2651,6 +2651,7 @@ GameObject:
   - component: {fileID: 7551320785702381447}
   - component: {fileID: 4108986684782331324}
   - component: {fileID: 2327573157270684837}
+  - component: {fileID: 6028898013576673380}
   m_Layer: 10
   m_Name: PlayerCharacter
   m_TagString: Player
@@ -2813,7 +2814,6 @@ MonoBehaviour:
   _isEnvironmentAware: 1
   _isRoomAware: 0
   _eventReceiver: {fileID: 4829465317767684519}
-  _rigidbody: {fileID: 1408469698922686335}
   _animationEventBroadcaster: {fileID: 611012666410614468}
 --- !u!114 &5521118007307983165
 MonoBehaviour:
@@ -2828,12 +2828,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _soundMaterialChecker: {fileID: 2194462597308640803}
-  _defaultSoundMaterial:
-    idInternal: 0
-    valueGuidInternal: 
-    groupIdInternal: 0
-    groupGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 3db5df55e5345794788f7b0381780c33, type: 2}
 --- !u!114 &2210585923915962435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2855,6 +2849,7 @@ MonoBehaviour:
   - {fileID: 7400000, guid: 3322fed4ba31561429d913b1d5ca3acf, type: 2}
   - {fileID: 7400000, guid: c21b61835fda8c348b0861abbce897a5, type: 2}
   - {fileID: 7400000, guid: 2133c54e2458d5a45bc0ddfb0f9bb6d8, type: 2}
+  _cutsceneTransitionDuration: 0.02
   _idleTransitionDuration: 0.1
   _walkTransitionDuration: 0.05
   _runTransitionDuration: 0.07
@@ -2924,6 +2919,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _input: {fileID: 11400000, guid: bcec874ef13692e4d84d8d005895f237, type: 2}
   _targetProvider: {fileID: 485553831652817541}
+--- !u!114 &6028898013576673380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4829465317767684519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40f4c3be8d130c24c9ca6cf150890251, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _airSupplyData: {fileID: 11400000, guid: 6c8faaa9a8524634197e1ff065a792c1, type: 2}
+  _looseAir: 1
 --- !u!1 &5008121252930670039
 GameObject:
   m_ObjectHideFlags: 0
