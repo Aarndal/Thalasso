@@ -7,13 +7,6 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
-    "com.cysharp.unitask": {
-      "version": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "73a63b7f672b88f7e9992f6917eb458a8cbb6fa9"
-    },
     "com.eflatun.scenereference": {
       "version": "git+https://github.com/starikcetin/Eflatun.SceneReference.git#4.1.1",
       "depth": 0,
@@ -30,6 +23,15 @@
       "source": "registry",
       "dependencies": {},
       "url": "https://package.openupm.com"
+    },
+    "com.singularitygroup.hotreload": {
+      "version": "file:com.singularitygroup.hotreload",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.unity.ugui": "1.0.0",
+        "com.unity.modules.unitywebrequest": "1.0.0"
+      }
     },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
