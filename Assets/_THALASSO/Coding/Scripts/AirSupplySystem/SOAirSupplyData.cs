@@ -1,56 +1,101 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "newAirSupplyData", menuName = "Scriptable Objects/Air Supply Data", order = 0)]
-public class SOAirSupplyData : ScriptableObject
+namespace AirSupplySystem
 {
-    [SerializeField]
-    private float _currentAirSupply = 100f;
-    [SerializeField]
-    private float _maxAirSupply = 100f;
-
-    [Header("Air Loss Rate Data")]
-    [SerializeField]
-    private float _currentAirLossRate = 0f;
-    [SerializeField]
-    private float _standardAirLossRate = 0.05f;
-    [SerializeField, Range(1f, 10f)]
-    private float _maxAirLossRate = 5f;
-    [SerializeField]
-    private float _minAirLossRate = 0f;
-
-    public float MaxAirSupply => _maxAirSupply;
-    public float StandardAirLossRate => _standardAirLossRate;
-    public float MaxAirLossRate => _maxAirLossRate;
-    public float MinAirLossRate => _minAirLossRate;
-
-    public event Action<float> AirSupplyChanged;
-    public event Action AirSupplyDepleted;
-
-    public float CurrentAirSupply
+    /// <summary>
+    /// Manages air supply data for the player character.
+    /// </summary>
+    [CreateAssetMenu(fileName = "newAirSupplyData", menuName = "Air Supply System/Air Supply Data", order = 0)]
+    public class SOAirSupplyData : ScriptableObject
     {
-        get => _currentAirSupply;
-        set
-        {
-            if (_currentAirSupply != value)
-            {
-                _currentAirSupply = Mathf.Clamp(value, 0f, MaxAirSupply);
-                AirSupplyChanged?.Invoke(_currentAirSupply);
+        private const float DEFAULT_MAX_AIR_SUPPLY = 100f;
 
-                if (_currentAirSupply <= 0f)
+        [Header("Air Supply Values")]
+        [SerializeField, Tooltip("For Debugging purposes only. Unit: Air units.")]
+        private float _currentAirSupply = 100f;
+        [SerializeField, Tooltip("The maximum air supply the player can have. Unit: Air units.")]
+        private float _maxAirSupply = DEFAULT_MAX_AIR_SUPPLY;
+
+        [Header("Air Consumption Rate Values")]
+        [SerializeField, Tooltip("For Debugging purposes only. Unit: Air units per second.")]
+        private float _currentAirConsumptionRate = 0f;
+        [SerializeField, Tooltip("The default air consumption rate when no modifiers are applied. Unit: Air units per second.")]
+        private float _defaultAirConsumptionRate = 0.05f;
+        [SerializeField, Range(1f, 10f), Tooltip("The maximum air consumption rate when all modifiers are applied. Unit: Air units per second.")]
+        private float _maxAirConsumptionRate = 5f;
+        [SerializeField, Range(0f, 0.5f), Tooltip("The minimum air consumption rate when all modifiers are applied. Unit: Air units per second.")]
+        private float _minAirConsumptionRate = 0f;
+
+
+        /// <summary>
+        /// Maximum air supply the player can have.
+        /// </summary>
+        public float MaxAirSupply => _maxAirSupply;
+        /// <summary>
+        /// Default air consumption rate when no modifiers are applied.
+        /// </summary>
+        public float DefaultAirConsumptionRate => _defaultAirConsumptionRate;
+        /// <summary>
+        /// Maximum air consumption rate when all modifiers are applied.
+        /// </summary>
+        public float MaxAirConsumptionRate => _maxAirConsumptionRate;
+        /// <summary>
+        /// Minimum air consumption rate when all modifiers are applied.
+        /// </summary>
+        public float MinAirConsumptionRate => _minAirConsumptionRate;
+
+
+        public event Action AirSupplyDepleted;
+        public event Action AirSupplyReachedMax;
+        public event Action<float> AirSupplyChanged;
+        public event Action<float> AirConsumptionRateChanged;
+        public event Action<float> MaxAirSupplyChanged;
+
+
+        /// <summary>
+        /// Current air supply the player has.
+        /// Clamped between default MinAirSupply and MaxAirSupply.
+        /// </summary>
+        public float CurrentAirSupply
+        {
+            get => _currentAirSupply;
+            set
+            {
+                if (_currentAirSupply != value)
                 {
+                    _currentAirSupply = Mathf.Clamp(value, 0f, _maxAirSupply);
+                    AirSupplyChanged?.Invoke(_currentAirSupply);
+
+                    if (_currentAirSupply >= _maxAirSupply)
+                    {
+                        _currentAirSupply = _maxAirSupply;
+                        AirSupplyReachedMax?.Invoke();
+                    }
+
+                    if (_currentAirSupply <= 0.0f)
+                    {
+                        _currentAirSupply = 0.0f;
 #if UNITY_EDITOR
-                    Debug.LogWarning("Air supply has been depleted!");
+                        Debug.LogWarning("Air supply has been depleted!");
 #endif
-                    AirSupplyDepleted?.Invoke();
+                        AirSupplyDepleted?.Invoke();
+                    }
                 }
             }
         }
-    }
 
-    public float CurrentAirLossRate
-    {
-        get => _currentAirLossRate;
-        set => _currentAirLossRate = Mathf.Clamp(value, MinAirLossRate, MaxAirLossRate);
+
+        /// <summary>
+        /// Rate at which air is consumed.
+        /// Unit: Air units per second.
+        /// Clamped between MinAirConsumptionRate and MaxAirConsumptionRate.
+        /// </summary>
+        public float CurrentAirConsumptionRate
+        {
+            get => _currentAirConsumptionRate;
+            set => _currentAirConsumptionRate = Mathf.Clamp(value, MinAirConsumptionRate, MaxAirConsumptionRate);
+        }
     }
 }

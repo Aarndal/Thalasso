@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef30f50dd5f0bdc49a57d16de58d2ef6, type: 3}
-  m_Name: PC_AirSupply
+  m_Script: {fileID: 11500000, guid: 50dbddc2e6878cf4fb57f77d41d3c26e, type: 3}
+  m_Name: AirTankData_01
   m_EditorClassIdentifier: 
-  _currentAirSupply: 0
-  _maxAirSupply: 100
-  _currentAirLossRate: 10
-  _standardAirLossRate: 0.05
-  _maxAirLossRate: 10
-  _minAirLossRate: 0
+  _maxAirTankCapacity: 80
+  _airTankRechargeDelay: 10
+  _airTankRechargeRate: 5
+  _defaultAirRefillRate: 10
+  _maxAirRefillRate: 50
+  _minAirRefillRate: 5

@@ -1,8 +1,8 @@
 public interface ILooseAir
 {
     float MaxAirSupply { get; }
-    float CurrentAirLossRate { get; }
+    float CurrentAirConsumptionRate { get; }
 
-    void ChangeAirLossRate(float newAirLossRate);
-    void LooseAir(bool looseAir);
+    void SetAirConsumptionRate(float newAirConsumptionRate);
+    void SetAirConsumptionState(bool isConsumingAir);
 }
