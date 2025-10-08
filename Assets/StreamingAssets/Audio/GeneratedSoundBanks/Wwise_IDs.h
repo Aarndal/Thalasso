@@ -13,7 +13,6 @@ namespace AK
 {
     namespace EVENTS
     {
-        static const AkUniqueID AIRCONDITIONING = 3779673818U;
         static const AkUniqueID CHASE_MUSIC = 3824731861U;
         static const AkUniqueID CIRCUITRIDDLE_CLICK = 1065298177U;
         static const AkUniqueID CIRCUITRIDDLE_COMPLETE = 2222894834U;
@@ -35,7 +34,6 @@ namespace AK
         static const AkUniqueID MUSIC_AMBIENCE_FIRST_TIME_MONSTER = 1832321273U;
         static const AkUniqueID MUSIC_AMBIENCE_FIRST_TIME_STATION = 3531297571U;
         static const AkUniqueID MUSIC_AMBIENCE_LOFITHEME = 1959405895U;
-        static const AkUniqueID OXYGEN_RECHARGE = 1561348471U;
         static const AkUniqueID PAUSE_MENU_IN = 3382955325U;
         static const AkUniqueID PAUSE_MENU_OUT = 2397763428U;
         static const AkUniqueID PLAY_AUSTIN = 3408260292U;
@@ -48,7 +46,6 @@ namespace AK
         static const AkUniqueID SMALLDOORCLOSECREAK = 779185414U;
         static const AkUniqueID SMALLDOOROPENCLICK = 1277509966U;
         static const AkUniqueID SMALLDOOROPENCREAK = 488029002U;
-        static const AkUniqueID WATERTANKS = 208978453U;
     } // namespace EVENTS
 
     namespace STATES
@@ -82,18 +79,6 @@ namespace AK
 
     namespace SWITCHES
     {
-        namespace AMBIENCE_SWITCH
-        {
-            static const AkUniqueID GROUP = 1162348424U;
-
-            namespace SWITCH
-            {
-                static const AkUniqueID BIG = 647611021U;
-                static const AkUniqueID MEDIUM = 2849147824U;
-                static const AkUniqueID SMALL = 1846755610U;
-            } // namespace SWITCH
-        } // namespace AMBIENCE_SWITCH
-
         namespace FOOTSTEPS_MATERIAL
         {
             static const AkUniqueID GROUP = 1682461626U;
@@ -113,6 +98,8 @@ namespace AK
             {
                 static const AkUniqueID ELECTRONICS_ROOM = 2572679272U;
                 static const AkUniqueID HALLWAY = 2198133169U;
+                static const AkUniqueID LABORATORY1 = 2864961111U;
+                static const AkUniqueID LABORATORY2 = 2864961108U;
                 static const AkUniqueID OBSERVATION_DECK = 3464770571U;
                 static const AkUniqueID SECURITY_ROOM = 3965376459U;
             } // namespace SWITCH

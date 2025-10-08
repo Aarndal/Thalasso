@@ -9,7 +9,7 @@ public class InteractiveTrigger : Trigger, IAmInteractive
 
     private Collider _interactiveCollider = default;
 
-    public bool IsActivatable => IsTriggerable;
+    public virtual bool IsActivatable => IsTriggerable;
 
     protected override void Awake()
     {

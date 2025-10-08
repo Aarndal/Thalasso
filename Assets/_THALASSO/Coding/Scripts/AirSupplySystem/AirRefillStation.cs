@@ -6,7 +6,7 @@ using UnityEngine;
 namespace AirSupplySystem
 {
     [DisallowMultipleComponent]
-    public class AirRefillStation : MonoBehaviour, IAmInteractive
+    public class AirRefillStation : InteractiveTrigger
     {
         // Serialized Fields
         [Header("References")]
@@ -48,7 +48,7 @@ namespace AirSupplySystem
                 }
             }
         }
-        public bool IsActivatable => _isActive && !_isRecharging;
+        public override bool IsActivatable => _isActive && !_isRecharging && _isTriggerable;
         public float MaxAirTankCapacity => _airTankData != null ? _airTankData.MaxAirTankCapacity : 0.0f;
 
         // Events
@@ -59,8 +59,10 @@ namespace AirSupplySystem
 
 
         #region Unity Lifecycle Methods
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+
             if (_airTankData == null)
             {
 #if UNITY_EDITOR
@@ -91,8 +93,10 @@ namespace AirSupplySystem
             AirRefillingStopped -= OnAirRefillingStopped;
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
+
             _cancellationTokenSource?.Cancel();
             _cancellationTokenSource?.Dispose();
         }
@@ -132,8 +136,10 @@ namespace AirSupplySystem
         }
         #endregion
 
-        public void Interact(Transform transform)
+        public override void Interact(Transform transform)
         {
+            base.Interact(transform);
+
             if (!IsActivatable)
                 return;
 

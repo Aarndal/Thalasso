@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -70,6 +71,9 @@ namespace WwiseHelper
                 case ResponderState.On:
                     TurnOn();
                     break;
+                case ResponderState.Switch:
+                    Switch();
+                    break;
                 default:
                     TurnOn();
                     break;
@@ -140,6 +144,22 @@ namespace WwiseHelper
 
             _eventReceiver = gameObject;
 #endif
+        }
+
+        protected void Switch()
+        {
+            switch (CurrentState)
+            {
+                case ResponderState.On:
+                    TurnOff();
+                    break;
+                case ResponderState.Off:
+                    TurnOn();
+                    break;
+                default:
+                    TurnOn();
+                    break;
+            }
         }
 
         protected void TurnOff()
