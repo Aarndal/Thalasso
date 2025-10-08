@@ -30,10 +30,12 @@ namespace AirSupplySystem
             get => _currentAirTankCapacity;
             set
             {
-                if (value == _currentAirTankCapacity)
+                if (value == _currentAirTankCapacity || value > MaxAirTankCapacity || value < 0.0f)
                     return;
 
                 _currentAirTankCapacity = Mathf.Clamp(value, 0.0f, MaxAirTankCapacity);
+
+                AirTankCapacityChanged?.Invoke(_currentAirTankCapacity);
 
                 if (_currentAirTankCapacity <= 0.0f)
                 {
@@ -53,6 +55,7 @@ namespace AirSupplySystem
 
         // Events
         public event Action AirRefillingStopped;
+        public event Action<float> AirTankCapacityChanged;
         public event Action AirTankEmptied;
         public event Action AirTankFull;
         public event Action AirTankRecharging;
