@@ -30,7 +30,7 @@ namespace AirSupplySystem
             get => _currentAirTankCapacity;
             set
             {
-                if (value == _currentAirTankCapacity || value > MaxAirTankCapacity || value < 0.0f)
+                if (value == _currentAirTankCapacity)
                     return;
 
                 _currentAirTankCapacity = Mathf.Clamp(value, 0.0f, MaxAirTankCapacity);

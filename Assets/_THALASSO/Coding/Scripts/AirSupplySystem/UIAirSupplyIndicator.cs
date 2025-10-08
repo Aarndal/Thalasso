@@ -3,7 +3,6 @@ using UnityEngine.UI;
 
 namespace AirSupplySystem
 {
-    [RequireComponent(typeof(Image))]
     public class UIAirSupplyIndicator : MonoBehaviour
     {
         [SerializeField]
