@@ -6,7 +6,7 @@ using UnityEngine;
 namespace AirSupplySystem
 {
     [DisallowMultipleComponent]
-    public class AirRefillStation : InteractiveTrigger
+    public class AirRefillStation : OperableTrigger // Refactor to Responder and add additional OxygenTankTrigger class
     {
         // Serialized Fields
         [Header("References")]

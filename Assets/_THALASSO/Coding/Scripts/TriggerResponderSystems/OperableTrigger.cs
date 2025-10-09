@@ -2,7 +2,7 @@ using UnityEngine;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Collider))]
-public class InteractiveTrigger : Trigger, IAmOperable
+public class OperableTrigger : Trigger, IAmOperable
 {
     [SerializeField]
     protected ResponderState _triggeringResponderState = ResponderState.Switch;

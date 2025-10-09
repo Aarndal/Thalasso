@@ -1,7 +1,7 @@
 ﻿using ProgressionTracking;
 using UnityEngine;
 
-public class ProgressableInteractiveTrigger : InteractiveTrigger
+public class ProgressableInteractiveTrigger : OperableTrigger
 {
     [SerializeField]
     protected SO_ProgressionTracker _progressionTracker = default;

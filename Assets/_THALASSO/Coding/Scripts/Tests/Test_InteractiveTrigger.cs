@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(MeshRenderer), typeof(MeshFilter))]
-public class Test_InteractiveTrigger : InteractiveTrigger
+public class Test_InteractiveTrigger : OperableTrigger
 {
     [SerializeField]
     private Color _baseColor = Color.white;
