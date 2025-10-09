@@ -1,7 +1,7 @@
 ﻿using ProgressionTracking;
 using UnityEngine;
 
-public class Test_InteractiveSolvableObject : SolvableObject, IAmInteractive
+public class Test_InteractiveSolvableObject : SolvableObject, IAmOperable
 {
     [SerializeField]
     private bool _isActivatable = true;
@@ -10,7 +10,7 @@ public class Test_InteractiveSolvableObject : SolvableObject, IAmInteractive
 
     private MeshRenderer _meshRenderer = default;
 
-    public bool IsActivatable { get => _isActivatable; private set => _isActivatable = value; }
+    public bool IsOperable { get => _isActivatable; private set => _isActivatable = value; }
 
     private void Awake()
     {
@@ -29,15 +29,15 @@ public class Test_InteractiveSolvableObject : SolvableObject, IAmInteractive
     {
         _meshRenderer.material.color = IsSolved ? Color.green : _baseColor;
 
-        IsActivatable = !IsSolved;
+        IsOperable = !IsSolved;
     }
 
-    public void Interact(Transform transform)
+    public void Operate(Transform transform)
     {
         if (IsSolved)
-            IsActivatable = false;
+            IsOperable = false;
 
-        if (!IsActivatable)
+        if (!IsOperable)
             return;
 
         Solve();

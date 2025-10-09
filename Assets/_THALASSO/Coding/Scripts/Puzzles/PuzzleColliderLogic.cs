@@ -1,7 +1,7 @@
 using Unity.Cinemachine;
 using UnityEngine;
 
-public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
+public class PuzzleColliderLogic : MonoBehaviour, IAmOperable
 {
     [Header("References")]
     [SerializeField] private SO_GameInputReader _input;
@@ -26,7 +26,7 @@ public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
 
     private readonly bool isActivatable = true;
 
-    public bool IsActivatable => isActivatable;
+    public bool IsOperable => isActivatable;
 
     private void Awake()
     {
@@ -49,7 +49,7 @@ public class PuzzleColliderLogic : MonoBehaviour, IAmInteractive
         cinemachineCamera = FindAnyObjectByType<CinemachineCamera>();
     }
 
-    public void Interact(Transform transform)
+    public void Operate(Transform transform)
     {
         if (inAnimation)
             return;

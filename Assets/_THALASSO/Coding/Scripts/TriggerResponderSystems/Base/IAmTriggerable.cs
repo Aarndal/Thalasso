@@ -3,12 +3,10 @@ using UnityEngine;
 
 public interface IAmTriggerable
 {
-    bool IsTriggerable { get; }
+    bool IsActivatable { get; }
 
-    event Action<GameObject, string> CannotBeTriggered;
+    event Action<GameObject, string> CannotBeActivated;
     event Action<GameObject, ResponderState, GameObject> IsTriggeredBy;
 
     void ActivateTrigger(GameObject triggeringObject, ResponderState responderState);
-
-    void SwitchIsTriggerable();
 }

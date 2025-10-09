@@ -2,7 +2,7 @@ using UnityEngine;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(MeshRenderer), typeof(MeshFilter))]
-public class Test_InteractiveObject : MonoBehaviour, IAmInteractive
+public class Test_InteractiveObject : MonoBehaviour, IAmOperable
 {
     [SerializeField]
     private bool _isActivatable = true;
@@ -11,7 +11,7 @@ public class Test_InteractiveObject : MonoBehaviour, IAmInteractive
 
     private MeshRenderer _meshRenderer = default;
 
-    public bool IsActivatable => _isActivatable;
+    public bool IsOperable => _isActivatable;
 
     private void Awake()
     {
@@ -23,9 +23,9 @@ public class Test_InteractiveObject : MonoBehaviour, IAmInteractive
         _meshRenderer.material.color = _baseColor;
     }
 
-    public void Interact(Transform transform)
+    public void Operate(Transform transform)
     {
-        if (!IsActivatable)
+        if (!IsOperable)
             return;
 
         if (_meshRenderer.material.color == _baseColor)

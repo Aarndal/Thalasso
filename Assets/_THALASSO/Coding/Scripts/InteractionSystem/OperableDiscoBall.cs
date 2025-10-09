@@ -5,7 +5,7 @@ using UnityEngine;
 [Serializable]
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Rigidbody), typeof(SphereCollider))]
-public class InteractiveDiscoBall : MonoBehaviour, IAmInteractive, IAmMovable
+public class OperableDiscoBall : MonoBehaviour, IAmOperable, IAmMovable
 {
     [SerializeField]
     private bool _isActivatable = true;
@@ -18,7 +18,7 @@ public class InteractiveDiscoBall : MonoBehaviour, IAmInteractive, IAmMovable
     private Vector3 _kickDirection = Vector3.zero;
     private float _discoTime = 0.0f;
 
-    public bool IsActivatable => _isActivatable;
+    public bool IsOperable => _isActivatable;
     public float KickForce
     {
         get => _kickForce;
@@ -55,9 +55,9 @@ public class InteractiveDiscoBall : MonoBehaviour, IAmInteractive, IAmMovable
 
     private void OnDisable() => IsKicked -= Move;
 
-    public void Interact(Transform transform)
+    public void Operate(Transform transform)
     {
-        if (!IsActivatable)
+        if (!IsOperable)
             return;
 
         _kickDirection = transform.forward;

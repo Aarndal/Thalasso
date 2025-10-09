@@ -16,14 +16,14 @@ namespace WwiseHelper
             if (!IsValidTrigger(triggeringGameObject))
                 return;
 
-            if (IsTriggerable)
+            if (IsActivatable)
             {
                 _wwiseSwitch.SetValue(triggeringGameObject);
                 _isTriggeredBy?.Invoke(gameObject, responderState, triggeringGameObject);
             }
             else
             {
-                _cannotBeTriggered?.Invoke(gameObject, _cannotBeTriggeredMessage);
+                _cannotBeActivated?.Invoke(gameObject, _cannotBeActivatedMessage);
             }
         }
 

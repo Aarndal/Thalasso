@@ -13,8 +13,8 @@ public class ProgressableInteractiveTrigger : InteractiveTrigger
 
     public override void ActivateTrigger(GameObject triggeringGameObject, ResponderState responderState)
     {
-        if (_progressionTracker.IsCompleted != IsTriggerable)
-            SwitchIsTriggerable();
+        if (_progressionTracker.IsCompleted != IsOperable)
+            SwitchTriggerState();
 
         base.ActivateTrigger(triggeringGameObject, responderState);
     }

@@ -28,7 +28,7 @@ public class UnityCallbackTrigger : Trigger
 
     private void Reset()
     {
-        _isTriggerable = true;
+        _isActivatable = true;
         _isOneTimeTrigger = false;
     }
 
@@ -77,9 +77,9 @@ public class UnityCallbackTrigger : Trigger
         if (!IsValidTrigger(triggeringGameObject))
             return;
 
-        if (IsTriggerable)
+        if (IsActivatable)
             _isTriggeredBy?.Invoke(gameObject, responderState, gameObject);
         else
-            _cannotBeTriggered?.Invoke(gameObject, _cannotBeTriggeredMessage);
+            _cannotBeActivated?.Invoke(gameObject, _cannotBeActivatedMessage);
     }
 }

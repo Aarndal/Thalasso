@@ -50,7 +50,7 @@ namespace AirSupplySystem
                 }
             }
         }
-        public override bool IsActivatable => _isActive && !_isRecharging && _isTriggerable;
+        public override bool IsOperable => _isActive && !_isRecharging && _isActivatable;
         public float MaxAirTankCapacity => _airTankData != null ? _airTankData.MaxAirTankCapacity : 0.0f;
 
         // Events
@@ -139,11 +139,11 @@ namespace AirSupplySystem
         }
         #endregion
 
-        public override void Interact(Transform transform)
+        public override void Operate(Transform transform)
         {
-            base.Interact(transform);
+            base.Operate(transform);
 
-            if (!IsActivatable)
+            if (!IsOperable)
                 return;
 
             if (!transform.gameObject.TryGetComponent(out AirSupply airSupply))

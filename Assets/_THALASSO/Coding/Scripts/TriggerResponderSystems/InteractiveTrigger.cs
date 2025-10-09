@@ -2,14 +2,14 @@ using UnityEngine;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Collider))]
-public class InteractiveTrigger : Trigger, IAmInteractive
+public class InteractiveTrigger : Trigger, IAmOperable
 {
     [SerializeField]
     protected ResponderState _triggeringResponderState = ResponderState.Switch;
 
     private Collider _interactiveCollider = default;
 
-    public virtual bool IsActivatable => IsTriggerable;
+    public virtual bool IsOperable => base.IsActivatable;
 
     protected override void Awake()
     {
@@ -27,7 +27,7 @@ public class InteractiveTrigger : Trigger, IAmInteractive
         _triggeringResponderState = ResponderState.Switch;
     }
 
-    public virtual void Interact(Transform transform)
+    public virtual void Operate(Transform transform)
     {
         ActivateTrigger(transform.gameObject, _triggeringResponderState);
     }
@@ -37,9 +37,9 @@ public class InteractiveTrigger : Trigger, IAmInteractive
         if (!IsValidTrigger(triggeringGameObject))
             return;
 
-        if (IsTriggerable)
+        if (base.IsActivatable)
             _isTriggeredBy?.Invoke(gameObject, responderState, triggeringGameObject);
         else
-            _cannotBeTriggered?.Invoke(gameObject, _cannotBeTriggeredMessage);
+            _cannotBeActivated?.Invoke(gameObject, _cannotBeActivatedMessage);
     }
 }

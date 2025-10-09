@@ -28,13 +28,13 @@ public class DoorResponder : Responder
 
     public override void Respond(GameObject triggeringObject, ResponderState responderState)
     {
-        if (_triggers.TrueForAll(o => !o.Interface.IsTriggerable) && !_doorAnimation.IsLocked)
+        if (_triggers.TrueForAll(o => !o.Interface.IsActivatable) && !_doorAnimation.IsLocked)
         {
             _doorAnimation.Lock();
             return;
         }
 
-        if (_triggers.TrueForAll(o => o.Interface.IsTriggerable) && _doorAnimation.IsLocked)
+        if (_triggers.TrueForAll(o => o.Interface.IsActivatable) && _doorAnimation.IsLocked)
         {
             _doorAnimation.Unlock();
         }

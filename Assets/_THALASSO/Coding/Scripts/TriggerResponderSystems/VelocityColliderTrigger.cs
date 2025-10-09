@@ -9,7 +9,7 @@ public class VelocityColliderTrigger : ColliderTrigger
         if (_collider != null)
             _collider.isTrigger = true;
         
-        _isTriggerable = true;
+        _isActivatable = true;
         _isOneTimeTrigger = false;
 
         _triggerSettings.TryAdd(ResponderState.On, (TriggerMode.OnTriggerEnter | TriggerMode.OnTriggerStay));

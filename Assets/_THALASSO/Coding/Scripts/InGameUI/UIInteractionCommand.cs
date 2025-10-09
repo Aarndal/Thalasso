@@ -19,7 +19,7 @@ public class UIInteractionCommand : MonoBehaviour
     private Color _nonActivatableColor = Color.red;
 
     private Image _dot = default;
-    private IAmInteractive _currentInteractiveObject = default;
+    private IAmOperable _currentInteractiveObject = default;
 
     private UIImageSpriteLooper _spriteLooper = default;
 
@@ -83,7 +83,7 @@ public class UIInteractionCommand : MonoBehaviour
 
     private void OnInteractiveTargetChanged(object[] args)
     {
-        if (args[1] is IAmInteractive interactiveObject)
+        if (args[1] is IAmOperable interactiveObject)
         {
             if (!_interactionHint.activeInHierarchy || !_spriteLooper.enabled)
             {
@@ -122,7 +122,7 @@ public class UIInteractionCommand : MonoBehaviour
         if (_currentInteractiveObject == null)
             return;
 
-        if (_currentInteractiveObject.IsActivatable)
+        if (_currentInteractiveObject.IsOperable)
             _spriteLooper.SetColor(_activatableColor);
         else
             _spriteLooper.SetColor(_nonActivatableColor);

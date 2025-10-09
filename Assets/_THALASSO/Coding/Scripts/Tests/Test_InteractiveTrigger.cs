@@ -17,14 +17,14 @@ public class Test_InteractiveTrigger : InteractiveTrigger
     private void Start() =>
         _meshRenderer.material.color = _baseColor;
 
-    public override void Interact(Transform transform)
+    public override void Operate(Transform transform)
     {
         if (_meshRenderer.material.color == _baseColor)
             _meshRenderer.material.color = Color.red;
         else
             _meshRenderer.material.color = _baseColor;
 
-        base.Interact(transform);
+        base.Operate(transform);
     }
 
 }

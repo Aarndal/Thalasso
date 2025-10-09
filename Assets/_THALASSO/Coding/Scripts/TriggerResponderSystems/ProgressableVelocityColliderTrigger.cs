@@ -13,15 +13,15 @@ public sealed class ProgressableVelocityColliderTrigger : VelocityColliderTrigge
         if (_collider != null)
             _collider.isTrigger = true;
 
-        _isTriggerable = false;
+        _isActivatable = false;
         _isOneTimeTrigger = false;
         _triggerSettings.TryAdd(ResponderState.On, (TriggerMode.OnTriggerEnter | TriggerMode.OnTriggerStay));
     }
 
     public override void ActivateTrigger(GameObject triggeringGameObject, ResponderState triggerState)
     {
-        if (_progressionTracker.IsCompleted != IsTriggerable)
-            SwitchIsTriggerable();
+        if (_progressionTracker.IsCompleted != IsActivatable)
+            SwitchTriggerState();
 
         base.ActivateTrigger(triggeringGameObject, triggerState);
     }

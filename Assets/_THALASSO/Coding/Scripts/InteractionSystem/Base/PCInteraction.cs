@@ -9,7 +9,7 @@ public class PCInteraction : MonoBehaviour
     [SerializeField]
     private TargetProvider _targetProvider = default;
 
-    private IAmInteractive _currentTarget = null;
+    private IAmOperable _currentTarget = null;
 
     private void Awake()
     {
@@ -18,7 +18,7 @@ public class PCInteraction : MonoBehaviour
         //throw new ArgumentNullException(nameof(_input), "Input is not set in PCInteraction script.");
 
         if (_targetProvider == null)
-            _targetProvider = GetComponentInChildren<InteractiveObjectTargetProvider>();
+            _targetProvider = GetComponentInChildren<OperableObjectTargetProvider>();
 
         if (_targetProvider == null)
             Debug.LogError("TargetProvider is not set in PCInteraction script.");
@@ -40,7 +40,7 @@ public class PCInteraction : MonoBehaviour
     private void OnInteractIsTriggered(bool isInteractTriggered)
     {
         if (isInteractTriggered && _targetProvider.HasTarget)
-            _currentTarget.Interact(transform);
+            _currentTarget.Operate(transform);
     }
 
     private void OnTargetChanged(Transform oldTarget, Transform newTarget)
@@ -49,7 +49,7 @@ public class PCInteraction : MonoBehaviour
             _currentTarget = null;
 
         if (newTarget != null)
-            _currentTarget = newTarget.GetComponent<IAmInteractive>();
+            _currentTarget = newTarget.GetComponent<IAmOperable>();
     }
 
 }

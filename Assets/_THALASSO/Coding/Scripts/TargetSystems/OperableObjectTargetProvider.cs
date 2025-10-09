@@ -4,7 +4,7 @@ using UnityEngine;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(CapsuleCollider))]
-public sealed class InteractiveObjectTargetProvider : TargetProvider
+public sealed class OperableObjectTargetProvider : TargetProvider
 {
     [Header("Variables")]
     [SerializeField]
@@ -23,7 +23,7 @@ public sealed class InteractiveObjectTargetProvider : TargetProvider
     private CapsuleCollider _capsuleCollider = default;
     private RaycastHit[] _hitTargets;
     private int _numTargetsFound = 0;
-    private readonly List<Transform> _closestTargets = new();
+    private readonly List<Transform> _operableTargets = new();
 
     #region Unity MonoBehaviour Methods
     private void Awake()
@@ -83,7 +83,7 @@ public sealed class InteractiveObjectTargetProvider : TargetProvider
     }
     #endregion
 
-    public override Transform GetTarget() => Target = GetClosestInteractiveObject();
+    public override Transform GetTarget() => Target = GetNearestOperableTarget();
 
     private bool IsInTriggeringLayerMasks(GameObject triggeringGameObject)
     {
@@ -95,9 +95,9 @@ public sealed class InteractiveObjectTargetProvider : TargetProvider
         return false;
     }
 
-    private Transform GetClosestInteractiveObject()
+    private Transform GetNearestOperableTarget()
     {
-        _closestTargets.Clear();
+        _operableTargets.Clear();
 
         Vector3 sphereCastOrigin = transform.position + transform.forward * _sphereCastRadius;
         float sphereCastMaxDistance = _sphereCastDistance;
@@ -108,14 +108,14 @@ public sealed class InteractiveObjectTargetProvider : TargetProvider
         if (_numTargetsFound <= 0)
             return null;
 
-        // Filter the results to include only objects that implement the IAmInteractive interface
+        // Filter the results to include only objects that implement the right interface
         for (int i = 0; i < _numTargetsFound; i++)
         {
-            if (_hitTargets[i].transform.TryGetComponent<IAmInteractive>(out _))
-                _closestTargets.Add(_hitTargets[i].transform);
+            if (_hitTargets[i].transform.TryGetComponent<IAmOperable>(out _))
+                _operableTargets.Add(_hitTargets[i].transform);
         }
 
-        Transform closestTarget = null;
+        Transform nearestOperableTarget = null;
         float cosPhiToClosestTarget = 0.0f;
         float sqrDistanceToClosestTarget = float.MaxValue;
 
@@ -126,20 +126,20 @@ public sealed class InteractiveObjectTargetProvider : TargetProvider
         QueryTriggerInteraction queryTriggerInteraction;
 
         // Iterate through the filtered targets to find the closest one
-        for (int i = 0; i < _closestTargets.Count; i++)
+        for (int i = 0; i < _operableTargets.Count; i++)
         {
-            if (_closestTargets[i] == null)
+            if (_operableTargets[i] == null)
                 continue;
 
-            directionToTarget = _closestTargets[i].position - transform.position;
+            directionToTarget = _operableTargets[i].position - transform.position;
             sqrDistanceToTarget = Vector3.SqrMagnitude(directionToTarget);
             cosPhiToTarget = Vector3.Dot(transform.forward.normalized, directionToTarget.normalized);
 
             // Determine the query trigger interaction based on whether the target's collider is a trigger
-            queryTriggerInteraction = (_closestTargets[i].TryGetComponent(out Collider collider) && collider.isTrigger) ? QueryTriggerInteraction.Collide : QueryTriggerInteraction.Ignore;
+            queryTriggerInteraction = (_operableTargets[i].TryGetComponent(out Collider collider) && collider.isTrigger) ? QueryTriggerInteraction.Collide : QueryTriggerInteraction.Ignore;
 
             // Perform a raycast to ensure there are no obstacles between the object and the target
-            if (Physics.Raycast(sphereCastOrigin, transform.forward, out RaycastHit hitinfo, sphereCastMaxDistance + _sphereCastRadius, ~_ignoredLayerMasks, queryTriggerInteraction) && hitinfo.transform != _closestTargets[i])
+            if (Physics.Raycast(sphereCastOrigin, transform.forward, out RaycastHit hitinfo, sphereCastMaxDistance + _sphereCastRadius, ~_ignoredLayerMasks, queryTriggerInteraction) && hitinfo.transform != _operableTargets[i])
                 continue;
 
             // Skip the target if it doesn't meet the minimum angle
@@ -157,17 +157,17 @@ public sealed class InteractiveObjectTargetProvider : TargetProvider
             // Update the closest target if the current target is closer and meets the criteria
             cosPhiToClosestTarget = cosPhiToTarget;
             sqrDistanceToClosestTarget = sqrDistanceToTarget;
-            closestTarget = _closestTargets[i];
+            nearestOperableTarget = _operableTargets[i];
         }
 
-        return closestTarget;
+        return nearestOperableTarget;
     }
 
     private void OnTargetChanged(Transform oldTarget, Transform newTarget)
     {
         object[] data = new object[2];
 
-        if (newTarget != null && newTarget.TryGetComponent(out IAmInteractive newInteractive))
+        if (newTarget != null && newTarget.TryGetComponent(out IAmOperable newInteractive))
             data[1] = newInteractive;
         
         if (oldTarget != null)

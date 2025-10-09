@@ -5,7 +5,7 @@ namespace TestSceneScripts
     internal class Test_BallShootingLaneResponder : Responder
     {
         [SerializeField]
-        private InteractiveDiscoBall _ball = default;
+        private OperableDiscoBall _ball = default;
         [SerializeField]
         private float _impulse = 50f;
 
@@ -14,7 +14,7 @@ namespace TestSceneScripts
             _ball.Rigidbody.linearVelocity = Vector3.zero;
             _ball.transform.SetPositionAndRotation(transform.position, transform.rotation);
             _ball.SetKickForece(_impulse);
-            _ball.Interact(transform);
+            _ball.Operate(transform);
         }
     }
 }
