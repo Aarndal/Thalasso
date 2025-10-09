@@ -1,8 +1,8 @@
+using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using UnityEngine;
 
 
@@ -10,9 +10,13 @@ using UnityEngine;
 public class SO_WwiseEvent : ScriptableObject
 {
 #if WWISE_2024_OR_LATER
+    [Header("References")]
     [SerializeField]
     private AK.Wwise.Event _wwiseEvent = default;
-    [SerializeField]
+
+    [Header("Settings")]
+    [SerializeField,
+     Tooltip("Determines if the event should be treated as a one-time event. One-time events will only play once during a playthrough.")]
     private bool _isOneTimeEvent = false;
 
     private uint _maxPlayingID = 50; // Maximum number of PlayingIDs to search for on one GameObject.
@@ -118,7 +122,7 @@ public class SO_WwiseEvent : ScriptableObject
     /// <param name="akGameObject">Emitter Object</param>
     /// <param name="delayInSeconds"></param>
     /// <returns></returns>
-    public async Task<bool> PlayWithDelay(AkGameObj akGameObject, float delayInSeconds)
+    public async UniTask<bool> PlayWithDelay(AkGameObj akGameObject, float delayInSeconds)
     {
         if (delayInSeconds < 0.0f)
             return false;
@@ -219,14 +223,14 @@ public class SO_WwiseEvent : ScriptableObject
         return true;
     }
 
-    private async Task<bool> DelaySound(GameObject @gameObject, float delayInSeconds)
+    private async UniTask<bool> DelaySound(GameObject @gameObject, float delayInSeconds)
     {
         CancellationTokenSource cts = new();
         _cts.Add(cts);
 
         try
         {
-            await Task.Delay(TimeSpan.FromSeconds(delayInSeconds), cts.Token);
+            await UniTask.Delay(TimeSpan.FromSeconds(delayInSeconds), cancellationToken: cts.Token, ignoreTimeScale: false);
         }
         catch
         {

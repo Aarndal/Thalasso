@@ -181,10 +181,14 @@ namespace WwiseHelper
             foreach (var audioEvent in AudioEvents.Values)
             {
                 if (!PlayedOneTimeAudioEvents.Contains(audioEvent))
+                {
                     audioEvent.Play(_akGameObject);
 
-                if (audioEvent.IsOneTimeEvent)
-                    PlayedOneTimeAudioEvents.Add(audioEvent);
+                    if (audioEvent.IsOneTimeEvent)
+                    {
+                        PlayedOneTimeAudioEvents.Add(audioEvent);
+                    }
+                }
             }
 #endif
         }
