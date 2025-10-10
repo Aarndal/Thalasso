@@ -20,7 +20,7 @@ public class DoorResponder : Responder
             Debug.LogWarningFormat("<color=yellow>DoorResponder</color> {0} (ID: {1}) <color=yellow>has no DoorAnimation assigned!</color>", gameObject.name, gameObject.GetInstanceID());
     }
 
-    protected override void OnCannotBeTriggered(GameObject @gameObject, string messageText)
+    protected override void OnCannotBeActivated(GameObject @gameObject, string messageText)
     {
         if (!_doorAnimation.IsLocked)
             _doorAnimation.Lock();

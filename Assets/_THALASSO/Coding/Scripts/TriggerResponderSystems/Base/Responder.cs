@@ -11,15 +11,21 @@ public abstract class Responder : MonoBehaviour, IAmResponsive
     [SerializeField]
     protected List<MySerializableInterface<IAmTriggerable>> _triggers = new();
 
+    protected ResponderState _currentState;
+
     #region Unity Lifecycle Methods
-    protected virtual void Awake() => ValidateTriggers();
+    protected virtual void Awake()
+    {
+        _currentState = _startState;
+        ValidateTriggers();
+    }
 
     protected virtual void OnEnable()
     {
         foreach (var trigger in _triggers)
         {
             trigger.Interface.IsTriggeredBy += OnIsTriggeredBy;
-            trigger.Interface.CannotBeActivated += OnCannotBeTriggered;
+            trigger.Interface.CannotBeActivated += OnCannotBeActivated;
         }
     }
 
@@ -27,7 +33,7 @@ public abstract class Responder : MonoBehaviour, IAmResponsive
     {
         foreach (var trigger in _triggers)
         {
-            trigger.Interface.CannotBeActivated -= OnCannotBeTriggered;
+            trigger.Interface.CannotBeActivated -= OnCannotBeActivated;
             trigger.Interface.IsTriggeredBy -= OnIsTriggeredBy;
         }
     }
@@ -35,7 +41,7 @@ public abstract class Responder : MonoBehaviour, IAmResponsive
 
     public abstract void Respond(GameObject triggeringObject, ResponderState responderState);
 
-    protected virtual void OnCannotBeTriggered(GameObject triggerObject, string messageText) { }
+    protected virtual void OnCannotBeActivated(GameObject triggerObject, string messageText) { }
 
     protected virtual void OnIsTriggeredBy(GameObject triggerObject, ResponderState responderState, GameObject triggeringObject) => Respond(triggeringObject, responderState);
 

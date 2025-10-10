@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +7,7 @@ namespace AirSupplySystem
     public class UIFillAmountIndicator : MonoBehaviour
     {
         [SerializeField]
-        private AirRefillStation _airRefillStation = null;
+        private OxygenRefillStationResponder _airRefillStation = null;
 
         [SerializeField]
         private Gradient _colorGradient = null;
@@ -27,7 +26,7 @@ namespace AirSupplySystem
             if (_airRefillStation == null)
             {
 #if UNITY_EDITOR
-                Debug.LogErrorFormat("No {1} assigned on {0}. Please assign an {1} in the inspector.", gameObject.name, typeof(AirRefillStation).Name);
+                Debug.LogErrorFormat("No {1} assigned on {0}. Please assign an {1} in the inspector.", gameObject.name, typeof(OxygenRefillStationResponder).Name);
 #endif
             }
         }
@@ -36,19 +35,27 @@ namespace AirSupplySystem
         {
             if (_airRefillStation != null)
             {
-                _airRefillStation.AirTankCapacityChanged += OnAirTankCapacityChanged;
+                _airRefillStation.TankManager.CapacityChanged += OnAirTankCapacityChanged;
             }
         }
 
         private void Start()
         {
-            _image.fillAmount = _airRefillStation.CurrentAirTankCapacity / _airRefillStation.MaxAirTankCapacity;
+            _image.fillAmount = _airRefillStation.TankManager.FillingDegree;
             _image.color = _colorGradient.Evaluate(1 - _image.fillAmount);
+        }
+
+        private void OnDisable()
+        {
+            if (_airRefillStation != null)
+            {
+                _airRefillStation.TankManager.CapacityChanged -= OnAirTankCapacityChanged;
+            }
         }
 
         void OnAirTankCapacityChanged(float newFillAmount)
         {
-            _image.fillAmount = newFillAmount / _airRefillStation.MaxAirTankCapacity;
+            _image.fillAmount = _airRefillStation.TankManager.FillingDegree;
             _image.color = _colorGradient.Evaluate(1 - _image.fillAmount);
         }
     }
