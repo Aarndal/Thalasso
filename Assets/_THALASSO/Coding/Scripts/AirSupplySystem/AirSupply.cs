@@ -27,6 +27,7 @@ namespace AirSupplySystem
 #if UNITY_EDITOR
                 Debug.LogErrorFormat("AirSupplyData is not assigned for {0}", gameObject.name);
 #endif
+                _airSupplyData = ScriptableObject.CreateInstance<SOAirSupplyData>();
             }
 
             ResetAirSupply();
@@ -34,6 +35,16 @@ namespace AirSupplySystem
             if (_startWithDefaultRate)
             {
                 _airSupplyData.CurrentAirConsumptionRate = _airSupplyData.DefaultAirConsumptionRate;
+            }
+        }
+
+        private void OnValidate()
+        {
+            if (_airSupplyData == null)
+            {
+#if UNITY_EDITOR
+                Debug.LogWarningFormat("AirSupplyData is not assigned for {0}", gameObject.name);
+#endif
             }
         }
 

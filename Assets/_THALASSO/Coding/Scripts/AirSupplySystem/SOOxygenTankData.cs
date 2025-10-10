@@ -33,5 +33,7 @@ namespace AirSupplySystem
         public float FullRechargeCooldown => _fullRechargeCooldown;
         public float RechargeRate => _rechargeRate;
         public float DefaultAirRefillRate => _defaultAirRefillRate;
+        public float MaxAirRefillRate => _maxAirRefillRate;
+        public float MinAirRefillRate => _minAirRefillRate;
     }
 }

@@ -1,11 +1,14 @@
 ﻿using Cysharp.Threading.Tasks;
-using System;
 using System.Threading;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace AirSupplySystem
 {
+    /// <summary>
+    /// Manages the interaction between an oxygen tank and an air supply system.
+    /// Sets up the necessary services and handles the refilling process.
+    /// Manages State changes and ensures proper event handling.
+    /// </summary>
     [DisallowMultipleComponent]
     public sealed class OxygenRefillStationResponder : Responder
     {
@@ -15,14 +18,12 @@ namespace AirSupplySystem
         private SOOxygenTankData _oxygenTankData = null;
 
         // Private Members
-        private bool _isRecharging = false;
-        private CancellationTokenSource _cancellationTokenSource = null;
-
         private AirRefillService _airRefillService = null;
-        public OxygenTankManager TankManager = null;
+        private CancellationTokenSource _internalCTS = null;
 
-        // Events
-        public event Action AirRefillingStopped;
+        // Properties
+        public OxygenTankManager OxygenTank { get; private set; } = null;
+
 
         #region Unity Lifecycle Methods
         protected override void Awake()
@@ -31,66 +32,40 @@ namespace AirSupplySystem
 
             if (_oxygenTankData == null)
             {
-                Debug.LogError($"OxygenTankData is not assigned for {gameObject.name}", this);
+#if UNITY_EDITOR
+                Debug.LogErrorFormat("{1} is not assigned for {0}", gameObject.name, nameof(SOOxygenTankData));
+#endif
                 return;
             }
 
-            _cancellationTokenSource ??= new();
+            OxygenTank = new (_oxygenTankData);
 
-            TankManager = new OxygenTankManager(_oxygenTankData);
-        }
-
-        protected override void OnEnable()
-        {
-            base.OnEnable();
-
-            SubscribeToEvents();
-        }
-
-        protected override void OnDisable()
-        {
-            base.OnDisable();
-
-            UnsubscribeFromEvents();
+            _airRefillService = new();
+            _internalCTS ??= new();
         }
 
         private void OnDestroy()
         {
-            _cancellationTokenSource?.Cancel();
-            _cancellationTokenSource?.Dispose();
+            _internalCTS?.Cancel();
+         
+            _internalCTS?.Dispose();
+            _airRefillService?.Dispose();
+            OxygenTank?.Dispose();
+            
+            _internalCTS = null;
+            _airRefillService = null;
+            OxygenTank = null;
         }
         #endregion
 
 
-        #region Callback Functions
-        private async void OnAirRefillingStopped()
-        {
-            await TankManager.RechargeOxygenAsync(_cancellationTokenSource.Token);
-        }
-
-        private async void OnOxygenTankEmptied()
-        {
-            await TankManager.RechargeOxygenAsync(_cancellationTokenSource.Token);
-        }
-
-        private void OnOxygenTankFull()
-        {
-            _isRecharging = false;
-        }
-        #endregion
-
-
-        #region Public Methods
         public override void Respond(GameObject triggeringObject, ResponderState responderState)
         {
             if (!triggeringObject.TryGetComponent(out AirSupply airSupply))
             {
-                Debug.LogError($"No {nameof(AirSupply)} component found on {triggeringObject.name}", this);
-                return;
-            }
-
-            if (_isRecharging)
-            {
+#if UNITY_EDITOR
+                Debug.LogErrorFormat("No {1} component found on {0}!", triggeringObject.name, nameof(AirSupply));
+#endif
                 return;
             }
 
@@ -100,26 +75,18 @@ namespace AirSupplySystem
             }
 
             if (_currentState == ResponderState.On)
-                _airRefillService.RefillAirSupplyFromTankAsync(airSupply, TankManager, _cancellationTokenSource.Token).Forget();
+            {
+                _airRefillService.StartRefillProcessAsync(airSupply, OxygenTank, _internalCTS.Token).Forget();
+            }
             else
-                StopAirRefillingProcess();
+            {
+                // Cancel any ongoing refill process.
+                _internalCTS?.Cancel();
+                _internalCTS?.Dispose();
+                _internalCTS = new CancellationTokenSource();
+            }
         }
 
-        #endregion
-
-        #region Private Methods
-        /// <summary>
-        /// Cancels any ongoing air refilling process and sets the Responder state to Off.
-        /// </summary>
-        private void StopAirRefillingProcess()
-        {
-            if (_currentState != ResponderState.Off)
-                TrySetCurrentState(ResponderState.Off);
-
-            _cancellationTokenSource?.Cancel();
-
-            AirRefillingStopped?.Invoke();
-        }
 
         /// <summary>
         /// Will attempt to set the current state of the Responder.
@@ -131,7 +98,8 @@ namespace AirSupplySystem
         /// <returns></returns>
         private bool TrySetCurrentState(ResponderState responderState)
         {
-            if (_isRecharging)
+            // Cannot change state while recharging.
+            if (OxygenTank.IsRecharging)
             {
 #if UNITY_EDITOR
                 Debug.LogWarningFormat("{0} is currently recharging and cannot be used.", gameObject.name);
@@ -139,9 +107,11 @@ namespace AirSupplySystem
                 return false;
             }
 
+            // No state change needed.
             if (responderState != ResponderState.Switch && responderState == _currentState)
                 return false;
 
+            // If the requested state is None and the current state is Off, do nothing.
             if (responderState == ResponderState.None && _currentState == ResponderState.Off)
                 return false;
 
@@ -154,23 +124,5 @@ namespace AirSupplySystem
             };
             return true;
         }
-
-
-
-        // Event Subscription Methods
-        private void SubscribeToEvents()
-        {
-            AirRefillingStopped += OnAirRefillingStopped;
-            OxygenTankEmptied += OnOxygenTankEmptied;
-            OxygenTankFull += OnOxygenTankFull;
-        }
-
-        private void UnsubscribeFromEvents()
-        {
-            OxygenTankFull -= OnOxygenTankFull;
-            OxygenTankEmptied -= OnOxygenTankEmptied;
-            AirRefillingStopped -= OnAirRefillingStopped;
-        }
-        #endregion
     }
 }

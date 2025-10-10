@@ -10,15 +10,13 @@ namespace AirSupplySystem
     /// </summary>
     public class AirRefillService : IDisposable
     {
+        // Private Members
         private bool _disposedValue;
         private CancellationTokenSource _internalCTS = null;
 
-        // // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
-        // ~AirRefillService()
-        // {
-        //     // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
-        //     Dispose(disposing: false);
-        // }
+        // Events
+        public event Action AirRefillStarted;
+        public event Action AirRefillStopped;
 
 
         public void Dispose()
@@ -28,17 +26,17 @@ namespace AirSupplySystem
             GC.SuppressFinalize(this);
         }
 
-        public async UniTask RefillAirSupplyFromTankAsync(
+        public async UniTask StartRefillProcessAsync(
             AirSupply airSupply,
-            OxygenTankManager tankManager,
+            OxygenTankManager oxygenTank,
             CancellationToken externalToken)
         {
-            if (airSupply == null || tankManager == null)
+            if (airSupply == null || oxygenTank is null)
             {
                 throw new ArgumentNullException("AirSupply and OxygenTankManager cannot be null.");
             }
 
-            if (tankManager.IsRecharging)
+            if (oxygenTank.IsRecharging)
             {
 #if UNITY_EDITOR
                 Debug.LogWarning("Cannot refill air supply while the oxygen tank is recharging.");
@@ -46,13 +44,15 @@ namespace AirSupplySystem
                 return;
             }
 
+            // Cancel any existing refill process before starting a new one.
             _internalCTS?.Cancel();
+            _internalCTS = CancellationTokenSource.CreateLinkedTokenSource(externalToken);
+            var linkedToken = _internalCTS.Token;
+            
+            AirRefillStarted?.Invoke();
 
             // Temporarily stop air consumption while refilling to ensure accurate refill amount.
             airSupply.SetAirConsumptionState(false);
-
-            _internalCTS = CancellationTokenSource.CreateLinkedTokenSource(externalToken);
-            var linkedToken = _internalCTS.Token;
 
             try
             {
@@ -60,18 +60,21 @@ namespace AirSupplySystem
                 while (airSupply.AirSupplyData.CurrentAirSupply < airSupply.MaxAirSupply &&
                        !linkedToken.IsCancellationRequested)
                 {
-                    if (!tankManager.TryReleaseOxygen(out releasedAmount))
+                    if (!oxygenTank.TryReleaseOxygen(out releasedAmount))
                         break;
                     
                     airSupply.AirSupplyData.CurrentAirSupply += releasedAmount;
 
                     await UniTask.Yield(linkedToken);
                 }
+
+                AirRefillStopped?.Invoke();
+                linkedToken.ThrowIfCancellationRequested();
             }
             catch (OperationCanceledException ex)
             {
 #if UNITY_EDITOR
-                Debug.LogWarningFormat("Air refill process was cancelled: {0}", ex.Message);
+                Debug.LogWarningFormat("Air refill process was stopped manually: {0}", ex.Message);
 #endif
             }
             finally
@@ -80,7 +83,6 @@ namespace AirSupplySystem
                 _internalCTS?.Dispose();
             }
         }
-        
 
         protected virtual void Dispose(bool disposing)
         {
@@ -92,9 +94,7 @@ namespace AirSupplySystem
                     _internalCTS?.Dispose();
                     _internalCTS = null;
                 }
-
-                // TODO: free unmanaged resources (unmanaged objects) and override finalizer
-                // TODO: set large fields to null
+                
                 _disposedValue = true;
             }
         }

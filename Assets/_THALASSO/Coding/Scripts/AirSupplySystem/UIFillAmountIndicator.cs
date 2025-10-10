@@ -35,13 +35,13 @@ namespace AirSupplySystem
         {
             if (_airRefillStation != null)
             {
-                _airRefillStation.TankManager.CapacityChanged += OnAirTankCapacityChanged;
+                _airRefillStation.OxygenTank.CapacityChanged += OnOxygenTankCapacityChanged;
             }
         }
 
         private void Start()
         {
-            _image.fillAmount = _airRefillStation.TankManager.FillingDegree;
+            _image.fillAmount = _airRefillStation.OxygenTank.FillingDegree;
             _image.color = _colorGradient.Evaluate(1 - _image.fillAmount);
         }
 
@@ -49,13 +49,13 @@ namespace AirSupplySystem
         {
             if (_airRefillStation != null)
             {
-                _airRefillStation.TankManager.CapacityChanged -= OnAirTankCapacityChanged;
+                _airRefillStation.OxygenTank.CapacityChanged -= OnOxygenTankCapacityChanged;
             }
         }
 
-        void OnAirTankCapacityChanged(float newFillAmount)
+        void OnOxygenTankCapacityChanged(float oldFillAmount, float newFillAmount, float fillingDegree)
         {
-            _image.fillAmount = _airRefillStation.TankManager.FillingDegree;
+            _image.fillAmount = fillingDegree;
             _image.color = _colorGradient.Evaluate(1 - _image.fillAmount);
         }
     }
