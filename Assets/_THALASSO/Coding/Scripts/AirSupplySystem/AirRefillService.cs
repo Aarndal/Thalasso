@@ -36,7 +36,7 @@ namespace AirSupplySystem
                 throw new ArgumentNullException("AirSupply and OxygenTankManager cannot be null.");
             }
 
-            if (oxygenTank.IsRecharging)
+            if (oxygenTank.IsInRechargeProcess)
             {
 #if UNITY_EDITOR
                 Debug.LogWarning("Cannot refill air supply while the oxygen tank is recharging.");

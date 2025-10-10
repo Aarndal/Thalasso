@@ -15,11 +15,11 @@ namespace AirSupplySystem
         /// </summary>
         public enum TankState
         {
+            Full,        // Tank is at maximum capacity
             Ready,      // Tank has oxygen and is ready to dispense
             Empty,      // Tank is completely empty
             Cooling,    // Tank is in cooldown period before recharging
             Recharging, // Tank is actively recharging
-            Full        // Tank is at maximum capacity
         }
 
 
@@ -37,10 +37,11 @@ namespace AirSupplySystem
 
 
         #region Events
+
         /// <summary>
-        /// Triggered when capacity changes with oldValue, newValue, and filling degree.
+        /// Triggered when capacity changes with newValue, and filling degree.
         /// </summary>
-        public event Action<float, float, float> CapacityChanged;
+        public event Action<float, float> CapacityChanged;
 
         /// <summary>
         /// Triggered when tank becomes empty.
@@ -66,7 +67,9 @@ namespace AirSupplySystem
         /// Triggered when tank state changes.
         /// </summary>
         public event Action<TankState, TankState> StateChanged;
+
         #endregion
+
 
         #region Properties
 
@@ -85,11 +88,10 @@ namespace AirSupplySystem
                 if (Mathf.Approximately(_currentCapacity, clampedValue))
                     return;
 
-                float oldValue = _currentCapacity;
                 _currentCapacity = clampedValue;
 
                 // Notify about the capacity change
-                CapacityChanged?.Invoke(oldValue, _currentCapacity, FillingDegree);
+                CapacityChanged?.Invoke(_currentCapacity, FillingDegree);
 
                 // Update tank state based on new capacity
                 UpdateTankState();
@@ -99,7 +101,7 @@ namespace AirSupplySystem
         /// <summary>
         /// Current filling percentage of the tank (0.0 to 1.0).
         /// </summary>
-        public float FillingDegree => _currentCapacity / _data.MaxCapacity;
+        public float FillingDegree => Mathf.Clamp(_currentCapacity / _data.MaxCapacity, 0.0f, 1.0f);
 
         /// <summary>
         /// Current operational state of the tank.
@@ -109,9 +111,10 @@ namespace AirSupplySystem
         /// <summary>
         /// Whether the tank is currently in the recharging process.
         /// </summary>
-        public bool IsRecharging => _currentState == TankState.Recharging || _currentState == TankState.Cooling;
+        public bool IsInRechargeProcess => _currentState == TankState.Recharging || _currentState == TankState.Cooling;
 
         #endregion
+
 
         #region Constructor and Initialization
 
@@ -122,7 +125,7 @@ namespace AirSupplySystem
         /// <exception cref="ArgumentNullException">Thrown if data is null.</exception>
         public OxygenTankManager(SOOxygenTankData data)
         {
-            if(data == null)
+            if (data == null)
                 throw new ArgumentNullException(nameof(data), "Oxygen tank data cannot be null!");
 
             _data = data;
@@ -141,7 +144,7 @@ namespace AirSupplySystem
         /// <returns>True if recharging was started, false if already recharging or full.</returns>
         public bool TryStartRecharging(CancellationToken externalToken = default)
         {
-            if (IsRecharging || CurrentState == TankState.Full)
+            if (IsInRechargeProcess || CurrentState == TankState.Full)
                 return false;
 
             StartRechargingWithDelay(externalToken).Forget();
@@ -154,7 +157,7 @@ namespace AirSupplySystem
         /// <returns>True if a recharging process was cancelled, false otherwise.</returns>
         public bool TryCancelRecharging()
         {
-            if (!IsRecharging)
+            if (!IsInRechargeProcess)
                 return false;
 
             _internalCTS?.Cancel();
@@ -167,10 +170,10 @@ namespace AirSupplySystem
         /// <param name="releasedAmount">Amount of oxygen released if successful.</param>
         /// <param name="customReleaseRate">Optional custom release rate override.</param>
         /// <returns>True if oxygen was released, false if tank is recharging or empty.</returns>
-        public bool TryReleaseOxygen(out float releasedAmount, float? customReleaseRate = null)
+        public bool TryReleaseOxygen(out float releasedAmount)
         {
             // Cannot consume oxygen while recharging.
-            if (IsRecharging)
+            if (IsInRechargeProcess)
             {
 #if UNITY_EDITOR
                 Debug.LogError("Cannot release oxygen while the tank is recharging or cooling.");
@@ -179,8 +182,8 @@ namespace AirSupplySystem
                 return false;
             }
 
-            // Use custom rate if provided, otherwise use default
-            float airRefillRate = customReleaseRate ?? _data.DefaultAirRefillRate;
+            //!TODO: Variable refill rate based on external factors.
+            float airRefillRate = _data.DefaultAirRefillRate;
 
             // Consume the full refill rate if enough oxygen is available.
             if (CurrentCapacity > airRefillRate)
@@ -214,6 +217,7 @@ namespace AirSupplySystem
 
         #endregion
 
+
         #region Private Methods
 
         /// <summary>
@@ -224,7 +228,8 @@ namespace AirSupplySystem
             TankState newState = _currentState;
 
             // Determine new state based on capacity
-            if (_currentCapacity <= _minCapacityThreshold && _currentState != TankState.Cooling && _currentState != TankState.Recharging)
+            if (_currentCapacity <= _minCapacityThreshold && 
+                !IsInRechargeProcess)
             {
                 newState = TankState.Empty;
                 Emptied?.Invoke();
@@ -232,13 +237,15 @@ namespace AirSupplySystem
                 // Auto-start recharging when empty
                 StartRechargingWithDelay(CancellationToken.None).Forget();
             }
-            else if (Mathf.Approximately(_currentCapacity, _data.MaxCapacity) && _currentState != TankState.Full)
+            else if (Mathf.Approximately(_currentCapacity, _data.MaxCapacity) && 
+                     _currentState != TankState.Full)
             {
                 newState = TankState.Full;
                 Full?.Invoke();
             }
-            else if (_currentCapacity > _minCapacityThreshold && _currentCapacity < _data.MaxCapacity &&
-                     _currentState != TankState.Cooling && _currentState != TankState.Recharging)
+            else if (_currentCapacity > _minCapacityThreshold && 
+                     _currentCapacity < _data.MaxCapacity && 
+                     !IsInRechargeProcess)
             {
                 newState = TankState.Ready;
             }
@@ -257,7 +264,7 @@ namespace AirSupplySystem
         /// <param name="externalToken">External cancellation token to link with internal operations.</param>
         private async UniTask StartRechargingWithDelay(CancellationToken externalToken)
         {
-            if (IsRecharging || CurrentCapacity >= _data.MaxCapacity)
+            if (IsInRechargeProcess || CurrentState == TankState.Full)
                 return;
 
             // Clean up any existing CTS
@@ -325,7 +332,7 @@ namespace AirSupplySystem
                 float rechargeRatePerFrame = _data.RechargeRate;
 
                 // Recharge until full or cancelled.
-                while (!cancellationToken.IsCancellationRequested && CurrentCapacity < _data.MaxCapacity)
+                while (!cancellationToken.IsCancellationRequested && CurrentState != TankState.Full)
                 {
                     CurrentCapacity += rechargeRatePerFrame * Time.deltaTime;
                     await UniTask.Yield(cancellationToken);
@@ -334,10 +341,7 @@ namespace AirSupplySystem
                 cancellationToken.ThrowIfCancellationRequested();
 
                 // Ensure the capacity is set to max if fully recharged
-                if (!cancellationToken.IsCancellationRequested)
-                {
-                    CurrentCapacity = _data.MaxCapacity;
-                }
+                CurrentCapacity = _data.MaxCapacity;
             }
             catch (OperationCanceledException ex)
             {

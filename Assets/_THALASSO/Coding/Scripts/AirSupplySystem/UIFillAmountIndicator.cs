@@ -53,7 +53,7 @@ namespace AirSupplySystem
             }
         }
 
-        void OnOxygenTankCapacityChanged(float oldFillAmount, float newFillAmount, float fillingDegree)
+        void OnOxygenTankCapacityChanged(float newFillAmount, float fillingDegree)
         {
             _image.fillAmount = fillingDegree;
             _image.color = _colorGradient.Evaluate(1 - _image.fillAmount);

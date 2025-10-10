@@ -99,7 +99,7 @@ namespace AirSupplySystem
         private bool TrySetCurrentState(ResponderState responderState)
         {
             // Cannot change state while recharging.
-            if (OxygenTank.IsRecharging)
+            if (OxygenTank.IsInRechargeProcess)
             {
 #if UNITY_EDITOR
                 Debug.LogWarningFormat("{0} is currently recharging and cannot be used.", gameObject.name);
