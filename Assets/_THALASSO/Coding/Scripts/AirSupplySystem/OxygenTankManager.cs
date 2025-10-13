@@ -6,33 +6,38 @@ using UnityEngine;
 namespace AirSupplySystem
 {
     /// <summary>
-    /// Manages the state and behavior of an oxygen tank, including release and recharging of oxygen.
+    /// Manages the state changes and behavior of an oxygen tank, including release and recharging of oxygen.
     /// </summary>
     public class OxygenTankManager : IDisposable
     {
         /// <summary>
         /// Represents the operational state of the oxygen tank.
         /// </summary>
-        public enum TankState
+        private enum TankState
         {
-            Full,        // Tank is at maximum capacity
-            Ready,      // Tank has oxygen and is ready to dispense
-            Empty,      // Tank is completely empty
-            Cooling,    // Tank is in cooldown period before recharging
+            Full,       // Tank is at maximum capacity
+            Empty,      // Tank is empty
+            Pending,    // Tank is pending for release request or recharge
+            Releasing,  // Tank is actively releasing oxygen
             Recharging, // Tank is actively recharging
         }
 
 
         #region Private Constants and Members
-        private const float DEFAULT_RELEASE_AMOUNT = 0.0f;
 
-        private readonly SOOxygenTankData _data;
-        private readonly float _minCapacityThreshold = 0.001f;
+        //Constants
+        private const float EMPTY_CAPACITY_THRESHOLD = 0.01f; // Threshold to consider the tank empty
+        private const float ZERO_RELEASE_AMOUNT = 0.0f; // Release amount when no oxygen can be released
 
-        private CancellationTokenSource _internalCTS;
-        private float _currentCapacity;
+        // Private Members
+        private readonly SOOxygenTankData _data = null;
+
+        private float _currentCapacity = 0.0f;
+        private TankState _currentState = TankState.Empty;
         private bool _disposedValue;
-        private TankState _currentState;
+        private CancellationTokenSource _rechargeCTS;
+        private CancellationTokenSource _cooldownCTS;
+
         #endregion
 
 
@@ -40,8 +45,14 @@ namespace AirSupplySystem
 
         /// <summary>
         /// Triggered when capacity changes with newValue, and filling degree.
+        /// <remarks>Filling degree is a value between 0.0 and 1.0 representing the percentage of the tank that is filled.</remarks>
         /// </summary>
         public event Action<float, float> CapacityChanged;
+
+        /// <summary>
+        /// Triggered when tank is starting to release oxygen.
+        /// </summary>
+        public event Action StartedReleasingOxygen;
 
         /// <summary>
         /// Triggered when tank becomes empty.
@@ -49,24 +60,19 @@ namespace AirSupplySystem
         public event Action Emptied;
 
         /// <summary>
-        /// Triggered when tank becomes full.
+        /// Triggered when tank is emptied or the release process is canceled.
         /// </summary>
-        public event Action Full;
+        public event Action StartedCooldown;
 
         /// <summary>
-        /// Triggered when recharging process starts.
+        /// Triggered when cooling period ends and recharging begins.
         /// </summary>
         public event Action StartedRecharging;
 
         /// <summary>
-        /// Triggered when cooling period starts.
+        /// Triggered when tank becomes full and stops recharging.
         /// </summary>
-        public event Action StartedCooling;
-
-        /// <summary>
-        /// Triggered when tank state changes.
-        /// </summary>
-        public event Action<TankState, TankState> StateChanged;
+        public event Action StoppedRecharging;
 
         #endregion
 
@@ -81,7 +87,6 @@ namespace AirSupplySystem
             get => _currentCapacity;
             private set
             {
-                // Make sure the value is within valid bounds.
                 var clampedValue = Mathf.Clamp(value, 0.0f, _data.MaxCapacity);
 
                 // If the value is approximately the same as the current capacity, do nothing.
@@ -89,12 +94,20 @@ namespace AirSupplySystem
                     return;
 
                 _currentCapacity = clampedValue;
-
-                // Notify about the capacity change
                 CapacityChanged?.Invoke(_currentCapacity, FillingDegree);
 
-                // Update tank state based on new capacity
-                UpdateTankState();
+                // If the tank is emptied, trigger the Emptied event and transition to Empty state.
+                if (_currentCapacity <= EMPTY_CAPACITY_THRESHOLD)
+                {
+                    TryTransitionTo(TankState.Empty);
+                    Emptied?.Invoke();
+                    StartRechargingWithDelay(CancellationToken.None).Forget();
+                }
+
+                if (Mathf.Approximately(_currentCapacity, _data.MaxCapacity))
+                {
+                    TryTransitionTo(TankState.Full);
+                }
             }
         }
 
@@ -106,12 +119,7 @@ namespace AirSupplySystem
         /// <summary>
         /// Current operational state of the tank.
         /// </summary>
-        public TankState CurrentState => _currentState;
-
-        /// <summary>
-        /// Whether the tank is currently in the recharging process.
-        /// </summary>
-        public bool IsInRechargeProcess => _currentState == TankState.Recharging || _currentState == TankState.Cooling;
+        public bool IsReady => (_currentState != TankState.Empty && _currentState != TankState.Recharging);
 
         #endregion
 
@@ -135,74 +143,122 @@ namespace AirSupplySystem
 
         #endregion
 
+
         #region Public Methods
 
         /// <summary>
-        /// Attempts to manually start the recharging process for the oxygen tank.
+        /// Starts the recharging process for the oxygen tank with a cooldown delay.
         /// </summary>
-        /// <param name="externalToken">Optional cancellation token to cancel the operation.</param>
-        /// <returns>True if recharging was started, false if already recharging or full.</returns>
-        public bool TryStartRecharging(CancellationToken externalToken = default)
+        /// <param name="externalToken">External cancellation token to link with internal operations.</param>
+        public async UniTask StartRechargingWithDelay(CancellationToken externalToken)
         {
-            if (IsInRechargeProcess || CurrentState == TankState.Full)
-                return false;
+            if (_currentState == TankState.Recharging || _currentState == TankState.Full)
+                return;
 
-            StartRechargingWithDelay(externalToken).Forget();
-            return true;
-        }
+            if (_currentState != TankState.Pending && _currentState != TankState.Empty)
+            {
+                TryTransitionTo(TankState.Pending);
+            }
 
-        /// <summary>
-        /// Attempts to cancel any ongoing recharging process.
-        /// </summary>
-        /// <returns>True if a recharging process was cancelled, false otherwise.</returns>
-        public bool TryCancelRecharging()
-        {
-            if (!IsInRechargeProcess)
-                return false;
+            StartedCooldown?.Invoke();
 
-            _internalCTS?.Cancel();
-            return true;
+            // Clean up any existing CTS
+            if (_cooldownCTS != null)
+            {
+                _cooldownCTS.Cancel();
+                _cooldownCTS.Dispose();
+            }
+
+            _cooldownCTS = CancellationTokenSource.CreateLinkedTokenSource(externalToken);
+            var linkedToken = _cooldownCTS.Token;
+
+            try
+            {
+                // Calculate cooldown based on filling degree
+                var rechargeCooldownModifier = Mathf.Clamp(1.0f - FillingDegree, 0.0f, 1.0f);
+                var cooldownDuration = Mathf.Clamp(value: _data.MaxRechargeCooldown * rechargeCooldownModifier,
+                                                        min: _data.MinRechargeCooldown,
+                                                        max: _data.MaxRechargeCooldown);
+
+                // Await the cooldown period before starting the recharge process
+                await UniTask.Delay(
+                    delayTimeSpan: TimeSpan.FromSeconds(cooldownDuration),
+                    cancellationToken: linkedToken);
+
+                await RechargeOxygenAsync(linkedToken);
+            }
+            catch (OperationCanceledException ex)
+            {
+#if UNITY_EDITOR
+                Debug.LogWarningFormat("Oxygen tank recharge process was cancelled: {0}", ex.Message);
+#endif
+                if (CurrentCapacity > EMPTY_CAPACITY_THRESHOLD)
+                {
+                    TryTransitionTo(TankState.Pending);
+                }
+                else
+                {
+                    TryTransitionTo(TankState.Empty);
+                }
+            }
+            finally
+            {
+                if (_cooldownCTS != null)
+                {
+                    _cooldownCTS.Cancel();
+                    _cooldownCTS.Dispose();
+                    _cooldownCTS = null;
+                }
+            }
         }
 
         /// <summary>
         /// Attempts to release oxygen from the tank.
         /// </summary>
         /// <param name="releasedAmount">Amount of oxygen released if successful.</param>
-        /// <param name="customReleaseRate">Optional custom release rate override.</param>
         /// <returns>True if oxygen was released, false if tank is recharging or empty.</returns>
         public bool TryReleaseOxygen(out float releasedAmount)
         {
-            // Cannot consume oxygen while recharging.
-            if (IsInRechargeProcess)
+            releasedAmount = ZERO_RELEASE_AMOUNT;
+
+            // Cannot consume oxygen while recharging or empty.
+            if (_currentState == TankState.Recharging || _currentState == TankState.Empty)
             {
 #if UNITY_EDITOR
-                Debug.LogError("Cannot release oxygen while the tank is recharging or cooling.");
+                Debug.LogWarningFormat("Cannot release oxygen while the tank is recharging or empty.");
 #endif
-                releasedAmount = DEFAULT_RELEASE_AMOUNT;
                 return false;
             }
 
-            //!TODO: Variable refill rate based on external factors.
-            float airRefillRate = _data.DefaultAirRefillRate;
-
-            // Consume the full refill rate if enough oxygen is available.
-            if (CurrentCapacity > airRefillRate)
+            if (_currentState != TankState.Releasing)
             {
-                releasedAmount = airRefillRate;
-                CurrentCapacity -= airRefillRate;
+                TryTransitionTo(TankState.Releasing);
+                StartedReleasingOxygen?.Invoke();
+            }
+
+            //!TODO: Variable release rate based on external factors.
+            float releaseRate = _data.DefaultReleaseRate;
+            releasedAmount = releaseRate * Time.deltaTime;
+
+            if (CurrentCapacity > releasedAmount)
+            {
+                CurrentCapacity -= releasedAmount;
                 return true;
             }
 
-            // Consume the remaining oxygen if less than the refill rate.
-            if (CurrentCapacity > _minCapacityThreshold)
+            if (CurrentCapacity > EMPTY_CAPACITY_THRESHOLD)
             {
                 releasedAmount = CurrentCapacity;
                 CurrentCapacity = 0.0f;
                 return true;
             }
 
-            // Tank is empty
-            releasedAmount = DEFAULT_RELEASE_AMOUNT;
+            // The method should not reach this point if the tank is empty.
+#if UNITY_EDITOR
+            Debug.LogErrorFormat("{1} is not set to {2} although empty: {0}", this, nameof(OxygenTankManager), TankState.Empty.ToString());
+#endif
+            releasedAmount = ZERO_RELEASE_AMOUNT;
+            CurrentCapacity = 0.0f;
             return false;
         }
 
@@ -221,124 +277,50 @@ namespace AirSupplySystem
         #region Private Methods
 
         /// <summary>
-        /// Updates the tank state based on current capacity.
+        /// Updates the tank state.
         /// </summary>
-        private void UpdateTankState()
+        private bool TryTransitionTo(TankState newState)
         {
-            TankState newState = _currentState;
+            if (_currentState == newState)
+                return false;
 
-            // Determine new state based on capacity
-            if (_currentCapacity <= _minCapacityThreshold && 
-                !IsInRechargeProcess)
-            {
-                newState = TankState.Empty;
-                Emptied?.Invoke();
-
-                // Auto-start recharging when empty
-                StartRechargingWithDelay(CancellationToken.None).Forget();
-            }
-            else if (Mathf.Approximately(_currentCapacity, _data.MaxCapacity) && 
-                     _currentState != TankState.Full)
-            {
-                newState = TankState.Full;
-                Full?.Invoke();
-            }
-            else if (_currentCapacity > _minCapacityThreshold && 
-                     _currentCapacity < _data.MaxCapacity && 
-                     !IsInRechargeProcess)
-            {
-                newState = TankState.Ready;
-            }
-
-            // If state changed, update and notify
-            if (newState != _currentState)
-            {
-                StateChanged?.Invoke(_currentState, newState);
-                _currentState = newState;
-            }
-        }
-
-        /// <summary>
-        /// Starts the recharging process for the oxygen tank with a cooldown delay.
-        /// </summary>
-        /// <param name="externalToken">External cancellation token to link with internal operations.</param>
-        private async UniTask StartRechargingWithDelay(CancellationToken externalToken)
-        {
-            if (IsInRechargeProcess || CurrentState == TankState.Full)
-                return;
-
-            // Clean up any existing CTS
-            if (_internalCTS != null)
-            {
-                _internalCTS.Cancel();
-                _internalCTS.Dispose();
-            }
-
-            _internalCTS = CancellationTokenSource.CreateLinkedTokenSource(externalToken);
-            var linkedToken = _internalCTS.Token;
-
-            try
-            {
-                // Calculate cooldown based on filling degree
-                var rechargeCooldownModifier = Mathf.Clamp(1.0f - FillingDegree, 0.0f, 1.0f);
-                var cooldownDuration = _data.FullRechargeCooldown * rechargeCooldownModifier;
-
-                // Enter cooling state
-                StartedCooling?.Invoke();
-                StateChanged?.Invoke(_currentState, TankState.Cooling);
-                _currentState = TankState.Cooling;
-
-                // Await the cooldown period before starting the recharge process
-                await UniTask.Delay(
-                    delayTimeSpan: TimeSpan.FromSeconds(cooldownDuration),
-                    cancellationToken: linkedToken);
-
-                await RechargeOxygenAsync(linkedToken);
-            }
-            catch (OperationCanceledException ex)
-            {
-#if UNITY_EDITOR
-                Debug.LogWarningFormat("Oxygen tank recharge process was cancelled: {0}", ex.Message);
-#endif
-                // Restore appropriate state based on current capacity
-                UpdateTankState();
-            }
-            finally
-            {
-                if (_internalCTS != null)
-                {
-                    _internalCTS.Dispose();
-                    _internalCTS = null;
-                }
-            }
+            _currentState = newState;
+            return true;
         }
 
         /// <summary>
         /// Recharges the oxygen tank over time until it reaches maximum capacity or the process is cancelled.
         /// </summary>
-        /// <param name="cancellationToken">Token to monitor for cancellation requests.</param>
-        private async UniTask RechargeOxygenAsync(CancellationToken cancellationToken)
+        /// <param name="externalToken">Token to monitor for cancellation requests.</param>
+        private async UniTask RechargeOxygenAsync(CancellationToken externalToken)
         {
             if (_currentState == TankState.Recharging)
                 return;
 
+            TryTransitionTo(TankState.Recharging);
             StartedRecharging?.Invoke();
-            StateChanged?.Invoke(_currentState, TankState.Recharging);
-            _currentState = TankState.Recharging;
+
+            if (_rechargeCTS != null)
+            {
+                _rechargeCTS.Cancel();
+                _rechargeCTS.Dispose();
+            }
+
+            _rechargeCTS = CancellationTokenSource.CreateLinkedTokenSource(externalToken);
+            var linkedToken = _rechargeCTS.Token;
 
             try
             {
-                // Calculate time-based values once outside the loop
                 float rechargeRatePerFrame = _data.RechargeRate;
 
                 // Recharge until full or cancelled.
-                while (!cancellationToken.IsCancellationRequested && CurrentState != TankState.Full)
+                while (!externalToken.IsCancellationRequested && _currentState != TankState.Full)
                 {
                     CurrentCapacity += rechargeRatePerFrame * Time.deltaTime;
-                    await UniTask.Yield(cancellationToken);
+                    await UniTask.Yield(linkedToken);
                 }
 
-                cancellationToken.ThrowIfCancellationRequested();
+                externalToken.ThrowIfCancellationRequested();
 
                 // Ensure the capacity is set to max if fully recharged
                 CurrentCapacity = _data.MaxCapacity;
@@ -351,8 +333,14 @@ namespace AirSupplySystem
             }
             finally
             {
-                // Update state based on current capacity
-                UpdateTankState();
+                StoppedRecharging?.Invoke();
+
+                if (_rechargeCTS != null)
+                {
+                    _rechargeCTS.Cancel();
+                    _rechargeCTS.Dispose();
+                    _rechargeCTS = null;
+                }
             }
         }
 
@@ -367,17 +355,21 @@ namespace AirSupplySystem
                 if (disposing)
                 {
                     // Clean up managed resources
-                    _internalCTS?.Cancel();
-                    _internalCTS?.Dispose();
-                    _internalCTS = null;
+                    _rechargeCTS?.Cancel();
+                    _rechargeCTS?.Dispose();
+                    _rechargeCTS = null;
+
+                    _cooldownCTS?.Cancel();
+                    _cooldownCTS?.Dispose();
+                    _cooldownCTS = null;
 
                     // Clear all event handlers
                     CapacityChanged = null;
                     Emptied = null;
-                    Full = null;
+                    StoppedRecharging = null;
                     StartedRecharging = null;
-                    StartedCooling = null;
-                    StateChanged = null;
+                    StartedCooldown = null;
+                    StartedReleasingOxygen = null;
                 }
 
                 _disposedValue = true;

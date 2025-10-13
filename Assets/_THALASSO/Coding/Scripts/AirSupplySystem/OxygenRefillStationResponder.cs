@@ -6,8 +6,7 @@ namespace AirSupplySystem
 {
     /// <summary>
     /// Manages the interaction between an oxygen tank and an air supply system.
-    /// Sets up the necessary services and handles the refilling process.
-    /// Manages State changes and ensures proper event handling.
+    /// Sets up the necessary services that handle the refilling process.
     /// </summary>
     [DisallowMultipleComponent]
     public sealed class OxygenRefillStationResponder : Responder
@@ -99,13 +98,8 @@ namespace AirSupplySystem
         private bool TrySetCurrentState(ResponderState responderState)
         {
             // Cannot change state while recharging.
-            if (OxygenTank.IsInRechargeProcess)
-            {
-#if UNITY_EDITOR
-                Debug.LogWarningFormat("{0} is currently recharging and cannot be used.", gameObject.name);
-#endif
+            if (!OxygenTank.IsReady)
                 return false;
-            }
 
             // No state change needed.
             if (responderState != ResponderState.Switch && responderState == _currentState)
