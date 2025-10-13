@@ -101,7 +101,7 @@ namespace AirSupplySystem
                 {
                     TryTransitionTo(TankState.Empty);
                     Emptied?.Invoke();
-                    StartRechargingWithDelay(CancellationToken.None).Forget();
+                    StartRechargingWithDelay().Forget();
                 }
 
                 if (Mathf.Approximately(_currentCapacity, _data.MaxCapacity))
@@ -150,17 +150,10 @@ namespace AirSupplySystem
         /// Starts the recharging process for the oxygen tank with a cooldown delay.
         /// </summary>
         /// <param name="externalToken">External cancellation token to link with internal operations.</param>
-        public async UniTask StartRechargingWithDelay(CancellationToken externalToken)
+        public async UniTask StartRechargingWithDelay(CancellationToken externalToken = default)
         {
             if (_currentState == TankState.Recharging || _currentState == TankState.Full)
                 return;
-
-            if (_currentState != TankState.Pending && _currentState != TankState.Empty)
-            {
-                TryTransitionTo(TankState.Pending);
-            }
-
-            StartedCooldown?.Invoke();
 
             // Clean up any existing CTS
             if (_cooldownCTS != null)
@@ -171,6 +164,13 @@ namespace AirSupplySystem
 
             _cooldownCTS = CancellationTokenSource.CreateLinkedTokenSource(externalToken);
             var linkedToken = _cooldownCTS.Token;
+
+            if (_currentState != TankState.Pending && _currentState != TankState.Empty)
+            {
+                TryTransitionTo(TankState.Pending);
+            }
+
+            StartedCooldown?.Invoke();
 
             try
             {
@@ -292,13 +292,10 @@ namespace AirSupplySystem
         /// Recharges the oxygen tank over time until it reaches maximum capacity or the process is cancelled.
         /// </summary>
         /// <param name="externalToken">Token to monitor for cancellation requests.</param>
-        private async UniTask RechargeOxygenAsync(CancellationToken externalToken)
+        private async UniTask RechargeOxygenAsync(CancellationToken externalToken = default)
         {
             if (_currentState == TankState.Recharging)
                 return;
-
-            TryTransitionTo(TankState.Recharging);
-            StartedRecharging?.Invoke();
 
             if (_rechargeCTS != null)
             {
@@ -309,6 +306,9 @@ namespace AirSupplySystem
             _rechargeCTS = CancellationTokenSource.CreateLinkedTokenSource(externalToken);
             var linkedToken = _rechargeCTS.Token;
 
+            TryTransitionTo(TankState.Recharging);
+            StartedRecharging?.Invoke();
+            
             try
             {
                 float rechargeRatePerFrame = _data.RechargeRate;

@@ -7,7 +7,7 @@ namespace AirSupplySystem
     /// Manages air supply data for the player character.
     /// </summary>
     [CreateAssetMenu(fileName = "newAirSupplyData", menuName = "Air Supply System/Air Supply Data", order = 0)]
-    public class SOAirSupplyData : ScriptableObject
+    public class SOOxygenSupplyData : ScriptableObject
     {
         private const float DEFAULT_MAX_AIR_SUPPLY = 100f;
 
@@ -31,11 +31,11 @@ namespace AirSupplySystem
         /// <summary>
         /// Maximum air supply the player can have.
         /// </summary>
-        public float MaxAirSupply => _maxAirSupply;
+        public float MaxOxygenLevel => _maxAirSupply;
         /// <summary>
         /// Default air consumption rate when no modifiers are applied.
         /// </summary>
-        public float DefaultAirConsumptionRate => _defaultAirConsumptionRate;
+        public float DefaultConsumptionRate => _defaultAirConsumptionRate;
         /// <summary>
         /// Maximum air consumption rate when all modifiers are applied.
         /// </summary>
@@ -46,7 +46,7 @@ namespace AirSupplySystem
         public float MinAirConsumptionRate => _minAirConsumptionRate;
 
 
-        public event Action AirSupplyDepleted;
+        public event Action OxygenSupplyDepleted;
         public event Action AirSupplyReachedMax;
         public event Action<float> AirSupplyChanged;
         public event Action<float> AirConsumptionRateChanged;
@@ -57,7 +57,7 @@ namespace AirSupplySystem
         /// Current air supply the player has.
         /// Clamped between default MinAirSupply and MaxAirSupply.
         /// </summary>
-        public float CurrentAirSupply
+        public float CurrentOxygenLevel
         {
             get => _currentAirSupply;
             set
@@ -79,7 +79,7 @@ namespace AirSupplySystem
 #if UNITY_EDITOR
                         Debug.LogWarning("Air supply has been depleted!");
 #endif
-                        AirSupplyDepleted?.Invoke();
+                        OxygenSupplyDepleted?.Invoke();
                     }
                 }
             }
@@ -91,7 +91,7 @@ namespace AirSupplySystem
         /// Unit: Air units per second.
         /// Clamped between MinAirConsumptionRate and MaxAirConsumptionRate.
         /// </summary>
-        public float CurrentAirConsumptionRate
+        public float ActiveConsumptionRate
         {
             get => _currentAirConsumptionRate;
             set => _currentAirConsumptionRate = Mathf.Clamp(value, MinAirConsumptionRate, MaxAirConsumptionRate);

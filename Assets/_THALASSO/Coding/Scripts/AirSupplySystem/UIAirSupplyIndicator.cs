@@ -6,7 +6,7 @@ namespace AirSupplySystem
     public class UIAirSupplyIndicator : MonoBehaviour
     {
         [SerializeField]
-        private SOAirSupplyData _airSupplyData;
+        private SOOxygenSupplyData _airSupplyData;
         [SerializeField]
         private Image _image;
 
@@ -25,7 +25,7 @@ namespace AirSupplySystem
 
             if (_airSupplyData != null)
             {
-                _image.fillAmount = _airSupplyData.CurrentAirSupply / _airSupplyData.MaxAirSupply;
+                _image.fillAmount = _airSupplyData.CurrentOxygenLevel / _airSupplyData.MaxOxygenLevel;
             }
         }
 
@@ -39,7 +39,7 @@ namespace AirSupplySystem
 
         private void OnAirSupplyChanged(float currentAirSupply)
         {
-            _image.fillAmount = currentAirSupply / _airSupplyData.MaxAirSupply;
+            _image.fillAmount = currentAirSupply / _airSupplyData.MaxOxygenLevel;
         }
     }
 }

@@ -17,8 +17,8 @@ namespace AirSupplySystem
         private SOOxygenTankData _oxygenTankData = null;
 
         // Private Members
-        private AirRefillService _airRefillService = null;
-        private CancellationTokenSource _internalCTS = null;
+        private OxygenSupplyRefillService _refillService = null;
+        private CancellationTokenSource _refillProcessCTS = null;
 
         // Properties
         public OxygenTankManager OxygenTank { get; private set; } = null;
@@ -37,22 +37,22 @@ namespace AirSupplySystem
                 return;
             }
 
-            OxygenTank = new (_oxygenTankData);
+            OxygenTank = new(_oxygenTankData);
 
-            _airRefillService = new();
-            _internalCTS ??= new();
+            _refillService = new();
+            _refillProcessCTS ??= new();
         }
 
         private void OnDestroy()
         {
-            _internalCTS?.Cancel();
-         
-            _internalCTS?.Dispose();
-            _airRefillService?.Dispose();
+            _refillProcessCTS?.Cancel();
+
+            _refillProcessCTS?.Dispose();
+            _refillService?.Dispose();
             OxygenTank?.Dispose();
-            
-            _internalCTS = null;
-            _airRefillService = null;
+
+            _refillProcessCTS = null;
+            _refillService = null;
             OxygenTank = null;
         }
         #endregion
@@ -60,10 +60,10 @@ namespace AirSupplySystem
 
         public override void Respond(GameObject triggeringObject, ResponderState responderState)
         {
-            if (!triggeringObject.TryGetComponent(out AirSupply airSupply))
+            if (!triggeringObject.TryGetComponent(out OxygenSupply airSupply))
             {
 #if UNITY_EDITOR
-                Debug.LogErrorFormat("No {1} component found on {0}!", triggeringObject.name, nameof(AirSupply));
+                Debug.LogErrorFormat("No {1} component found on {0}!", triggeringObject.name, nameof(OxygenSupply));
 #endif
                 return;
             }
@@ -75,14 +75,16 @@ namespace AirSupplySystem
 
             if (_currentState == ResponderState.On)
             {
-                _airRefillService.StartRefillProcessAsync(airSupply, OxygenTank, _internalCTS.Token).Forget();
+                _refillService.StartRefillProcessAsync(airSupply, OxygenTank, _refillProcessCTS.Token).Forget();
             }
             else
             {
-                // Cancel any ongoing refill process.
-                _internalCTS?.Cancel();
-                _internalCTS?.Dispose();
-                _internalCTS = new CancellationTokenSource();
+                if (_refillService.StopRefillProcess())
+                {
+                    _refillProcessCTS?.Cancel();
+                    _refillProcessCTS?.Dispose();
+                    _refillProcessCTS = new CancellationTokenSource();
+                }
             }
         }
 
@@ -97,7 +99,7 @@ namespace AirSupplySystem
         /// <returns></returns>
         private bool TrySetCurrentState(ResponderState responderState)
         {
-            // Cannot change state while recharging.
+            // Cannot change state while recharging or empty.
             if (!OxygenTank.IsReady)
                 return false;
 
