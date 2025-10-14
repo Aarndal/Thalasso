@@ -1,18 +1,18 @@
 using System;
 using UnityEngine;
 
-namespace AirSupplySystem
+namespace OxygenSupplySystem
 {
     /// <summary>
-    /// Manages air tank data for air refill stations.
+    /// Manages oxygen tank data for oxygen refill stations.
     /// </summary>
-    [CreateAssetMenu(fileName = "newAirTankData", menuName = "Air Supply System/Air Tank Data", order = 1)]
+    [CreateAssetMenu(fileName = "newOxygenTankData", menuName = "Oxygen Supply System/Oxygen Tank Data", order = 1)]
     public class SOOxygenTankData : ScriptableObject
     {
         private const float MAX_TANK_VOLUME = 100f;
         private const float MIN_TANK_VOLUME = 10f;
 
-        [Header("Air Tank Values")]
+        [Header("Oxygen Tank Values")]
         [SerializeField, Range(MIN_TANK_VOLUME, MAX_TANK_VOLUME), Tooltip("The maximum amount of air refilled by the refill station per use. Unit: Air units.")]
         private float _maxCapacity = MAX_TANK_VOLUME;
 
@@ -23,7 +23,7 @@ namespace AirSupplySystem
         [SerializeField, Min(1f), Tooltip("The rate at which the oxygen tank recharges after the delay. Unit: Air units per second.")]
         private float _rechargeRate = 5f;
 
-        [Header("Air Refill Values")]
+        [Header("Oxygen Refill Values")]
         [SerializeField, Tooltip("The rate at which air is released by default. Unit: Air units per second.")]
         private float _defaultReleaseRate = 10f;
         [SerializeField, Tooltip("The maximum rate at which air is refilled. Unit: Air units per second.")]

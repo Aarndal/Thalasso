@@ -207,7 +207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d88bb49141b1384e8709cdc8bbdf3cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _airRefillStation: {fileID: 0}
+  _oxygenRefillStation: {fileID: 0}
   _colorGradient:
     serializedVersion: 2
     key0: {r: 0.40000004, g: 0.7568628, b: 0.882353, a: 1}
@@ -570,7 +570,7 @@ MonoBehaviour:
     _data:
       data: []
   - _sourceObject: {fileID: 378716602}
-    _sourceField: _airRefillStation
+    _sourceField: _oxygenRefillStation
     DEPRECATED_fromObject:
       scene:
         editorAssetGUID: 
@@ -588,11 +588,38 @@ MonoBehaviour:
         name: Test_FPSController
         _path: Assets/_THALASSO/Levels/Scenes/TestScenes/Aaron/Test_FPSController.unity
       fullPath: /Environment/Oxygen_Station/Oxygen_Station
-      componentName: AirSupplySystem.OxygenRefillStationResponder, Assembly-CSharp,
+      componentName: OxygenSupplySystem.OxygenRefillStationResponder, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       componentIndex: 0
       editorLocalId: 1976561334
       editorPrefabRelativePath: Oxygen_Station
+      version: 1
+    _data:
+      data: []
+  - _sourceObject: {fileID: 7693822287604329424}
+    _sourceField: _oxygenSupply
+    DEPRECATED_fromObject:
+      scene:
+        editorAssetGUID: 
+        name: 
+        _path: 
+      fullPath: 
+      componentName: 
+      componentIndex: 0
+      editorLocalId: 0
+      editorPrefabRelativePath: 
+      version: 0
+    _toObject:
+      scene:
+        editorAssetGUID: b231f99047d1f3449bb2693fbd674028
+        name: Test_FPSController
+        _path: Assets/_THALASSO/Levels/Scenes/TestScenes/Aaron/Test_FPSController.unity
+      fullPath: /PlayerCharacter
+      componentName: OxygenSupplySystem.OxygenSupply, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      componentIndex: 0
+      editorLocalId: -978920408
+      editorPrefabRelativePath: 
       version: 1
     _data:
       data: []
@@ -707,6 +734,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IngameHUDCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 7219228278289423515, guid: d5aa6d770ffff604197d54fd5b2e2324, type: 3}
+      propertyPath: _oxygenSupply
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8988888363905827804, guid: d5aa6d770ffff604197d54fd5b2e2324, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -792,6 +823,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d5aa6d770ffff604197d54fd5b2e2324, type: 3}
+--- !u!114 &7693822287604329424 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7219228278289423515, guid: d5aa6d770ffff604197d54fd5b2e2324, type: 3}
+  m_PrefabInstance: {fileID: 7693822287604329423}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0760acdc38902ed49b455593c2423dcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

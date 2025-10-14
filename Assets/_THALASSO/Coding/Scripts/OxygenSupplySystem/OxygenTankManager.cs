@@ -3,8 +3,11 @@ using System;
 using System.Threading;
 using UnityEngine;
 
-namespace AirSupplySystem
+namespace OxygenSupplySystem
 {
+    //!TODO: TryReleaseOxygen: Variable release rate based on external factors.
+    //?Question: RechargeOxygenAsync: Use another waiting method instead of WaitForEndOfFrame()?
+
     /// <summary>
     /// Manages the state changes and behavior of an oxygen tank, including release and recharging of oxygen.
     /// </summary>
@@ -155,14 +158,13 @@ namespace AirSupplySystem
             if (_currentState == TankState.Recharging || _currentState == TankState.Full)
                 return;
 
-            // Clean up any existing CTS
-            if (_cooldownCTS != null)
-            {
-                _cooldownCTS.Cancel();
-                _cooldownCTS.Dispose();
-            }
+            // Create new CTS immediately so other methods see it's not null
+            var newCTS = CancellationTokenSource.CreateLinkedTokenSource(externalToken);
+            // Store the reference and null it immediately to prevent concurrent access
+            var oldCTS = Interlocked.Exchange(ref _cooldownCTS, newCTS);
 
-            _cooldownCTS = CancellationTokenSource.CreateLinkedTokenSource(externalToken);
+            await CleanUpCTSAsync(oldCTS);
+            
             var linkedToken = _cooldownCTS.Token;
 
             if (_currentState != TankState.Pending && _currentState != TankState.Empty)
@@ -203,11 +205,10 @@ namespace AirSupplySystem
             }
             finally
             {
-                if (_cooldownCTS != null)
+                if (_cooldownCTS is not null)
                 {
                     _cooldownCTS.Cancel();
                     _cooldownCTS.Dispose();
-                    _cooldownCTS = null;
                 }
             }
         }
@@ -297,18 +298,18 @@ namespace AirSupplySystem
             if (_currentState == TankState.Recharging)
                 return;
 
-            if (_rechargeCTS != null)
-            {
-                _rechargeCTS.Cancel();
-                _rechargeCTS.Dispose();
-            }
+            // Create new CTS immediately so other methods see it's not null
+            var newCTS = CancellationTokenSource.CreateLinkedTokenSource(externalToken);
+            // Store the reference and null it immediately to prevent concurrent access
+            var oldCTS = Interlocked.Exchange(ref _rechargeCTS, newCTS);
 
-            _rechargeCTS = CancellationTokenSource.CreateLinkedTokenSource(externalToken);
+            await CleanUpCTSAsync(oldCTS);
+
             var linkedToken = _rechargeCTS.Token;
 
             TryTransitionTo(TankState.Recharging);
             StartedRecharging?.Invoke();
-            
+
             try
             {
                 float rechargeRatePerFrame = _data.RechargeRate;
@@ -317,7 +318,7 @@ namespace AirSupplySystem
                 while (!externalToken.IsCancellationRequested && _currentState != TankState.Full)
                 {
                     CurrentCapacity += rechargeRatePerFrame * Time.deltaTime;
-                    await UniTask.Yield(linkedToken);
+                    await UniTask.WaitForEndOfFrame(linkedToken);
                 }
 
                 externalToken.ThrowIfCancellationRequested();
@@ -335,11 +336,10 @@ namespace AirSupplySystem
             {
                 StoppedRecharging?.Invoke();
 
-                if (_rechargeCTS != null)
+                if (_rechargeCTS is not null)
                 {
                     _rechargeCTS.Cancel();
                     _rechargeCTS.Dispose();
-                    _rechargeCTS = null;
                 }
             }
         }
@@ -373,6 +373,30 @@ namespace AirSupplySystem
                 }
 
                 _disposedValue = true;
+            }
+        }
+
+        private async UniTask CleanUpCTSAsync(CancellationTokenSource cts)
+        {
+            if (cts is null)
+                return;
+
+            try
+            {
+                cts.Cancel();
+
+                // Give other tasks time to observe the cancellation
+                await UniTask.Yield();
+            }
+            catch (Exception ex)
+            {
+#if UNITY_EDITOR
+                Debug.LogError($"Exception during CTS cleanup: {ex.Message}");
+#endif
+            }
+            finally
+            {
+                cts.Dispose();
             }
         }
 

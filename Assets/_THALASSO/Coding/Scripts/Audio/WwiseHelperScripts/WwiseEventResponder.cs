@@ -19,8 +19,6 @@ namespace WwiseHelper
         [SerializeField]
         protected bool _isRoomAware = false;
 
-        protected ResponderState _currentState = ResponderState.None;
-
         protected GameObject _eventReceiver = default;
 
         protected AkGameObj _akGameObject = default;

@@ -1,13 +1,13 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace AirSupplySystem
+namespace OxygenSupplySystem
 {
     [RequireComponent(typeof(Image))]
     public class UIFillAmountIndicator : MonoBehaviour
     {
         [SerializeField]
-        private OxygenRefillStationResponder _airRefillStation = null;
+        private OxygenRefillStationResponder _oxygenRefillStation = null;
 
         [SerializeField]
         private Gradient _colorGradient = null;
@@ -23,7 +23,7 @@ namespace AirSupplySystem
 #endif
             }
 
-            if (_airRefillStation == null)
+            if (_oxygenRefillStation == null)
             {
 #if UNITY_EDITOR
                 Debug.LogErrorFormat("No {1} assigned on {0}. Please assign an {1} in the inspector.", gameObject.name, typeof(OxygenRefillStationResponder).Name);
@@ -33,23 +33,23 @@ namespace AirSupplySystem
 
         private void OnEnable()
         {
-            if (_airRefillStation != null)
+            if (_oxygenRefillStation != null)
             {
-                _airRefillStation.OxygenTank.CapacityChanged += OnOxygenTankCapacityChanged;
+                _oxygenRefillStation.OxygenTank.CapacityChanged += OnOxygenTankCapacityChanged;
             }
         }
 
         private void Start()
         {
-            _image.fillAmount = _airRefillStation.OxygenTank.FillingDegree;
+            _image.fillAmount = _oxygenRefillStation.OxygenTank.FillingDegree;
             _image.color = _colorGradient.Evaluate(1 - _image.fillAmount);
         }
 
         private void OnDisable()
         {
-            if (_airRefillStation != null)
+            if (_oxygenRefillStation != null)
             {
-                _airRefillStation.OxygenTank.CapacityChanged -= OnOxygenTankCapacityChanged;
+                _oxygenRefillStation.OxygenTank.CapacityChanged -= OnOxygenTankCapacityChanged;
             }
         }
 

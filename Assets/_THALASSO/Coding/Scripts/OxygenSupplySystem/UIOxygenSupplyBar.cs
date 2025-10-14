@@ -1,12 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace AirSupplySystem
+namespace OxygenSupplySystem
 {
-    public class UIAirSupplyIndicator : MonoBehaviour
+    public class UIOxygenSupplyBar : MonoBehaviour
     {
         [SerializeField]
-        private SOOxygenSupplyData _airSupplyData;
+        private OxygenSupply _oxygenSupply;
         [SerializeField]
         private Image _image;
 
@@ -23,23 +23,31 @@ namespace AirSupplySystem
                 _image = img;
             }
 
-            if (_airSupplyData != null)
+            if (_oxygenSupply != null)
             {
-                _image.fillAmount = _airSupplyData.CurrentOxygenLevel / _airSupplyData.MaxOxygenLevel;
+                _image.fillAmount = _oxygenSupply.OxygenLevel / _oxygenSupply.MaxOxygenLevel;
             }
         }
 
         private void OnEnable()
         {
-            if (_airSupplyData != null)
+            if (_oxygenSupply != null)
             {
-                _airSupplyData.AirSupplyChanged += OnAirSupplyChanged;
+                _oxygenSupply.OxygenSupplyChanged += OnAirSupplyChanged;
+            }
+        }
+
+        private void OnDisable()
+        {
+            if (_oxygenSupply != null)
+            {
+                _oxygenSupply.OxygenSupplyChanged -= OnAirSupplyChanged;
             }
         }
 
         private void OnAirSupplyChanged(float currentAirSupply)
         {
-            _image.fillAmount = currentAirSupply / _airSupplyData.MaxOxygenLevel;
+            _image.fillAmount = currentAirSupply / _oxygenSupply.MaxOxygenLevel;
         }
     }
 }

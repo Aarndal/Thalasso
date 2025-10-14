@@ -1,8 +1,9 @@
 ﻿using Cysharp.Threading.Tasks;
+using System;
 using System.Threading;
 using UnityEngine;
 
-namespace AirSupplySystem
+namespace OxygenSupplySystem
 {
     /// <summary>
     /// Manages the interaction between an oxygen tank and an air supply system.
@@ -25,22 +26,24 @@ namespace AirSupplySystem
 
 
         #region Unity Lifecycle Methods
+        
         protected override void Awake()
         {
+            InitOxygenTank();
+            InitRefillService();
             base.Awake();
+        }
 
-            if (_oxygenTankData == null)
-            {
-#if UNITY_EDITOR
-                Debug.LogErrorFormat("{1} is not assigned for {0}", gameObject.name, nameof(SOOxygenTankData));
-#endif
-                return;
-            }
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            SubscribeToEvents();
+        }
 
-            OxygenTank = new(_oxygenTankData);
-
-            _refillService = new();
-            _refillProcessCTS ??= new();
+        protected override void OnDisable()
+        {
+            UnsubscribeFromEvents();
+            base.OnDisable();
         }
 
         private void OnDestroy()
@@ -55,8 +58,11 @@ namespace AirSupplySystem
             _refillService = null;
             OxygenTank = null;
         }
+
         #endregion
 
+
+        #region Public Methods
 
         public override void Respond(GameObject triggeringObject, ResponderState responderState)
         {
@@ -75,19 +81,106 @@ namespace AirSupplySystem
 
             if (_currentState == ResponderState.On)
             {
+                ResetRefillProcessCTS();
                 _refillService.StartRefillProcessAsync(airSupply, OxygenTank, _refillProcessCTS.Token).Forget();
             }
             else
             {
-                if (_refillService.StopRefillProcess())
+                if (!_refillService.StopRefillProcess())
                 {
-                    _refillProcessCTS?.Cancel();
-                    _refillProcessCTS?.Dispose();
-                    _refillProcessCTS = new CancellationTokenSource();
+                    return;
                 }
             }
         }
 
+        #endregion
+
+
+        #region Initialization Methods
+
+        private void InitOxygenTank()
+        {
+            if (_oxygenTankData == null)
+            {
+#if UNITY_EDITOR
+                Debug.LogErrorFormat("{1} is not assigned for {0}", gameObject.name, nameof(SOOxygenTankData));
+#endif
+            }
+            else
+            {
+                OxygenTank = new(_oxygenTankData);
+            }
+        }
+
+        private void InitRefillService()
+        {
+            _refillService = new();
+            _refillProcessCTS ??= new();
+        }
+
+        #endregion
+
+
+        #region Callback Functions
+
+        private async void ResetRefillProcessCTS()
+        {
+            // Create new CTS immediately so other methods see it's not null
+            CancellationTokenSource newCTS = new ();
+            // Store the reference and null it immediately to prevent concurrent access
+            var oldCTS = Interlocked.Exchange(ref _refillProcessCTS, newCTS);
+
+            await CleanUpCTSAsync(oldCTS).Timeout(TimeSpan.FromSeconds(5.0));
+        }
+
+        private void TurnResponderOff()
+        {
+            // Automatically turn off the responder when the tank starts recharging.
+            _currentState = ResponderState.Off;
+        }
+
+        #endregion
+
+
+        #region Private Methods
+        
+        private void SubscribeToEvents()
+        {
+            _refillService.OxygenRefillStopped += ResetRefillProcessCTS;
+            OxygenTank.Emptied += TurnResponderOff;
+            OxygenTank.StartedRecharging += TurnResponderOff;
+        }
+
+        private void UnsubscribeFromEvents()
+        {
+            OxygenTank.StartedRecharging -= TurnResponderOff;
+            OxygenTank.Emptied -= TurnResponderOff;
+            _refillService.OxygenRefillStopped -= ResetRefillProcessCTS;
+        }
+
+        private async UniTask CleanUpCTSAsync(CancellationTokenSource cts)
+        {
+            if (cts is null)
+                return;
+
+            try
+            {
+                cts.Cancel();
+
+                // Give other tasks time to observe the cancellation
+                await UniTask.Yield();
+            }
+            catch (Exception ex)
+            {
+#if UNITY_EDITOR
+                Debug.LogError($"Exception during CTS cleanup: {ex.Message}");
+#endif
+            }
+            finally
+            {
+                cts.Dispose();
+            }
+        }
 
         /// <summary>
         /// Will attempt to set the current state of the Responder.
@@ -99,6 +192,9 @@ namespace AirSupplySystem
         /// <returns></returns>
         private bool TrySetCurrentState(ResponderState responderState)
         {
+            if(OxygenTank is null)
+                return false;
+
             // Cannot change state while recharging or empty.
             if (!OxygenTank.IsReady)
                 return false;
@@ -120,5 +216,7 @@ namespace AirSupplySystem
             };
             return true;
         }
+
+        #endregion
     }
 }
