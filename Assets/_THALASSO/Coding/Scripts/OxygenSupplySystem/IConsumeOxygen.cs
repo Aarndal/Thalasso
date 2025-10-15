@@ -1,3 +1,5 @@
+using Cysharp.Threading.Tasks;
+
 namespace OxygenSupplySystem
 {
     /// <summary>
@@ -9,7 +11,7 @@ namespace OxygenSupplySystem
         float OxygenLevel { get; }
         float MaxOxygenLevel { get; }
 
-        bool ConsumeOxygen();
-        void SetOxygenConsumptionState(bool isConsumingOxygen);
+        UniTask StartConsumingOxygen();
+        bool TryStopConsumingOxygen();
     }
 }
