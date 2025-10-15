@@ -1,4 +1,6 @@
+using Cysharp.Threading.Tasks;
 using System;
+using System.Threading;
 using UnityEngine;
 
 namespace OxygenSupplySystem
@@ -97,7 +99,7 @@ namespace OxygenSupplySystem
 
 
         #region Unity Lifecycle Methods
-        
+
         private void Awake()
         {
             if (_oxygenSupplyData == null)
@@ -107,14 +109,11 @@ namespace OxygenSupplySystem
 #endif
                 _oxygenSupplyData = ScriptableObject.CreateInstance<SOOxygenSupplyData>();
             }
-
-
-
         }
 
         private void Reset()
         {
-            ResetOxygenSupply();
+            OxygenLevel = _oxygenSupplyData.MaxOxygenLevel;
         }
 
         private void OnValidate()
@@ -127,7 +126,7 @@ namespace OxygenSupplySystem
             }
         }
 
-        private void Start()
+        private async void Start()
         {
             _isConsumingOxygen = !_startWithNoConsumption;
 
@@ -135,42 +134,63 @@ namespace OxygenSupplySystem
             OxygenLevel = _currentMaxOxygenLevel;
 
             OxygenConsumptionRate = _oxygenSupplyData.DefaultConsumptionRate;
-        }
 
-        private void Update()
-        {
-            //?Question: Move to FixedUpdate()?
-            ConsumeOxygen();
+            if (!_startWithNoConsumption)
+                await TryStartConsumingOxygenAsync();
         }
 
         #endregion
 
 
         #region Public Methods
-        
-        public bool ConsumeOxygen()
+
+        public async UniTask<bool> TryStartConsumingOxygenAsync(CancellationToken externalToken = default)
         {
-            if (!_isConsumingOxygen)
-            {
+            if (_isConsumingOxygen)
                 return false;
+
+            try
+            {
+                ConsumeOxygenAsync(externalToken).Forget();
+                await UniTask.Yield(externalToken);
             }
-            
-            OxygenLevel -= OxygenConsumptionRate * Time.deltaTime;
+            catch (OperationCanceledException) when (externalToken.IsCancellationRequested)
+            {
+                //!TDO: Log cancellation
+            }
+
             return true;
         }
 
-        public void ResetOxygenSupply()
+        private async UniTask ConsumeOxygenAsync(CancellationToken externalToken)
         {
-            OxygenLevel = _oxygenSupplyData.MaxOxygenLevel;
-            OxygenConsumptionRate = 0f; // Start with no oxygen loss
+            try
+            {
+                _isConsumingOxygen = true;
+
+                while (!externalToken.IsCancellationRequested &&
+                    _isConsumingOxygen && 
+                    OxygenLevel > 0f)
+                {
+                    await UniTask.WaitForEndOfFrame(cancellationToken: externalToken);
+                    OxygenLevel -= OxygenConsumptionRate * Time.deltaTime;
+                }
+            }
+            catch (OperationCanceledException)
+            {
+            }
+            finally
+            {
+                _isConsumingOxygen = false;
+            }
         }
 
-        public void SetOxygenConsumptionState(bool isConsumingOxygen = true)
+        public bool TryStopConsumingOxygen()
         {
-            if (_isConsumingOxygen == isConsumingOxygen)
-                return;
+            if (_isConsumingOxygen)
+                _isConsumingOxygen = false;
 
-            _isConsumingOxygen = isConsumingOxygen;
+            return !_isConsumingOxygen;
         }
 
         #endregion

@@ -1,6 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using System;
 using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace OxygenSupplySystem
@@ -14,7 +15,7 @@ namespace OxygenSupplySystem
     {
         // Private Members
         private bool _disposedValue;
-        private CancellationTokenSource _refillProcessCTS = null;
+        private CancellationTokenSource _refillProcessCTS = new();
 
 
         #region Events
@@ -25,7 +26,6 @@ namespace OxygenSupplySystem
 
         #endregion
 
-
         public void Dispose()
         {
             // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
@@ -34,7 +34,7 @@ namespace OxygenSupplySystem
         }
 
         public async UniTask StartRefillProcessAsync(
-            OxygenSupply oxygenSupply,
+            IConsumeOxygen oxygenSupply,
             OxygenTankManager oxygenTank,
             CancellationToken externalToken = default)
         {
@@ -54,21 +54,22 @@ namespace OxygenSupplySystem
                 return;
             }
 
+            // Create new CTS immediately so other methods see it's not null
+            var newCTS = CancellationTokenSource.CreateLinkedTokenSource(externalToken);
+            // Store the reference and null it immediately to prevent concurrent access
+            var oldCTS = Interlocked.Exchange(ref _refillProcessCTS, newCTS);
+
+            oldCTS?.TryCancelAndDispose();
+
+            var linkedToken = _refillProcessCTS.Token;
+
             try
             {
-                // Create new CTS immediately so other methods see it's not null
-                var newCTS = CancellationTokenSource.CreateLinkedTokenSource(externalToken);
-                // Store the reference and null it immediately to prevent concurrent access
-                var oldCTS = Interlocked.Exchange(ref _refillProcessCTS, newCTS);
-
-                CancellationTokenSourceExtensions.TryCancel(oldCTS);
-
-                var linkedToken = _refillProcessCTS.Token;
+                // Temporarily stop oxygen consumption while refilling to ensure accurate refill amount.
+                if (!oxygenSupply.TryStopConsumingOxygen())
+                    return;
 
                 OxygenRefillStarted?.Invoke();
-                // Temporarily stop air consumption while refilling to ensure accurate refill amount.
-                oxygenSupply.SetOxygenConsumptionState(false);
-
 
                 var releasedAmount = 0f;
 
@@ -87,17 +88,16 @@ namespace OxygenSupplySystem
                 }
 
                 // Resume oxygen consumption after refilling.
-                oxygenSupply.SetOxygenConsumptionState(true);
-
+                oxygenSupply.TryStartConsumingOxygenAsync().Forget();
 
                 if (oxygenTank.IsReady)
                 {
-                    await oxygenTank.StartRechargingWithDelay(linkedToken);
+                    oxygenTank.StartRechargingWithDelay(externalToken).Forget();
                 }
 
                 linkedToken.ThrowIfCancellationRequested();
             }
-            catch (OperationCanceledException ex)
+            catch (OperationCanceledException ex) when (linkedToken.IsCancellationRequested)
             {
 #if UNITY_EDITOR
                 Debug.LogFormat("Oxygen refill process was stopped manually: {0}", ex.Message);
@@ -106,15 +106,9 @@ namespace OxygenSupplySystem
             finally
             {
                 OxygenRefillStopped?.Invoke();
-                CancellationTokenSourceExtensions.TryCancel(_refillProcessCTS);
+                _refillProcessCTS?.TryCancel();
             }
         }
-
-        public bool StopRefillProcess()
-        {
-            return CancellationTokenSourceExtensions.TryCancel(_refillProcessCTS);
-        }
-
 
         protected virtual void Dispose(bool disposing)
         {
@@ -122,7 +116,7 @@ namespace OxygenSupplySystem
             {
                 if (disposing)
                 {
-                    CancellationTokenSourceExtensions.TryCancel(_refillProcessCTS);
+                    CancellationTokenSourceExtensions.TryCancelAndDispose(_refillProcessCTS);
                     _refillProcessCTS = null;
 
                     OxygenRefillStopped = null;
