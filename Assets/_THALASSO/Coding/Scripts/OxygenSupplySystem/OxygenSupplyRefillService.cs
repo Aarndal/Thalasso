@@ -54,21 +54,22 @@ namespace OxygenSupplySystem
                 return;
             }
 
-            // Create new CTS immediately so other methods see it's not null
-            var newCTS = CancellationTokenSource.CreateLinkedTokenSource(externalToken);
-            // Store the reference and null it immediately to prevent concurrent access
-            var oldCTS = Interlocked.Exchange(ref _refillProcessCTS, newCTS);
-
-            await CleanUpCTSAsync(oldCTS);
-
-            var linkedToken = _refillProcessCTS.Token;
-
-            OxygenRefillStarted?.Invoke();
-            // Temporarily stop air consumption while refilling to ensure accurate refill amount.
-            oxygenSupply.SetOxygenConsumptionState(false);
-
             try
             {
+                // Create new CTS immediately so other methods see it's not null
+                var newCTS = CancellationTokenSource.CreateLinkedTokenSource(externalToken);
+                // Store the reference and null it immediately to prevent concurrent access
+                var oldCTS = Interlocked.Exchange(ref _refillProcessCTS, newCTS);
+
+                CancellationTokenSourceExtensions.TryCancel(oldCTS);
+
+                var linkedToken = _refillProcessCTS.Token;
+
+                OxygenRefillStarted?.Invoke();
+                // Temporarily stop air consumption while refilling to ensure accurate refill amount.
+                oxygenSupply.SetOxygenConsumptionState(false);
+
+
                 var releasedAmount = 0f;
 
                 while (oxygenTank.IsReady &&
@@ -88,9 +89,10 @@ namespace OxygenSupplySystem
                 // Resume oxygen consumption after refilling.
                 oxygenSupply.SetOxygenConsumptionState(true);
 
+
                 if (oxygenTank.IsReady)
                 {
-                    await oxygenTank.StartRechargingWithDelay();
+                    await oxygenTank.StartRechargingWithDelay(linkedToken);
                 }
 
                 linkedToken.ThrowIfCancellationRequested();
@@ -104,19 +106,13 @@ namespace OxygenSupplySystem
             finally
             {
                 OxygenRefillStopped?.Invoke();
-                _refillProcessCTS?.Dispose();
+                CancellationTokenSourceExtensions.TryCancel(_refillProcessCTS);
             }
         }
 
         public bool StopRefillProcess()
         {
-            if (_refillProcessCTS is null || _refillProcessCTS.IsCancellationRequested)
-            {
-                return false;
-            }
-
-            _refillProcessCTS.Cancel();
-            return true;
+            return CancellationTokenSourceExtensions.TryCancel(_refillProcessCTS);
         }
 
 
@@ -126,8 +122,7 @@ namespace OxygenSupplySystem
             {
                 if (disposing)
                 {
-                    _refillProcessCTS?.Cancel();
-                    _refillProcessCTS?.Dispose();
+                    CancellationTokenSourceExtensions.TryCancel(_refillProcessCTS);
                     _refillProcessCTS = null;
 
                     OxygenRefillStopped = null;
@@ -135,31 +130,6 @@ namespace OxygenSupplySystem
                 }
 
                 _disposedValue = true;
-            }
-        }
-
-
-        private async UniTask CleanUpCTSAsync(CancellationTokenSource cts)
-        {
-            if (cts is null)
-                return;
-
-            try
-            {
-                cts.Cancel();
-
-                // Give other tasks time to observe the cancellation
-                await UniTask.Yield();
-            }
-            catch (Exception ex)
-            {
-#if UNITY_EDITOR
-                Debug.LogError($"Exception during CTS cleanup: {ex.Message}");
-#endif
-            }
-            finally
-            {
-                cts.Dispose();
             }
         }
     }

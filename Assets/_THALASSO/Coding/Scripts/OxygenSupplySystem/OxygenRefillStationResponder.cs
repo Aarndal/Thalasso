@@ -1,5 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using System;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using UnityEngine;
 
@@ -26,7 +27,7 @@ namespace OxygenSupplySystem
 
 
         #region Unity Lifecycle Methods
-        
+
         protected override void Awake()
         {
             InitOxygenTank();
@@ -48,15 +49,20 @@ namespace OxygenSupplySystem
 
         private void OnDestroy()
         {
-            _refillProcessCTS?.Cancel();
+            Dispose();
+        }
 
-            _refillProcessCTS?.Dispose();
-            _refillService?.Dispose();
-            OxygenTank?.Dispose();
+        private void Dispose()
+        {
+            CleanUpCTS(_refillProcessCTS);
+            //_refillService?.Dispose();
+            //OxygenTank?.Dispose();
+
+            //await UniTask.WaitForSeconds(2.0f);
 
             _refillProcessCTS = null;
-            _refillService = null;
-            OxygenTank = null;
+            //_refillService = null;
+            //OxygenTank = null;
         }
 
         #endregion
@@ -81,15 +87,12 @@ namespace OxygenSupplySystem
 
             if (_currentState == ResponderState.On)
             {
-                ResetRefillProcessCTS();
-                _refillService.StartRefillProcessAsync(airSupply, OxygenTank, _refillProcessCTS.Token).Forget();
+                var token = _refillProcessCTS.Token;
+                _refillService.StartRefillProcessAsync(airSupply, OxygenTank, token).Forget();
             }
             else
             {
-                if (!_refillService.StopRefillProcess())
-                {
-                    return;
-                }
+                _refillService.StopRefillProcess();
             }
         }
 
@@ -123,14 +126,14 @@ namespace OxygenSupplySystem
 
         #region Callback Functions
 
-        private async void ResetRefillProcessCTS()
+        private void ResetRefillProcessCTS()
         {
             // Create new CTS immediately so other methods see it's not null
-            CancellationTokenSource newCTS = new ();
+            CancellationTokenSource newCTS = new();
             // Store the reference and null it immediately to prevent concurrent access
             var oldCTS = Interlocked.Exchange(ref _refillProcessCTS, newCTS);
 
-            await CleanUpCTSAsync(oldCTS).Timeout(TimeSpan.FromSeconds(5.0));
+            CleanUpCTS(oldCTS);
         }
 
         private void TurnResponderOff()
@@ -143,7 +146,7 @@ namespace OxygenSupplySystem
 
 
         #region Private Methods
-        
+
         private void SubscribeToEvents()
         {
             _refillService.OxygenRefillStopped += ResetRefillProcessCTS;
@@ -158,7 +161,7 @@ namespace OxygenSupplySystem
             _refillService.OxygenRefillStopped -= ResetRefillProcessCTS;
         }
 
-        private async UniTask CleanUpCTSAsync(CancellationTokenSource cts)
+        private void CleanUpCTS(CancellationTokenSource cts)
         {
             if (cts is null)
                 return;
@@ -166,9 +169,6 @@ namespace OxygenSupplySystem
             try
             {
                 cts.Cancel();
-
-                // Give other tasks time to observe the cancellation
-                await UniTask.Yield();
             }
             catch (Exception ex)
             {
@@ -192,7 +192,7 @@ namespace OxygenSupplySystem
         /// <returns></returns>
         private bool TrySetCurrentState(ResponderState responderState)
         {
-            if(OxygenTank is null)
+            if (OxygenTank is null)
                 return false;
 
             // Cannot change state while recharging or empty.

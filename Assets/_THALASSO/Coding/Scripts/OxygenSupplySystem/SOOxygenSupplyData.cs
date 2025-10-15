@@ -9,38 +9,48 @@ namespace OxygenSupplySystem
     [CreateAssetMenu(fileName = "newOxygenSupplyData", menuName = "Oxygen Supply System/Oxygen Supply Data", order = 0)]
     public class SOOxygenSupplyData : ScriptableObject
     {
-        private const float DEFAULT_MAX_AIR_SUPPLY = 100f;
+        private const float DEFAULT_MAX_OXYGEN_SUPPLY = 100f;
 
         [Header("Oxygen Supply Values")]
-        
-        [SerializeField, Tooltip("The maximum air supply the player can have. Unit: Air units.")]
-        private float _maxOxygenLevel = DEFAULT_MAX_AIR_SUPPLY;
+        [SerializeField, Min(50f), // Allow at least 50 units of oxygen
+         Tooltip("The maximum oxygen supply the player can have. Unit: Oxygen units.")]
+        private float _maxOxygenLevel = DEFAULT_MAX_OXYGEN_SUPPLY;
 
         [Header("Oxygen Consumption Rate Values")]
-        [SerializeField, Tooltip("The default air consumption rate when no modifiers are applied. Unit: Air units per second.")]
+        [SerializeField, 
+         Tooltip("The default oxygen consumption rate when no modifiers are applied. Unit: Oxygen units per second.")]
         private float _defaultConsumptionRate = 0.05f;
-        [SerializeField, Range(1f, 10f), Tooltip("The maximum air consumption rate when all modifiers are applied. Unit: Air units per second.")]
+        [SerializeField, 
+         Tooltip("The maximum oxygen consumption rate when all modifiers are applied. Unit: Oxygen units per second.")]
         private float _maxConsumptionRate = 5f;
-        [SerializeField, Range(0f, 0.5f), Tooltip("The minimum air consumption rate when all modifiers are applied. Unit: Air units per second.")]
+        [SerializeField, Min(0f), 
+         Tooltip("The minimum oxygen consumption rate when all modifiers are applied. Unit: Oxygen units per second.")]
         private float _minConsumptionRate = 0f;
 
 
         /// <summary>
-        /// Maximum air supply the player can have.
+        /// Maximum oxygen supply the player can have. Unit: Oxygen units.
         /// </summary>
         public float MaxOxygenLevel => _maxOxygenLevel;
         /// <summary>
-        /// Default air consumption rate when no modifiers are applied.
+        /// Default oxygen consumption rate when no modifiers are applied. Unit: Oxygen units per second.
         /// </summary>
         public float DefaultConsumptionRate => _defaultConsumptionRate;
         /// <summary>
-        /// Maximum air consumption rate when all modifiers are applied.
+        /// Maximum oxygen consumption rate when all modifiers are applied. Unit: Oxygen units per second.
         /// </summary>
         public float MaxConsumptionRate => _maxConsumptionRate;
         /// <summary>
-        /// Minimum air consumption rate when all modifiers are applied.
+        /// Minimum oxygen consumption rate when all modifiers are applied. Unit: Oxygen units per second.
         /// </summary>
         public float MinConsumptionRate => _minConsumptionRate;
-        
+
+
+        private void OnValidate()
+        {
+            _maxConsumptionRate = Mathf.Max(_minConsumptionRate, _maxConsumptionRate);
+            _minConsumptionRate = Mathf.Clamp(_minConsumptionRate, 0f, _maxConsumptionRate);
+            _defaultConsumptionRate = Mathf.Clamp(_defaultConsumptionRate, _minConsumptionRate, _maxConsumptionRate);
+        }
     }
 }

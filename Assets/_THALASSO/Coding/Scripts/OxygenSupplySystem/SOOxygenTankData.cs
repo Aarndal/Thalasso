@@ -12,23 +12,35 @@ namespace OxygenSupplySystem
         private const float MAX_TANK_VOLUME = 100f;
         private const float MIN_TANK_VOLUME = 10f;
 
+        private const float MIN_RECHARGE_COOLDOWN = 0f;
+        private const float MIN_RECHARGE_RATE = 1f;
+
+        private const float MIN_RELEASE_RATE = 1f;
+
         [Header("Oxygen Tank Values")]
-        [SerializeField, Range(MIN_TANK_VOLUME, MAX_TANK_VOLUME), Tooltip("The maximum amount of air refilled by the refill station per use. Unit: Air units.")]
+        [SerializeField, Range(MIN_TANK_VOLUME, MAX_TANK_VOLUME),
+         Tooltip("The maximum amount of oxygen refilled by the refill station per use. Unit: Oxygen units.")]
         private float _maxCapacity = MAX_TANK_VOLUME;
 
-        [SerializeField, Tooltip("The maximum delay until the oxygen tank starts to recharge itself. Unit: Seconds.")]
+        [SerializeField,
+         Tooltip("The maximum delay until the oxygen tank starts to recharge itself. Unit: Seconds.")]
         private float _maxRechargeCooldown = 30f;
-        [SerializeField, Min(0f), Tooltip("The minimum delay until the oxygen tank starts to recharge itself. Unit: Seconds.")]
+        [SerializeField, Min(MIN_RECHARGE_COOLDOWN),
+         Tooltip("The minimum delay until the oxygen tank starts to recharge itself. Unit: Seconds.")]
         private float _minRechargeCooldown = 1f;
-        [SerializeField, Min(1f), Tooltip("The rate at which the oxygen tank recharges after the delay. Unit: Air units per second.")]
+        [SerializeField, Min(MIN_RECHARGE_RATE),
+         Tooltip("The rate at which the oxygen tank recharges after the delay. Unit: Oxygen units per second.")]
         private float _rechargeRate = 5f;
 
         [Header("Oxygen Refill Values")]
-        [SerializeField, Tooltip("The rate at which air is released by default. Unit: Air units per second.")]
+        [SerializeField,
+         Tooltip("The rate at which oxygen is released by default. Unit: Oxygen units per second.")]
         private float _defaultReleaseRate = 10f;
-        [SerializeField, Tooltip("The maximum rate at which air is refilled. Unit: Air units per second.")]
+        [SerializeField,
+         Tooltip("The maximum rate at which oxygen is refilled. Unit: Oxygen units per second.")]
         private float _maxReleaseRate = 50f;
-        [SerializeField, Range(1f, 30f), Tooltip("The minimum rate at which air is refilled. Unit: Air units per second.")]
+        [SerializeField, Min(MIN_RELEASE_RATE),
+         Tooltip("The minimum rate at which oxygen is refilled. Unit: Oxygen units per second.")]
         private float _minReleaseRate = 5f;
 
         public float MaxCapacity => _maxCapacity;
@@ -43,14 +55,14 @@ namespace OxygenSupplySystem
         private void OnValidate()
         {
             _maxCapacity = Mathf.Clamp(_maxCapacity, MIN_TANK_VOLUME, MAX_TANK_VOLUME);
-            
+
             _maxRechargeCooldown = Mathf.Max(_minRechargeCooldown, _maxRechargeCooldown);
-            _minRechargeCooldown = Mathf.Clamp(_minRechargeCooldown, 0f, _maxRechargeCooldown);
-            
-            _rechargeRate = Mathf.Max(1f, _rechargeRate);
-            
+            _minRechargeCooldown = Mathf.Clamp(_minRechargeCooldown, MIN_RECHARGE_COOLDOWN, _maxRechargeCooldown);
+
+            _rechargeRate = Mathf.Max(MIN_RECHARGE_RATE, _rechargeRate);
+
             _maxReleaseRate = Mathf.Max(_minReleaseRate, _maxReleaseRate);
-            _minReleaseRate = Mathf.Clamp(_minReleaseRate, 0f, _maxReleaseRate);
+            _minReleaseRate = Mathf.Clamp(_minReleaseRate, MIN_RELEASE_RATE, _maxReleaseRate);
             _defaultReleaseRate = Mathf.Clamp(_defaultReleaseRate, _minReleaseRate, _maxReleaseRate);
         }
     }
