@@ -37,7 +37,9 @@ namespace OxygenSupplySystem
 
         private float _currentCapacity = 0.0f;
         private TankState _currentState = TankState.Empty;
+        
         private bool _disposedValue;
+        
         private CancellationTokenSource _rechargeCTS;
         private CancellationTokenSource _cooldownCTS;
 
@@ -151,6 +153,7 @@ namespace OxygenSupplySystem
 
         /// <summary>
         /// Starts the recharging process for the oxygen tank with a cooldown delay.
+        /// Does nothing if the tank is already recharging or full.
         /// </summary>
         /// <param name="externalToken">External cancellation token to link with internal operations.</param>
         public async UniTask StartRechargingWithDelay(CancellationToken externalToken = default)
@@ -163,22 +166,18 @@ namespace OxygenSupplySystem
             // Store the reference and null it immediately to prevent concurrent access
             var oldCTS = Interlocked.Exchange(ref _cooldownCTS, newCTS);
 
-            CleanUpCTS(oldCTS);
+            oldCTS?.TryCancelAndDispose();
 
             var linkedToken = _cooldownCTS.Token;
 
             try
             {
-                linkedToken.ThrowIfCancellationRequested();
-
                 if (_currentState != TankState.Pending && _currentState != TankState.Empty)
                 {
                     TryTransitionTo(TankState.Pending);
                 }
 
                 StartedCooldown?.Invoke();
-
-                linkedToken.ThrowIfCancellationRequested();
 
                 // Calculate cooldown based on filling degree
                 var rechargeCooldownModifier = Mathf.Clamp(1.0f - FillingDegree, 0.0f, 1.0f);
@@ -188,32 +187,20 @@ namespace OxygenSupplySystem
 
                 // Await the cooldown period before starting the recharge process
                 await UniTask.Delay(
-                    delayTimeSpan: TimeSpan.FromSeconds(cooldownDuration),
-                    cancellationToken: linkedToken);
+                        delayTimeSpan: TimeSpan.FromSeconds(cooldownDuration),
+                        cancellationToken: linkedToken);
 
-                linkedToken.ThrowIfCancellationRequested();
-
-                await RechargeOxygenAsync(linkedToken);
-
-                linkedToken.ThrowIfCancellationRequested();
+                RechargeOxygenAsync(externalToken).Forget();
             }
-            catch (OperationCanceledException ex)
+            catch (OperationCanceledException ex) when (linkedToken.IsCancellationRequested)
             {
 #if UNITY_EDITOR
-                Debug.LogWarningFormat("Oxygen tank recharge process was cancelled: {0}", ex.Message);
+                Debug.LogWarningFormat("Oxygen tank's cooldown phase was interrupted: {0}", ex.Message);
 #endif
-                if (CurrentCapacity > EMPTY_CAPACITY_THRESHOLD)
-                {
-                    TryTransitionTo(TankState.Pending);
-                }
-                else
-                {
-                    TryTransitionTo(TankState.Empty);
-                }
             }
             finally
             {
-                CleanUpCTS(_cooldownCTS);
+                _cooldownCTS?.TryCancel();
             }
         }
 
@@ -267,11 +254,9 @@ namespace OxygenSupplySystem
             return false;
         }
 
-        /// <summary>
-        /// Dispose of resources.
-        /// </summary>
         public void Dispose()
         {
+            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
@@ -299,7 +284,7 @@ namespace OxygenSupplySystem
         /// <param name="externalToken">Token to monitor for cancellation requests.</param>
         private async UniTask RechargeOxygenAsync(CancellationToken externalToken = default)
         {
-            if (_currentState == TankState.Recharging)
+            if (_currentState == TankState.Recharging || _currentState == TankState.Full)
                 return;
 
             // Create new CTS immediately so other methods see it's not null
@@ -307,21 +292,19 @@ namespace OxygenSupplySystem
             // Store the reference and null it immediately to prevent concurrent access
             var oldCTS = Interlocked.Exchange(ref _rechargeCTS, newCTS);
 
-            CleanUpCTS(oldCTS);
+            oldCTS.TryCancelAndDispose();
 
             var linkedToken = _rechargeCTS.Token;
 
             try
             {
-                linkedToken.ThrowIfCancellationRequested();
-
                 TryTransitionTo(TankState.Recharging);
                 StartedRecharging?.Invoke();
 
                 float rechargeRatePerFrame = _data.RechargeRate;
 
                 // Recharge until full or cancelled.
-                while (!externalToken.IsCancellationRequested && _currentState != TankState.Full)
+                while (!linkedToken.IsCancellationRequested && _currentState != TankState.Full)
                 {
                     CurrentCapacity += rechargeRatePerFrame * Time.deltaTime;
                     await UniTask.WaitForEndOfFrame(linkedToken);
@@ -332,7 +315,7 @@ namespace OxygenSupplySystem
                 // Ensure the capacity is set to max if fully recharged
                 CurrentCapacity = _data.MaxCapacity;
             }
-            catch (OperationCanceledException ex)
+            catch (OperationCanceledException ex) when (linkedToken.IsCancellationRequested)
             {
 #if UNITY_EDITOR
                 Debug.LogWarningFormat("Oxygen tank recharging was cancelled: {0}", ex.Message);
@@ -341,8 +324,7 @@ namespace OxygenSupplySystem
             finally
             {
                 StoppedRecharging?.Invoke();
-
-                CleanUpCTS(_rechargeCTS);
+                _rechargeCTS.TryCancel();
             }
         }
 
@@ -354,13 +336,14 @@ namespace OxygenSupplySystem
         {
             if (!_disposedValue)
             {
+                // Dispose managed state (managed objects)
                 if (disposing)
                 {
                     // Clean up managed resources
-                    CleanUpCTS(_rechargeCTS);
+                    _rechargeCTS?.TryCancelAndDispose();
                     _rechargeCTS = null;
 
-                    CleanUpCTS(_cooldownCTS);
+                    _cooldownCTS?.TryCancelAndDispose();
                     _cooldownCTS = null;
 
                     // Clear all event handlers
@@ -372,28 +355,10 @@ namespace OxygenSupplySystem
                     StartedReleasingOxygen = null;
                 }
 
+                // Free unmanaged resources (unmanaged objects) and override finalizer
+                // Set large fields to null
+
                 _disposedValue = true;
-            }
-        }
-
-        private void CleanUpCTS(CancellationTokenSource cts)
-        {
-            if (cts is null)
-                return;
-
-            try
-            {
-                cts.Cancel();
-            }
-            catch (Exception ex)
-            {
-#if UNITY_EDITOR
-                Debug.LogError($"Exception during CTS cleanup: {ex.Message}");
-#endif
-            }
-            finally
-            {
-                cts.Dispose();
             }
         }
 

@@ -1,6 +1,4 @@
 ﻿using Cysharp.Threading.Tasks;
-using System;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using UnityEngine;
 
@@ -13,6 +11,8 @@ namespace OxygenSupplySystem
     [DisallowMultipleComponent]
     public sealed class OxygenRefillStationResponder : Responder
     {
+        #region Members
+
         // Serialized Fields
         [Header("References")]
         [SerializeField]
@@ -20,10 +20,34 @@ namespace OxygenSupplySystem
 
         // Private Members
         private OxygenSupplyRefillService _refillService = null;
-        private CancellationTokenSource _refillProcessCTS = null;
+        private IConsumeOxygen _oxygenSupply = null;
 
-        // Properties
+        private CancellationTokenSource _disableCTS = new();
+        private CancellationTokenSource _refillProcessCTS = new();
+
+        #endregion
+
+
+        #region Properties
+
+        public ResponderState CurrentState
+        {
+            get => _currentState;
+            private set
+            {
+                _currentState = value switch
+                {
+                    ResponderState.Off => ResponderState.Off,
+                    ResponderState.On => ResponderState.On,
+                    ResponderState.Switch => _currentState == ResponderState.Off ? ResponderState.On : ResponderState.Off,
+                    _ => ResponderState.Off,
+                };
+            }
+        }
+        public CancellationToken DisableCancellationToken => _disableCTS.Token;
         public OxygenTankManager OxygenTank { get; private set; } = null;
+
+        #endregion
 
 
         #region Unity Lifecycle Methods
@@ -37,6 +61,7 @@ namespace OxygenSupplySystem
 
         protected override void OnEnable()
         {
+            _disableCTS ??= new();
             base.OnEnable();
             SubscribeToEvents();
         }
@@ -45,24 +70,11 @@ namespace OxygenSupplySystem
         {
             UnsubscribeFromEvents();
             base.OnDisable();
-        }
 
-        private void OnDestroy()
-        {
-            Dispose();
-        }
-
-        private void Dispose()
-        {
-            CleanUpCTS(_refillProcessCTS);
-            //_refillService?.Dispose();
-            //OxygenTank?.Dispose();
-
-            //await UniTask.WaitForSeconds(2.0f);
-
-            _refillProcessCTS = null;
-            //_refillService = null;
-            //OxygenTank = null;
+            if (_disableCTS.TryCancelAndDispose())
+            {
+                _disableCTS = null;
+            }
         }
 
         #endregion
@@ -72,10 +84,10 @@ namespace OxygenSupplySystem
 
         public override void Respond(GameObject triggeringObject, ResponderState responderState)
         {
-            if (!triggeringObject.TryGetComponent(out OxygenSupply airSupply))
+            if (!triggeringObject.TryGetComponent(out _oxygenSupply))
             {
 #if UNITY_EDITOR
-                Debug.LogErrorFormat("No {1} component found on {0}!", triggeringObject.name, nameof(OxygenSupply));
+                Debug.LogErrorFormat("No {1} component found on {0}!", triggeringObject.name, nameof(IConsumeOxygen));
 #endif
                 return;
             }
@@ -87,12 +99,13 @@ namespace OxygenSupplySystem
 
             if (_currentState == ResponderState.On)
             {
-                var token = _refillProcessCTS.Token;
-                _refillService.StartRefillProcessAsync(airSupply, OxygenTank, token).Forget();
+                // Cancel any ongoing refill process before starting a new one.
+                if (TurnOff())
+                    TurnOn();
             }
             else
             {
-                _refillService.StopRefillProcess();
+                TurnOff();
             }
         }
 
@@ -126,20 +139,9 @@ namespace OxygenSupplySystem
 
         #region Callback Functions
 
-        private void ResetRefillProcessCTS()
+        private void SetCurrentResponderOff()
         {
-            // Create new CTS immediately so other methods see it's not null
-            CancellationTokenSource newCTS = new();
-            // Store the reference and null it immediately to prevent concurrent access
-            var oldCTS = Interlocked.Exchange(ref _refillProcessCTS, newCTS);
-
-            CleanUpCTS(oldCTS);
-        }
-
-        private void TurnResponderOff()
-        {
-            // Automatically turn off the responder when the tank starts recharging.
-            _currentState = ResponderState.Off;
+            CurrentState = ResponderState.Off;
         }
 
         #endregion
@@ -149,37 +151,35 @@ namespace OxygenSupplySystem
 
         private void SubscribeToEvents()
         {
-            _refillService.OxygenRefillStopped += ResetRefillProcessCTS;
-            OxygenTank.Emptied += TurnResponderOff;
-            OxygenTank.StartedRecharging += TurnResponderOff;
+            OxygenTank.Emptied += SetCurrentResponderOff;
+            OxygenTank.StartedRecharging += SetCurrentResponderOff;
         }
 
         private void UnsubscribeFromEvents()
         {
-            OxygenTank.StartedRecharging -= TurnResponderOff;
-            OxygenTank.Emptied -= TurnResponderOff;
-            _refillService.OxygenRefillStopped -= ResetRefillProcessCTS;
+            OxygenTank.StartedRecharging -= SetCurrentResponderOff;
+            OxygenTank.Emptied -= SetCurrentResponderOff;
         }
 
-        private void CleanUpCTS(CancellationTokenSource cts)
+        private bool TurnOff()
         {
-            if (cts is null)
-                return;
+            _refillProcessCTS.TryCancel(out var result);
 
-            try
-            {
-                cts.Cancel();
-            }
-            catch (Exception ex)
-            {
-#if UNITY_EDITOR
-                Debug.LogError($"Exception during CTS cleanup: {ex.Message}");
-#endif
-            }
-            finally
-            {
-                cts.Dispose();
-            }
+            // Return true if cancelling the cts was successful or if it was already cancelled.
+            return (result.Status == CancellationTokenSourceExtensions.OperationStatus.Success ||
+                result.Status == CancellationTokenSourceExtensions.OperationStatus.AlreadyCancelled);
+        }
+
+        private void TurnOn()
+        {
+            // Create a new linked token source to ensure proper cancellation on disable or destroy.
+            _refillProcessCTS = CancellationTokenSource.CreateLinkedTokenSource(
+                                                        this.destroyCancellationToken,
+                                                        this.DisableCancellationToken);
+
+            var refillProcessToken = _refillProcessCTS.Token;
+
+            _refillService.StartRefillProcessAsync(_oxygenSupply, OxygenTank, refillProcessToken).Forget();
         }
 
         /// <summary>
@@ -207,13 +207,7 @@ namespace OxygenSupplySystem
             if (responderState == ResponderState.None && _currentState == ResponderState.Off)
                 return false;
 
-            _currentState = responderState switch
-            {
-                ResponderState.Off => ResponderState.Off,
-                ResponderState.On => ResponderState.On,
-                ResponderState.Switch => _currentState == ResponderState.Off ? ResponderState.On : ResponderState.Off,
-                _ => ResponderState.Off,
-            };
+            CurrentState = responderState;
             return true;
         }
 
