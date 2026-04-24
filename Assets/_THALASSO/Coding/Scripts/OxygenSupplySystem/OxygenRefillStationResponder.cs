@@ -101,7 +101,9 @@ namespace OxygenSupplySystem
             {
                 // Cancel any ongoing refill process before starting a new one.
                 if (TurnOff())
+                {
                     TurnOn();
+                }
             }
             else
             {

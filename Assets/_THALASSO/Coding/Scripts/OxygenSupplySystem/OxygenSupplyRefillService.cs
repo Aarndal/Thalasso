@@ -87,14 +87,6 @@ namespace OxygenSupplySystem
                     await UniTask.WaitForEndOfFrame(linkedToken);
                 }
 
-                // Resume oxygen consumption after refilling.
-                oxygenSupply.TryStartConsumingOxygenAsync().Forget();
-
-                if (oxygenTank.IsReady)
-                {
-                    oxygenTank.StartRechargingWithDelay(externalToken).Forget();
-                }
-
                 linkedToken.ThrowIfCancellationRequested();
             }
             catch (OperationCanceledException ex) when (linkedToken.IsCancellationRequested)
@@ -105,6 +97,14 @@ namespace OxygenSupplySystem
             }
             finally
             {
+                // Resume oxygen consumption after refilling.
+                oxygenSupply.TryStartConsumingOxygenAsync().Forget();
+
+                if (oxygenTank.IsReady)
+                {
+                    oxygenTank.StartRechargingWithDelay(externalToken).Forget();
+                }
+
                 OxygenRefillStopped?.Invoke();
                 _refillProcessCTS?.TryCancel();
             }
